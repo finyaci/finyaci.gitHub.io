@@ -28,7 +28,7 @@
 <meta property="og:description" content="BMP图像格式BMP数据结构BMP文件的数据按照从文件头开始的先后顺序分为四个部分：◆ 位图文件头(bmp file header)：  提供文件的格式、大小等信息◆ 位图信息头(bitmap information)：提供图像数据的尺寸、位平面数、压缩方式、颜色索引等信息◆ 调色板(color palette)：可选，如使用索引来表示图像，调色板就是索引与其对应的颜色的映射表◆ 位图数据(bit">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-16T11:51:05.000Z">
-<meta property="article:modified_time" content="2020-09-19T06:19:44.375Z">
+<meta property="article:modified_time" content="2020-09-19T06:25:49.190Z">
 <meta property="article:author" content="Finyaci">
 <meta property="article:tag" content="DIP">
 <meta name="twitter:card" content="summary">
@@ -182,7 +182,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-19 14:19:44" itemprop="dateModified" datetime="2020-09-19T14:19:44+08:00">2020-09-19</time>
+                <time title="Modified: 2020-09-19 14:25:49" itemprop="dateModified" datetime="2020-09-19T14:25:49+08:00">2020-09-19</time>
               </span>
 
           
@@ -207,6 +207,9 @@
 <p>直方图均匀分布，则图像愈发清晰</p>
 <h2 id="直方图均衡化"><a href="#直方图均衡化" class="headerlink" title="直方图均衡化"></a>直方图均衡化</h2><p>让一个图像的直方图均匀分布</p>
 <p>推导：积分<br>s=T(r)=1</p>
+<ul>
+<li>$\int^{r}<em>{0}{p(r)dr}$ = $\int^{s}</em>{0}{p(s)ds}$</li>
+</ul>
 <h2 id="直方图规定化"><a href="#直方图规定化" class="headerlink" title="直方图规定化"></a>直方图规定化</h2><p>让一个图像的直方图分布符合另一个指定图像的直方图<br>策略：A图直方图符合B图直方图<br>A图均一化s=T(r) B图均一化v=G(z)<br>s=v =&gt;(r-&gt;z) z=G^-1(T(r))</p>
 
     </div>
