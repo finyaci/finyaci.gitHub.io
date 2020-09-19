@@ -146,65 +146,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/09/14/C%20math.h%20%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/09/14/C%20math.h%20%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">C math.h常用函数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-09-14 22:31:44 / Modified: 22:51:34" itemprop="dateCreated datePublished" datetime="2019-09-14T22:31:44+08:00">2019-09-14</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _USE_MATH_DEFINES</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="comment">//  double sqrt(double x)                   返回 x 的平方根。</span></span><br><span class="line"><span class="comment">//  double pow(double x, double y)          返回 x 的 y 次幂。</span></span><br><span class="line"><span class="comment">//  double sqrt(double x)                   返回 x 的平方根。</span></span><br><span class="line"><span class="comment">//  double fabs(double x)                   返回 x(浮点类型) 的绝对值。</span></span><br><span class="line"><span class="comment">//  int abs(int x);                         返回 x(整型) 的绝对值。</span></span><br><span class="line">    <span class="keyword">double</span> x = <span class="built_in">exp</span>(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">double</span> y = <span class="built_in">pow</span>(<span class="number">10</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">double</span> z = <span class="built_in">log</span>(<span class="built_in">exp</span>(<span class="number">1</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;exp(2) is %f \n&quot;</span>,x);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;M_PI is %f \n&quot;</span>, M_PI);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;pow(10,2) is %f \n&quot;</span>,y);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;log(exp(1)) is %f \n&quot;</span>,z);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;log10(1000) is %f \n&quot;</span>,<span class="built_in">log10</span>(<span class="number">1000</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;cos(M_Pi) is %f \n&quot;</span>,<span class="built_in">cos</span>(M_PI));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;fabs(-10.05) is %f \n&quot;</span>,<span class="built_in">fabs</span>(<span class="number">-10.05</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;abs(-10) is %d \n&quot;</span>,<span class="built_in">abs</span>(<span class="number">-10</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* output:</span></span><br><span class="line"><span class="comment">exp(2) is 7.389056</span></span><br><span class="line"><span class="comment">M_PI is 3.141593</span></span><br><span class="line"><span class="comment">pow(10,2) is 100.000000</span></span><br><span class="line"><span class="comment">log(exp(1)) is 1.000000</span></span><br><span class="line"><span class="comment">log10(1000) is 3.000000</span></span><br><span class="line"><span class="comment">cos(M_Pi) is -1.000000</span></span><br><span class="line"><span class="comment">fabs(-10.05) is 10.050000</span></span><br><span class="line"><span class="comment">abs(-10) is 10</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2019/06/08/Capacitor%20Exam%20Readme/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3469,6 +3410,71 @@ set showcmd<br>set number<br>```   </li>
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/13/Numpy_Basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/13/Numpy_Basic/" class="post-title-link" itemprop="url">Numpy Basic</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-01-13 12:37:22" itemprop="dateCreated datePublished" datetime="2019-01-13T12:37:22+08:00">2019-01-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-01-24 22:09:20" itemprop="dateModified" datetime="2019-01-24T22:09:20+08:00">2019-01-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">A = np.arange(<span class="number">0</span>, <span class="number">10</span>)</span><br><span class="line">B = np.array([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(A)</span><br><span class="line">print(B)</span><br><span class="line">print(B[np.array([<span class="number">0</span>,<span class="number">2</span>])])</span><br><span class="line">print(B[np.array([<span class="number">0</span>,<span class="number">2</span>])][np.array([<span class="number">1</span>])])</span><br><span class="line"></span><br><span class="line">res:</span><br><span class="line">[<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>]</span><br><span class="line">[[<span class="number">1</span> <span class="number">2</span>]</span><br><span class="line"> [<span class="number">2</span> <span class="number">3</span>]</span><br><span class="line"> [<span class="number">3</span> <span class="number">4</span>]]</span><br><span class="line">[[<span class="number">1</span> <span class="number">2</span>]</span><br><span class="line"> [<span class="number">3</span> <span class="number">4</span>]]</span><br><span class="line">[[<span class="number">3</span> <span class="number">4</span>]]</span><br></pre></td></tr></table></figure>
+<h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">A = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line">B = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">              [<span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">7</span>]])</span><br><span class="line"></span><br><span class="line">A_ = A.reshape(<span class="number">1</span>, A.size)</span><br><span class="line">print(A_)</span><br><span class="line">print(A_.ndim)</span><br><span class="line">print(A.ndim)</span><br><span class="line">print(B.ndim)</span><br><span class="line"></span><br><span class="line">res:</span><br><span class="line">[[<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>]]</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -3538,7 +3544,7 @@ set showcmd<br>set number<br>```   </li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
