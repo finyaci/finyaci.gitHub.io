@@ -201,8 +201,8 @@
 模块：
     温湿度模块 SMT20 
     心率血压 HP-6
-    计步 MPU6050 六轴陀螺仪</code></pre>
-<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><pre><code>1. STM32-F111CEUx cortex-M 意法半导体 32位单片机指寄存器32位 
+    计步 MPU6050 六轴陀螺仪
+</code></pre><h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><pre><code>1. STM32-F111CEUx cortex-M 意法半导体 32位单片机指寄存器32位 
     C：代表管脚数量 48(16*3)  GPIOA(PA0~PA15)  GPIOB GPIOC
     E：代表容量大小 
         flash 512K 掉电不丢失
@@ -216,9 +216,8 @@
     嵌入式C：
     1，九条语句
     2. 结构化编程(.c和.h每一个模块都要有一个对应的.c和.h文件)
-       一个工程里会有多个.c.h文件，但有且只有一个main()函数，工程从main()函数开始到main()函数结束</code></pre>
-<h2 id="main-c"><a href="#main-c" class="headerlink" title="main.c"></a>main.c</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;stm32f4xx.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// LED初始化函数；</span></span><br><span class="line">	<span class="comment">// LED灯亮代码；</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//led.c LED初始化函数文件</span></span><br><span class="line"><span class="comment">//led.h 写LED相关的宏定义声明</span></span><br></pre></td></tr></table></figure>
-
+       一个工程里会有多个.c.h文件，但有且只有一个main()函数，工程从main()函数开始到main()函数结束
+</code></pre><h2 id="main-c"><a href="#main-c" class="headerlink" title="main.c"></a>main.c</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;stm32f4xx.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// LED初始化函数；</span></span><br><span class="line">	<span class="comment">// LED灯亮代码；</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//led.c LED初始化函数文件</span></span><br><span class="line"><span class="comment">//led.h 写LED相关的宏定义声明</span></span><br></pre></td></tr></table></figure>
 <pre><code>    3. 指针数组
     4. 位操作：只改变变量的某一位而不改变变量的其他操作
        因为后续编程需要大量对STM32的寄存器进行操作
@@ -273,8 +272,8 @@ IO口引脚的功能作用：
 2. 找到IO口如何进行输出
 3. 确定需要哪些操作
 4. 操作--&gt;代码
-5. 代码--&gt;工程</code></pre>
-<h1 id="Day2"><a href="#Day2" class="headerlink" title="Day2"></a>Day2</h1><p>#<br> Camera 1</p>
+5. 代码--&gt;工程
+</code></pre><h1 id="Day2"><a href="#Day2" class="headerlink" title="Day2"></a>Day2</h1><p>#<br> Camera 1</p>
 <h1 id="GPIO-寄存器-GPIO-Register"><a href="#GPIO-寄存器-GPIO-Register" class="headerlink" title="GPIO 寄存器 (GPIO Register)"></a>GPIO 寄存器 (GPIO Register)</h1><pre><code>对GPIOA-&gt;MODER的第15位写0，14位写1
 
 GPIOA-&gt;MODER &amp;=~(1&lt;&lt;15);
@@ -290,8 +289,8 @@ GPIOA-&gt;OSPEEDR |=(1&lt;&lt;15);
 对GPIOA-&gt;ODR的第7位写0 PA7输出低电平
 GPIOA-&gt;ODR &amp;=~(1&lt;&lt;7);
 
-RCC-&gt;AHB1ENR &amp;=~(1&lt;&lt;0)</code></pre>
-<p>main.c<br>led.c<br>led.h</p>
+RCC-&gt;AHB1ENR &amp;=~(1&lt;&lt;0)
+</code></pre><p>main.c<br>led.c<br>led.h</p>
 <p>.c一般保存在user的src中<br>.h一般保存在user的inc中</p>
 <h1 id="Day3"><a href="#Day3" class="headerlink" title="Day3"></a>Day3</h1><p>OLED屏<br>1.了解模块的学习方法<br>2.OLED的特点参数<br>3.OLED驱动方法<br>4.如何使用OLED屏，显示汉字</p>
 <p>一、如何学习模块<br>1.找到模块和单片机的连接方式（查看原理图）</p>
@@ -488,6 +487,8 @@ RCC-&gt;AHB1ENR &amp;=~(1&lt;&lt;0)</code></pre>
 
 
 
+
+  
 
   
 

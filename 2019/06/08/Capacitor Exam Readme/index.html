@@ -214,8 +214,9 @@
 <h2 id="批处理函数minibatches-说明"><a href="#批处理函数minibatches-说明" class="headerlink" title="批处理函数minibatches()说明"></a>批处理函数minibatches()说明</h2><p>def minibatches(inputs=None, targets=None, batch_size=None, shuffle=False)</p>
 <p>形参说明：<br>inputs - 接受图像列表<br>targets - 接受标签列表<br>batch_size - 为每一批次数据大小<br>shuffle -  设置为False时数据将不打乱，设置为True可打乱数据</p>
 <p>该函数返回批处理后的图像、标签</p>
-<p>saver = tf.train.Saver()     # 创建一个对象，用于参数保存<br>saver.save(sess, model_path) # 保存网络参数到model_path所指的路径<br>sess = tf.Session()            # 创建TensorFlow会话<br>sess.run(tf.global_variables_initializer())<br>    # 初始化所有变量</p>
-<h2 id="训练网络"><a href="#训练网络" class="headerlink" title="训练网络"></a>训练网络</h2><p>n_epoch - 网络训练的epoch数目，根据硬件性能适当选择，可设置大一些。默认值为10。</p>
+<p>saver = tf.train.Saver()     # 创建一个对象，用于参数保存<br>saver.save(sess, model_path) # 保存网络参数到model_path所指的路径<br>sess = tf.Session()            # 创建TensorFlow会话<br>sess.run(tf.global_variables_initializer())</p>
+<pre><code># 初始化所有变量
+</code></pre><h2 id="训练网络"><a href="#训练网络" class="headerlink" title="训练网络"></a>训练网络</h2><p>n_epoch - 网络训练的epoch数目，根据硬件性能适当选择，可设置大一些。默认值为10。</p>
 <p>for epoch in range(n_epoch):</p>
 <p>该层循环每一次循环都计算一次在验证集和训练集上的总损失值和模型精度。</p>
 <p>程序开头定义的以下四个列表，记录了每个epoch后训练集和验证集上的损失与精度。</p>
@@ -433,6 +434,8 @@
 
 
 
+
+  
 
   
 

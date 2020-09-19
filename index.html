@@ -186,16 +186,12 @@
       
           <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
 <h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
       
@@ -247,7 +243,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-19 13:43:07" itemprop="dateModified" datetime="2020-09-19T13:43:07+08:00">2020-09-19</time>
+                <time title="Modified: 2020-09-19 14:17:21" itemprop="dateModified" datetime="2020-09-19T14:17:21+08:00">2020-09-19</time>
               </span>
 
           
@@ -261,23 +257,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="JPG"><a href="#JPG" class="headerlink" title="JPG"></a>JPG</h1><p>$x+y$</p>
-<h1 id="BMP图像格式"><a href="#BMP图像格式" class="headerlink" title="BMP图像格式"></a>BMP图像格式</h1><h2 id="BMP数据结构"><a href="#BMP数据结构" class="headerlink" title="BMP数据结构"></a>BMP数据结构</h2><p>BMP文件的数据按照从文件头开始的先后顺序分为四个部分：<br>◆ 位图文件头(bmp file header)：  提供文件的格式、大小等信息<br>◆ 位图信息头(bitmap information)：提供图像数据的尺寸、位平面数、压缩方式、颜色索引等信息<br>◆ 调色板(color palette)：可选，如使用索引来表示图像，调色板就是索引与其对应的颜色的映射表<br>◆ 位图数据(bitmap data)：图像数据区</p>
-<h3 id="BMP文件头"><a href="#BMP文件头" class="headerlink" title="BMP文件头"></a>BMP文件头</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tagBITMAPFILEHEADER</span></span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line">UINT16 bfType;        <span class="comment">//2Bytes，必须为&quot;BM&quot;，即0x424D 才是Windows位图文件</span></span><br><span class="line">DWORD bfSize;         <span class="comment">//4Bytes，整个BMP文件的大小</span></span><br><span class="line">UINT16 bfReserved1;  <span class="comment">//2Bytes，保留，为0</span></span><br><span class="line">UINT16 bfReserved2;  <span class="comment">//2Bytes，保留，为0</span></span><br><span class="line">DWORD bfOffBits;     <span class="comment">//4Bytes，文件起始位置到图像像素数据的字节偏移量</span></span><br><span class="line">&#125; BITMAPFILEHEADER;</span><br></pre></td></tr></table></figure>
-
-<h3 id="BMP信息头"><a href="#BMP信息头" class="headerlink" title="BMP信息头"></a>BMP信息头</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">tagBMP_INFOHEADER</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">DWORD  biSize;    <span class="comment">//4Bytes，INFOHEADER结构体大小，存在其他版本I NFOHEADER，用作区分</span></span><br><span class="line">LONG   biWidth;    <span class="comment">//4Bytes，图像宽度（以像素为单位）</span></span><br><span class="line">LONG   biHeight;    <span class="comment">//4Bytes，图像高度，+：图像存储顺序为Bottom2Top，-：Top2Bottom</span></span><br><span class="line">WORD   biPlanes;    <span class="comment">//2Bytes，图像数据平面，BMP存储RGB数据，因此总为1</span></span><br><span class="line">WORD   biBitCount;         <span class="comment">//2Bytes，图像像素位数</span></span><br><span class="line">DWORD  biCompression;     <span class="comment">//4Bytes，0：不压缩，1：RLE8，2：RLE4</span></span><br><span class="line">DWORD  biSizeImage;       <span class="comment">//4Bytes，4字节对齐的图像数据大小</span></span><br><span class="line">LONG   biXPelsPerMeter;   <span class="comment">//4 Bytes，用象素/米表示的水平分辨率</span></span><br><span class="line">LONG   biYPelsPerMeter;   <span class="comment">//4 Bytes，用象素/米表示的垂直分辨率</span></span><br><span class="line">DWORD  biClrUsed;          <span class="comment">//4 Bytes，实际使用的调色板索引数，0：使用所有的调色板索引</span></span><br><span class="line">DWORD biClrImportant;     <span class="comment">//4 Bytes，重要的调色板索引数，0：所有的调色板索引都重要</span></span><br><span class="line">&#125;BMP_INFOHEADER;</span><br></pre></td></tr></table></figure>
-
-<h3 id="调色板"><a href="#调色板" class="headerlink" title="调色板"></a>调色板</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">tagRGBQUAD</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">BYTE  rgbBlue;       <span class="comment">//指定蓝色强度</span></span><br><span class="line">BYTE  rgbGreen;      <span class="comment">//指定绿色强度</span></span><br><span class="line">BYTE  rgbRed;        <span class="comment">//指定红色强度</span></span><br><span class="line">BYTE  rgbReserved;  <span class="comment">//保留，设置为0</span></span><br><span class="line">&#125; RGBQUAD;</span><br></pre></td></tr></table></figure>
-
-
-
+          <h1 id="BMP图像格式"><a href="#BMP图像格式" class="headerlink" title="BMP图像格式"></a>BMP图像格式</h1><h2 id="BMP数据结构"><a href="#BMP数据结构" class="headerlink" title="BMP数据结构"></a>BMP数据结构</h2><p>BMP文件的数据按照从文件头开始的先后顺序分为四个部分：<br>◆ 位图文件头(bmp file header)：  提供文件的格式、大小等信息<br>◆ 位图信息头(bitmap information)：提供图像数据的尺寸、位平面数、压缩方式、颜色索引等信息<br>◆ 调色板(color palette)：可选，如使用索引来表示图像，调色板就是索引与其对应的颜色的映射表<br>◆ 位图数据(bitmap data)：图像数据区</p>
+<h3 id="BMP文件头"><a href="#BMP文件头" class="headerlink" title="BMP文件头"></a>BMP文件头</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tagBITMAPFILEHEADER</span></span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line">	UINT16 bfType;        <span class="comment">//2Bytes，必须为&quot;BM&quot;，即0x424D 才是Windows位图文件</span></span><br><span class="line">	DWORD bfSize;         <span class="comment">//4Bytes，整个BMP文件的大小</span></span><br><span class="line">	UINT16 bfReserved1;  <span class="comment">//2Bytes，保留，为0</span></span><br><span class="line">	UINT16 bfReserved2;  <span class="comment">//2Bytes，保留，为0</span></span><br><span class="line">	DWORD bfOffBits;     <span class="comment">//4Bytes，文件起始位置到图像像素数据的字节偏移量</span></span><br><span class="line">&#125; BITMAPFILEHEADER;</span><br></pre></td></tr></table></figure>
+<h3 id="BMP信息头"><a href="#BMP信息头" class="headerlink" title="BMP信息头"></a>BMP信息头</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">tagBMP_INFOHEADER</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	DWORD  biSize;    <span class="comment">//4Bytes，INFOHEADER结构体大小，存在其他版本I NFOHEADER，用作区分</span></span><br><span class="line">	LONG   biWidth;    <span class="comment">//4Bytes，图像宽度（以像素为单位）</span></span><br><span class="line">	LONG   biHeight;    <span class="comment">//4Bytes，图像高度，+：图像存储顺序为Bottom2Top，-：Top2Bottom</span></span><br><span class="line">	WORD   biPlanes;    <span class="comment">//2Bytes，图像数据平面，BMP存储RGB数据，因此总为1</span></span><br><span class="line">	WORD   biBitCount;         <span class="comment">//2Bytes，图像像素位数</span></span><br><span class="line">	DWORD  biCompression;     <span class="comment">//4Bytes，0：不压缩，1：RLE8，2：RLE4</span></span><br><span class="line">	DWORD  biSizeImage;       <span class="comment">//4Bytes，4字节对齐的图像数据大小</span></span><br><span class="line">	LONG   biXPelsPerMeter;   <span class="comment">//4 Bytes，用象素/米表示的水平分辨率</span></span><br><span class="line">	LONG   biYPelsPerMeter;   <span class="comment">//4 Bytes，用象素/米表示的垂直分辨率</span></span><br><span class="line">	DWORD  biClrUsed;          <span class="comment">//4 Bytes，实际使用的调色板索引数，0：使用所有的调色板索引</span></span><br><span class="line">	DWORD biClrImportant;     <span class="comment">//4 Bytes，重要的调色板索引数，0：所有的调色板索引都重要</span></span><br><span class="line">&#125;BMP_INFOHEADER;</span><br></pre></td></tr></table></figure>
+<h3 id="调色板"><a href="#调色板" class="headerlink" title="调色板"></a>调色板</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">tagRGBQUAD</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	BYTE  rgbBlue;       <span class="comment">//指定蓝色强度</span></span><br><span class="line">	BYTE  rgbGreen;      <span class="comment">//指定绿色强度</span></span><br><span class="line">	BYTE  rgbRed;        <span class="comment">//指定红色强度</span></span><br><span class="line">	BYTE  rgbReserved;  <span class="comment">//保留，设置为0</span></span><br><span class="line">&#125; RGBQUAD;</span><br></pre></td></tr></table></figure>
 <h3 id="PS"><a href="#PS" class="headerlink" title="PS:"></a>PS:</h3><p>真彩色(24位图) 不需要调色板 1个像素需要三个字节表示(RGB各占一个字节)<br>位图 图像数据是调色板中的索引值<br>2色位图 1位即可表示(0-Black 1-White)一个字节表示8个像素<br>16色位图 4位表示1个像素，一个字节表示2个像素<br>256色位图 一个字节表示1个像素</p>
 <h2 id="BMP数据存放顺序"><a href="#BMP数据存放顺序" class="headerlink" title="BMP数据存放顺序"></a>BMP数据存放顺序</h2><p>自下而上 从左至右</p>
 <h2 id="反色-invert"><a href="#反色-invert" class="headerlink" title="反色(invert)"></a>反色(invert)</h2><p>反色：颜色量化级别是256则新图的RGB为255减去原图的RBG值，适用于真彩色，带调色板的彩色图和灰度图<br>真彩色：将反转的RGB重新写入<br>带调色板彩色图：将调色板反转</p>
 <h1 id="直方图"><a href="#直方图" class="headerlink" title="直方图"></a>直方图</h1><h2 id="直方图性质"><a href="#直方图性质" class="headerlink" title="直方图性质"></a>直方图性质</h2><p>无空间信息<br>可叠加性<br>一对多 一个直方图可能对应多个图像</p>
 <p>直方图均匀分布，则图像愈发清晰</p>
 <h2 id="直方图均衡化"><a href="#直方图均衡化" class="headerlink" title="直方图均衡化"></a>直方图均衡化</h2><p>让一个图像的直方图均匀分布</p>
-<p>推导：积分</p>
+<p>推导：积分<br>s=T(r)=1</p>
+<ul>
+<li>$\int^{s}<em>{0}{p(s)ds}=\int^{s}</em>{0}{1ds}$</li>
+<li>$\int^{\infty}_{0}{sdx}$</li>
+</ul>
 <h2 id="直方图规定化"><a href="#直方图规定化" class="headerlink" title="直方图规定化"></a>直方图规定化</h2><p>让一个图像的直方图分布符合另一个指定图像的直方图<br>策略：A图直方图符合B图直方图<br>A图均一化s=T(r) B图均一化v=G(z)<br>s=v =&gt;(r-&gt;z) z=G^-1(T(r))</p>
 
       
@@ -371,7 +365,7 @@
 <li>流水线     并行执行，不同机器周期需要不同硬件</li>
 </ol>
 <h1 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h1><p>总线：可以实现信息分时共享的公共信息线路</p>
-<p>##总线类型<br>地址总线，控制总线，数据总线<br>数据传输格式：串行总线（成本低，空间小），并行总线（成本高，占空间）速度？ 总线带宽（单位时间传输的数据位数）=工作频率*总线宽度 频率高干扰强所以并行不一定比串行的快<br>连接的部件：片内总线（芯片内部），系统总线（CPU IO MEM间），通信外部总线（计算机之间的通信）<br>时序控制方式：同步总线，异步总线</p>
+<h2 id="总线类型"><a href="#总线类型" class="headerlink" title="总线类型"></a>总线类型</h2><p>地址总线，控制总线，数据总线<br>数据传输格式：串行总线（成本低，空间小），并行总线（成本高，占空间）速度？ 总线带宽（单位时间传输的数据位数）=工作频率*总线宽度 频率高干扰强所以并行不一定比串行的快<br>连接的部件：片内总线（芯片内部），系统总线（CPU IO MEM间），通信外部总线（计算机之间的通信）<br>时序控制方式：同步总线，异步总线</p>
 <h2 id="总线仲裁：多个设备同时请求一条总线时，选择一个设备使用总线"><a href="#总线仲裁：多个设备同时请求一条总线时，选择一个设备使用总线" class="headerlink" title="总线仲裁：多个设备同时请求一条总线时，选择一个设备使用总线"></a>总线仲裁：多个设备同时请求一条总线时，选择一个设备使用总线</h2><p>集中式 使用总线控制部件<br>链式查询方式（总线请求总线允许总线忙） 将总线允许信号依次传遍线路上的设备，靠近总线控制部件的设备优先获得总线控制权，并发出总线忙信号<br>计数器查询方式（设备地址总线请求总线忙） 总线控制部件中有计数器，计数器从零开始增加，和计数器相同的设备号通过设备地址立即获得总线控制权<br>独立请求 每个设备有单独的总线请求和总线允许线路</p>
 <h2 id="总线传输的四个阶段"><a href="#总线传输的四个阶段" class="headerlink" title="总线传输的四个阶段"></a>总线传输的四个阶段</h2><p>请求阶段：主模块设备申请总线使用权，总线控制机构进行总线仲裁<br>寻址阶段：主模块向从模块发出命令，开启从模块<br>传输阶段：传输数据<br>结束阶段：删除有关信息让出总线使用权</p>
 <h1 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h1><h2 id="主机访问IO方式"><a href="#主机访问IO方式" class="headerlink" title="主机访问IO方式"></a>主机访问IO方式</h2><p>程序查询方式 CPU在IO程序启动后就不断查询IO的状态，CPU要等待IO完成才能继续执行指令 IO与CPU串行工作<br>程序中断方式 IO启动时，不影响CPU工作，IO完成后向CPU提出中断请求，CPU将信息保存后执行IO操作，执行完毕后，恢复保存的信息继续执行之前的工作 CPU和IO大部分时间并行操作<br>DMA方式 IO完成后发出DMA请求，此时CPU不进行访存，总线控制权交由DMA，DMA将数据从IO设备写入内存，结束后控制权交给CPU使其继续执行</p>
@@ -389,8 +383,8 @@
 <li>DMA与CPU交替访存 一个机器周期分为两个周期</li>
 <li>周期挪用 DMA需要访存时CPU让出机器周期<br> CPU不访存 不冲突<br> CPU正在访存 CPU存取周期结束让出总线<br> CPU和DMA同时访存 DMA优先</li>
 </ol>
-<h1 id="中断和DMA的区别"><a href="#中断和DMA的区别" class="headerlink" title="中断和DMA的区别"></a>中断和DMA的区别</h1><pre><code>    中断         DMA</code></pre>
-<p>响应：指令执行周期结束后响应    每个机器周期结束均可响应<br>场景：低速设备        高速设备<br>优先级：低            高<br>处理异常：可处理异常        不可处理异常</p>
+<h1 id="中断和DMA的区别"><a href="#中断和DMA的区别" class="headerlink" title="中断和DMA的区别"></a>中断和DMA的区别</h1><pre><code>    中断         DMA
+</code></pre><p>响应：指令执行周期结束后响应    每个机器周期结束均可响应<br>场景：低速设备        高速设备<br>优先级：低            高<br>处理异常：可处理异常        不可处理异常</p>
 
       
     </div>
@@ -608,21 +602,19 @@
       
           <h1 id="Sales"><a href="#Sales" class="headerlink" title="Sales"></a>Sales</h1><ul>
 <li>表<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM customer;</span><br><span class="line">+-------+-----------+---------+--------------+</span><br><span class="line">| cusno | cusname   | address | tel          |</span><br><span class="line">+-------+-----------+---------+--------------+</span><br><span class="line">| C001  | 杨婷      | 北京    | 010-5328953  |</span><br><span class="line">| C002  | 李和平    | 上海    | 021-62359651 |</span><br><span class="line">| C003  | 和平      | 成都    | 024-3222781  |</span><br><span class="line">| C004  | 冯重传    | 上海    | 021-87265861 |</span><br><span class="line">+-------+-----------+---------+--------------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM product;</span><br><span class="line">+-------+--------------+-------+--------+</span><br><span class="line">| prono | proname      | price | stocks |</span><br><span class="line">+-------+--------------+-------+--------+</span><br><span class="line">| P0001 | 液晶电视     |  5600 |    800 |</span><br><span class="line">| P0002 | 空调         |  2390 |    460 |</span><br><span class="line">| P0003 | 洗衣机       |  3700 |    600 |</span><br><span class="line">| P0004 | 电热水器     |   890 |    120 |</span><br><span class="line">+-------+--------------+-------+--------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM proout;</span><br><span class="line">+------------+-------+-------+----------+</span><br><span class="line">| saledate   | cusno | prono | quantity |</span><br><span class="line">+------------+-------+-------+----------+</span><br><span class="line">| 2007-10-27 | C001  | P0001 |        3 |</span><br><span class="line">| 2007-11-06 | C004  | P0003 |       40 |</span><br><span class="line">| 2007-12-27 | C001  | P0003 |        5 |</span><br><span class="line">| 2008-03-15 | C002  | P0002 |       12 |</span><br><span class="line">| 2008-05-02 | C003  | P0002 |       21 |</span><br><span class="line">| 2008-05-02 | C003  | P0001 |        9 |</span><br><span class="line">| 2008-11-21 | C004  | P0001 |       73 |</span><br><span class="line">| 2008-09-21 | C004  | P0001 |       30 |</span><br><span class="line">+------------+-------+-------+----------+</span><br><span class="line">8 rows in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"># 视图，每种商品的数量和总额</span><br><span class="line">mysql&gt; select product.prono,sum(quantity),sum(quantity*price) from product,proout</span><br><span class="line">    -&gt; where product.prono&#x3D;proout.prono</span><br><span class="line">    -&gt; group by product.prono;</span><br><span class="line">+-------+---------------+---------------------+</span><br><span class="line">| prono | sum(quantity) | sum(quantity*price) |</span><br><span class="line">+-------+---------------+---------------------+</span><br><span class="line">| P0001 |           115 |              644000 |</span><br><span class="line">| P0002 |            33 |               78870 |</span><br><span class="line">| P0003 |            45 |              166500 |</span><br><span class="line">+-------+---------------+---------------------+</span><br><span class="line">3 rows in set (0.00 s</span><br><span class="line"></span><br><span class="line"># 0002商品的买家姓名电话</span><br><span class="line">mysql&gt; select cusno,cusname,tel from customer</span><br><span class="line">    -&gt; where cusno in(</span><br><span class="line">    -&gt; select cusno from proout</span><br><span class="line">    -&gt; where prono&#x3D;&#39;P0002&#39;)</span><br><span class="line">    -&gt; order by cusno desc;</span><br><span class="line">+-------+-----------+--------------+</span><br><span class="line">| cusno | cusname   | tel          |</span><br><span class="line">+-------+-----------+--------------+</span><br><span class="line">| C003  | 和平      | 024-3222781  |</span><br><span class="line">| C002  | 李和平    | 021-62359651 |</span><br><span class="line">+-------+-----------+--------------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line"># 销售数量超过100</span><br><span class="line">mysql&gt; select sum(quantity),prono from proout</span><br><span class="line">    -&gt; group by prono</span><br><span class="line">    -&gt; having sum(quantity)&gt;100;</span><br><span class="line">+---------------+-------+</span><br><span class="line">| sum(quantity) | prono |</span><br><span class="line">+---------------+-------+</span><br><span class="line">|           115 | P0001 |</span><br><span class="line">+---------------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
-
 <p>create table student(Sid varchar(10),Sname nvarchar(10),Sage datetime,Ssex nvarchar(10));<br>insert into student values(‘01’ , N’赵雷’ , ‘1990-01-01’ , N’男’)<br>,(‘02’ , N’钱电’ , ‘1990-12-21’ , N’男’)<br>,(‘03’ , N’孙风’ , ‘1990-05-20’ , N’男’)<br>,(‘04’ , N’李云’ , ‘1990-08-06’ , N’男’)<br>,(‘05’ , N’周梅’ , ‘1991-12-01’ , N’女’)<br>,(‘06’ , N’吴兰’ , ‘1992-03-01’ , N’女’)<br>,(‘07’ , N’郑竹’ , ‘1989-07-01’ , N’女’)<br>,(‘08’ , N’王菊’ , ‘1990-01-20’ , N’女’);</p>
 <p>create table course(Cid varchar(10),Cname nvarchar(10),Tid varchar(10));<br>insert into course values(‘01’ , N’语文’ , ‘02’)<br>,(‘02’ , N’数学’ , ‘01’)<br>,(‘03’ , N’英语’ , ‘03’);</p>
 <p>create table teacher(Tid varchar(10),Tname nvarchar(10));<br>insert into teacher values(‘01’ , N’张三’)<br>,(‘02’ , N’李四’)<br>,(‘03’ , N’王五’);</p>
 <p>create table sc(Sid varchar(10),Cid varchar(10),score decimal(18,1));<br>insert into sc values(‘01’ , ‘01’ , 80)<br>,(‘01’ , ‘02’ , 90)<br>,(‘01’ , ‘03’ , 99)<br>,(‘02’ , ‘01’ , 70)<br>,(‘02’ , ‘02’ , 60)<br>,(‘02’ , ‘03’ , 80)<br>,(‘03’ , ‘01’ , 80)<br>,(‘03’ , ‘02’ , 80)<br>,(‘03’ , ‘03’ , 80)<br>,(‘04’ , ‘01’ , 50)<br>,(‘04’ , ‘02’ , 30)<br>,(‘04’ , ‘03’ , 20)<br>,(‘05’ , ‘01’ , 76)<br>,(‘05’ , ‘02’ , 87)<br>,(‘06’ , ‘01’ , 31)<br>,(‘06’ , ‘03’ , 34)<br>,(‘07’ , ‘02’ , 89)<br>,(‘07’ , ‘03’ , 98);</p>
-<p>+——+——–+——+<br>| Cid  | Cname  | Tid  |<br>+——+——–+——+<br>| 01   | 语文   | 02   |<br>| 02   | 数学   | 01   |<br>| 03   | 英语   | 03   |<br>+——+——–+——+<br>3 rows in set (0.00 sec)</p>
-<p>+——+——+——-+<br>| Sid  | Cid  | score |<br>+——+——+——-+<br>| 01   | 01   |  80.0 |<br>| 01   | 02   |  90.0 |<br>| 01   | 03   |  99.0 |<br>| 02   | 01   |  70.0 |<br>| 02   | 02   |  60.0 |<br>| 02   | 03   |  80.0 |<br>| 03   | 01   |  80.0 |<br>| 03   | 02   |  80.0 |<br>| 03   | 03   |  80.0 |<br>| 04   | 01   |  50.0 |<br>| 04   | 02   |  30.0 |<br>| 04   | 03   |  20.0 |<br>| 05   | 01   |  76.0 |<br>| 05   | 02   |  87.0 |<br>| 06   | 01   |  31.0 |<br>| 06   | 03   |  34.0 |<br>| 07   | 02   |  89.0 |<br>| 07   | 03   |  98.0 |<br>+——+——+——-+<br>18 rows in set (0.00 sec)</p>
-<p>+——+——–+———————+——+<br>| Sid  | Sname  | Sage                | Ssex |<br>+——+——–+———————+——+<br>| 01   | 赵雷   | 1990-01-01 00:00:00 | 男   |<br>| 02   | 钱电   | 1990-12-21 00:00:00 | 男   |<br>| 03   | 孙风   | 1990-05-20 00:00:00 | 男   |<br>| 04   | 李云   | 1990-08-06 00:00:00 | 男   |<br>| 05   | 周梅   | 1991-12-01 00:00:00 | 女   |<br>| 06   | 吴兰   | 1992-03-01 00:00:00 | 女   |<br>| 07   | 郑竹   | 1989-07-01 00:00:00 | 女   |<br>| 08   | 王菊   | 1990-01-20 00:00:00 | 女   |<br>+——+——–+———————+——+<br>8 rows in set (0.00 sec)</p>
-<p>+——+——–+<br>| Tid  | Tname  |<br>+——+——–+<br>| 01   | 张三   |<br>| 02   | 李四   |<br>| 03   | 王五   |<br>+——+——–+</p>
-<p>打印02号比03号大或者相等的成绩信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select a.*,b.* from (select * from sc where sid&#x3D;&#39;02&#39;) a</span><br><span class="line">    -&gt; left join (select * from sc where sid &#x3D;&#39;03&#39;)b on</span><br><span class="line">    -&gt; a.cid&#x3D;b.cid</span><br><span class="line">    -&gt; where a.score&gt;&#x3D;b.score;</span><br><span class="line">+------+------+-------+------+------+-------+</span><br><span class="line">| Sid  | Cid  | score | Sid  | Cid  | score |</span><br><span class="line">+------+------+-------+------+------+-------+</span><br><span class="line">| 02   | 03   |  80.0 | 03   | 03   |  80.0 |</span><br><span class="line">+------+------+-------+------+------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>+———+————+———+<br>| Cid  | Cname  | Tid  |<br>+———+————+———+<br>| 01   | 语文   | 02   |<br>| 02   | 数学   | 01   |<br>| 03   | 英语   | 03   |<br>+———+————+———+<br>3 rows in set (0.00 sec)</p>
+<p>+———+———+———-+<br>| Sid  | Cid  | score |<br>+———+———+———-+<br>| 01   | 01   |  80.0 |<br>| 01   | 02   |  90.0 |<br>| 01   | 03   |  99.0 |<br>| 02   | 01   |  70.0 |<br>| 02   | 02   |  60.0 |<br>| 02   | 03   |  80.0 |<br>| 03   | 01   |  80.0 |<br>| 03   | 02   |  80.0 |<br>| 03   | 03   |  80.0 |<br>| 04   | 01   |  50.0 |<br>| 04   | 02   |  30.0 |<br>| 04   | 03   |  20.0 |<br>| 05   | 01   |  76.0 |<br>| 05   | 02   |  87.0 |<br>| 06   | 01   |  31.0 |<br>| 06   | 03   |  34.0 |<br>| 07   | 02   |  89.0 |<br>| 07   | 03   |  98.0 |<br>+———+———+———-+<br>18 rows in set (0.00 sec)</p>
+<p>+———+————+——————————-+———+<br>| Sid  | Sname  | Sage                | Ssex |<br>+———+————+——————————-+———+<br>| 01   | 赵雷   | 1990-01-01 00:00:00 | 男   |<br>| 02   | 钱电   | 1990-12-21 00:00:00 | 男   |<br>| 03   | 孙风   | 1990-05-20 00:00:00 | 男   |<br>| 04   | 李云   | 1990-08-06 00:00:00 | 男   |<br>| 05   | 周梅   | 1991-12-01 00:00:00 | 女   |<br>| 06   | 吴兰   | 1992-03-01 00:00:00 | 女   |<br>| 07   | 郑竹   | 1989-07-01 00:00:00 | 女   |<br>| 08   | 王菊   | 1990-01-20 00:00:00 | 女   |<br>+———+————+——————————-+———+<br>8 rows in set (0.00 sec)</p>
+<p>+———+————+<br>| Tid  | Tname  |<br>+———+————+<br>| 01   | 张三   |<br>| 02   | 李四   |<br>| 03   | 王五   |<br>+———+————+</p>
+<p>打印02号比03号大或者相等的成绩信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select a.*,b.* from (select * from sc where sid&#x3D;&#39;02&#39;) a</span><br><span class="line">    -&gt; left join (select * from sc where sid &#x3D;&#39;03&#39;)b on</span><br><span class="line">    -&gt; a.cid&#x3D;b.cid</span><br><span class="line">    -&gt; where a.score&gt;&#x3D;b.score;</span><br><span class="line">+------+------+-------+------+------+-------+</span><br><span class="line">| Sid  | Cid  | score | Sid  | Cid  | score |</span><br><span class="line">+------+------+-------+------+------+-------+</span><br><span class="line">| 02   | 03   |  80.0 | 03   | 03   |  80.0 |</span><br><span class="line">+------+------+-------+------+------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
 
@@ -981,7 +973,7 @@
 <h1 id="软件架构"><a href="#软件架构" class="headerlink" title="软件架构"></a>软件架构</h1><p>可扩展性</p>
 <h1 id="1-1-同步和互斥"><a href="#1-1-同步和互斥" class="headerlink" title="1.1 同步和互斥"></a>1.1 同步和互斥</h1><p>进程同步也是进程之间直接的制约关系，为完成某种任务需要多个进程之间的协作，进程间的运行是要按照某种次序执行的，比如说某些进程必须在某些进程之后（或者之前）才能执行，进程间的直接制约关系来源于他们之间的合作。<br>举例：（管道通信，生产者消费者，流水线生产（工序在前工序在后）<br>互斥：对于缓冲区，是互斥访问的<br>同步：缓冲区为空，消费者要等待生产者；缓冲区为满，消费者要等待生产者</p>
 <p>进程互斥是进程之间的间接制约关系。当一个进程进入临界区使用临界资源时，另一个进程必须等待。只有当使用临界资源的进程退出临界区后，这个进程才会解除阻塞状态。<br>比如（打印机，教室，篮球场，图书）进程B需要访问打印机，但此时进程A占有了打印机，进程B会被阻塞，直到进程A释放了打印机资源,进程B才可以继续执行。概念如图3所示。</p>
-<p>#线程和进程的区别？<br>简而言之，进程是程序运行和资源分配的基本单位，一个程序至少有一个进程，一个进程至少有一个线程。进程在执行过程中拥有独立的内存单元，而多个线程共享内存资源，减少切换次数，从而效率更高。线程是进程的一个实体，是cpu调度和分派的基本单位，是比程序更小的能独立运行的基本单位。同一进程中的多个线程之间可以并发执行。</p>
+<h1 id="线程和进程的区别？"><a href="#线程和进程的区别？" class="headerlink" title="线程和进程的区别？"></a>线程和进程的区别？</h1><p>简而言之，进程是程序运行和资源分配的基本单位，一个程序至少有一个进程，一个进程至少有一个线程。进程在执行过程中拥有独立的内存单元，而多个线程共享内存资源，减少切换次数，从而效率更高。线程是进程的一个实体，是cpu调度和分派的基本单位，是比程序更小的能独立运行的基本单位。同一进程中的多个线程之间可以并发执行。</p>
 <h1 id="算法的五个特性："><a href="#算法的五个特性：" class="headerlink" title="算法的五个特性："></a>算法的五个特性：</h1><p>有穷性：算法在有穷步或有穷时间内完成<br>确定性：指令不会产生二义性，且输入唯一确定输出<br>可行性：算法操作是通过已实现基本运算的有限次执行来实现的<br>输入：<br>输出：</p>
 <h1 id="T-n-O-f-n"><a href="#T-n-O-f-n" class="headerlink" title="T(n)=O(f(n))"></a>T(n)=O(f(n))</h1><p>问题的规模为n，算法的执行时间的增长率和函数f（n）的增长率相同</p>
 <h1 id="1-3人工智能："><a href="#1-3人工智能：" class="headerlink" title="1.3人工智能："></a>1.3人工智能：</h1><p>机器学习（垃圾邮件过滤）、计算机视觉（图像检测，图像识别）、自然语言处理(自动问答,机器翻译)、推荐系统（淘宝记录购买历史生成个性化推荐，搜索引擎）</p>
@@ -1126,7 +1118,6 @@
 <h2 id="多态好处："><a href="#多态好处：" class="headerlink" title="多态好处："></a>多态好处：</h2><p>1、提高了代码的维护性(继承保证)<br>2、提高了代码的扩展性(由多态保证)</p>
 <h2 id="多态的弊端："><a href="#多态的弊端：" class="headerlink" title="多态的弊端："></a>多态的弊端：</h2><ol>
 <li>无法使用子类的独有功能（子类有定义，但父类没有，解决方法向下转型）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fu</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;show fu&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Zi</span> <span class="keyword">extends</span> <span class="title">Fu</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;show zi&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;method zi&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DuoTaiDemo3</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//测试</span></span><br><span class="line">		Fu f = <span class="keyword">new</span> Zi();</span><br><span class="line">		f.show();</span><br><span class="line">		f.method();<span class="comment">//报错，因为fu类中没有method方法</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>在C++中，为了允许运行时动态决定哪个函数被调用，一个函数必须用virtual修饰。virtual关键字被自动继承，用以支持多态<br>凡是没有用virtual修饰的成员函数（包括static）都是静态绑定的，即在编译时决定调用哪个版本</p>
@@ -1161,16 +1152,13 @@
 <li>三重循环之后就能得到最终结果</li>
 </ul>
 <h2 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h2><ul>
-<li><p>不能求解权值为负数的图</p>
-</li>
-<li><p>O(n^2)</p>
-</li>
+<li>不能求解权值为负数的图</li>
+<li>O(n^2)</li>
 <li><p>n个点要进行n次循环，每一次只获得一个点的最短路径，对于每个点要也要进行遍历找到相邻的点进行比较，邻接矩阵n行n列，一个点的相邻点有n-1个+1和自己相邻的节点</p>
 </li>
 <li><p>Dijkstra求解的问题：一个点到其余所有点的最小距离</p>
 </li>
-<li><p>到某一个点的最短路径要么是，起始点直接到该点的距离，要么是起始点经某个已求得的最短路径的点再到该点的距离</p>
-</li>
+<li>到某一个点的最短路径要么是，起始点直接到该点的距离，要么是起始点经某个已求得的最短路径的点再到该点的距离</li>
 </ul>
 <h3 id="算法实现-1"><a href="#算法实现-1" class="headerlink" title="算法实现"></a>算法实现</h3><ul>
 <li>目的：求出起始点到每一个点的最短距离</li>
@@ -1224,10 +1212,8 @@
 <h1 id="10-4"><a href="#10-4" class="headerlink" title="10.4"></a>10.4</h1><p>8086独立编址<br>独立编址：不占用存储器，有独立的存取指令和IO端口进行通信<br>统一编址：在内存中划分一块区域，将IO端口映射到内存中</p>
 <p>IO端口：CPU与外部设备通信的缓冲电路</p>
 <h1 id="11-1-gt-8-1"><a href="#11-1-gt-8-1" class="headerlink" title="11.1 -&gt; 8.1"></a>11.1 -&gt; 8.1</h1><h1 id="11-2"><a href="#11-2" class="headerlink" title="11.2"></a>11.2</h1><ul>
-<li><p>时间复杂度（平均，最好，最坏）：O(nlgn)</p>
-</li>
-<li><p>空间复杂度：堆排序不要任何辅助数组，只需要一个辅助变量，所占空间是常数与n无关，所以空间复杂度为O(1)</p>
-</li>
+<li>时间复杂度（平均，最好，最坏）：O(nlgn)</li>
+<li>空间复杂度：堆排序不要任何辅助数组，只需要一个辅助变量，所占空间是常数与n无关，所以空间复杂度为O(1)</li>
 <li><p>每一次比较2*(logn/log2-1)次（深度-1），n个元素比较n-1轮</p>
 </li>
 <li><p>初始化建堆的时间复杂度为O(n)，排序重建堆的时间复杂度为nlog(n)，所以总的时间复杂度为O(n+nlogn)=O(nlogn)</p>
@@ -1239,8 +1225,7 @@
 </ul>
 <p>堆排序是简单选择排序的改进：简单选择排序在一趟排序中仅选出最小关键码，没有把一趟比较结果保存下来，因而记录的比较次数较多。堆排序在选出最小关键码的同时，也找出较小关键码，减少了在后面的选择中的比较次数，从而提高了整个排序的效率。</p>
 <ul>
-<li><p>大顶堆：非叶子节点均不小于其左右孩子节点的值</p>
-</li>
+<li>大顶堆：非叶子节点均不小于其左右孩子节点的值</li>
 <li><p>小顶堆：非叶子节点均不大于其左右孩子节点的值</p>
 </li>
 <li><p>建堆过程是从最小的非叶子节点开始，下沉元素是从根节点开始</p>
@@ -1278,7 +1263,7 @@
 </ol>
 <h1 id="12-4"><a href="#12-4" class="headerlink" title="12.4"></a>12.4</h1><p>编译程序是把用高级程序设计语言或计算机汇编语抄言书写的源程序，翻译成等价的机器语言格式目标程序的翻译程序<br>解释程序是高级语言翻译程序的一种，它将源语言书写的源程序作为输入，解释一句后就提交计算机执行一句，并不形成目标百程序。就像外语翻译中的“口译”一样，说一句翻一句，不产生全文的翻译文本。</p>
 <p>区别：<br>速度：编译程序运行速度更快<br>灵活性：解释程序可以在运行期间修改代码<br>可移植性：编译程序需要在对应平台安装编译器并重新编译，解释程序则只需要安装对应的解释器</p>
-<h1 id="软件开发的阶段"><a href="#软件开发的阶段" class="headerlink" title="软件开发的阶段"></a>软件开发的阶段</h1><ol start="0">
+<h1 id="软件开发的阶段"><a href="#软件开发的阶段" class="headerlink" title="软件开发的阶段"></a>软件开发的阶段</h1><ol>
 <li>问题的定义及规划：主要确定软件的开发目标及其可行性</li>
 <li>需求分析：软件需求分析就是回答做什么的问题</li>
 <li>软件设计：概要设计和详细设计两个阶段（概要设计就是结构设计，其主要目标就是给出软件的模块结构，用软件结构图表示。详细设计的首要任务就是设计模块的程序流程、算法和数据结构，次要任务就是设计数据库，常用方法还是结构化程序设计方法。 ）</li>
@@ -1314,19 +1299,19 @@
 <li>风险： 完美蠕行（交谈期间需求可能不断增长，导致超出项目成本或者进度等）</li>
 <li>措施： 定期对交谈结果复审（如果要某些需求要加钱）</li>
 </ul>
-<ol start="3">
+<ol>
 <li>观察 参与到客户的业务中</li>
 </ol>
 <ul>
 <li>风险： 长时期的话会打扰客户</li>
 </ul>
-<ol start="4">
+<ol>
 <li>小组会： 客户和开发人员的联席会议</li>
 </ol>
 <ul>
 <li>难点： 主持人的要求，成员的要求</li>
 </ul>
-<ol start="5">
+<ol>
 <li>提炼： 复审技术文档（其他相似的项目，之前已经有的技术文档）</li>
 </ol>
 <p>各有优缺点</p>
@@ -1355,11 +1340,11 @@
 </li>
 </ol>
 <p>由于各种不同的原因，我们都会有几个不同的邮箱。而常常查看这些邮箱的邮件，就变成一件很繁琐的事情，我们需要打开不同的网站，输入不同的用户名及密码。现在，云计算又可以发挥很大作用了。通过托管，邮件服务提供商可以将多个不同的邮件整合在一起。例如，谷歌的Gmail电子邮件服务，可以整合多个符合POP3标准的电子邮件，用户可以直接在Gmail的收件箱中直接收取到来自各个邮箱中的电子邮件。是不是方便了很多？</p>
-<ol start="3">
+<ol>
 <li>地图导航</li>
 </ol>
 <p>在没有GPS的时代，每到一个地方，我们都需要购买当地的地图。以前经常可见路人拿着地图问路的情景。而现在，我们只需要一部手机，就可以拥有一张全世界的地图。甚至还能够得到地图上得不到的信息，例如交通路况，天气状况等等。正是基于云计算技术的GPS带给了我们这一切。地图，路况这些复杂的信息，并不需要预先装在我们的手机中，而是储存在服务提供商的“云”中，我们只需在手机上按一个键，就可以很快的找到我们所要找的地方。</p>
-<ol start="4">
+<ol>
 <li>存储云<br>存储云，又称云存储，是在云计算技术上发展起来的一个新的存储技术。云存储是一个以数据存储和管理为核心的云计算系统。用户可以将本地的资源上传至云端上，可以在任何地方连入互联网来获取云上的资源。大家所熟知的谷歌、微软等大型网络公司均有云存储的服务，在国内，百度云和微云则是市场占有量最大的存储云。存储云向用户提供了存储容器服务、备份服务、归档服务和记录管理服务等等，大大方便了使用者对资源的管理。</li>
 </ol>
 <h1 id="13-4分治思想及其特征"><a href="#13-4分治思想及其特征" class="headerlink" title="13.4分治思想及其特征"></a>13.4分治思想及其特征</h1><p>分治思想就是将一个大规模的问题不断细分成子问题，子问题可以细分，子问题将很容易求解。<br>最终问题的解是所有子问题解的集合。<br>典型应用有汉诺塔，归并排序，快速排序。</p>
@@ -1536,6 +1521,61 @@
 
 
   
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

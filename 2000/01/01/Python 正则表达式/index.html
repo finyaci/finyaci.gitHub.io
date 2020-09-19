@@ -219,7 +219,7 @@
 <p>2.\s可以匹配一个空格（也包括Tab等空白符），所以\s+表示至少有一个空格，例如匹配’ ‘，’ ‘等；</p>
 <p>3.\d{3,8}表示3-8个数字，例如’1234567’。</p>
 <blockquote>
-<p>对于特殊字符，例如’-‘，在正则表达式中，要用’&#39;转义</p>
+<p>对于特殊字符，例如’-‘，在正则表达式中，要用’\’转义</p>
 </blockquote>
 <hr>
 <ul>
@@ -240,34 +240,17 @@
 <li><p>你可能注意到了，py也可以匹配’python’，但是加上^py$就变成了整行匹配，就只能匹配’py’了。</p>
 </li>
 </ul>
-<h1 id="2-re模块"><a href="#2-re模块" class="headerlink" title="2 re模块"></a>2 re模块</h1><p>烈建议使用Python的r前缀，就不用考虑转义的问题了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s &#x3D; r&#39;ABC\-001&#39; # Python的字符串</span><br><span class="line"># 对应的正则表达式字符串不变：</span><br><span class="line"># &#39;ABC\-001&#39;</span><br></pre></td></tr></table></figure>
-<h2 id="匹配方法"><a href="#匹配方法" class="headerlink" title="匹配方法"></a>匹配方法</h2><p>match()方法判断是否匹配，如果匹配成功，返回一个Match对象，否则返回None。常见的判断方法就是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">test &#x3D; &#39;用户输入的字符串&#39;</span><br><span class="line">if re.match(r&#39;正则表达式&#39;, test):</span><br><span class="line">    print(&#39;ok&#39;)</span><br><span class="line">else:</span><br><span class="line">    print(&#39;failed&#39;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="切分字符串"><a href="#切分字符串" class="headerlink" title="切分字符串"></a>切分字符串</h2><p>用正则表达式切分字符串比用固定的字符更灵活，请看正常的切分代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &#39;a b   c&#39;.split(&#39; &#39;)</span><br><span class="line">[&#39;a&#39;, &#39;b&#39;, &#39;&#39;, &#39;&#39;, &#39;c&#39;]</span><br></pre></td></tr></table></figure>
-<p>用正则表达式识别连续空格：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; re.split(r&#39;\s+&#39;, &#39;a b   c&#39;)</span><br><span class="line">[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</span><br></pre></td></tr></table></figure>
-<p>; , 空格三者都存在的情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; re.split(r&#39;[\s\,\;]+&#39;, &#39;a,b;; c  d&#39;)</span><br><span class="line">[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]</span><br></pre></td></tr></table></figure>
-
-<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><p>第一个例子:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; m &#x3D; re.match(r&#39;^(\d&#123;3&#125;)-(\d&#123;3,8&#125;)$&#39;, &#39;010-12345&#39;)</span><br><span class="line">&gt;&gt;&gt; m</span><br><span class="line">&lt;_sre.SRE_Match object; span&#x3D;(0, 9), match&#x3D;&#39;010-12345&#39;&gt;</span><br><span class="line">&gt;&gt;&gt; m.group(0)</span><br><span class="line">&#39;010-12345&#39;</span><br><span class="line">&gt;&gt;&gt; m.group(1)</span><br><span class="line">&#39;010&#39;</span><br><span class="line">&gt;&gt;&gt; m.group(2)</span><br><span class="line">&#39;12345&#39;</span><br></pre></td></tr></table></figure>
-
-<p>识别时间的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; t &#x3D; &#39;19:05:30&#39;</span><br><span class="line">&gt;&gt;&gt; m &#x3D; re.match(r&#39;^(0[0-9]|1[0-9]|2[0-3]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])$&#39;, t)</span><br><span class="line">&gt;&gt;&gt; m.groups()</span><br><span class="line">(&#39;19&#39;, &#39;05&#39;, &#39;30&#39;)</span><br></pre></td></tr></table></figure>
-
+<h1 id="2-re模块"><a href="#2-re模块" class="headerlink" title="2 re模块"></a>2 re模块</h1><p>烈建议使用Python的r前缀，就不用考虑转义的问题了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s &#x3D; r&#39;ABC\-001&#39; # Python的字符串</span><br><span class="line"># 对应的正则表达式字符串不变：</span><br><span class="line"># &#39;ABC\-001&#39;</span><br></pre></td></tr></table></figure></p>
+<h2 id="匹配方法"><a href="#匹配方法" class="headerlink" title="匹配方法"></a>匹配方法</h2><p>match()方法判断是否匹配，如果匹配成功，返回一个Match对象，否则返回None。常见的判断方法就是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">test &#x3D; &#39;用户输入的字符串&#39;</span><br><span class="line">if re.match(r&#39;正则表达式&#39;, test):</span><br><span class="line">    print(&#39;ok&#39;)</span><br><span class="line">else:</span><br><span class="line">    print(&#39;failed&#39;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="切分字符串"><a href="#切分字符串" class="headerlink" title="切分字符串"></a>切分字符串</h2><p>用正则表达式切分字符串比用固定的字符更灵活，请看正常的切分代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &#39;a b   c&#39;.split(&#39; &#39;)</span><br><span class="line">[&#39;a&#39;, &#39;b&#39;, &#39;&#39;, &#39;&#39;, &#39;c&#39;]</span><br></pre></td></tr></table></figure><br>用正则表达式识别连续空格：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; re.split(r&#39;\s+&#39;, &#39;a b   c&#39;)</span><br><span class="line">[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</span><br></pre></td></tr></table></figure><br>; , 空格三者都存在的情况<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; re.split(r&#39;[\s\,\;]+&#39;, &#39;a,b;; c  d&#39;)</span><br><span class="line">[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]</span><br></pre></td></tr></table></figure></p>
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><p>第一个例子:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; m &#x3D; re.match(r&#39;^(\d&#123;3&#125;)-(\d&#123;3,8&#125;)$&#39;, &#39;010-12345&#39;)</span><br><span class="line">&gt;&gt;&gt; m</span><br><span class="line">&lt;_sre.SRE_Match object; span&#x3D;(0, 9), match&#x3D;&#39;010-12345&#39;&gt;</span><br><span class="line">&gt;&gt;&gt; m.group(0)</span><br><span class="line">&#39;010-12345&#39;</span><br><span class="line">&gt;&gt;&gt; m.group(1)</span><br><span class="line">&#39;010&#39;</span><br><span class="line">&gt;&gt;&gt; m.group(2)</span><br><span class="line">&#39;12345&#39;</span><br></pre></td></tr></table></figure></p>
+<p>识别时间的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; t &#x3D; &#39;19:05:30&#39;</span><br><span class="line">&gt;&gt;&gt; m &#x3D; re.match(r&#39;^(0[0-9]|1[0-9]|2[0-3]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])$&#39;, t)</span><br><span class="line">&gt;&gt;&gt; m.groups()</span><br><span class="line">(&#39;19&#39;, &#39;05&#39;, &#39;30&#39;)</span><br></pre></td></tr></table></figure></p>
 <h2 id="贪婪匹配"><a href="#贪婪匹配" class="headerlink" title="贪婪匹配"></a>贪婪匹配</h2><p>正则匹配默认是贪婪匹配，也就是匹配尽可能多的字符。举例如下，匹配出数字后面的0：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; re.match(r&#39;^(\d+)(0*)$&#39;, &#39;102300&#39;).groups()</span><br><span class="line">(&#39;102300&#39;, &#39;&#39;)</span><br></pre></td></tr></table></figure>
-
 <p>由于\d+采用贪婪匹配，直接把后面的0全部匹配了，结果0*只能匹配空字符串了。</p>
 <p>必须让\d+采用非贪婪匹配（也就是尽可能少匹配），才能把后面的0匹配出来，加个?就可以让\d+采用非贪婪匹配：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; re.match(r&#39;^(\d+?)(0*)$&#39;, &#39;102300&#39;).groups()</span><br><span class="line">(&#39;1023&#39;, &#39;00&#39;)</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>如果一个正则表达式要重复使用几千次，出于效率的考虑，我们可以预编译该正则表达式，接下来重复使用时就不需要编译这个步骤了，直接匹配：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import re</span><br><span class="line"># 编译:</span><br><span class="line">&gt;&gt;&gt; re_telephone &#x3D; re.compile(r&#39;^(\d&#123;3&#125;)-(\d&#123;3,8&#125;)$&#39;)</span><br><span class="line"># 使用：</span><br><span class="line">&gt;&gt;&gt; re_telephone.match(&#39;010-12345&#39;).groups()</span><br><span class="line">(&#39;010&#39;, &#39;12345&#39;)</span><br><span class="line">&gt;&gt;&gt; re_telephone.match(&#39;010-8086&#39;).groups()</span><br><span class="line">(&#39;010&#39;, &#39;8086&#39;)</span><br></pre></td></tr></table></figure>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>如果一个正则表达式要重复使用几千次，出于效率的考虑，我们可以预编译该正则表达式，接下来重复使用时就不需要编译这个步骤了，直接匹配：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import re</span><br><span class="line"># 编译:</span><br><span class="line">&gt;&gt;&gt; re_telephone &#x3D; re.compile(r&#39;^(\d&#123;3&#125;)-(\d&#123;3,8&#125;)$&#39;)</span><br><span class="line"># 使用：</span><br><span class="line">&gt;&gt;&gt; re_telephone.match(&#39;010-12345&#39;).groups()</span><br><span class="line">(&#39;010&#39;, &#39;12345&#39;)</span><br><span class="line">&gt;&gt;&gt; re_telephone.match(&#39;010-8086&#39;).groups()</span><br><span class="line">(&#39;010&#39;, &#39;8086&#39;)</span><br></pre></td></tr></table></figure></p>
 <h1 id="用于Words标签"><a href="#用于Words标签" class="headerlink" title="用于Words标签"></a>用于Words标签</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[^a-z0-9()&#96;+~&#x3D;!*.\r#\s] 匹配删除Words标签</span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </div>
 
@@ -286,12 +269,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2000/01/01/Python%20%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B/" rel="prev" title="Python 集合类型">
-      <i class="fa fa-chevron-left"></i> Python 集合类型
+    <a href="/2000/01/01/Requests%20%E5%BA%93/" rel="prev" title="Requests 库">
+      <i class="fa fa-chevron-left"></i> Requests 库
     </a></div>
       <div class="post-nav-item">
-    <a href="/2000/01/01/Python%20%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA/" rel="next" title="Python 格式化输出">
-      Python 格式化输出 <i class="fa fa-chevron-right"></i>
+    <a href="/2000/01/01/Python%20%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B/" rel="next" title="Python 集合类型">
+      Python 集合类型 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -452,6 +435,8 @@
 
 
 
+
+  
 
   
 

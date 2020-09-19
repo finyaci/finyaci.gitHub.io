@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="1使用内建的isinstance函数可以判断一个变量是不是字符串： 123456&gt;&gt;&gt; x &#x3D; &#39;abc&#39;&gt;&gt;&gt; y &#x3D; 123&gt;&gt;&gt; isinstance(x, str)True&gt;&gt;&gt; isinstance(y, str)False 列表生成式 + if 123&gt;&gt;&gt; L">
+  <meta name="description" content="1使用内建的isinstance函数可以判断一个变量是不是字符串：123456&gt;&gt;&gt; x &#x3D; &#39;abc&#39;&gt;&gt;&gt; y &#x3D; 123&gt;&gt;&gt; isinstance(x, str)True&gt;&gt;&gt; isinstance(y, str)False列表生成式 + if123&gt;&gt;&gt; L1 &amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python 列表生成式">
 <meta property="og:url" content="http://example.com/2000/01/01/Python%20%E5%88%97%E8%A1%A8%E7%94%9F%E6%88%90%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Finyaci&#39;s Blog">
-<meta property="og:description" content="1使用内建的isinstance函数可以判断一个变量是不是字符串： 123456&gt;&gt;&gt; x &#x3D; &#39;abc&#39;&gt;&gt;&gt; y &#x3D; 123&gt;&gt;&gt; isinstance(x, str)True&gt;&gt;&gt; isinstance(y, str)False 列表生成式 + if 123&gt;&gt;&gt; L">
+<meta property="og:description" content="1使用内建的isinstance函数可以判断一个变量是不是字符串：123456&gt;&gt;&gt; x &#x3D; &#39;abc&#39;&gt;&gt;&gt; y &#x3D; 123&gt;&gt;&gt; isinstance(x, str)True&gt;&gt;&gt; isinstance(y, str)False列表生成式 + if123&gt;&gt;&gt; L1 &amp;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="1999-12-31T16:00:00.000Z">
 <meta property="article:modified_time" content="2020-09-18T15:06:11.429Z">
@@ -196,10 +196,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>使用内建的isinstance函数可以判断一个变量是不是字符串：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x &#x3D; &#39;abc&#39;</span><br><span class="line">&gt;&gt;&gt; y &#x3D; 123</span><br><span class="line">&gt;&gt;&gt; isinstance(x, str)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(y, str)</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
-<p>列表生成式 + if</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; L1 &#x3D; [&#39;Hello&#39;, &#39;World&#39;, 18, &#39;Apple&#39;, None]</span><br><span class="line">&gt;&gt;&gt; [data.lower() for data in L1 if isinstance(data,str)]</span><br><span class="line">[&#39;hello&#39;, &#39;world&#39;, &#39;apple&#39;]</span><br></pre></td></tr></table></figure>
+        <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>使用内建的isinstance函数可以判断一个变量是不是字符串：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x &#x3D; &#39;abc&#39;</span><br><span class="line">&gt;&gt;&gt; y &#x3D; 123</span><br><span class="line">&gt;&gt;&gt; isinstance(x, str)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(y, str)</span><br><span class="line">False</span><br></pre></td></tr></table></figure><br>列表生成式 + if<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; L1 &#x3D; [&#39;Hello&#39;, &#39;World&#39;, 18, &#39;Apple&#39;, None]</span><br><span class="line">&gt;&gt;&gt; [data.lower() for data in L1 if isinstance(data,str)]</span><br><span class="line">[&#39;hello&#39;, &#39;world&#39;, &#39;apple&#39;]</span><br></pre></td></tr></table></figure></p>
+
     </div>
 
     
@@ -217,12 +215,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2000/01/01/Python%20%E4%B8%ADis%E5%92%8C==%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="prev" title="Python中is和==的区别">
-      <i class="fa fa-chevron-left"></i> Python中is和==的区别
+    <a href="/2000/01/01/Python%20%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/" rel="prev" title="Python 字符编码">
+      <i class="fa fa-chevron-left"></i> Python 字符编码
     </a></div>
       <div class="post-nav-item">
-    <a href="/2000/01/01/Python%20with%E8%AF%AD%E5%8F%A5/" rel="next" title="Python with 语句">
-      Python with 语句 <i class="fa fa-chevron-right"></i>
+    <a href="/2000/01/01/Python%20%E4%B8%ADis%E5%92%8C==%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="next" title="Python中is和==的区别">
+      Python中is和==的区别 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -383,6 +381,8 @@
 
 
 
+
+  
 
   
 
