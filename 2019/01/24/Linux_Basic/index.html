@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1 目录简介 &#x2F;usr&#x2F;bin             可执行二进制文件 &#x2F;lib                 库文件 &#x2F;usr&#x2F;include         头文件  2 文件类型 d 目录文件 - 普通文件 l 链接文件         link c 硬件字符设备     char &#x2F;dev b 硬件块设备     block s 管道文件  3 文件权限-rw-r–r– root ro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux Basic">
+<meta property="og:url" content="http://example.com/2019/01/24/Linux_Basic/index.html">
+<meta property="og:site_name" content="Finyaci&#39;s Blog">
+<meta property="og:description" content="1 目录简介 &#x2F;usr&#x2F;bin             可执行二进制文件 &#x2F;lib                 库文件 &#x2F;usr&#x2F;include         头文件  2 文件类型 d 目录文件 - 普通文件 l 链接文件         link c 硬件字符设备     char &#x2F;dev b 硬件块设备     block s 管道文件  3 文件权限-rw-r–r– root ro">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-01-24T14:17:52.000Z">
+<meta property="article:modified_time" content="2019-05-29T01:15:25.150Z">
+<meta property="article:author" content="Finyaci">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2019/01/24/Linux_Basic/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Linux Basic | Finyaci's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Finyaci's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/24/Linux_Basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux Basic
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-01-24 22:17:52" itemprop="dateCreated datePublished" datetime="2019-01-24T22:17:52+08:00">2019-01-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-05-29 09:15:25" itemprop="dateModified" datetime="2019-05-29T09:15:25+08:00">2019-05-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-目录简介"><a href="#1-目录简介" class="headerlink" title="1 目录简介"></a>1 目录简介</h1><ul>
+<li>/usr/bin             可执行二进制文件</li>
+<li>/lib                 库文件</li>
+<li>/usr/include         头文件</li>
+</ul>
+<h1 id="2-文件类型"><a href="#2-文件类型" class="headerlink" title="2 文件类型"></a>2 文件类型</h1><ul>
+<li>d 目录文件</li>
+<li>- 普通文件</li>
+<li>l 链接文件         link</li>
+<li>c 硬件字符设备     char /dev</li>
+<li>b 硬件块设备     block</li>
+<li>s 管道文件</li>
+</ul>
+<h1 id="3-文件权限"><a href="#3-文件权限" class="headerlink" title="3 文件权限"></a>3 文件权限</h1><p>-rw-r–r– root root 文件所有者 用户组 其他用户 文件所有者 文件属于用户组<br>r read<br>w write<br>x exe</p>
+<ul>
+<li>whoami</li>
+<li>cat /etc/group</li>
+<li>cat /etc/passwd</li>
+</ul>
+<h1 id="4-命令查询"><a href="#4-命令查询" class="headerlink" title="4 命令查询"></a>4 命令查询</h1><ul>
+<li>command [-options][parameter1]</li>
+</ul>
+<h2 id="–help-查询"><a href="#–help-查询" class="headerlink" title="–help 查询"></a>–help 查询</h2><ul>
+<li>ls –help 查询ls的用法</li>
+</ul>
+<h2 id="man-查询"><a href="#man-查询" class="headerlink" title="man 查询"></a>man 查询</h2><p>f 前滚<br>b 后滚<br>h 所有功能键</p>
+<ul>
+<li><p>enter 滚一行</p>
+</li>
+<li><p>space 下一屏</p>
+</li>
+<li><p>/word 搜索word</p>
+</li>
+<li><p>man man</p>
+</li>
+<li><p>man 1 printf</p>
+</li>
+<li><p>man 3 printf</p>
+</li>
+</ul>
+<h2 id="查询章节"><a href="#查询章节" class="headerlink" title="查询章节"></a>查询章节</h2><ul>
+<li><p>whatis printf</p>
+</li>
+<li><p>output:</p>
+<p>printf (1)           - format and print data<br>printf (3)           - formatted output conversion</p>
+</li>
+</ul>
+<h2 id="which-查看命令的存放位置"><a href="#which-查看命令的存放位置" class="headerlink" title="which 查看命令的存放位置"></a>which 查看命令的存放位置</h2><ul>
+<li>which gcc</li>
+<li>which ls</li>
+<li>which rm</li>
+</ul>
+<h1 id="5-文件管理"><a href="#5-文件管理" class="headerlink" title="5 文件管理"></a>5 文件管理</h1><h2 id="ls-amp-输出重定向"><a href="#ls-amp-输出重定向" class="headerlink" title="ls &amp; 输出重定向"></a>ls &amp; 输出重定向</h2><ul>
+<li><p>ls 1.txt 可用于搜索</p>
+</li>
+<li><p>ls -lah &gt; 2.txt 输出重定向</p>
+</li>
+<li><p>ls &gt;&gt; 2.txt 追加</p>
+</li>
+<li><p>cat 1.txt 2.txt &gt; abc.txt 将12的内容取出重定向输出到abc</p>
+</li>
+</ul>
+<h2 id="分屏显示"><a href="#分屏显示" class="headerlink" title="分屏显示"></a>分屏显示</h2><ul>
+<li>more 2.txt</li>
+</ul>
+<h2 id="管道"><a href="#管道" class="headerlink" title="| 管道"></a>| 管道</h2><p>一个命令的输出可以作为另一个命令的输入</p>
+<ul>
+<li>cd /usr/include/</li>
+<li>ls | grep std</li>
+</ul>
+<p>output:</p>
+<p>stdc-predef.h<br>stdint.h<br>stdio_ext.h<br>stdio.h<br>stdlib.h<br>unistd.h</p>
+<ul>
+<li>ls /usr/include/ | more<br>分屏显示</li>
+</ul>
+<h2 id="清屏"><a href="#清屏" class="headerlink" title="清屏"></a>清屏</h2><ul>
+<li>ctrl+l</li>
+<li>clear</li>
+</ul>
+<h2 id="获取当前路径"><a href="#获取当前路径" class="headerlink" title="获取当前路径"></a>获取当前路径</h2><ul>
+<li>pwd</li>
+</ul>
+<h2 id="mkdir-rmdir-rm"><a href="#mkdir-rmdir-rm" class="headerlink" title="mkdir rmdir rm"></a>mkdir rmdir rm</h2><ul>
+<li>mkdir a/b/c -p     递归创建</li>
+<li>rmdir             无法递归删除</li>
+<li>rm a -rf         递归删除文件夹且不提示</li>
+<li>rm * -rf         慎用，全部删除</li>
+</ul>
+<h2 id="ln-建立链接文件"><a href="#ln-建立链接文件" class="headerlink" title="ln 建立链接文件"></a>ln 建立链接文件</h2><p>###链接普通文件</p>
+<ul>
+<li>ln -s 源文件 链接文件<br>###链接目录</li>
+<li>ln -s 源目录 链接目录</li>
+</ul>
+<h2 id="grep-文本查找"><a href="#grep-文本查找" class="headerlink" title="grep 文本查找"></a>grep 文本查找</h2><ul>
+<li><p>grep mike text.txt -n 显示行号</p>
+</li>
+<li><p>grep mike text.txt -i 忽略大小写</p>
+</li>
+<li><p>grep mike text.txt -v 取反</p>
+</li>
+<li><p>grep ^a text.txt -n     查找以a开头的行</p>
+</li>
+<li><p>grep ke$ text.txt -n     查找以ke结尾的行</p>
+</li>
+<li><p>grep 1 2 3 text.txt     查找关键字1或2或3</p>
+</li>
+<li><p>grep “1 2 3” text.txt     查找1 2 3整体</p>
+</li>
+</ul>
+<h2 id="find-查找文件"><a href="#find-查找文件" class="headerlink" title="find 查找文件"></a>find 查找文件</h2><ul>
+<li>find ./ -name *.c</li>
+<li>find /usr/include/ -name stdio*</li>
+<li>find ./ -size +12k -size -16k</li>
+<li>find ./ -perm 0777        搜索权限777的文件</li>
+</ul>
+<h2 id="cp-拷贝"><a href="#cp-拷贝" class="headerlink" title="cp 拷贝"></a>cp 拷贝</h2><ul>
+<li>cp src des -r          文件夹拷贝</li>
+<li>cp src.c des.c         文件拷贝</li>
+<li>-f 无提示 -v显示拷贝进度</li>
+<li>cp /lib ~/Test -rv     将/下lib文件夹拷贝至home的Test文件夹下</li>
+</ul>
+<h2 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h2><ul>
+<li>mv mike.c aaa.c                  改名</li>
+<li>mv mike.c ~/Test/bbb.c          移动到Test下并改名</li>
+</ul>
+<h2 id="file-查看文件类型"><a href="#file-查看文件类型" class="headerlink" title="file 查看文件类型"></a>file 查看文件类型</h2><ul>
+<li>file &lt;filename&gt;</li>
+</ul>
+<h2 id="tar-打包"><a href="#tar-打包" class="headerlink" title="tar 打包"></a>tar 打包</h2><ul>
+<li>tar -cvf name.tar *                 当前目录下所有文件打包       </li>
+<li>tar -cvf name.tar 1.txt 2.txt</li>
+<li>tar -xvf name.tar                      解包      </li>
+<li>tar -xvf name.tar -C ~/Test/1         解包到指定目录要加-C</li>
+</ul>
+<h2 id="查看文件夹大小"><a href="#查看文件夹大小" class="headerlink" title="查看文件夹大小"></a>查看文件夹大小</h2><ul>
+<li>du ~/Test -h</li>
+</ul>
+<h2 id="gzip-压缩"><a href="#gzip-压缩" class="headerlink" title="gzip 压缩"></a>gzip 压缩</h2><ul>
+<li>gzip [-r] xxx.tar  压缩成tar.gz</li>
+<li>gzip -d xxx.tar.gz 解压成tar文件</li>
+</ul>
+<h3 id="压缩打包"><a href="#压缩打包" class="headerlink" title="压缩打包"></a>压缩打包</h3><ul>
+<li>tar -cvzf name.tar.gz 1.txt</li>
+<li>tar -xvzf name.tar.gz</li>
+</ul>
+<h2 id="bzip2"><a href="#bzip2" class="headerlink" title="bzip2"></a>bzip2</h2><ul>
+<li>bzip2 [-z] xxx.tar</li>
+<li>bzip2 -d xxx.tar.bz2</li>
+</ul>
+<h3 id="压缩打包-1"><a href="#压缩打包-1" class="headerlink" title="压缩打包"></a>压缩打包</h3><ul>
+<li>tar -cvjf name.tar.gz 1.txt</li>
+<li>tar -xvjf name.tar.gz</li>
+</ul>
+<h2 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h2><ul>
+<li>zip压缩文件的目标文件不需要指定扩展名</li>
+<li>zip -r(必须要加此参数) 目标文件(没有扩展名) 源文件</li>
+<li>zip -r test *</li>
+</ul>
+<h2 id="unzip"><a href="#unzip" class="headerlink" title="unzip"></a>unzip</h2><ul>
+<li>unzip -d 路径(必须写) 解压文件</li>
+<li>unzip -d ./ test.zip</li>
+</ul>
+<h1 id="6-用户管理"><a href="#6-用户管理" class="headerlink" title="6 用户管理"></a>6 用户管理</h1><h2 id="who-whoami-w"><a href="#who-whoami-w" class="headerlink" title="who whoami w"></a>who whoami w</h2><ul>
+<li>whoami</li>
+<li>who</li>
+<li>w</li>
+</ul>
+<h2 id="su-用户切换"><a href="#su-用户切换" class="headerlink" title="su 用户切换"></a>su 用户切换</h2><ul>
+<li>sudo su [root]    切换到root用户</li>
+<li>sudo su - [root]  切换root用户并改变当前路径为root的目录</li>
+<li>sudo su finyaci 切换到普通用户</li>
+<li>sudo su - finyaci 切换到普通用户并改变当前路径</li>
+</ul>
+<h2 id="groupadd-groupdel-用户组增删"><a href="#groupadd-groupdel-用户组增删" class="headerlink" title="groupadd groupdel  用户组增删"></a>groupadd groupdel  用户组增删</h2><ul>
+<li>cat /etc/group    查看 用户组名 用户组id</li>
+<li>sudo groupadd g1</li>
+<li>sudo groupdel</li>
+</ul>
+<h2 id="usermod-useradd-userdel-用户增删改变用户组"><a href="#usermod-useradd-userdel-用户增删改变用户组" class="headerlink" title="usermod useradd userdel  用户增删改变用户组"></a>usermod useradd userdel  用户增删改变用户组</h2><ul>
+<li>cat /etc/passwd   查看用户信息 用户名 用户id 用户组id</li>
+<li>sudo useradd -d /home/finyaci finyaci -m  -d 指定主目录 用户名 -m如果指定目录不存在自动创建目录</li>
+<li>sudo useradd -d /home/g2u1 g2u1 -m -g g2  -g 指定用户组</li>
+<li>sudo usermod -g &lt;username&gt; &lt;groupname&gt;    改变用户所属的组别</li>
+<li>sudo uerdel &lt;username&gt;                    删除用户         </li>
+<li>sudo uerdel -r &lt;username&gt;                 删除用户并删除主目录</li>
+</ul>
+<h2 id="更改密码-passwd"><a href="#更改密码-passwd" class="headerlink" title="更改密码 passwd"></a>更改密码 passwd</h2><ul>
+<li>sudo passwd g2u1  </li>
+</ul>
+<h2 id="查看登录记录"><a href="#查看登录记录" class="headerlink" title="查看登录记录"></a>查看登录记录</h2><ul>
+<li>sudo last</li>
+</ul>
+<h2 id="chmod-修改文件权限"><a href="#chmod-修改文件权限" class="headerlink" title="chmod 修改文件权限"></a>chmod 修改文件权限</h2><p><strong>chmod u/g/o/a +/-/= rwx 文件</strong><br><strong>r–:4 -w-:2 –x:1 —:0</strong></p>
+<ul>
+<li>chmod u-w 1.txt</li>
+<li>chmod u=rx 1.txt</li>
+<li>chmod 777 1.txt</li>
+</ul>
+<p>&gt; 对于文件夹:<br>&gt; 没有r权限则无法查看文件夹内容<br>&gt; 没有x权限则无法进入文件夹<br>&gt; 没有w权限则无法在文件夹内新建或删除内容  </p>
+<h2 id="chown-chgrp-修改文件所有者-修改文件所属组"><a href="#chown-chgrp-修改文件所有者-修改文件所属组" class="headerlink" title="chown chgrp 修改文件所有者 修改文件所属组"></a>chown chgrp 修改文件所有者 修改文件所属组</h2><p><strong>-rw-r–r– root root</strong><br><strong>文件所有者权限 用户组权限 其他用户权限 文件所有者 文件属于用户组</strong><br><strong>chown 用户名 文件或目录</strong></p>
+<ul>
+<li>sudo chown g2u1 2.txt</li>
+<li>sudo chgrp g2 2.txt</li>
+</ul>
+<h1 id="6-系统管理"><a href="#6-系统管理" class="headerlink" title="6  系统管理"></a>6  系统管理</h1><h2 id="cal-date-查看日历-查看当前日期"><a href="#cal-date-查看日历-查看当前日期" class="headerlink" title="cal date 查看日历 查看当前日期"></a>cal date 查看日历 查看当前日期</h2><ul>
+<li>cal</li>
+<li>date</li>
+</ul>
+<h2 id="ps-查看进程信息"><a href="#ps-查看进程信息" class="headerlink" title="ps 查看进程信息"></a>ps 查看进程信息</h2><p><strong>-a 显示终端上所有进程</strong><br><strong>-u 显示进程详细状态</strong><br><strong>-x 显示没有终端控制的程序</strong><br><strong>-w 加宽显示</strong><br><strong>-r 显示正在运行的程序</strong>  </p>
+<ul>
+<li>ps -aux</li>
+</ul>
+<h3 id="借助管道过滤进程信息"><a href="#借助管道过滤进程信息" class="headerlink" title="借助管道过滤进程信息"></a>借助管道过滤进程信息</h3><ul>
+<li>ps -aux | grep g2u1</li>
+</ul>
+<h2 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h2><ul>
+<li>kill &lt;PID&gt;    终止进程</li>
+<li>kill -9 &lt;PID&gt; 杀死进程</li>
+</ul>
+<h2 id="top-动态显示进程"><a href="#top-动态显示进程" class="headerlink" title="top 动态显示进程"></a>top 动态显示进程</h2><p><strong>M：内存排序</strong><br><strong>P：CPU排序</strong><br><strong>T：运行时间排序</strong><br><strong>U：用户名筛选进程</strong><br><strong>K：输入PID杀死进程</strong><br><strong>q 退出 h 帮助</strong>  </p>
+<ul>
+<li>top</li>
+<li>top -d &lt;interval&gt; 指定更新时间间隔</li>
+</ul>
+<p><strong>ctrl+z 切换到后台</strong></p>
+<h2 id="amp-jobs-fg-后台程序"><a href="#amp-jobs-fg-后台程序" class="headerlink" title="&amp; jobs fg 后台程序"></a>&amp; jobs fg 后台程序</h2><p><strong>&amp; 在后台运行</strong></p>
+<ul>
+<li>vi hello.c<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">  getchar();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line">- gcc hello.c -o hello</span><br><span class="line">- ./hello &amp; 以后台方式运行</span><br><span class="line"></span><br><span class="line">**jobs 查看后台任务列表**  </span><br><span class="line">- jobs</span><br><span class="line">**fg 将后台任务放到前台执行**  </span><br><span class="line">- fg</span><br><span class="line">- fg <span class="number">1</span></span><br><span class="line">- fg <span class="number">2</span></span><br><span class="line"></span><br><span class="line">#<span class="meta"># reboot shutdown 关机重启</span></span><br><span class="line">- reboot                重启</span><br><span class="line">- shutdown -r now       重启</span><br><span class="line">- shutdown -h now       立刻关机</span><br><span class="line">- shutdown -h <span class="number">20</span>:<span class="number">25</span>     指定时间关机</span><br><span class="line">- shutdown -h +<span class="number">5</span>        五分钟后关机</span><br><span class="line"></span><br><span class="line">## 切换字符界面</span><br><span class="line">ctrl+alt+f2</span><br><span class="line">ctrl+alt+f7</span><br><span class="line"></span><br><span class="line">#<span class="meta"># df 查看磁盘空间</span></span><br><span class="line">- df -h</span><br><span class="line">- df ./ -h</span><br><span class="line"></span><br><span class="line">#<span class="meta"># du 查看文件夹大小</span></span><br><span class="line">- du ./ -h</span><br><span class="line">- du ./ -a 递归查看文件夹内文件大小</span><br><span class="line"></span><br><span class="line">#<span class="meta"># ifconfig 网络查看 (win下 ipconfig)</span></span><br><span class="line">- ifconfig</span><br><span class="line"></span><br><span class="line">#<span class="meta"># vi</span></span><br><span class="line">##<span class="meta"># vim配置</span></span><br><span class="line">- cd</span><br><span class="line">- vim .vimrc</span><br></pre></td></tr></table></figure>
+set showcmd<br>set number<pre><code></code></pre>
+</li>
+</ul>
+<h3 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h3><ul>
+<li>vi hello.c +5 光标默认第五行</li>
+<li>vi hello.c 使用vi创建文件并编辑  </li>
+</ul>
+<h3 id="基础命令-amp-快捷键"><a href="#基础命令-amp-快捷键" class="headerlink" title="基础命令&amp;快捷键"></a>基础命令&amp;快捷键</h3><h4 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h4><ul>
+<li>:wq shift+zz  退出保存</li>
+<li>:q!           退出不保存  </li>
+<li>:x            退出保存</li>
+<li>:X            加密</li>
+<li>:!<command>   暂时离开并执行命令</li>
+<li>:w filename   写入保存</li>
+</ul>
+<h4 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h4><ul>
+<li>i            光标左边插入模式</li>
+<li>shift+i      行首插入</li>
+<li>a            光标右边插入模式</li>
+<li>shift+a      行末插入</li>
+<li>x            删除</li>
+<li>dw           删除光标位置到下个单词</li>
+<li>db           删除光标位置到前个单词</li>
+<li>daw : delete the word under the cursor    </li>
+<li>caw : delete the word under the cursor and put you in insert mode</li>
+<li>o            光标下方开启新行</li>
+<li>shift+o      光标上方开启新行</li>
+</ul>
+<h4 id="复制粘贴撤销重做"><a href="#复制粘贴撤销重做" class="headerlink" title="复制粘贴撤销重做"></a>复制粘贴撤销重做</h4><ul>
+<li>[n]dd   剪切从当前行开始的n行</li>
+<li>[n]yy   复制从当前行开始的n行</li>
+<li>p       粘贴</li>
+<li>u 撤销</li>
+<li>. 重做</li>
+</ul>
+<h4 id="文本定位"><a href="#文本定位" class="headerlink" title="文本定位"></a>文本定位</h4><ul>
+<li>gg      文档开始</li>
+<li>shift+g 文档末尾</li>
+<li>[n]gg 或 [n]shift+g 指定文档位置</li>
+</ul>
+<h4 id="文本查找"><a href="#文本查找" class="headerlink" title="文本查找"></a>文本查找</h4><ul>
+<li>/字符串      查找相匹配的内容</li>
+<li>n           下一个</li>
+<li>shift+n     上一个</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/01/13/Numpy_Basic/" rel="prev" title="Numpy Basic">
+      <i class="fa fa-chevron-left"></i> Numpy Basic
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/02/12/Algorithm_Java/" rel="next" title="Algorithm">
+      Algorithm <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E7%9B%AE%E5%BD%95%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">1 目录简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">2 文件类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">3.</span> <span class="nav-text">3 文件权限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E5%91%BD%E4%BB%A4%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.</span> <span class="nav-text">4 命令查询</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%93help-%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.1.</span> <span class="nav-text">–help 查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#man-%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.2.</span> <span class="nav-text">man 查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%AB%A0%E8%8A%82"><span class="nav-number">4.3.</span> <span class="nav-text">查询章节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#which-%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4%E7%9A%84%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="nav-number">4.4.</span> <span class="nav-text">which 查看命令的存放位置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">5 文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ls-amp-%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">5.1.</span> <span class="nav-text">ls &amp; 输出重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B1%8F%E6%98%BE%E7%A4%BA"><span class="nav-number">5.2.</span> <span class="nav-text">分屏显示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%A1%E9%81%93"><span class="nav-number">5.3.</span> <span class="nav-text">| 管道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%85%E5%B1%8F"><span class="nav-number">5.4.</span> <span class="nav-text">清屏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E8%B7%AF%E5%BE%84"><span class="nav-number">5.5.</span> <span class="nav-text">获取当前路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mkdir-rmdir-rm"><span class="nav-number">5.6.</span> <span class="nav-text">mkdir rmdir rm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ln-%E5%BB%BA%E7%AB%8B%E9%93%BE%E6%8E%A5%E6%96%87%E4%BB%B6"><span class="nav-number">5.7.</span> <span class="nav-text">ln 建立链接文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#grep-%E6%96%87%E6%9C%AC%E6%9F%A5%E6%89%BE"><span class="nav-number">5.8.</span> <span class="nav-text">grep 文本查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#find-%E6%9F%A5%E6%89%BE%E6%96%87%E4%BB%B6"><span class="nav-number">5.9.</span> <span class="nav-text">find 查找文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cp-%E6%8B%B7%E8%B4%9D"><span class="nav-number">5.10.</span> <span class="nav-text">cp 拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mv"><span class="nav-number">5.11.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#file-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.12.</span> <span class="nav-text">file 查看文件类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tar-%E6%89%93%E5%8C%85"><span class="nav-number">5.13.</span> <span class="nav-text">tar 打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%A4%B9%E5%A4%A7%E5%B0%8F"><span class="nav-number">5.14.</span> <span class="nav-text">查看文件夹大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gzip-%E5%8E%8B%E7%BC%A9"><span class="nav-number">5.15.</span> <span class="nav-text">gzip 压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E6%89%93%E5%8C%85"><span class="nav-number">5.15.1.</span> <span class="nav-text">压缩打包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bzip2"><span class="nav-number">5.16.</span> <span class="nav-text">bzip2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E6%89%93%E5%8C%85-1"><span class="nav-number">5.16.1.</span> <span class="nav-text">压缩打包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zip"><span class="nav-number">5.17.</span> <span class="nav-text">zip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unzip"><span class="nav-number">5.18.</span> <span class="nav-text">unzip</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">6 用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#who-whoami-w"><span class="nav-number">6.1.</span> <span class="nav-text">who whoami w</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#su-%E7%94%A8%E6%88%B7%E5%88%87%E6%8D%A2"><span class="nav-number">6.2.</span> <span class="nav-text">su 用户切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#groupadd-groupdel-%E7%94%A8%E6%88%B7%E7%BB%84%E5%A2%9E%E5%88%A0"><span class="nav-number">6.3.</span> <span class="nav-text">groupadd groupdel  用户组增删</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#usermod-useradd-userdel-%E7%94%A8%E6%88%B7%E5%A2%9E%E5%88%A0%E6%94%B9%E5%8F%98%E7%94%A8%E6%88%B7%E7%BB%84"><span class="nav-number">6.4.</span> <span class="nav-text">usermod useradd userdel  用户增删改变用户组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E5%AF%86%E7%A0%81-passwd"><span class="nav-number">6.5.</span> <span class="nav-text">更改密码 passwd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%99%BB%E5%BD%95%E8%AE%B0%E5%BD%95"><span class="nav-number">6.6.</span> <span class="nav-text">查看登录记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chmod-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">6.7.</span> <span class="nav-text">chmod 修改文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chown-chgrp-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%89%80%E6%9C%89%E8%80%85-%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%89%80%E5%B1%9E%E7%BB%84"><span class="nav-number">6.8.</span> <span class="nav-text">chown chgrp 修改文件所有者 修改文件所属组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86"><span class="nav-number">7.</span> <span class="nav-text">6  系统管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cal-date-%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%8E%86-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%97%A5%E6%9C%9F"><span class="nav-number">7.1.</span> <span class="nav-text">cal date 查看日历 查看当前日期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ps-%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BF%A1%E6%81%AF"><span class="nav-number">7.2.</span> <span class="nav-text">ps 查看进程信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%80%9F%E5%8A%A9%E7%AE%A1%E9%81%93%E8%BF%87%E6%BB%A4%E8%BF%9B%E7%A8%8B%E4%BF%A1%E6%81%AF"><span class="nav-number">7.2.1.</span> <span class="nav-text">借助管道过滤进程信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kill"><span class="nav-number">7.3.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#top-%E5%8A%A8%E6%80%81%E6%98%BE%E7%A4%BA%E8%BF%9B%E7%A8%8B"><span class="nav-number">7.4.</span> <span class="nav-text">top 动态显示进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#amp-jobs-fg-%E5%90%8E%E5%8F%B0%E7%A8%8B%E5%BA%8F"><span class="nav-number">7.5.</span> <span class="nav-text">&amp; jobs fg 后台程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C"><span class="nav-number">7.5.1.</span> <span class="nav-text">基础操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4-amp-%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">7.5.2.</span> <span class="nav-text">基础命令&amp;快捷键</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%80%E5%87%BA"><span class="nav-number">7.5.2.1.</span> <span class="nav-text">退出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%93%8D%E4%BD%9C"><span class="nav-number">7.5.2.2.</span> <span class="nav-text">插入操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E6%92%A4%E9%94%80%E9%87%8D%E5%81%9A"><span class="nav-number">7.5.2.3.</span> <span class="nav-text">复制粘贴撤销重做</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E5%AE%9A%E4%BD%8D"><span class="nav-number">7.5.2.4.</span> <span class="nav-text">文本定位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%9F%A5%E6%89%BE"><span class="nav-number">7.5.2.5.</span> <span class="nav-text">文本查找</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Finyaci</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Finyaci</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="内存扩充覆盖技术：依照程序执行的逻辑顺序，互斥的程序段共享一个覆盖区交换（对换）技术：把一些暂时不用的进程（阻塞态或者低优先级的）换到外存中，获取内存空间虚拟存储技术：只将部分程序先调入内存运行（局部性原理，程序运行只局限于某个程序段，或者只使用某个存储空间） 进程线程18.简述一下线程的特点答：①轻型实体 线程中的实体基本上不拥有系统资源，只是有一点必不可少的、能保证独立运行的资源。②独立调度和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统">
+<meta property="og:url" content="http://example.com/2020/03/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Finyaci&#39;s Blog">
+<meta property="og:description" content="内存扩充覆盖技术：依照程序执行的逻辑顺序，互斥的程序段共享一个覆盖区交换（对换）技术：把一些暂时不用的进程（阻塞态或者低优先级的）换到外存中，获取内存空间虚拟存储技术：只将部分程序先调入内存运行（局部性原理，程序运行只局限于某个程序段，或者只使用某个存储空间） 进程线程18.简述一下线程的特点答：①轻型实体 线程中的实体基本上不拥有系统资源，只是有一点必不可少的、能保证独立运行的资源。②独立调度和">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-25T07:23:22.000Z">
+<meta property="article:modified_time" content="2020-05-15T09:52:46.000Z">
+<meta property="article:author" content="Finyaci">
+<meta property="article:tag" content="CS BASIC">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/03/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>操作系统 | Finyaci's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Finyaci's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/03/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-25 15:23:22" itemprop="dateCreated datePublished" datetime="2020-03-25T15:23:22+08:00">2020-03-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-15 17:52:46" itemprop="dateModified" datetime="2020-05-15T17:52:46+08:00">2020-05-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="内存扩充"><a href="#内存扩充" class="headerlink" title="内存扩充"></a>内存扩充</h1><p>覆盖技术：依照程序执行的逻辑顺序，互斥的程序段共享一个覆盖区<br>交换（对换）技术：把一些暂时不用的进程（阻塞态或者低优先级的）换到外存中，获取内存空间<br>虚拟存储技术：只将部分程序先调入内存运行（局部性原理，程序运行只局限于某个程序段，或者只使用某个存储空间）</p>
+<h1 id="进程线程"><a href="#进程线程" class="headerlink" title="进程线程"></a>进程线程</h1><p>18.简述一下线程的特点<br>答：①轻型实体 线程中的实体基本上不拥有系统资源，只是有一点必不可少的、能保证独立运行的资源。<br>②独立调度和分派的基本单位。<br>在多线程OS中，线程是能独立运行的基本单位，因而也是独立调度和分派的基本单位<br>③    可并发执行<br>④    共享进程资源，同一进程中的各个线程，都可以共享该进程所拥有的资源<br>19.简述进程的特点<br>答：①动态性：进程是程序的一次执行，它有着创建、活动、暂停、终止等过程，具有一定的生命周期，是动态地产生、变化和消亡的<br>②并发性：指多个进程实体，同存于内存中，能在一段时间内同时运行，并发性是进程的重要特征，同时也是操作系统的重要特征<br>③    独立性：指进程实体是一个能独立运行、独立获得资源和独立接受调度的基本单位<br>④    异步性：由于进程的相互制约，使进程具有执行的间断性，即进程按各自独立的、 不可预知的速度向前推进。异步性会导致执行结果的不可再现性<br>⑤    结构性：每个进程都配置一个PCB对其进行描述。从结构上看，进程实体是由程序段、数据段和进程控制段三部分组成的。<br>20.进程和线程的延伸题目<br>进程与线程的比较：①调度单位，在引入线程的操作系统中，进程只作为资源分配的基本单位，线程则作为调度和分派的基本单位②在引入线程的操作系统中，不仅进程之间可以并发执行，一个进程中的多个线程也可以并发执行。③拥有资源，进程是拥有资源的独立单位，线程基本上不拥有资源，只用有少量不可少的资源④系统开销，在进程中创建一个新的线程比创建一个新的进程所需要的时间要少，撤销一个线程比撤销一个进程需要的时间要少，线程之间的切换比进程之间的切换花费的时间要少。</p>
+<h1 id="信号量机制实现同步和互斥"><a href="#信号量机制实现同步和互斥" class="headerlink" title="信号量机制实现同步和互斥"></a>信号量机制实现同步和互斥</h1><p>PS：实现互斥操作的P要走实现同步的P之后</p>
+<h2 id="信号量分类"><a href="#信号量分类" class="headerlink" title="信号量分类"></a>信号量分类</h2><p>整形信号量：有一个用于表示资源数量的变量，缺点：忙等<br>记录型信号量：一个用于表示资源数量的变量+进程队列，让权等待</p>
+<h2 id="信号量实现互斥"><a href="#信号量实现互斥" class="headerlink" title="信号量实现互斥"></a>信号量实现互斥</h2><p>信号量的值设为1<br>进入临界区之前执行P操作 信号量-1，如果信号量小于零则进行阻塞<br>出临界区之后执行V操作 信号量+1，如果信号量大于零则唤醒进程</p>
+<h2 id="信号量实现同步"><a href="#信号量实现同步" class="headerlink" title="信号量实现同步"></a>信号量实现同步</h2><p>信号量设置为0<br>先执行的操作执行过后执行V操作<br>后执行的操作执行前执行P操作<br>即可实现多段进程按顺序进行协作</p>
+<h1 id="管程"><a href="#管程" class="headerlink" title="管程"></a>管程</h1><p>使用管程则进程之间的互斥操作可以有编译器完成而无需程序员来完成，因而可以更方便地实现同步和互斥操作<br>管程的特点：<br>局部数据只能被局部于管程的过程所访问<br>一个进程只能通过调用管程的过程才能访问管程中的数据<br>一次只能有一个进程进入管程</p>
+<h1 id="内存分配方式"><a href="#内存分配方式" class="headerlink" title="内存分配方式"></a>内存分配方式</h1><h2 id="连续分配方式"><a href="#连续分配方式" class="headerlink" title="连续分配方式"></a>连续分配方式</h2><h3 id="单一连续分配"><a href="#单一连续分配" class="headerlink" title="单一连续分配"></a>单一连续分配</h3><p>内存由一道程序独占</p>
+<h3 id="固定分区分配"><a href="#固定分区分配" class="headerlink" title="固定分区分配"></a>固定分区分配</h3><p>内存区域实现划分，能装入内存的程序数目有限</p>
+<h3 id="动态分区分配"><a href="#动态分区分配" class="headerlink" title="动态分区分配"></a>动态分区分配</h3><p>使用空闲分区表或者空闲分区链表，对内存进行分配</p>
+<h4 id="分配算法：基于顺序搜索"><a href="#分配算法：基于顺序搜索" class="headerlink" title="分配算法：基于顺序搜索"></a>分配算法：基于顺序搜索</h4><p>FF（首次适应） 空闲地址按从小到达排序，从头开始找一个满足要求的空闲分区，造成低地址碎片较多<br>NF（循环首次/邻近适应） 从上一次分配的空闲分区开始查找，直到找到一个满足要求的空闲分区，空闲分区分布均匀<br>BF（最佳适应） 找到一个最小且能满足要求的空闲分区，每次分割留下的都是些小碎片，长时间就会有很多难利用的小碎片<br>WF（最坏适应） 总是分配最大的空闲分区，产生碎片的可能性最小，但会造成缺乏大空间</p>
+<h4 id="分配算法：基于索引搜索"><a href="#分配算法：基于索引搜索" class="headerlink" title="分配算法：基于索引搜索"></a>分配算法：基于索引搜索</h4><p>快速适应算法：相同大小的空闲空间用同一个链表记录，例如2K，4K，8K等等，分配时将一整块进行分配<br>伙伴系统：</p>
+<h3 id="动态可重定位分配"><a href="#动态可重定位分配" class="headerlink" title="动态可重定位分配"></a>动态可重定位分配</h3><p>使用紧凑技术，程序不需要作任何修改，拥有重定位寄存器实现地址的重定位</p>
+<h2 id="分页分配方式"><a href="#分页分配方式" class="headerlink" title="分页分配方式"></a>分页分配方式</h2><p>使用页表记录逻辑页面和物理块号的映射关系</p>
+<h3 id="地址变换"><a href="#地址变换" class="headerlink" title="地址变换"></a>地址变换</h3><p>页号找到对应物理块号<br>物理块的地址加上页内偏移量得到最终物理地址<br>快表：高速缓冲寄存器，内容是页表中的一部分或全部内容，先查询快表如果命中就直接取出物理块号不用再到内存中查询。（查询快表的速度高于内存）（快表命中一次访存一次访问快表，否则要两次访存）</p>
+<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><h2 id="产生死锁的必要条件"><a href="#产生死锁的必要条件" class="headerlink" title="产生死锁的必要条件"></a>产生死锁的必要条件</h2><ol>
+<li>互斥：某一时间某个资源只能被一个进程访问</li>
+<li>请求和保持：进程已经拥有一个资源，又请求新的资源，而该资源被其他进程占用</li>
+<li>不可抢占：资源是不可抢占的，该资源被分配出去在未使用完之前是不可被抢占的</li>
+<li>循环等待：死锁的进程一个等待另一个，资源分配图是环形的</li>
+</ol>
+<h2 id="预防死锁"><a href="#预防死锁" class="headerlink" title="预防死锁"></a>预防死锁</h2><ol>
+<li>安全序列，以某种不会引起死锁的资源分配次序给进程分配资源</li>
+<li>破坏请求和保持条件：1)把该进程要用到的所有资源都分配给它 2)先给一部分，再请求新的资源时要释放原来占有的资源</li>
+<li>破坏不可抢占：选一个代价比较小的，将其资源回收</li>
+<li>破坏循环等待：将系统资源分等级，资源请求必须先从低等级开始，就不会产生环</li>
+</ol>
+<h1 id="虚拟存储器"><a href="#虚拟存储器" class="headerlink" title="虚拟存储器"></a>虚拟存储器</h1><p>虚拟存储器：在逻辑上对内存容量加以扩充的存储器系统，有基本的请求调入和置换功能<br>多次性：作业多次调入内存运行<br>对换性：换入换出<br>虚拟性：逻辑上扩充内存</p>
+<h2 id="请求分页的硬件支持"><a href="#请求分页的硬件支持" class="headerlink" title="请求分页的硬件支持"></a>请求分页的硬件支持</h2><ol>
+<li>请求分页页表机制，对传统的页表作了一些扩充</li>
+<li>缺页中断机构</li>
+<li>地址变换机构</li>
+</ol>
+<h2 id="请求分页内存分配策略"><a href="#请求分页内存分配策略" class="headerlink" title="请求分页内存分配策略"></a>请求分页内存分配策略</h2><p>固定分配：分配给每个进程的物理块数目不变<br>可变分配：可根据情况适当增加啊或减少物理块的分配<br>局部置换：置换时，只能在原先分配的物理块中置换<br>全局置换：置换时，可获得新的物理块</p>
+<p>固定分配局部置换，<br>可变分配全局置换，只要产生了缺页中断就获得新物理块<br>可变分配局部置换，只有在缺页率比较高的时候才分配新物理块</p>
+<h2 id="页面置换算法-缺页时选择将哪页调出内存"><a href="#页面置换算法-缺页时选择将哪页调出内存" class="headerlink" title="页面置换算法 缺页时选择将哪页调出内存"></a>页面置换算法 缺页时选择将哪页调出内存</h2><p>OPT（最优置换算法）根据未来工作集的状况，优先淘汰内存中未来很长一段时间不会访问（或者永远不会访问）的页面 难以实现，无法预测<br>FIFO （先入先出） 性能差 贝拉迪异常（给的物理块多反而缺页次数更多）<br>LRU（最近最久未使用） 根据页面在内存中的上一次被访问到现在的时间来淘汰页面 使用寄存器（记录时间），栈实现 开销大<br>LFU（最少使用）寄存器记录页面访问次数，次数最少的优先淘汰</p>
+<p>Clock置换算法 不需要寄存器，每页设置访问位，通过链接连成循环队列，访问过的页面访问位置1，淘汰时优先淘汰访问位为0的页面 开销均衡</p>
+<h2 id="抖动"><a href="#抖动" class="headerlink" title="抖动"></a>抖动</h2><p>抖动：系统中进程太多，每个进程持有的物理块太少，就会导致大量进程缺页，进而造成频繁地换入换出<br>工作集：某段时间间隔内，进程要访问的页面集合<br>驻留集：</p>
+<p>抖动预防：</p>
+<ol>
+<li>暂停某些进程，减少系统中的进程数量</li>
+<li>L=S准则 L缺页的平均时间 S置换页面的平均时间</li>
+<li>采用局部置换，将抖动限定在很小的范围内</li>
+</ol>
+<h1 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h1><h2 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h2><p>文件目录是一种特殊的有结构的文件<br>FCB文件控制块是文件目录中的一项，一个文件有一个FCB<br>FCB实现按名存取，实现文件名和物理地址的映射</p>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>单级目录结构：整个系统只有一张目录，不允许重名<br>两级目录结构：主文件目录MFD-存放用户的目录 用户文件目录UFD-每个用户拥有的文件的目录 不同用户的文件可以重名<br>多级目录结构：树形目录结构 根目录 不同目录下的文件可以重名-不便实现文件共享<br>绝对路径，从根目录开始<br>相对路径，从当前目录开始 减少I/O次数<br>无环图目录结构：不同文件名指向一个文件<br>共享计数器，文件被共享的用户数目，为0才可以删除</p>
+<h2 id="索引节点（FCB改进技术）-减少磁盘I-O"><a href="#索引节点（FCB改进技术）-减少磁盘I-O" class="headerlink" title="索引节点（FCB改进技术）- 减少磁盘I/O"></a>索引节点（FCB改进技术）- 减少磁盘I/O</h2><p>将除文件名之外的所有信息用索引指针链接单独存放<br>FCB就只剩下文件名和索引指针，单个磁盘块可存放的FCB就增多，可以减少I/O次数</p>
+<h1 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h1><h2 id="外存组织方式-文件存储的方式"><a href="#外存组织方式-文件存储的方式" class="headerlink" title="外存组织方式:文件存储的方式"></a>外存组织方式:文件存储的方式</h2><ol>
+<li>连续组织方式</li>
+<li>链式组织方式</li>
+<li>索引组织方式</li>
+</ol>
+<h3 id="连续组织方式"><a href="#连续组织方式" class="headerlink" title="连续组织方式"></a>连续组织方式</h3><p>速度快，磁盘碎片多</p>
+<h3 id="链式组织方式"><a href="#链式组织方式" class="headerlink" title="链式组织方式"></a>链式组织方式</h3><p>隐式链接 文件末尾指针指向下一个文件所在盘块<br>显示链接 FCB存放文件的第一个盘块号 FAT存放在内存中艺链表形式指向下一个盘块所在的物理块号、</p>
+<p>簇：一组相邻的扇区，操作系统读写硬盘的最小单位</p>
+<h3 id="索引组织方式"><a href="#索引组织方式" class="headerlink" title="索引组织方式"></a>索引组织方式</h3><p>为文件提供索引表（类似于页表），逻辑块和物理块的映射关系，该文件占有的盘块记录在表中，当使用到哪个文件时，只将该文件的盘号调入内存<br>单一索引 索引块容量够<br>多级索引 索引块容量不够，一个文件有多个索引块，索引块之间有有索引将它们连接</p>
+<h2 id="空闲空间的管理方式"><a href="#空闲空间的管理方式" class="headerlink" title="空闲空间的管理方式"></a>空闲空间的管理方式</h2><h3 id="空闲表法，用于连续分配方式"><a href="#空闲表法，用于连续分配方式" class="headerlink" title="空闲表法，用于连续分配方式"></a>空闲表法，用于连续分配方式</h3><p>记录了空闲区的第一个盘块号和剩余空闲盘区数</p>
+<h3 id="空闲链表法"><a href="#空闲链表法" class="headerlink" title="空闲链表法"></a>空闲链表法</h3><p>空闲盘块链<br>空闲盘区链（盘区包含若干盘块）</p>
+<h3 id="位视图法，二维数组记录盘块使用情况"><a href="#位视图法，二维数组记录盘块使用情况" class="headerlink" title="位视图法，二维数组记录盘块使用情况"></a>位视图法，二维数组记录盘块使用情况</h3><h3 id="成组链接法，UNIX适用于大系统"><a href="#成组链接法，UNIX适用于大系统" class="headerlink" title="成组链接法，UNIX适用于大系统"></a>成组链接法，UNIX适用于大系统</h3><p>盘块栈记录了空闲盘块的数目和盘块号<br>盘块栈的第一个盘块用于记录下一个盘块栈的盘块号，其余用于分配文件</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CS-BASIC/" rel="tag"># CS BASIC</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/23/Machine%20Learing/" rel="prev" title="Machine Learning">
+      <i class="fa fa-chevron-left"></i> Machine Learning
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/26/Mysql_EXERCISE/" rel="next" title="Mysql_Exercise">
+      Mysql_Exercise <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%89%A9%E5%85%85"><span class="nav-number">1.</span> <span class="nav-text">内存扩充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">进程线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E5%92%8C%E4%BA%92%E6%96%A5"><span class="nav-number">3.</span> <span class="nav-text">信号量机制实现同步和互斥</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%88%86%E7%B1%BB"><span class="nav-number">3.1.</span> <span class="nav-text">信号量分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E4%BA%92%E6%96%A5"><span class="nav-number">3.2.</span> <span class="nav-text">信号量实现互斥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5"><span class="nav-number">3.3.</span> <span class="nav-text">信号量实现同步</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%A1%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">管程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">内存分配方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">5.1.</span> <span class="nav-text">连续分配方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%B8%80%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D"><span class="nav-number">5.1.1.</span> <span class="nav-text">单一连续分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D"><span class="nav-number">5.1.2.</span> <span class="nav-text">固定分区分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D"><span class="nav-number">5.1.3.</span> <span class="nav-text">动态分区分配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E7%AE%97%E6%B3%95%EF%BC%9A%E5%9F%BA%E4%BA%8E%E9%A1%BA%E5%BA%8F%E6%90%9C%E7%B4%A2"><span class="nav-number">5.1.3.1.</span> <span class="nav-text">分配算法：基于顺序搜索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E7%AE%97%E6%B3%95%EF%BC%9A%E5%9F%BA%E4%BA%8E%E7%B4%A2%E5%BC%95%E6%90%9C%E7%B4%A2"><span class="nav-number">5.1.3.2.</span> <span class="nav-text">分配算法：基于索引搜索</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%8F%AF%E9%87%8D%E5%AE%9A%E4%BD%8D%E5%88%86%E9%85%8D"><span class="nav-number">5.1.4.</span> <span class="nav-text">动态可重定位分配</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">5.2.</span> <span class="nav-text">分页分配方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E5%8F%98%E6%8D%A2"><span class="nav-number">5.2.1.</span> <span class="nav-text">地址变换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%BB%E9%94%81"><span class="nav-number">6.</span> <span class="nav-text">死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E6%AD%BB%E9%94%81%E7%9A%84%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="nav-number">6.1.</span> <span class="nav-text">产生死锁的必要条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E9%98%B2%E6%AD%BB%E9%94%81"><span class="nav-number">6.2.</span> <span class="nav-text">预防死锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">7.</span> <span class="nav-text">虚拟存储器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%88%86%E9%A1%B5%E7%9A%84%E7%A1%AC%E4%BB%B6%E6%94%AF%E6%8C%81"><span class="nav-number">7.1.</span> <span class="nav-text">请求分页的硬件支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%88%86%E9%A1%B5%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5"><span class="nav-number">7.2.</span> <span class="nav-text">请求分页内存分配策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95-%E7%BC%BA%E9%A1%B5%E6%97%B6%E9%80%89%E6%8B%A9%E5%B0%86%E5%93%AA%E9%A1%B5%E8%B0%83%E5%87%BA%E5%86%85%E5%AD%98"><span class="nav-number">7.3.</span> <span class="nav-text">页面置换算法 缺页时选择将哪页调出内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%96%E5%8A%A8"><span class="nav-number">7.4.</span> <span class="nav-text">抖动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86"><span class="nav-number">8.</span> <span class="nav-text">文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="nav-number">8.1.</span> <span class="nav-text">文件目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">8.2.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E8%8A%82%E7%82%B9%EF%BC%88FCB%E6%94%B9%E8%BF%9B%E6%8A%80%E6%9C%AF%EF%BC%89-%E5%87%8F%E5%B0%91%E7%A3%81%E7%9B%98I-O"><span class="nav-number">8.3.</span> <span class="nav-text">索引节点（FCB改进技术）- 减少磁盘I&#x2F;O</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86"><span class="nav-number">9.</span> <span class="nav-text">磁盘管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E5%AD%98%E7%BB%84%E7%BB%87%E6%96%B9%E5%BC%8F-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">9.1.</span> <span class="nav-text">外存组织方式:文件存储的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E7%BB%84%E7%BB%87%E6%96%B9%E5%BC%8F"><span class="nav-number">9.1.1.</span> <span class="nav-text">连续组织方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E5%BC%8F%E7%BB%84%E7%BB%87%E6%96%B9%E5%BC%8F"><span class="nav-number">9.1.2.</span> <span class="nav-text">链式组织方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%BB%84%E7%BB%87%E6%96%B9%E5%BC%8F"><span class="nav-number">9.1.3.</span> <span class="nav-text">索引组织方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E9%97%B2%E7%A9%BA%E9%97%B4%E7%9A%84%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="nav-number">9.2.</span> <span class="nav-text">空闲空间的管理方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B2%E8%A1%A8%E6%B3%95%EF%BC%8C%E7%94%A8%E4%BA%8E%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">9.2.1.</span> <span class="nav-text">空闲表法，用于连续分配方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E9%97%B2%E9%93%BE%E8%A1%A8%E6%B3%95"><span class="nav-number">9.2.2.</span> <span class="nav-text">空闲链表法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E8%A7%86%E5%9B%BE%E6%B3%95%EF%BC%8C%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E8%AE%B0%E5%BD%95%E7%9B%98%E5%9D%97%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5"><span class="nav-number">9.2.3.</span> <span class="nav-text">位视图法，二维数组记录盘块使用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E7%BB%84%E9%93%BE%E6%8E%A5%E6%B3%95%EF%BC%8CUNIX%E9%80%82%E7%94%A8%E4%BA%8E%E5%A4%A7%E7%B3%BB%E7%BB%9F"><span class="nav-number">9.2.4.</span> <span class="nav-text">成组链接法，UNIX适用于大系统</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Finyaci</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Finyaci</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

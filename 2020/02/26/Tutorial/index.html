@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="0 SQL ADDcheckALTAER TABLE tableADD CONSTRAINT C1 CHECK(Ssage&gt;20); ALTAER TABLE tableADD CONSTRAINT C1 CHECK(Ssex IN(‘男’,’女’)); select intoSELECT * INTO new_table_name FROM old_table_name; SELECT S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql_Basic">
+<meta property="og:url" content="http://example.com/2020/02/26/Tutorial/index.html">
+<meta property="og:site_name" content="Finyaci&#39;s Blog">
+<meta property="og:description" content="0 SQL ADDcheckALTAER TABLE tableADD CONSTRAINT C1 CHECK(Ssage&gt;20); ALTAER TABLE tableADD CONSTRAINT C1 CHECK(Ssex IN(‘男’,’女’)); select intoSELECT * INTO new_table_name FROM old_table_name; SELECT S">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-02-26T04:37:22.000Z">
+<meta property="article:modified_time" content="2020-04-12T07:37:24.000Z">
+<meta property="article:author" content="Finyaci">
+<meta property="article:tag" content="Mysql">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/02/26/Tutorial/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Mysql_Basic | Finyaci's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Finyaci's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/26/Tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mysql_Basic
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-26 12:37:22" itemprop="dateCreated datePublished" datetime="2020-02-26T12:37:22+08:00">2020-02-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-12 15:37:24" itemprop="dateModified" datetime="2020-04-12T15:37:24+08:00">2020-04-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="0-SQL-ADD"><a href="#0-SQL-ADD" class="headerlink" title="0 SQL ADD"></a>0 SQL ADD</h1><h2 id="check"><a href="#check" class="headerlink" title="check"></a>check</h2><p>ALTAER TABLE table<br>ADD CONSTRAINT C1 CHECK(Ssage&gt;20);</p>
+<p>ALTAER TABLE table<br>ADD CONSTRAINT C1 CHECK(Ssex IN(‘男’,’女’));</p>
+<h2 id="select-into"><a href="#select-into" class="headerlink" title="select into"></a>select into</h2><p>SELECT * INTO new_table_name FROM old_table_name;</p>
+<p>SELECT Sno,Sname,Sage INTO new_table_name FROM old_table_name;</p>
+<h2 id="with-check-option"><a href="#with-check-option" class="headerlink" title="with check option"></a>with check option</h2><p>CREATE VIEW viewname<br>AS<br>SELECT * FROM SC<br>WITH CHECK OPTION;s</p>
+<h1 id="修改表名列名"><a href="#修改表名列名" class="headerlink" title="修改表名列名"></a>修改表名列名</h1><p>alter table 表名 change 原列名 新列名  类型； –修改表的列属性名<br>alter table 表名 modify 列名 类型 ；  –修改表的类类型<br>alter table 表名 drop 列名；  –删除表的某一列<br>alter table 表名 add  列名 类型；–添加某一列<br>alter table 表名 rename 新表名； –修改表名</p>
+<h1 id="1-命令行指令"><a href="#1-命令行指令" class="headerlink" title="1 命令行指令"></a>1 命令行指令</h1><p>net start mysql<br>net stop mysql<br>mysql -u root -p123</p>
+<p>alter table course add foreign key (Cpno) references course(Cno); # 添加外键指向course的Cno</p>
+<p>CREATE TABLE newuser LIKE user;<br>INSERT INTO newuser SELECT * FROM user;</p>
+<h1 id="语句格式"><a href="#语句格式" class="headerlink" title="语句格式"></a>语句格式</h1><h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INSERT</span><br><span class="line">INTO Student</span><br><span class="line">VALUES(&#39;201215121&#39;,&#39;李勇&#39;,&#39;男&#39;,&#39;20&#39;,&#39;CS&#39;);</span><br></pre></td></tr></table></figure>
+<h2 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DELETE</span><br><span class="line">FROM Student</span><br><span class="line">WHERE Sage&lt;20;</span><br></pre></td></tr></table></figure>
+
+<h2 id="更新数据"><a href="#更新数据" class="headerlink" title="更新数据"></a>更新数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE Student</span><br><span class="line">SET Sdept&#x3D;&#39;CS&#39;</span><br><span class="line">WHERE Sno&#x3D;201215121;</span><br></pre></td></tr></table></figure>
+
+<h2 id="建立视图"><a href="#建立视图" class="headerlink" title="建立视图"></a>建立视图</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW viewname</span><br><span class="line">AS</span><br><span class="line">SELECT * FROM tableA</span><br><span class="line">[WITH CHECK OPTION];</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除视图"><a href="#删除视图" class="headerlink" title="删除视图"></a>删除视图</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DROP VIEW proview</span><br><span class="line">[CASCADE];</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询建表"><a href="#查询建表" class="headerlink" title="查询建表"></a>查询建表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * INTO newtable </span><br><span class="line">FROM oldtable;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE dept(</span><br><span class="line">Did SMALLINT PRIMARY KEY,</span><br><span class="line">Dname CHAR(5) UNIQUE NOT NULL,</span><br><span class="line">Daddress CHAR(5) UNIQUE);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE employees(</span><br><span class="line">Eid SMALLINT,</span><br><span class="line">Ename CHAR(5),</span><br><span class="line">Eage TINYINT,</span><br><span class="line">EmpDate DATE,</span><br><span class="line">salary FLOAT,</span><br><span class="line">tel CHAR(10),</span><br><span class="line">Did SMALLINT,</span><br><span class="line">PRIMARY KEY(Eid),</span><br><span class="line">FOREIGN KEY(Did) REFERENCES dept(Did));</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE tablename</span><br><span class="line">[CASCADE|RESTRICT];</span><br><span class="line"># CASCADE 该表删除没有限制条件，相关依赖对象一并删除，例如视图</span><br><span class="line"># RESTRICT 该表删除有限制条件，如果有依赖对象则无法删除。（如果表有视图，触发器，存储过程，函数，表的约束例如CHECK，FOREIGN KEY，则表无法删除）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="更新表"><a href="#更新表" class="headerlink" title="更新表"></a>更新表</h2><h3 id="更改表名"><a href="#更改表名" class="headerlink" title="更改表名"></a>更改表名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="更改表项"><a href="#更改表项" class="headerlink" title="更改表项"></a>更改表项</h3><p>使用UPDATE，DELETE FROM，INSERT INTO</p>
+<h3 id="添加列"><a href="#添加列" class="headerlink" title="添加列"></a>添加列</h3><ul>
+<li>sql</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ddept</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">COLUMN</span> <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE ddept</span><br><span class="line">ADD income INT NOT NULL;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h3><ul>
+<li>sql</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ddept</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> income[<span class="keyword">CASCADE</span>|RESTRICT];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>mysql</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE ddept</span><br><span class="line">DROP income;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="更改列名"><a href="#更改列名" class="headerlink" title="更改列名"></a>更改列名</h3><ul>
+<li>sql</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>mysql</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="更改列类型"><a href="#更改列类型" class="headerlink" title="更改列类型"></a>更改列类型</h3><ul>
+<li>sql</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ddept</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">COLUMN</span> income <span class="built_in">INT</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>mysql</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE ddept</span><br><span class="line">MODIFY income INT;</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加表级完整性约束"><a href="#添加表级完整性约束" class="headerlink" title="添加表级完整性约束"></a>添加表级完整性约束</h3><ul>
+<li>sql<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ddept</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> C2 <span class="keyword">CHECK</span>(Sno <span class="keyword">BETWEEN</span> <span class="number">90000</span> <span class="keyword">AND</span> <span class="number">99999</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ddept</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> C3 <span class="keyword">UNIQUE</span>(<span class="keyword">Sid</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ddept</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> C4 <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (<span class="keyword">Sid</span>) <span class="keyword">references</span> employees(Did);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="删除表级完整性约束"><a href="#删除表级完整性约束" class="headerlink" title="删除表级完整性约束"></a>删除表级完整性约束</h3><ul>
+<li><p>sql</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> ddept</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">CONSTRAINT</span> C1;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mysql</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> CLUSTER <span class="keyword">INDEX</span> IX_ProOut <span class="keyword">ON</span> ProOut (SaleDate); <span class="comment"># 唯一聚类</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> IX_Customer <span class="keyword">ON</span> Customer (CusName); <span class="comment"># 非唯一</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> IX_Product <span class="keyword">ON</span> Product (ProName)； <span class="comment"># 唯一</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> IX_SC <span class="keyword">ON</span> SC（Sno <span class="keyword">ASC</span>,Cno <span class="keyword">DESC</span>）； <span class="comment"># 唯一升序</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">INDEX</span> IX_SC;</span><br></pre></td></tr></table></figure>
+
+<h2 id="重命名索引"><a href="#重命名索引" class="headerlink" title="重命名索引"></a>重命名索引</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">INDEX</span> IX_SC <span class="keyword">RENAME</span> <span class="keyword">TO</span> NEW_IX_SC;</span><br></pre></td></tr></table></figure>
+
+<h2 id="授予权限GRANT"><a href="#授予权限GRANT" class="headerlink" title="授予权限GRANT"></a>授予权限GRANT</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">INSERT</span>,<span class="keyword">UPDATE</span>(Sno),<span class="keyword">DELETE</span>,<span class="keyword">REFERENCES</span>,<span class="keyword">SELECT</span></span><br><span class="line"><span class="keyword">ON</span> <span class="keyword">TABLE</span> Student</span><br><span class="line"><span class="keyword">TO</span> <span class="keyword">PUBLIC</span></span><br><span class="line">[<span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">PRIVILEGES</span></span><br><span class="line"><span class="keyword">ON</span> <span class="keyword">VIEW</span> vStudent</span><br><span class="line"><span class="keyword">TO</span> U1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> </span><br><span class="line"><span class="keyword">ON</span> <span class="keyword">TABLE</span> Person,Depart </span><br><span class="line"><span class="keyword">TO</span> zhang;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="撤销权限REVOKE"><a href="#撤销权限REVOKE" class="headerlink" title="撤销权限REVOKE"></a>撤销权限REVOKE</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">REVOKE</span> <span class="keyword">SELECT</span>(Cno)</span><br><span class="line"><span class="keyword">ON</span> <span class="keyword">TABLE</span> Student</span><br><span class="line"><span class="keyword">FROM</span> U1[<span class="keyword">CASCADE</span>|RESTRICT];</span><br></pre></td></tr></table></figure>
+
+<h2 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> triggername</span><br><span class="line">&#123;<span class="keyword">BEFORE</span>|<span class="keyword">AFTER</span>&#125; <span class="keyword">UPDATE</span> <span class="keyword">ON</span> tablename</span><br><span class="line"><span class="keyword">REFERENCING</span> <span class="keyword">NEW</span>|<span class="keyword">OLD</span> <span class="keyword">ROW</span> <span class="keyword">AS</span> varname</span><br><span class="line"><span class="keyword">FOR</span> <span class="keyword">EACH</span> &#123;<span class="keyword">ROW</span>|<span class="keyword">STATEMENT</span>&#125;</span><br><span class="line">[<span class="keyword">WHEN</span> &lt;<span class="keyword">trigger</span> condition&gt;]&lt;<span class="keyword">trigger</span> <span class="keyword">option</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> Insert_OR_Update_sal</span><br><span class="line"><span class="keyword">BEFORE</span> <span class="keyword">UPDATE</span> <span class="keyword">OR</span> <span class="keyword">INSERT</span> <span class="keyword">ON</span> Teacher</span><br><span class="line"><span class="keyword">REFERENCING</span> NEWROW <span class="keyword">AS</span> newtuple</span><br><span class="line"><span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">    <span class="keyword">IF</span> (newtuple.Job=<span class="string">&#x27;Prof&#x27;</span>) <span class="keyword">AND</span> (newtuple.salary&gt;<span class="number">4000</span>)</span><br><span class="line">    <span class="keyword">THEN</span> newtuple.salary :=<span class="number">4000</span>;</span><br><span class="line">    ENDIF;</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h1 id="2-基本操作"><a href="#2-基本操作" class="headerlink" title="2 基本操作"></a>2 基本操作</h1><h2 id="2-1-查询"><a href="#2-1-查询" class="headerlink" title="2.1 查询"></a>2.1 查询</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM sc;SELECT * FROM student;SELECT * FROM course;</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| Sno       | Cno | Grade |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| 201215121 | 1   |    92 |</span><br><span class="line">| 201215121 | 2   |    85 |</span><br><span class="line">| 201215121 | 3   |    88 |</span><br><span class="line">| 201215122 | 2   |    90 |</span><br><span class="line">| 201215122 | 3   |    80 |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">+-----------+--------+------+------+-------+</span><br><span class="line">| Sno       | Sname  | Ssex | Sage | Sdept |</span><br><span class="line">+-----------+--------+------+------+-------+</span><br><span class="line">| 201215121 | 李勇   | 男   |   20 | CS    |</span><br><span class="line">| 201215122 | 刘晨   | 女   |   19 | CS    |</span><br><span class="line">| 201215123 | 王敏   | 女   |   18 | MA    |</span><br><span class="line">| 201215125 | 张立   | 男   |   19 | IS    |</span><br><span class="line">+-----------+--------+------+------+-------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">+-----+--------------+------+---------+</span><br><span class="line">| Cno | Cname        | Cpno | Ccredit |</span><br><span class="line">+-----+--------------+------+---------+</span><br><span class="line">| 1   | 数据库       | 5    |       4 |</span><br><span class="line">| 2   | 数学         | NULL |       2 |</span><br><span class="line">| 3   | 信息系统     | 1    |       4 |</span><br><span class="line">| 4   | 操作系统     | 6    |       4 |</span><br><span class="line">| 5   | 数据结构     | 7    |       4 |</span><br><span class="line">| 6   | 数据处理     | NULL |       2 |</span><br><span class="line">| 7   | PASCAL语言   | 6    |       4 |</span><br><span class="line">+-----+--------------+------+---------+</span><br><span class="line">7 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-等值连接"><a href="#2-2-等值连接" class="headerlink" title="2.2 等值连接"></a>2.2 等值连接</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM sc,student WHERE sc.Sno&#x3D;student.Sno;</span><br><span class="line">+-----------+-----+-------+-----------+--------+------+------+-------+</span><br><span class="line">| Sno       | Cno | Grade | Sno       | Sname  | Ssex | Sage | Sdept |</span><br><span class="line">+-----------+-----+-------+-----------+--------+------+------+-------+</span><br><span class="line">| 201215121 | 1   |    92 | 201215121 | 李勇   | 男   |   20 | CS    |</span><br><span class="line">| 201215121 | 2   |    85 | 201215121 | 李勇   | 男   |   20 | CS    |</span><br><span class="line">| 201215121 | 3   |    88 | 201215121 | 李勇   | 男   |   20 | CS    |</span><br><span class="line">| 201215122 | 2   |    90 | 201215122 | 刘晨   | 女   |   19 | CS    |</span><br><span class="line">| 201215122 | 3   |    80 | 201215122 | 刘晨   | 女   |   19 | CS    |</span><br><span class="line">+-----------+-----+-------+-----------+--------+------+------+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-自然连接"><a href="#2-3-自然连接" class="headerlink" title="2.3 自然连接"></a>2.3 自然连接</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT Student.Sno,Cno,Grade,Sname,Ssex,Sage,Sdept FROM sc,student WHERE sc.Sno&#x3D;student.Sno;</span><br><span class="line">+-----------+-----+-------+--------+------+------+-------+</span><br><span class="line">| Sno       | Cno | Grade | Sname  | Ssex | Sage | Sdept |</span><br><span class="line">+-----------+-----+-------+--------+------+------+-------+</span><br><span class="line">| 201215121 | 1   |    92 | 李勇   | 男   |   20 | CS    |</span><br><span class="line">| 201215121 | 2   |    85 | 李勇   | 男   |   20 | CS    |</span><br><span class="line">| 201215121 | 3   |    88 | 李勇   | 男   |   20 | CS    |</span><br><span class="line">| 201215122 | 2   |    90 | 刘晨   | 女   |   19 | CS    |</span><br><span class="line">| 201215122 | 3   |    80 | 刘晨   | 女   |   19 | CS    |</span><br><span class="line">+-----------+-----+-------+--------+------+------+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-左外连接右外连接"><a href="#2-4-左外连接右外连接" class="headerlink" title="2.4 左外连接右外连接"></a>2.4 左外连接右外连接</h2><ul>
+<li>左外连接 只保留左边关系的悬浮元组</li>
+<li>右外连接 只保留右边关系的悬浮元组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM course WHERE course.Cpno&#x3D;course.Cno;</span><br><span class="line">Empty set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM student LEFT OUTER JOIN sc ON(student.Sno&#x3D;sc.Sno);</span><br><span class="line">+-----------+--------+------+------+-------+-----------+------+-------+</span><br><span class="line">| Sno       | Sname  | Ssex | Sage | Sdept | Sno       | Cno  | Grade |</span><br><span class="line">+-----------+--------+------+------+-------+-----------+------+-------+</span><br><span class="line">| 201215121 | 李勇   | 男   |   20 | CS    | 201215121 | 1    |    92 |</span><br><span class="line">| 201215121 | 李勇   | 男   |   20 | CS    | 201215121 | 2    |    85 |</span><br><span class="line">| 201215121 | 李勇   | 男   |   20 | CS    | 201215121 | 3    |    88 |</span><br><span class="line">| 201215122 | 刘晨   | 女   |   19 | CS    | 201215122 | 2    |    90 |</span><br><span class="line">| 201215122 | 刘晨   | 女   |   19 | CS    | 201215122 | 3    |    80 |</span><br><span class="line">| 201215123 | 王敏   | 女   |   18 | MA    | NULL      | NULL |  NULL |</span><br><span class="line">| 201215125 | 张立   | 男   |   19 | IS    | NULL      | NULL |  NULL |</span><br><span class="line">+-----------+--------+------+------+-------+-----------+------+-------+</span><br><span class="line">7 rows in set (0.03 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM student right OUTER JOIN sc ON(student.Sno&#x3D;sc.Sno);</span><br><span class="line">+-----------+--------+------+------+-------+-----------+-----+-------+</span><br><span class="line">| Sno       | Sname  | Ssex | Sage | Sdept | Sno       | Cno | Grade |</span><br><span class="line">+-----------+--------+------+------+-------+-----------+-----+-------+</span><br><span class="line">| 201215121 | 李勇   | 男   |   20 | CS    | 201215121 | 1   |    92 |</span><br><span class="line">| 201215121 | 李勇   | 男   |   20 | CS    | 201215121 | 2   |    85 |</span><br><span class="line">| 201215121 | 李勇   | 男   |   20 | CS    | 201215121 | 3   |    88 |</span><br><span class="line">| 201215122 | 刘晨   | 女   |   19 | CS    | 201215122 | 2   |    90 |</span><br><span class="line">| 201215122 | 刘晨   | 女   |   19 | CS    | 201215122 | 3   |    80 |</span><br><span class="line">+-----------+--------+------+------+-------+-----------+-----+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-5-自身连接"><a href="#2-5-自身连接" class="headerlink" title="2.5 自身连接"></a>2.5 自身连接</h2><ul>
+<li>查询先修课的先修课<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM Course;</span><br><span class="line">+-----+--------------+------+---------+</span><br><span class="line">| Cno | Cname        | Cpno | Ccredit |</span><br><span class="line">+-----+--------------+------+---------+</span><br><span class="line">| 1   | 数据库       | 5    |       4 |</span><br><span class="line">| 2   | 数学         | NULL |       2 |</span><br><span class="line">| 3   | 信息系统     | 1    |       4 |</span><br><span class="line">| 4   | 操作系统     | 6    |       4 |</span><br><span class="line">| 5   | 数据结构     | 7    |       4 |</span><br><span class="line">| 6   | 数据处理     | NULL |       2 |</span><br><span class="line">| 7   | PASCAL语言   | 6    |       4 |</span><br><span class="line">+-----+--------------+------+---------+</span><br><span class="line">7 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT x.Cno,x.Cname,x.Cpno,y.Cpno Cppno FROM Course x,Course y WHERE x.Cpno&#x3D;y.Cno;</span><br><span class="line">+-----+--------------+------+-------+</span><br><span class="line">| Cno | Cname        | Cpno | Cppno |</span><br><span class="line">+-----+--------------+------+-------+</span><br><span class="line">| 1   | 数据库       | 5    | 7     |</span><br><span class="line">| 3   | 信息系统     | 1    | 5     |</span><br><span class="line">| 4   | 操作系统     | 6    | NULL  |</span><br><span class="line">| 5   | 数据结构     | 7    | 6     |</span><br><span class="line">| 7   | PASCAL语言   | 6    | NULL  |</span><br><span class="line">+-----+--------------+------+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="2-6-相关子查询"><a href="#2-6-相关子查询" class="headerlink" title="2.6 相关子查询"></a>2.6 相关子查询</h2><ul>
+<li>查询每位学生大于自己平均成绩的科目</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM SC;</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| Sno       | Cno | Grade |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| 201215121 | 1   |    92 |</span><br><span class="line">| 201215121 | 2   |    85 |</span><br><span class="line">| 201215121 | 3   |    88 |</span><br><span class="line">| 201215122 | 2   |    90 |</span><br><span class="line">| 201215122 | 3   |    80 |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT x.Sno,x.Cno FROM SC x</span><br><span class="line">    -&gt; WHERE Grade&gt;&#x3D;</span><br><span class="line">    -&gt; (SELECT AVG(Grade) FROM SC y</span><br><span class="line">    -&gt; WHERE y.Sno&#x3D;x.Sno);</span><br><span class="line">+-----------+-----+</span><br><span class="line">| Sno       | Cno |</span><br><span class="line">+-----------+-----+</span><br><span class="line">| 201215121 | 1   |</span><br><span class="line">| 201215122 | 2   |</span><br><span class="line">+-----------+-----+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询每门科目大于平均分的学生的学号科目及其成绩</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM SC x</span><br><span class="line">    -&gt; WHERE Grade&gt;(</span><br><span class="line">    -&gt; SELECT AVG(Grade) FROM SC y</span><br><span class="line">    -&gt; WHERE y.Cno&#x3D;x.Cno);</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| Sno       | Cno | Grade |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| 201215121 | 3   |    88 |</span><br><span class="line">| 201215122 | 2   |    90 |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询每门科目大于平均分的学生学号及其姓名<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM SC x,Student</span><br><span class="line">    -&gt; WHERE x.Sno&#x3D;Student.Sno AND Grade&gt;(</span><br><span class="line">    -&gt; SELECT AVG(Grade) FROM SC y</span><br><span class="line">    -&gt; WHERE y.Cno&#x3D;x.Cno);</span><br><span class="line">+-----------+-----+-------+-----------+--------+------+------+-------+</span><br><span class="line">| Sno       | Cno | Grade | Sno       | Sname  | Ssex | Sage | Sdept |</span><br><span class="line">+-----------+-----+-------+-----------+--------+------+------+-------+</span><br><span class="line">| 201215121 | 3   |    88 | 201215121 | 李勇   | 男   |   20 | CS    |</span><br><span class="line">| 201215122 | 2   |    90 | 201215122 | 刘晨   | 女   |   19 | CS    |</span><br><span class="line">+-----------+-----+-------+-----------+--------+------+------+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">PS:</span><br><span class="line">mysql&gt; SELECT * FROM SC x,Student</span><br><span class="line">    -&gt; WHERE x.Sno&#x3D;Student.Sno;</span><br><span class="line">+-----------+-----+-------+-----------+--------+------+------+-------+</span><br><span class="line">| Sno       | Cno | Grade | Sno       | Sname  | Ssex | Sage | Sdept |</span><br><span class="line">+-----------+-----+-------+-----------+--------+------+------+-------+</span><br><span class="line">| 201215121 | 1   |    92 | 201215121 | 李勇   | 男   |   20 | CS    |</span><br><span class="line">| 201215121 | 2   |    85 | 201215121 | 李勇   | 男   |   20 | CS    |</span><br><span class="line">| 201215121 | 3   |    88 | 201215121 | 李勇   | 男   |   20 | CS    |</span><br><span class="line">| 201215122 | 2   |    90 | 201215122 | 刘晨   | 女   |   19 | CS    |</span><br><span class="line">| 201215122 | 3   |    80 | 201215122 | 刘晨   | 女   |   19 | CS    |</span><br><span class="line">+-----------+-----+-------+-----------+--------+------+------+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="2-7-GROUP-BY-和-HAVING"><a href="#2-7-GROUP-BY-和-HAVING" class="headerlink" title="2.7 GROUP BY 和 HAVING"></a>2.7 GROUP BY 和 HAVING</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT Cno,AVG(Grade) AVG_GRADE</span><br><span class="line">    -&gt; FROM SC</span><br><span class="line">    -&gt; GROUP BY Cno</span><br><span class="line">    -&gt; HAVING AVG_GRADE&gt;85;</span><br><span class="line">+-----+-----------+</span><br><span class="line">| Cno | AVG_GRADE |</span><br><span class="line">+-----+-----------+</span><br><span class="line">| 1   |   92.0000 |</span><br><span class="line">| 2   |   87.5000 |</span><br><span class="line">+-----+-----------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-8-ORDER-BY"><a href="#2-8-ORDER-BY" class="headerlink" title="2.8 ORDER BY"></a>2.8 ORDER BY</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM SC</span><br><span class="line">    -&gt; ORDER BY Grade ASC;</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| Sno       | Cno | Grade |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| 201215122 | 3   |    80 |</span><br><span class="line">| 201215121 | 2   |    85 |</span><br><span class="line">| 201215121 | 3   |    88 |</span><br><span class="line">| 201215122 | 2   |    90 |</span><br><span class="line">| 201215121 | 1   |    92 |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="3-删除操作"><a href="#3-删除操作" class="headerlink" title="3 删除操作"></a>3 删除操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; DELETE FROM NEWSC</span><br><span class="line">    -&gt; WHERE Grade&lt;90;</span><br><span class="line">Query OK, 3 rows affected (0.07 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM NewSC;</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| Sno       | Cno | Grade |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| 201215121 | 1   |    92 |</span><br><span class="line">| 201215122 | 2   |    90 |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; DELETE FROM NewSC;</span><br><span class="line">Query OK, 2 rows affected (0.07 sec)</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-更新数据"><a href="#4-更新数据" class="headerlink" title="4 更新数据"></a>4 更新数据</h1><ul>
+<li><p>为学习科目为数学的学生分数加10%</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM NewSC;</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| Sno       | Cno | Grade |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| 201215121 | 1   |    92 |</span><br><span class="line">| 201215121 | 2   |    85 |</span><br><span class="line">| 201215121 | 3   |    88 |</span><br><span class="line">| 201215122 | 2   |    90 |</span><br><span class="line">| 201215122 | 3   |    80 |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; UPDATE NewSC</span><br><span class="line">    -&gt; SET Grade&#x3D;Grade*1.1</span><br><span class="line">    -&gt; WHERE Cno IN</span><br><span class="line">    -&gt; (SELECT Cno FROM Course</span><br><span class="line">    -&gt; WHERE Cname&#x3D;&#39;数学&#39;);</span><br><span class="line">Query OK, 2 rows affected (0.09 sec)</span><br><span class="line">Rows matched: 2  Changed: 2  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM NewSC;</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| Sno       | Cno | Grade |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| 201215121 | 1   |    92 |</span><br><span class="line">| 201215121 | 2   |    94 |</span><br><span class="line">| 201215121 | 3   |    88 |</span><br><span class="line">| 201215122 | 2   |    99 |</span><br><span class="line">| 201215122 | 3   |    80 |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为信息系统成绩低于85的学生成绩加10%，其余加5%</p>
+</li>
+<li><p>201215122的分数被提升了两次<strong>错误的示范</strong></p>
+</li>
+<li><p>正确方法是先提升大于等于85分的，再提升小于85分的</p>
+</li>
+<li><p>或者使用CASE语句</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM NewSC;</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| Sno       | Cno | Grade |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| 201215121 | 1   |    92 |</span><br><span class="line">| 201215121 | 2   |    94 |</span><br><span class="line">| 201215121 | 3   |    88 |</span><br><span class="line">| 201215122 | 2   |    99 |</span><br><span class="line">| 201215122 | 3   |    80 |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; UPDATE NewSC</span><br><span class="line">    -&gt; SET Grade&#x3D;Grade*1.1</span><br><span class="line">    -&gt; WHERE Grade&lt;85 AND Cno IN</span><br><span class="line">    -&gt; (SELECT Cno FROM Course</span><br><span class="line">    -&gt; WHERE Cname&#x3D;&#39;信息系统&#39;);</span><br><span class="line">Query OK, 1 row affected (0.07 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; UPDATE NewSC</span><br><span class="line">    -&gt; SET Grade&#x3D;Grade*1.05</span><br><span class="line">    -&gt; WHERE Grade&gt;&#x3D;85 AND Cno IN</span><br><span class="line">    -&gt; (SELECT Cno FROM Course</span><br><span class="line">    -&gt; WHERE Cname&#x3D;&#39;信息系统&#39;);</span><br><span class="line">Query OK, 2 rows affected (0.04 sec)</span><br><span class="line">Rows matched: 2  Changed: 2  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM NewSC;</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| Sno       | Cno | Grade |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| 201215121 | 1   |    92 |</span><br><span class="line">| 201215121 | 2   |    94 |</span><br><span class="line">| 201215121 | 3   |    92 |</span><br><span class="line">| 201215122 | 2   |    99 |</span><br><span class="line">| 201215122 | 3   |    92 |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>正确写法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM NewSC;</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| Sno       | Cno | Grade |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| 201215121 | 1   |    92 |</span><br><span class="line">| 201215121 | 2   |    85 |</span><br><span class="line">| 201215121 | 3   |    88 |</span><br><span class="line">| 201215122 | 2   |    90 |</span><br><span class="line">| 201215122 | 3   |    80 |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; UPDATE NewSC</span><br><span class="line">    -&gt; SET Grade&#x3D;Grade*1.05</span><br><span class="line">    -&gt; WHERE Grade&gt;85 AND Cno IN</span><br><span class="line">    -&gt; (SELECT Cno FROM Course</span><br><span class="line">    -&gt; WHERE Cname&#x3D;&#39;信息系统&#39;);</span><br><span class="line">Query OK, 1 row affected (0.04 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM NewSC;</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| Sno       | Cno | Grade |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| 201215121 | 1   |    92 |</span><br><span class="line">| 201215121 | 2   |    85 |</span><br><span class="line">| 201215121 | 3   |    92 |</span><br><span class="line">| 201215122 | 2   |    90 |</span><br><span class="line">| 201215122 | 3   |    80 |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; UPDATE NewSC</span><br><span class="line">    -&gt; SET Grade&#x3D;Grade*1.1</span><br><span class="line">    -&gt; WHERE Grade&lt;&#x3D;85 AND Cno IN</span><br><span class="line">    -&gt; (SELECT Cno FROM Course</span><br><span class="line">    -&gt; WHERE Cname&#x3D;&#39;信息系统&#39;);</span><br><span class="line">Query OK, 1 row affected (0.04 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM NewSC;</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| Sno       | Cno | Grade |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| 201215121 | 1   |    92 |</span><br><span class="line">| 201215121 | 2   |    85 |</span><br><span class="line">| 201215121 | 3   |    92 |</span><br><span class="line">| 201215122 | 2   |    90 |</span><br><span class="line">| 201215122 | 3   |    88 |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="5-EXISTS-NOT-EXISTS"><a href="#5-EXISTS-NOT-EXISTS" class="headerlink" title="5 EXISTS NOT EXISTS"></a>5 EXISTS NOT EXISTS</h1><ul>
+<li>只要EXISTS为真，外层就执行</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM Student</span><br><span class="line">    -&gt; WHERE Sage&#x3D;19;</span><br><span class="line">+-----------+--------+------+------+-------+</span><br><span class="line">| Sno       | Sname  | Ssex | Sage | Sdept |</span><br><span class="line">+-----------+--------+------+------+-------+</span><br><span class="line">| 201215122 | 刘晨   | 女   |   19 | CS    |</span><br><span class="line">| 201215125 | 张立   | 男   |   19 | IS    |</span><br><span class="line">+-----------+--------+------+------+-------+</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT Sno FROM Student</span><br><span class="line">    -&gt; WHERE EXISTS(</span><br><span class="line">    -&gt; SELECT * FROM Student</span><br><span class="line">    -&gt; WHERE Sage&#x3D;19);</span><br><span class="line">+-----------+</span><br><span class="line">| Sno       |</span><br><span class="line">+-----------+</span><br><span class="line">| 201215122 |</span><br><span class="line">| 201215125 |</span><br><span class="line">| 201215121 |</span><br><span class="line">| 201215123 |</span><br><span class="line">+-----------+</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h1><h2 id="建立视图-1"><a href="#建立视图-1" class="headerlink" title="建立视图"></a>建立视图</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW proview</span><br><span class="line">AS</span><br><span class="line">SELECT proname,stocks</span><br><span class="line">FROM product;</span><br></pre></td></tr></table></figure>
+<h2 id="删除视图-1"><a href="#删除视图-1" class="headerlink" title="删除视图"></a>删除视图</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP VIEW proview;</span><br></pre></td></tr></table></figure>
+
+<h2 id="带表达式的视图"><a href="#带表达式的视图" class="headerlink" title="带表达式的视图"></a>带表达式的视图</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create view stugrade(Sno,Sname,Tier)</span><br><span class="line">    -&gt; as</span><br><span class="line">    -&gt; select Student.Sno,Sname,Grade&#x2F;100</span><br><span class="line">    -&gt; from student,sc</span><br><span class="line">    -&gt; where Student.Sno&#x3D;SC.Sno;</span><br><span class="line">Query OK, 0 rows affected (0.05 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from stugrade;</span><br><span class="line">+-----------+--------+--------+</span><br><span class="line">| Sno       | Sname  | Tier   |</span><br><span class="line">+-----------+--------+--------+</span><br><span class="line">| 201215121 | 李勇   | 0.9200 |</span><br><span class="line">| 201215121 | 李勇   | 0.8500 |</span><br><span class="line">| 201215121 | 李勇   | 0.8800 |</span><br><span class="line">| 201215122 | 刘晨   | 0.9000 |</span><br><span class="line">| 201215122 | 刘晨   | 0.8000 |</span><br><span class="line">+-----------+--------+--------+</span><br><span class="line">5 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用group的视图"><a href="#使用group的视图" class="headerlink" title="使用group的视图"></a>使用group的视图</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create view sumscore</span><br><span class="line">    -&gt; as</span><br><span class="line">    -&gt; select Sno,SUM(grade) from sc</span><br><span class="line">    -&gt; group by Sno;</span><br><span class="line">Query OK, 0 rows affected (0.05 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from sumscore;</span><br><span class="line">+-----------+------------+</span><br><span class="line">| Sno       | SUM(grade) |</span><br><span class="line">+-----------+------------+</span><br><span class="line">| 201215121 |        265 |</span><br><span class="line">| 201215122 |        170 |</span><br><span class="line">+-----------+------------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h1 id="6-集合操作"><a href="#6-集合操作" class="headerlink" title="6 集合操作"></a>6 集合操作</h1><p>UNION INTERSECT EXCEPT</p>
+<h2 id="6-1-并"><a href="#6-1-并" class="headerlink" title="6.1 并"></a>6.1 并</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT Sno FROM SC</span><br><span class="line">    -&gt; WHERE Cno&#x3D;1</span><br><span class="line">    -&gt; UNION</span><br><span class="line">    -&gt; SELECT Sno FROM SC</span><br><span class="line">    -&gt; WHERE Cno&#x3D;2;</span><br><span class="line">+-----------+</span><br><span class="line">| Sno       |</span><br><span class="line">+-----------+</span><br><span class="line">| 201215121 |</span><br><span class="line">| 201215122 |</span><br><span class="line">+-----------+</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-2-交"><a href="#6-2-交" class="headerlink" title="6.2 交"></a>6.2 交</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>MYSQL不支持:<br>Select * Into new_table_name from old_table_name; 这是sql server中的用法<br>替代方法:<br>Create table new_table_name (Select * from old_table_name);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create table t (select * from sc where grade&gt;89);</span><br><span class="line">Query OK, 2 rows affected (0.43 sec)</span><br><span class="line">Records: 2  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from t;</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| Sno       | Cno | Grade |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">| 201215121 | 1   |    92 |</span><br><span class="line">| 201215122 | 2   |    90 |</span><br><span class="line">+-----------+-----+-------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Mysql/" rel="tag"># Mysql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/09/%E8%8B%B1%E8%AF%AD%E4%BD%9C%E6%96%87/" rel="prev" title="ENG Writing">
+      <i class="fa fa-chevron-left"></i> ENG Writing
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/02/Algorithm/" rel="next" title="Algorithm">
+      Algorithm <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0-SQL-ADD"><span class="nav-number">1.</span> <span class="nav-text">0 SQL ADD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#check"><span class="nav-number">1.1.</span> <span class="nav-text">check</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-into"><span class="nav-number">1.2.</span> <span class="nav-text">select into</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#with-check-option"><span class="nav-number">1.3.</span> <span class="nav-text">with check option</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E8%A1%A8%E5%90%8D%E5%88%97%E5%90%8D"><span class="nav-number">2.</span> <span class="nav-text">修改表名列名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8C%87%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">1 命令行指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E5%8F%A5%E6%A0%BC%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">语句格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">4.1.</span> <span class="nav-text">插入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="nav-number">4.2.</span> <span class="nav-text">删除数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE"><span class="nav-number">4.3.</span> <span class="nav-text">更新数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E8%A7%86%E5%9B%BE"><span class="nav-number">4.4.</span> <span class="nav-text">建立视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%A7%86%E5%9B%BE"><span class="nav-number">4.5.</span> <span class="nav-text">删除视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%BB%BA%E8%A1%A8"><span class="nav-number">4.6.</span> <span class="nav-text">查询建表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">4.7.</span> <span class="nav-text">创建表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="nav-number">4.8.</span> <span class="nav-text">删除表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E8%A1%A8"><span class="nav-number">4.9.</span> <span class="nav-text">更新表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E8%A1%A8%E5%90%8D"><span class="nav-number">4.9.1.</span> <span class="nav-text">更改表名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E8%A1%A8%E9%A1%B9"><span class="nav-number">4.9.2.</span> <span class="nav-text">更改表项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%88%97"><span class="nav-number">4.9.3.</span> <span class="nav-text">添加列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%88%97"><span class="nav-number">4.9.4.</span> <span class="nav-text">删除列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E5%88%97%E5%90%8D"><span class="nav-number">4.9.5.</span> <span class="nav-text">更改列名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E5%88%97%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.9.6.</span> <span class="nav-text">更改列类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%A1%A8%E7%BA%A7%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F"><span class="nav-number">4.9.7.</span> <span class="nav-text">添加表级完整性约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8%E7%BA%A7%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F"><span class="nav-number">4.9.8.</span> <span class="nav-text">删除表级完整性约束</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="nav-number">4.10.</span> <span class="nav-text">创建索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%B4%A2%E5%BC%95"><span class="nav-number">4.11.</span> <span class="nav-text">删除索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E7%B4%A2%E5%BC%95"><span class="nav-number">4.12.</span> <span class="nav-text">重命名索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%88%E4%BA%88%E6%9D%83%E9%99%90GRANT"><span class="nav-number">4.13.</span> <span class="nav-text">授予权限GRANT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%92%A4%E9%94%80%E6%9D%83%E9%99%90REVOKE"><span class="nav-number">4.14.</span> <span class="nav-text">撤销权限REVOKE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="nav-number">4.15.</span> <span class="nav-text">触发器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">2 基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E6%9F%A5%E8%AF%A2"><span class="nav-number">5.1.</span> <span class="nav-text">2.1 查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E7%AD%89%E5%80%BC%E8%BF%9E%E6%8E%A5"><span class="nav-number">5.2.</span> <span class="nav-text">2.2 等值连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5"><span class="nav-number">5.3.</span> <span class="nav-text">2.3 自然连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A5%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">5.4.</span> <span class="nav-text">2.4 左外连接右外连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E8%87%AA%E8%BA%AB%E8%BF%9E%E6%8E%A5"><span class="nav-number">5.5.</span> <span class="nav-text">2.5 自身连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-%E7%9B%B8%E5%85%B3%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-number">5.6.</span> <span class="nav-text">2.6 相关子查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-GROUP-BY-%E5%92%8C-HAVING"><span class="nav-number">5.7.</span> <span class="nav-text">2.7 GROUP BY 和 HAVING</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-ORDER-BY"><span class="nav-number">5.8.</span> <span class="nav-text">2.8 ORDER BY</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="nav-number">6.</span> <span class="nav-text">3 删除操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE"><span class="nav-number">7.</span> <span class="nav-text">4 更新数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-EXISTS-NOT-EXISTS"><span class="nav-number">8.</span> <span class="nav-text">5 EXISTS NOT EXISTS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE"><span class="nav-number">9.</span> <span class="nav-text">视图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E8%A7%86%E5%9B%BE-1"><span class="nav-number">9.1.</span> <span class="nav-text">建立视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%A7%86%E5%9B%BE-1"><span class="nav-number">9.2.</span> <span class="nav-text">删除视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%A6%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E8%A7%86%E5%9B%BE"><span class="nav-number">9.3.</span> <span class="nav-text">带表达式的视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8group%E7%9A%84%E8%A7%86%E5%9B%BE"><span class="nav-number">9.4.</span> <span class="nav-text">使用group的视图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C"><span class="nav-number">10.</span> <span class="nav-text">6 集合操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-%E5%B9%B6"><span class="nav-number">10.1.</span> <span class="nav-text">6.1 并</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-%E4%BA%A4"><span class="nav-number">10.2.</span> <span class="nav-text">6.2 交</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1"><span class="nav-number">11.</span> <span class="nav-text">1</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Finyaci</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Finyaci</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

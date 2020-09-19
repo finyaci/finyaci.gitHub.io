@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="JPG$x+y$ BMP图像格式BMP数据结构BMP文件的数据按照从文件头开始的先后顺序分为四个部分：◆ 位图文件头(bmp file header)：  提供文件的格式、大小等信息◆ 位图信息头(bitmap information)：提供图像数据的尺寸、位平面数、压缩方式、颜色索引等信息◆ 调色板(color palette)：可选，如使用索引来表示图像，调色板就是索引与其对应的颜色的映射表◆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Digital Image Processing">
+<meta property="og:url" content="http://example.com/2020/09/16/Digital%20Image%20Processing/index.html">
+<meta property="og:site_name" content="Finyaci&#39;s Blog">
+<meta property="og:description" content="JPG$x+y$ BMP图像格式BMP数据结构BMP文件的数据按照从文件头开始的先后顺序分为四个部分：◆ 位图文件头(bmp file header)：  提供文件的格式、大小等信息◆ 位图信息头(bitmap information)：提供图像数据的尺寸、位平面数、压缩方式、颜色索引等信息◆ 调色板(color palette)：可选，如使用索引来表示图像，调色板就是索引与其对应的颜色的映射表◆">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-09-16T11:51:05.000Z">
+<meta property="article:modified_time" content="2020-09-19T05:43:07.908Z">
+<meta property="article:author" content="Finyaci">
+<meta property="article:tag" content="DIP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/09/16/Digital%20Image%20Processing/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Digital Image Processing | Finyaci's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Finyaci's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/16/Digital%20Image%20Processing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Digital Image Processing
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-09-16 19:51:05" itemprop="dateCreated datePublished" datetime="2020-09-16T19:51:05+08:00">2020-09-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-19 13:43:07" itemprop="dateModified" datetime="2020-09-19T13:43:07+08:00">2020-09-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="JPG"><a href="#JPG" class="headerlink" title="JPG"></a>JPG</h1><p>$x+y$</p>
+<h1 id="BMP图像格式"><a href="#BMP图像格式" class="headerlink" title="BMP图像格式"></a>BMP图像格式</h1><h2 id="BMP数据结构"><a href="#BMP数据结构" class="headerlink" title="BMP数据结构"></a>BMP数据结构</h2><p>BMP文件的数据按照从文件头开始的先后顺序分为四个部分：<br>◆ 位图文件头(bmp file header)：  提供文件的格式、大小等信息<br>◆ 位图信息头(bitmap information)：提供图像数据的尺寸、位平面数、压缩方式、颜色索引等信息<br>◆ 调色板(color palette)：可选，如使用索引来表示图像，调色板就是索引与其对应的颜色的映射表<br>◆ 位图数据(bitmap data)：图像数据区</p>
+<h3 id="BMP文件头"><a href="#BMP文件头" class="headerlink" title="BMP文件头"></a>BMP文件头</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tagBITMAPFILEHEADER</span></span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line">UINT16 bfType;        <span class="comment">//2Bytes，必须为&quot;BM&quot;，即0x424D 才是Windows位图文件</span></span><br><span class="line">DWORD bfSize;         <span class="comment">//4Bytes，整个BMP文件的大小</span></span><br><span class="line">UINT16 bfReserved1;  <span class="comment">//2Bytes，保留，为0</span></span><br><span class="line">UINT16 bfReserved2;  <span class="comment">//2Bytes，保留，为0</span></span><br><span class="line">DWORD bfOffBits;     <span class="comment">//4Bytes，文件起始位置到图像像素数据的字节偏移量</span></span><br><span class="line">&#125; BITMAPFILEHEADER;</span><br></pre></td></tr></table></figure>
+
+<h3 id="BMP信息头"><a href="#BMP信息头" class="headerlink" title="BMP信息头"></a>BMP信息头</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">tagBMP_INFOHEADER</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">DWORD  biSize;    <span class="comment">//4Bytes，INFOHEADER结构体大小，存在其他版本I NFOHEADER，用作区分</span></span><br><span class="line">LONG   biWidth;    <span class="comment">//4Bytes，图像宽度（以像素为单位）</span></span><br><span class="line">LONG   biHeight;    <span class="comment">//4Bytes，图像高度，+：图像存储顺序为Bottom2Top，-：Top2Bottom</span></span><br><span class="line">WORD   biPlanes;    <span class="comment">//2Bytes，图像数据平面，BMP存储RGB数据，因此总为1</span></span><br><span class="line">WORD   biBitCount;         <span class="comment">//2Bytes，图像像素位数</span></span><br><span class="line">DWORD  biCompression;     <span class="comment">//4Bytes，0：不压缩，1：RLE8，2：RLE4</span></span><br><span class="line">DWORD  biSizeImage;       <span class="comment">//4Bytes，4字节对齐的图像数据大小</span></span><br><span class="line">LONG   biXPelsPerMeter;   <span class="comment">//4 Bytes，用象素/米表示的水平分辨率</span></span><br><span class="line">LONG   biYPelsPerMeter;   <span class="comment">//4 Bytes，用象素/米表示的垂直分辨率</span></span><br><span class="line">DWORD  biClrUsed;          <span class="comment">//4 Bytes，实际使用的调色板索引数，0：使用所有的调色板索引</span></span><br><span class="line">DWORD biClrImportant;     <span class="comment">//4 Bytes，重要的调色板索引数，0：所有的调色板索引都重要</span></span><br><span class="line">&#125;BMP_INFOHEADER;</span><br></pre></td></tr></table></figure>
+
+<h3 id="调色板"><a href="#调色板" class="headerlink" title="调色板"></a>调色板</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">tagRGBQUAD</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">BYTE  rgbBlue;       <span class="comment">//指定蓝色强度</span></span><br><span class="line">BYTE  rgbGreen;      <span class="comment">//指定绿色强度</span></span><br><span class="line">BYTE  rgbRed;        <span class="comment">//指定红色强度</span></span><br><span class="line">BYTE  rgbReserved;  <span class="comment">//保留，设置为0</span></span><br><span class="line">&#125; RGBQUAD;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="PS"><a href="#PS" class="headerlink" title="PS:"></a>PS:</h3><p>真彩色(24位图) 不需要调色板 1个像素需要三个字节表示(RGB各占一个字节)<br>位图 图像数据是调色板中的索引值<br>2色位图 1位即可表示(0-Black 1-White)一个字节表示8个像素<br>16色位图 4位表示1个像素，一个字节表示2个像素<br>256色位图 一个字节表示1个像素</p>
+<h2 id="BMP数据存放顺序"><a href="#BMP数据存放顺序" class="headerlink" title="BMP数据存放顺序"></a>BMP数据存放顺序</h2><p>自下而上 从左至右</p>
+<h2 id="反色-invert"><a href="#反色-invert" class="headerlink" title="反色(invert)"></a>反色(invert)</h2><p>反色：颜色量化级别是256则新图的RGB为255减去原图的RBG值，适用于真彩色，带调色板的彩色图和灰度图<br>真彩色：将反转的RGB重新写入<br>带调色板彩色图：将调色板反转</p>
+<h1 id="直方图"><a href="#直方图" class="headerlink" title="直方图"></a>直方图</h1><h2 id="直方图性质"><a href="#直方图性质" class="headerlink" title="直方图性质"></a>直方图性质</h2><p>无空间信息<br>可叠加性<br>一对多 一个直方图可能对应多个图像</p>
+<p>直方图均匀分布，则图像愈发清晰</p>
+<h2 id="直方图均衡化"><a href="#直方图均衡化" class="headerlink" title="直方图均衡化"></a>直方图均衡化</h2><p>让一个图像的直方图均匀分布</p>
+<p>推导：积分</p>
+<h2 id="直方图规定化"><a href="#直方图规定化" class="headerlink" title="直方图规定化"></a>直方图规定化</h2><p>让一个图像的直方图分布符合另一个指定图像的直方图<br>策略：A图直方图符合B图直方图<br>A图均一化s=T(r) B图均一化v=G(z)<br>s=v =&gt;(r-&gt;z) z=G^-1(T(r))</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/DIP/" rel="tag"># DIP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="prev" title="计算机组成原理">
+      <i class="fa fa-chevron-left"></i> 计算机组成原理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/19/hello-world/" rel="next" title="Hello World">
+      Hello World <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JPG"><span class="nav-number">1.</span> <span class="nav-text">JPG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BMP%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">BMP图像格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BMP%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">BMP数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BMP%E6%96%87%E4%BB%B6%E5%A4%B4"><span class="nav-number">2.1.1.</span> <span class="nav-text">BMP文件头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BMP%E4%BF%A1%E6%81%AF%E5%A4%B4"><span class="nav-number">2.1.2.</span> <span class="nav-text">BMP信息头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%89%B2%E6%9D%BF"><span class="nav-number">2.1.3.</span> <span class="nav-text">调色板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PS"><span class="nav-number">2.1.4.</span> <span class="nav-text">PS:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMP%E6%95%B0%E6%8D%AE%E5%AD%98%E6%94%BE%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.2.</span> <span class="nav-text">BMP数据存放顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E8%89%B2-invert"><span class="nav-number">2.3.</span> <span class="nav-text">反色(invert)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B4%E6%96%B9%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">直方图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%96%B9%E5%9B%BE%E6%80%A7%E8%B4%A8"><span class="nav-number">3.1.</span> <span class="nav-text">直方图性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%96%B9%E5%9B%BE%E5%9D%87%E8%A1%A1%E5%8C%96"><span class="nav-number">3.2.</span> <span class="nav-text">直方图均衡化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%96%B9%E5%9B%BE%E8%A7%84%E5%AE%9A%E5%8C%96"><span class="nav-number">3.3.</span> <span class="nav-text">直方图规定化</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Finyaci</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Finyaci</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="FAQ断言：任何使得断言表达式值为假的语句都拒绝执行，一般对某些属性进行判断，类似于if触发器：定义一系列操作，满足一定条件，触发器的内容自动执行数据模型的组成要素：数据结构，数据操作，数据完整性约束数据库的完整性约束包括：实体完整性，参照完整性，用户定义完整性数据独立性：包括物理独立性和逻辑独立性无损连接概念：分解后的新关系进行自然连接得到的元组的集合与原关系完全一致保持函数依赖性： DDL（d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库">
+<meta property="og:url" content="http://example.com/2020/03/05/%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:site_name" content="Finyaci&#39;s Blog">
+<meta property="og:description" content="FAQ断言：任何使得断言表达式值为假的语句都拒绝执行，一般对某些属性进行判断，类似于if触发器：定义一系列操作，满足一定条件，触发器的内容自动执行数据模型的组成要素：数据结构，数据操作，数据完整性约束数据库的完整性约束包括：实体完整性，参照完整性，用户定义完整性数据独立性：包括物理独立性和逻辑独立性无损连接概念：分解后的新关系进行自然连接得到的元组的集合与原关系完全一致保持函数依赖性： DDL（d">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-05T00:27:42.000Z">
+<meta property="article:modified_time" content="2020-05-13T09:52:24.000Z">
+<meta property="article:author" content="Finyaci">
+<meta property="article:tag" content="CS BASIC">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/03/05/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>数据库 | Finyaci's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Finyaci's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/03/05/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据库
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-05 08:27:42" itemprop="dateCreated datePublished" datetime="2020-03-05T08:27:42+08:00">2020-03-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-13 17:52:24" itemprop="dateModified" datetime="2020-05-13T17:52:24+08:00">2020-05-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><p>断言：任何使得断言表达式值为假的语句都拒绝执行，一般对某些属性进行判断，类似于if<br>触发器：定义一系列操作，满足一定条件，触发器的内容自动执行<br>数据模型的组成要素：数据结构，数据操作，数据完整性约束<br>数据库的完整性约束包括：实体完整性，参照完整性，用户定义完整性<br>数据独立性：包括物理独立性和逻辑独立性<br>无损连接概念：分解后的新关系进行自然连接得到的元组的集合与原关系完全一致<br>保持函数依赖性：</p>
+<p>DDL（data definition language）数据库定义语言：CREATE、ALTER、DROP</p>
+<p>DML（data manipulation language）数据操纵语言： SELECT、UPDATE、INSERT、DELETE</p>
+<p>DCL（Data Control Language）数据库控制语言： GRANT、REVOKE</p>
+<h1 id="FAQ-1"><a href="#FAQ-1" class="headerlink" title="FAQ"></a>FAQ</h1><ol>
+<li><p>SQL语言支持数据库三级模式结构。在SQL中，外模式对应于<br>______________、模式对应于______________、内模式对应于______________。</p>
+</li>
+<li><p>数据操作描述的是系统的动态特性，主要分为____________、____________、<br>____________、____________四种操作。</p>
+</li>
+<li><p>数据模型通常由____________、____________、____________三要素组成。</p>
+</li>
+</ol>
+<p>视图和部分基本表、基本表、存储文件<br>查询、插入、修改、删除 <br>数据结构、数据操作、完整性约束 </p>
+<h1 id="关系型数据库的查询优化"><a href="#关系型数据库的查询优化" class="headerlink" title="关系型数据库的查询优化"></a>关系型数据库的查询优化</h1><p>查询处理4阶段：查询分析（词法分析语法分析 识别语句中的各个成分）、查询检查（语义检查 各个成分是否存在和有效）、查询优化、查询执行</p>
+<p>查询优化两方面：代数优化（逻辑优化） 物理优化（非代数优化）</p>
+<h2 id="选择操作的实现"><a href="#选择操作的实现" class="headerlink" title="选择操作的实现"></a>选择操作的实现</h2><ol>
+<li>全表扫描</li>
+<li>索引扫描<br>通过索引获得值，根据b+树找到关键字，b+树叶子节点搜索<br>多个选择条件，根据索引单查两个表，两个表作交集；如果只有一个有索引，则用有索引的表去查没有索引的</li>
+</ol>
+<h2 id="连接操作的实现"><a href="#连接操作的实现" class="headerlink" title="连接操作的实现"></a>连接操作的实现</h2><ol>
+<li>嵌套 外表的每一个元素循环查询内表 类似for循环嵌套</li>
+<li>排序合并 先排序后合并，因为经过排序，所以扫描到第一个不相同的元素就可以直接跳过这次循环</li>
+<li>索引连接 表中的每一个元素通过另一个表的索引查询到相应的元素</li>
+<li>哈希连接</li>
+</ol>
+<h2 id="代数优化就是通过关系代数表达式的等价代换，就是改变操作的组合顺序"><a href="#代数优化就是通过关系代数表达式的等价代换，就是改变操作的组合顺序" class="headerlink" title="代数优化就是通过关系代数表达式的等价代换，就是改变操作的组合顺序"></a>代数优化就是通过关系代数表达式的等价代换，就是改变操作的组合顺序</h2><p>主要有基于查询树的启发式优化：<br>1）先做选择运算，选择运算和投影运算可以一并执行<br>2）投影和前或后的双目运算符结合起来，能一次完成就不要分两次 ΠA.B(RUS) 而非RUS再ΠA.B<br>3）选择运算同其前面的笛卡尔积结合成为一个连接运算<br>4）找出公共子表达式</p>
+<h2 id="物理优化式通过底层存储路径和操作算法优化"><a href="#物理优化式通过底层存储路径和操作算法优化" class="headerlink" title="物理优化式通过底层存储路径和操作算法优化"></a>物理优化式通过底层存储路径和操作算法优化</h2><p>主要有基于启发式规则的和基于代价估算的优化方法<br>b+树索引 hash索引 聚簇 </p>
+<h3 id="物理优化启发式规则："><a href="#物理优化启发式规则：" class="headerlink" title="物理优化启发式规则："></a>物理优化启发式规则：</h3><h4 id="选择运算："><a href="#选择运算：" class="headerlink" title="选择运算："></a>选择运算：</h4><p>小关系：直接全表扫描<br>大关系：<br>选择的是主属性=值，使用索引<br>选择的是非主属性=值或者某一范围，估计值的范围，如果数据库中满足条件的值比较少，选择率较低使用索引，否则就直接全表扫描<br>AND 有组合索引就使用索引，根据索引分别找到查找，结果两个取交集，如果只有一个有索引，有索引的表先生成，用生成的表查另一个表<br>OR 直接使用全表扫描</p>
+<h4 id="连接运算："><a href="#连接运算：" class="headerlink" title="连接运算："></a>连接运算：</h4><p>如果两个表均排序：使用排序合并算法<br>有索引：使用索引连接<br>都没有：哈希连接<br>嵌套循环进行连接：小表作为外表</p>
+<h3 id="物理优化代价估计："><a href="#物理优化代价估计：" class="headerlink" title="物理优化代价估计："></a>物理优化代价估计：</h3><p>统计信息：元组个数，占用的块数<br>代价=I/O代价+内存代价+CPU代价+通信代价<br>选用代价小的方案执行</p>
+<h1 id="数据库的完整性概念与数据库的安全性概念区别"><a href="#数据库的完整性概念与数据库的安全性概念区别" class="headerlink" title="数据库的完整性概念与数据库的安全性概念区别"></a>数据库的完整性概念与数据库的安全性概念区别</h1><p>数据库完整性：防止错误数据或垃圾数据输入输出<br>数据库安全性：防止非法用户对数据非法存取</p>
+<h1 id="数据库系统"><a href="#数据库系统" class="headerlink" title="数据库系统"></a>数据库系统</h1><p>数据：数据库中存储的基本对象<br>数据库：存放数据的仓库<br>数据库管理系统：用户与操作系统之间的一层数据管理软件，实现数据定义，数据操纵，数据控制三大功能<br>数据库管理员的职责：数据库的建立使用维护<br>DBS = DBMS + DBA + DB</p>
+<h1 id="数据独立性"><a href="#数据独立性" class="headerlink" title="数据独立性"></a>数据独立性</h1><p>数据独立性包括逻辑独立性和物理独立性<br>逻辑独立性：应用程序和逻辑结构独立<br>物理独立性：应用程序和物理存储独立</p>
+<h1 id="数据模型的组成要素"><a href="#数据模型的组成要素" class="headerlink" title="数据模型的组成要素"></a>数据模型的组成要素</h1><p>数据模型由数据结构，数据操作，数据的完整性约束</p>
+<h1 id="数据库的三级模式与两层映像"><a href="#数据库的三级模式与两层映像" class="headerlink" title="数据库的三级模式与两层映像"></a>数据库的三级模式与两层映像</h1><p>三级模式：外模式（子模式、用户模式 可以有多个），（逻辑）模式（只能有一个，数据的逻辑结构），内模式（存储模式 只能有一个）</p>
+<p>两层映像：<br>外模式/模式 保证数据逻辑独立性 逻辑模式的改变不影响应用程序<br>模式/内模式 保证数据物理独立性 存储结构改变不影响应用程序</p>
+<h1 id="关系模型的完整性约束"><a href="#关系模型的完整性约束" class="headerlink" title="关系模型的完整性约束"></a>关系模型的完整性约束</h1><p>实体完整性：若属性A是基本关系R的主属性，则它不能为空。<br>参照完整性：若属性F是基本关系R的外码，则它与基本关系S的主码Ks相对应，外码F的取值要么为空，要么为Ks中某元组的主码值<br>。</p>
+<p>用户定义完整性：某些属性的取值范围</p>
+<h1 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h1><p>悬浮元素：一个关系中有但另一个关系中没有的元素<br>左外连接：只保留左侧的悬浮元素<br>右外连接：只保留右侧的悬浮元素</p>
+<h1 id="如何划分实体和属性"><a href="#如何划分实体和属性" class="headerlink" title="如何划分实体和属性"></a>如何划分实体和属性</h1><p>实体：和其他实体产生联系<br>属性：必须是不可分的数据项，也不和其他实体产生联系</p>
+<h1 id="E-R图之间的冲突"><a href="#E-R图之间的冲突" class="headerlink" title="E-R图之间的冲突"></a>E-R图之间的冲突</h1><ol>
+<li><p>属性冲突：<br>a. 属性域冲突域：属性的类型取得不一致<br>b. 属性值单位冲突：属性的单位取得不一致</p>
+</li>
+<li><p>命名冲突：<br>a. 同名异义：在不同局部应用中的对象有相同的名字但表示的是不同意义<br>b. 异名同义：在不同局部应用中的对象有不同的名字但表示的是相同意义</p>
+</li>
+<li><p>结构冲突：<br>a. 同一对象在不同结构中有不同抽象，有的被当作属性有的被当作实体。<br>b. 同一实体在不同子系统的ER图中属性个数和属性排列次序不完全相同。（）<br>c. 实体的联系在不同的ER图中为不同类型。(实体间的关系在一个图中是一对一，另一个是一对多)</p>
+</li>
+</ol>
+<h1 id="数据库设计的基本步骤"><a href="#数据库设计的基本步骤" class="headerlink" title="数据库设计的基本步骤"></a>数据库设计的基本步骤</h1><ol>
+<li>系统需求分析阶段； 分析用户需求，确定用户的实际要求，获取数据字典（数据项，数据结构，数据流，数据存储，处理过程）</li>
+<li>概念结构设计阶段； 根据用户需求，建立独立概念模型，一般使用ER图（确定属性实体关系，实体之间的联系是一对多多对多多对一，基数约束限定对应的数量）</li>
+<li>逻辑结构设计阶段； 将概念模型转换为适合某个DBMS逻辑模型，根据ER图转换为关系模型</li>
+<li>物理结构设计阶段； 为逻辑模型选择合适的物理结构，确定数据库的存取方法和存储结构</li>
+<li>数据库实施阶段； 根据DBMS提供数据库语言，建立数据库试运行（输入少量数据，进行功能和性能测试，注意对数据库进行转储）</li>
+<li>数据库运行与维护阶段； 数据库的转储和恢复，安全性完整性控制，性能的监督分析改造，重组织重构</li>
+</ol>
+<p>共六个阶段，常常是六个阶段的往复</p>
+<h2 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h2><p>描述数据的数据，元数据<br>数据分析和数据收集的主要成果<br>主要包括数据项，数据结构，数据流，数据存储，处理过程</p>
+<h2 id="存取方法"><a href="#存取方法" class="headerlink" title="存取方法"></a>存取方法</h2><p>存取方法：快速存取数据库中数据的方法<br>b+树索引：</p>
+<ol>
+<li>经常查询的某一属性</li>
+<li>经常作为聚集函数参数的属性 </li>
+<li>经常作为连接操作连接条件的属性 SELECT * FROM Student,SC where Student.Sno = Sc.Sno;<br>hash索引:</li>
+<li>经常出现在等值连接或等值比较条件中属性 where Sage=20;</li>
+</ol>
+<p>聚簇（要移动原来数据的存储位置）：</p>
+<ol>
+<li>对于某个属性，属性值相同的元组集中存放在同一个物理块上，则查找某一属性值元组时可以很快的存取</li>
+<li>对于经常要进行连接操作的关系建立聚簇 把属性值聚集存放</li>
+</ol>
+<h2 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h2><p>存储结构：确定数据、关系、日志、备份、聚簇等存放位置</p>
+<ol>
+<li>数据和索引可以存放在不同的磁盘中</li>
+<li>比较大的表可以存放在两个磁盘上</li>
+<li>日志、数据库备份单独存放在不同的磁盘上</li>
+</ol>
+<h1 id="数据库查询优化"><a href="#数据库查询优化" class="headerlink" title="数据库查询优化"></a>数据库查询优化</h1><h1 id="数据库安全"><a href="#数据库安全" class="headerlink" title="数据库安全"></a>数据库安全</h1><h2 id="存取控制"><a href="#存取控制" class="headerlink" title="存取控制"></a>存取控制</h2><p>自主存取控制：用户对不同的数据对象有不同的存取权限，不同用户对同一对象有不同的权限，可转授用户存取权限。<br>强制存取控制：每一数据对象标以一定密级，每一用户对应某一级别的许可证，只有具有合法许可证的用户才可以存取某一对象。</p>
+<h3 id="两者区别"><a href="#两者区别" class="headerlink" title="两者区别"></a>两者区别</h3><p>1）自主存取控制机制仅仅通过对数据的存取权限进行安全控制，为数据本身并无安全标记；强制存取控制机制则对数据本身进行密级标记，无论数据如何复制，标记与数据是一个不可分的整体，只有符合密级标记要求的用户才可以操纵数据，从而提供了更高级别的安全性。<br>2）强制存取控制的安全性级别更高。<br>3）DAC的数据存取权限由用户控制，系统无法控制；MAC安全等级由系统控制，不是用户能直接感知或进行控制的。</p>
+<h2 id="视图机制"><a href="#视图机制" class="headerlink" title="视图机制"></a>视图机制</h2><p>为不同用户定义不同视图，对于一些保密数据，有些用户无权限访问，视图机制可以将这些数据隐藏不让这些无权限访问的用户看到</p>
+<h3 id="视图优点"><a href="#视图优点" class="headerlink" title="视图优点"></a>视图优点</h3><p>1）视图能够简化用户的操作 <br>2）视图使用户能以多种角度看待同一数据<br>3）视图对数据库的重构提供了一定程度的逻辑独立性-数据库的逻辑模式改变了（将原来的表拆分），使用视图，仍然可以按数据库重构之前的要求查询数据<br>4）视图能够对机密数据提供安全保护</p>
+<h3 id="视图和基本表的区别"><a href="#视图和基本表的区别" class="headerlink" title="视图和基本表的区别"></a>视图和基本表的区别</h3><p>虚表：视图是从一个或几个基本表导出的表，它与基本表不同，是一个虚表，<br>只存放视图的定义：数据库中只存放视图的定义，这些数据存放在原来的基本表中，当基本表中的数据发生变化，从视图中查询出的数据也就随之改变<br>视图一经定义就可以像基本表一样被查询、删除，也可以在一个视图之上再定义新的视图，但是对视图的更新操作有限制</p>
+<h2 id="审计"><a href="#审计" class="headerlink" title="审计"></a>审计</h2><p>将数据库的操作记录在审计日志中，审计员利用审计日志监控数据库的各种行为，从而找出非法操作人和内容</p>
+<h1 id="数据库故障"><a href="#数据库故障" class="headerlink" title="数据库故障"></a>数据库故障</h1><p>事务：用户定义的数据库操作序列，要么全做，要么不做</p>
+<h2 id="事务ACID特性"><a href="#事务ACID特性" class="headerlink" title="事务ACID特性"></a>事务ACID特性</h2><p>Atomicity：原子性，事务的诸操作要么不做，要么全做<br>Consistency：一致性，事务执行的结果由一个一致性状态变到另一个一致性，数据库只包含事务成功提交的结果则数据库就处于一致性<br>Isolation：隔离性，并发操作的事务不可相互干扰<br>Duration：持续性，事务对数据库的改变时永久性的</p>
+<h2 id="数据库恢复技术"><a href="#数据库恢复技术" class="headerlink" title="数据库恢复技术"></a>数据库恢复技术</h2><p>数据转储和日志文件</p>
+<h3 id="数据转储"><a href="#数据转储" class="headerlink" title="数据转储"></a>数据转储</h3><p>静态转储：冷备份，转储期间不允许对数据库进行任何操作<br>动态转储：热备份，转储期间允许对数据库进行操作，通过日志文件执行转储期间的事务<br>海量转储：每次都转储数据库的所有数据<br>增量转储：每次只转储上一次转储后更新的数据</p>
+<h3 id="数据库故障类型"><a href="#数据库故障类型" class="headerlink" title="数据库故障类型"></a>数据库故障类型</h3><p>事务内部故障：事务内部非预期的故障，事务运行至正常终点被终止<br>系统故障（软故障）：断电，系统重启，DBMS代码错误 已写入数据库但事务未完成 未写入数据库但事务已提交<br>介质故障（硬故障）：硬盘损坏，强磁场干扰<br>计算机病毒</p>
+<h3 id="恢复策略"><a href="#恢复策略" class="headerlink" title="恢复策略"></a>恢复策略</h3><p>事务故障恢复：</p>
+<ol>
+<li>UNDO 反向扫描日志文件，进行逆操作直至事务的开始处</li>
+</ol>
+<p>系统故障恢复：</p>
+<ol>
+<li>正向扫描日志文件，找出已提交事务放入重做队列，找出未提交事务放入撤销队列</li>
+<li>UNDO 撤销撤销队列中的事务：反向扫描日志，对撤销事务逆操作</li>
+<li>REDO 重做重做队列中的事务：正向扫描日志，重做日志文件中记录的操作</li>
+</ol>
+<p>介质故障恢复：</p>
+<ol>
+<li>装入最近一次的数据库转储副本，对于动态转储的数据库，还要装入转储开始的日志副本，按系统故障恢复REDO+UNDO</li>
+<li>装入相应的日志副本，重做已完成的事务</li>
+</ol>
+<h3 id="检查点"><a href="#检查点" class="headerlink" title="检查点"></a>检查点</h3><p>使用日志技术恢复数据库是，子系统必须搜索日志确定哪些要REDO哪些要UNDO<br>优点：</p>
+<ol>
+<li>从检查点处开始搜索日志，相较于从头开始搜索日志，减少搜索日志占用的时间</li>
+<li>对于检查点之前已经提交的事务，可避免REDO操作重复操作占用时间</li>
+</ol>
+<p>日志文件<br>重新开始文件：检查点在日志中的地址<br>检查点记录的是：建立检查点时刻所有正在执行的事务以及事务在日志中的地址</p>
+<p>登记日志文件时必须遵循两条原则： <br>1）登记的次序严格按并发事务执行的时间次序。<br>2）必须先写日志文件，后写数据库。</p>
+<p>操作：</p>
+<ol>
+<li>从重新开始文件中找到最后一个检查点文件的地址，并从日志文件中找到该检查点</li>
+<li>建立UNDO-LIST和REDO-LIST，检查点时刻正在执行的暂时事务加入UNDO—LIST (检查点时刻正在执行的事务加入ACITIVE—LIST，ACITIVE—LIST加入UNDO-LIST)</li>
+<li>从检查点处开始扫描日志，有新开始的的事务加入UNDO-LIST，有提交事务则把该事务从UNDO-LIST的移入REDO-LIST</li>
+<li>根据UNDO-LIST和REDO-LIST执行UNDO和REDO操作</li>
+</ol>
+<h3 id="数据库镜像"><a href="#数据库镜像" class="headerlink" title="数据库镜像"></a>数据库镜像</h3><p>主数据库更新时，数据库管理系统自动将数据复制给镜像，镜像和主数据库具有一致性</p>
+<h1 id="数据库并发控制"><a href="#数据库并发控制" class="headerlink" title="数据库并发控制"></a>数据库并发控制</h1><p>封锁协议，乐观控制法，多版本并发控制，时间戳方法</p>
+<h2 id="并发操作带来的不一致性"><a href="#并发操作带来的不一致性" class="headerlink" title="并发操作带来的不一致性"></a>并发操作带来的不一致性</h2><p>丢失修改：两个事务读取同一个数据进行修改，一个事务提交的结果破坏了另一个事务提交的结果<br>不可重复读：T1事务读取的数据由于T2事务对其更新而使得T1无法再次读取原数据<br>读脏数据：T2读取的是T1修改后数据，而由于T1事务回滚，使得T2读取的数据是错误的数据</p>
+<h2 id="三级封锁协议"><a href="#三级封锁协议" class="headerlink" title="三级封锁协议"></a>三级封锁协议</h2><p>X锁：排他锁 加了X锁的对象，其他事务无法在对象上加任何锁<br>S锁：共享锁 加了S锁的对象，其他事务可以加S锁<br>一级封锁协议 X锁在事务结束后释放 不能保证可重复读和读脏数据<br>二级封锁协议 S锁在读取数据后释放 不能保证可重复读<br>三级封锁协议 S锁在事务结束后释放</p>
+<h2 id="两段锁协议"><a href="#两段锁协议" class="headerlink" title="两段锁协议"></a>两段锁协议</h2><p>扩展阶段：事务可以加任意类型的锁但不能释放任何锁<br>收缩阶段：事务可以释放任意类型的锁但不能加任何锁</p>
+<p>两段锁协议是事务可串行化的充分而非必要条件</p>
+<h2 id="数据库死锁"><a href="#数据库死锁" class="headerlink" title="数据库死锁"></a>数据库死锁</h2><p>互相等待对方释放资源</p>
+<h3 id="死锁的预防"><a href="#死锁的预防" class="headerlink" title="死锁的预防"></a>死锁的预防</h3><p>一次封锁法：一次性在所有要用到的对象上加锁<br>缺点：降低系统的并发性，数据库是在变化的，很难事先确定哪些对象要上锁</p>
+<p>顺序封锁法：按照某个不会引起死锁的顺序给对象加锁<br>缺点：数据库中对象太多，维护这样的封锁顺序很困难；数据库是在变化的，很难事先确定哪些对象要上锁</p>
+<h3 id="死锁的检测"><a href="#死锁的检测" class="headerlink" title="死锁的检测"></a>死锁的检测</h3><p>超时法：设置一个超时时间，事务等待超过一定时间就判定为死锁。（缺点：容易误判）<br>等待图法：系统每隔一段时间就生成事务等待图，等待图出现了回路则说明出现了死锁</p>
+<h3 id="死锁的处理"><a href="#死锁的处理" class="headerlink" title="死锁的处理"></a>死锁的处理</h3><p>撤销一个死锁代价最小的事务，释放其所有的锁，让其他事务得以继续执行</p>
+<h2 id="可串行化"><a href="#可串行化" class="headerlink" title="可串行化"></a>可串行化</h2><p>事务并发执行的结果与其按照串行执行的结果相同 称为可串行化<br>冲突操作：对同一对象的读写操作和写写操作</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CS-BASIC/" rel="tag"># CS BASIC</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/02/Algorithm/" rel="prev" title="Algorithm">
+      <i class="fa fa-chevron-left"></i> Algorithm
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/05/JAVA%20VS%20CPP/" rel="next" title="JAVA VS CPP">
+      JAVA VS CPP <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ"><span class="nav-number">1.</span> <span class="nav-text">FAQ</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ-1"><span class="nav-number">2.</span> <span class="nav-text">FAQ</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">关系型数据库的查询优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.1.</span> <span class="nav-text">选择操作的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.2.</span> <span class="nav-text">连接操作的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E6%95%B0%E4%BC%98%E5%8C%96%E5%B0%B1%E6%98%AF%E9%80%9A%E8%BF%87%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E7%AD%89%E4%BB%B7%E4%BB%A3%E6%8D%A2%EF%BC%8C%E5%B0%B1%E6%98%AF%E6%94%B9%E5%8F%98%E6%93%8D%E4%BD%9C%E7%9A%84%E7%BB%84%E5%90%88%E9%A1%BA%E5%BA%8F"><span class="nav-number">3.3.</span> <span class="nav-text">代数优化就是通过关系代数表达式的等价代换，就是改变操作的组合顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E4%BC%98%E5%8C%96%E5%BC%8F%E9%80%9A%E8%BF%87%E5%BA%95%E5%B1%82%E5%AD%98%E5%82%A8%E8%B7%AF%E5%BE%84%E5%92%8C%E6%93%8D%E4%BD%9C%E7%AE%97%E6%B3%95%E4%BC%98%E5%8C%96"><span class="nav-number">3.4.</span> <span class="nav-text">物理优化式通过底层存储路径和操作算法优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E4%BC%98%E5%8C%96%E5%90%AF%E5%8F%91%E5%BC%8F%E8%A7%84%E5%88%99%EF%BC%9A"><span class="nav-number">3.4.1.</span> <span class="nav-text">物理优化启发式规则：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E8%BF%90%E7%AE%97%EF%BC%9A"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">选择运算：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E8%BF%90%E7%AE%97%EF%BC%9A"><span class="nav-number">3.4.1.2.</span> <span class="nav-text">连接运算：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E4%BC%98%E5%8C%96%E4%BB%A3%E4%BB%B7%E4%BC%B0%E8%AE%A1%EF%BC%9A"><span class="nav-number">3.4.2.</span> <span class="nav-text">物理优化代价估计：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%8C%E6%95%B4%E6%80%A7%E6%A6%82%E5%BF%B5%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E6%A6%82%E5%BF%B5%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">数据库的完整性概念与数据库的安全性概念区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F"><span class="nav-number">5.</span> <span class="nav-text">数据库系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="nav-number">6.</span> <span class="nav-text">数据独立性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BB%84%E6%88%90%E8%A6%81%E7%B4%A0"><span class="nav-number">7.</span> <span class="nav-text">数据模型的组成要素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E7%BA%A7%E6%A8%A1%E5%BC%8F%E4%B8%8E%E4%B8%A4%E5%B1%82%E6%98%A0%E5%83%8F"><span class="nav-number">8.</span> <span class="nav-text">数据库的三级模式与两层映像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F"><span class="nav-number">9.</span> <span class="nav-text">关系模型的完整性约束</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">10.</span> <span class="nav-text">外连接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%92%E5%88%86%E5%AE%9E%E4%BD%93%E5%92%8C%E5%B1%9E%E6%80%A7"><span class="nav-number">11.</span> <span class="nav-text">如何划分实体和属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#E-R%E5%9B%BE%E4%B9%8B%E9%97%B4%E7%9A%84%E5%86%B2%E7%AA%81"><span class="nav-number">12.</span> <span class="nav-text">E-R图之间的冲突</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4"><span class="nav-number">13.</span> <span class="nav-text">数据库设计的基本步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AD%97%E5%85%B8"><span class="nav-number">13.1.</span> <span class="nav-text">数据字典</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%8F%96%E6%96%B9%E6%B3%95"><span class="nav-number">13.2.</span> <span class="nav-text">存取方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">13.3.</span> <span class="nav-text">存储结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-number">14.</span> <span class="nav-text">数据库查询优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8"><span class="nav-number">15.</span> <span class="nav-text">数据库安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%8F%96%E6%8E%A7%E5%88%B6"><span class="nav-number">15.1.</span> <span class="nav-text">存取控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E8%80%85%E5%8C%BA%E5%88%AB"><span class="nav-number">15.1.1.</span> <span class="nav-text">两者区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E6%9C%BA%E5%88%B6"><span class="nav-number">15.2.</span> <span class="nav-text">视图机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E4%BC%98%E7%82%B9"><span class="nav-number">15.2.1.</span> <span class="nav-text">视图优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E5%92%8C%E5%9F%BA%E6%9C%AC%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">15.2.2.</span> <span class="nav-text">视图和基本表的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A1%E8%AE%A1"><span class="nav-number">15.3.</span> <span class="nav-text">审计</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%85%E9%9A%9C"><span class="nav-number">16.</span> <span class="nav-text">数据库故障</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1ACID%E7%89%B9%E6%80%A7"><span class="nav-number">16.1.</span> <span class="nav-text">事务ACID特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%81%A2%E5%A4%8D%E6%8A%80%E6%9C%AF"><span class="nav-number">16.2.</span> <span class="nav-text">数据库恢复技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%82%A8"><span class="nav-number">16.2.1.</span> <span class="nav-text">数据转储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%85%E9%9A%9C%E7%B1%BB%E5%9E%8B"><span class="nav-number">16.2.2.</span> <span class="nav-text">数据库故障类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%81%A2%E5%A4%8D%E7%AD%96%E7%95%A5"><span class="nav-number">16.2.3.</span> <span class="nav-text">恢复策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E7%82%B9"><span class="nav-number">16.2.4.</span> <span class="nav-text">检查点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%95%9C%E5%83%8F"><span class="nav-number">16.2.5.</span> <span class="nav-text">数据库镜像</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="nav-number">17.</span> <span class="nav-text">数据库并发控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E6%93%8D%E4%BD%9C%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%B8%8D%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">17.1.</span> <span class="nav-text">并发操作带来的不一致性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E7%BA%A7%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">17.2.</span> <span class="nav-text">三级封锁协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E6%AE%B5%E9%94%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">17.3.</span> <span class="nav-text">两段锁协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81"><span class="nav-number">17.4.</span> <span class="nav-text">数据库死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E9%A2%84%E9%98%B2"><span class="nav-number">17.4.1.</span> <span class="nav-text">死锁的预防</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E6%A3%80%E6%B5%8B"><span class="nav-number">17.4.2.</span> <span class="nav-text">死锁的检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">17.4.3.</span> <span class="nav-text">死锁的处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E4%B8%B2%E8%A1%8C%E5%8C%96"><span class="nav-number">17.5.</span> <span class="nav-text">可串行化</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Finyaci</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Finyaci</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

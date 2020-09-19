@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="程序运行顺序，Image_train.py -&gt; capcitor_exam.py -&gt; capacitor_exam_auto.py 程序运行结果在result.txt中 Image_train.py程序简要说明该程序主要用于训练卷积神经网络网络，电容数据存放在’.&#x2F;Database&#x2F;‘文件夹下，通过读入’.&#x2F;Database&#x2F;‘文件夹下电容图像，对网络进行训练，训练的参数文件存放在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Capacitor Exam Readme">
+<meta property="og:url" content="http://example.com/2019/06/08/Capacitor%20Exam%20Readme/index.html">
+<meta property="og:site_name" content="Finyaci&#39;s Blog">
+<meta property="og:description" content="程序运行顺序，Image_train.py -&gt; capcitor_exam.py -&gt; capacitor_exam_auto.py 程序运行结果在result.txt中 Image_train.py程序简要说明该程序主要用于训练卷积神经网络网络，电容数据存放在’.&#x2F;Database&#x2F;‘文件夹下，通过读入’.&#x2F;Database&#x2F;‘文件夹下电容图像，对网络进行训练，训练的参数文件存放在">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-06-08T02:21:15.000Z">
+<meta property="article:modified_time" content="2019-07-02T11:51:20.788Z">
+<meta property="article:author" content="Finyaci">
+<meta property="article:tag" content="DeepLearning">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2019/06/08/Capacitor%20Exam%20Readme/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Capacitor Exam Readme | Finyaci's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Finyaci's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/06/08/Capacitor%20Exam%20Readme/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Capacitor Exam Readme
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-08 10:21:15" itemprop="dateCreated datePublished" datetime="2019-06-08T10:21:15+08:00">2019-06-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-07-02 19:51:20" itemprop="dateModified" datetime="2019-07-02T19:51:20+08:00">2019-07-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="程序运行顺序，"><a href="#程序运行顺序，" class="headerlink" title="程序运行顺序，"></a>程序运行顺序，</h1><p>Image_train.py -&gt; capcitor_exam.py -&gt; capacitor_exam_auto.py</p>
+<p>程序运行结果在result.txt中</p>
+<h1 id="Image-train-py"><a href="#Image-train-py" class="headerlink" title="Image_train.py"></a>Image_train.py</h1><h2 id="程序简要说明"><a href="#程序简要说明" class="headerlink" title="程序简要说明"></a>程序简要说明</h2><p>该程序主要用于训练卷积神经网络网络，电容数据存放在’./Database/‘文件夹下，通过读入’./Database/‘文件夹下电容图像，对网络进行训练，训练的参数文件存放在’./model/‘文件夹中，之后即可使用该参数文件编写程序对图像进行预测。</p>
+<h2 id="读取图像并处理read-img-函数说明"><a href="#读取图像并处理read-img-函数说明" class="headerlink" title="读取图像并处理read_img()函数说明"></a>读取图像并处理read_img()函数说明</h2><p>def read_img(path)</p>
+<p>形参说明：<br>path - 训练图像的路径</p>
+<p>该函数读取path目录下所有子文件夹下的电容图像，原电容图像大小是81<em>81，将其全部调整大小为100</em>100。朝左的图像标记为0，朝下标记为1，朝右标记为2，朝上标记为3，空标记为4.具体情况运行程序时会显示。<br>调整后的图像存放在imgs的列表中，标签存放在labels列表中。该函数最后会将imgs列表和labels列表转换成np的array格式并返回，便于数据的使用。</p>
+<h2 id="划分训练集和验证集"><a href="#划分训练集和验证集" class="headerlink" title="划分训练集和验证集"></a>划分训练集和验证集</h2><p>划分数据集前将数据打乱<br>num_example存放图像的总数目<br>np.arange(num_example)生成num_example个索引存放在arr中，打乱这些索引，将索引重新赋值给data和label实现了数据的打乱</p>
+<p>x_train、y_train 分别为训练集的图像和标签<br>x_val、y_val 分别为验证集的图像和标签</p>
+<p>其中80%为训练集，20%为验证集</p>
+<h2 id="神经网络定义函数inference-说明"><a href="#神经网络定义函数inference-说明" class="headerlink" title="神经网络定义函数inference()说明"></a>神经网络定义函数inference()说明</h2><p>def inference(input_tensor, train, regularizer)</p>
+<p>形参说明：<br>input_tensor - 数据输入接口，输入张量<br>train - 是否启用DropOut策略随机删除神经元，设置True或False<br>regularizer - 正则化抑制，使用前需要定义</p>
+<p>+++++++++++++++++++++++++++++++++++</p>
+<p>层   名    属   性    输入和输出<br>层1    Conv1+ReLU1    卷积核数量：32     卷积核尺寸：5×5     步幅：1     是否填充：填充     输入：100×100 输出：100×100<br>层2    Pool1                核尺寸：2×2     步幅：2    是否填充：不填充    输入：100×100 输出：50×50<br>层3    Conv2+ReLU2    卷积核数量：64<br>卷积核尺寸5×5<br>步幅：1<br>是否填充：填充    输入：50×50<br>输出：50×50<br>层4    Pool2    核尺寸：2×2<br>步幅：2<br>是否填充：不填充    输入：50×50<br>输出：25×25<br>层5    Conv3+ReLU3    卷积核数量：128<br>卷积核尺寸：3×3<br>步幅：1<br>是否填充：填充    输入：25×25<br>输出：25×25<br>层6    Pool3    核尺寸：2×2<br>步幅：2<br>是否填充：不填充    输入：25×25<br>输出：12×12<br>层7    Conv4+ReLU4    卷积核数量：128<br>卷积核尺寸：3×3<br>步幅：1<br>是否填充：填充    输入：12×12<br>输出：12×12<br>层8    Pool4    核尺寸：2×2<br>步幅：2<br>是否填充：不填充    输入：12×12<br>输出：6×6<br>层9    Fc1+ReLU_Fc1    神经元个数：1024    输入：6×6×128<br>输出：1024<br>层10    Fc2+ReLU_Fc2    神经元个数：512    输入：1024<br>输出：512<br>层11    Fc3    神经元个数：5    输入：512<br>输出：5</p>
+<p>+++++++++++++++++++++++++++++++++++</p>
+<h2 id="其余变量的说明"><a href="#其余变量的说明" class="headerlink" title="其余变量的说明"></a>其余变量的说明</h2><p>loss - 损失值<br>train_op - 优化操作，动态改变学习率<br>acc - 模型精确度</p>
+<h2 id="批处理函数minibatches-说明"><a href="#批处理函数minibatches-说明" class="headerlink" title="批处理函数minibatches()说明"></a>批处理函数minibatches()说明</h2><p>def minibatches(inputs=None, targets=None, batch_size=None, shuffle=False)</p>
+<p>形参说明：<br>inputs - 接受图像列表<br>targets - 接受标签列表<br>batch_size - 为每一批次数据大小<br>shuffle -  设置为False时数据将不打乱，设置为True可打乱数据</p>
+<p>该函数返回批处理后的图像、标签</p>
+<p>saver = tf.train.Saver()     # 创建一个对象，用于参数保存<br>saver.save(sess, model_path) # 保存网络参数到model_path所指的路径<br>sess = tf.Session()            # 创建TensorFlow会话<br>sess.run(tf.global_variables_initializer())<br>    # 初始化所有变量</p>
+<h2 id="训练网络"><a href="#训练网络" class="headerlink" title="训练网络"></a>训练网络</h2><p>n_epoch - 网络训练的epoch数目，根据硬件性能适当选择，可设置大一些。默认值为10。</p>
+<p>for epoch in range(n_epoch):</p>
+<p>该层循环每一次循环都计算一次在验证集和训练集上的总损失值和模型精度。</p>
+<p>程序开头定义的以下四个列表，记录了每个epoch后训练集和验证集上的损失与精度。</p>
+<p>train_loss_list = []<br>train_acc_list = []<br>val_loss_list = []<br>val_acc_list = []</p>
+<h1 id="capcitor-exam-py"><a href="#capcitor-exam-py" class="headerlink" title="capcitor_exam.py"></a>capcitor_exam.py</h1><h2 id="程序简要说明-1"><a href="#程序简要说明-1" class="headerlink" title="程序简要说明"></a>程序简要说明</h2><p>该程序主要人工获取电路板上电容位置坐标、电容大小和正确电容负极朝向等各项参数的程序。其中各项参数会被保存为coord.pk文件，方便capacitor_exam_auto.py程序进行调用。</p>
+<h2 id="变量定义说明"><a href="#变量定义说明" class="headerlink" title="变量定义说明"></a>变量定义说明</h2><p>flower_dict = {0: ‘left’, 1: ‘down’, 2: ‘right’, 3: ‘up’, 4: ‘empty’}<br>电容印花定义，与Image_train.py中定义要一致<br>x_length, y_length - 以光标为中心x方向偏移，y方向偏移<br>xy_list - 坐标<br>length_list - 偏移<br>dir_list - 预测与实际结果是否一致性存放列表<br>idx - 截取的元件序号，设置为1</p>
+<h2 id="capture-函数说明"><a href="#capture-函数说明" class="headerlink" title="capture()函数说明"></a>capture()函数说明</h2><p>def capture(event, x, y, flags, params) 对图像截取</p>
+<p>配合OpenCV的鼠标事件使用：<br>cv2.setMouseCallback(‘img’, capture)</p>
+<p>全局变量说明：</p>
+<p>cap_img - 被截取的图像<br>start_flag - 等待标志，防止出错<br>x_length、y_length - x、y方向上的偏移量<br>xy - 临时变量，元组类型，保存(x, y)坐标，xy将会被添加至xy_list中。</p>
+<p>img - 测试图像，原图<br>img_bk_for_rect - 备份图像，用来绘制截取框<br>img_bk_for_cap - 备份图像，用来截取图像</p>
+<p>不在原图上绘制截取框，防止图像截取时，元件靠的过近，一旦绘制了截取框，将会把靠的过近截取框也截下来，影响网络的判断。</p>
+<p>主要功能说明：</p>
+<p>鼠标中键（滚轮）按下 按下一次，x_length、y_length各减少10，截取框减小，并会在图像上显示出蓝色的方框</p>
+<p>鼠标右键按下 按下一次，x_length、y_length各增加10，截取框增大，并会在图像上显示出绿色的方框</p>
+<p>鼠标滚轮滚动 实现对图像重新载入，以实现清除的目的</p>
+<p>鼠标左键双击 根据x_length、y_length大小在图上显示白色的截取框，右上角显示方框选取的次序</p>
+<h2 id="预测部分说明"><a href="#预测部分说明" class="headerlink" title="预测部分说明"></a>预测部分说明</h2><p>预测截取的cap_img图像时，首先要安照常规定义TensorFlow的方式建立会话，并读入参数文件，代码如下</p>
+<p>with tf.Session() as sess:<br>    saver = tf.train.import_meta_graph(‘./model/model.ckpt.meta’)<br>    saver.restore(sess, tf.train.latest_checkpoint(‘./model/‘))</p>
+<p>对图像进行预测时同样要调整截取图像的大小<br>r_cap_img = cv2.resize(cap_img, (100, 100), interpolation=cv2.INTER_LINEAR)</p>
+<p>调用先前网络的参数对截取的图像进行预测，将打印出预测矩阵和当前样本预测的方向。如果预测正确，输入’y’则会记录当前预测的方向，结果将会加入dir_list列表；如果预测错误，应当输入’n’，将会删除元件坐标等数据。</p>
+<h2 id="保存参数"><a href="#保存参数" class="headerlink" title="保存参数"></a>保存参数</h2><p>with open(‘coord.pk’, ‘wb’) as f:<br>    pickle.dump(xy_list, f)<br>    pickle.dump(length_list, f)<br>    pickle.dump(dir_list, f)</p>
+<p>在当前目录下，会以二进制的形式保存坐标、偏移量和正确朝向的参数。参数保存在coord.pk文件下。用于capacitor_exam_auto.py程序调用</p>
+<h1 id="capacitor-exam-auto-py"><a href="#capacitor-exam-auto-py" class="headerlink" title="capacitor_exam_auto.py"></a>capacitor_exam_auto.py</h1><h2 id="程序简要说明-2"><a href="#程序简要说明-2" class="headerlink" title="程序简要说明"></a>程序简要说明</h2><p>capacitor_exam_auto.py即是对电路板图像上电容插件方向检测的程序。该程序首先会载入coord.pk文件，获取待检测的图像和位置坐标等信息。对电路板上电容部件检测的结果将会存放在当前目录的result.txt文件中，其中图像预测部分循环和capacitor_exam.py没有太大区别。</p>
+<h2 id="变量定义说明-1"><a href="#变量定义说明-1" class="headerlink" title="变量定义说明"></a>变量定义说明</h2><p>img_path - 存放待检测的图像路径，根据图像的名称和路径，可以自行定义<br>predicted_res_list - 网络预测结果<br>res_list - 网络预测结果和正确朝向比对的判断结果<br>idx_list - 存放电容序号<br>x, y - 坐标<br>x_length, y_length、xy_list、 length_list、 dir_list与capacitor_exam.py文件中定义一致</p>
+<h2 id="capimgbyxy-函数说明"><a href="#capimgbyxy-函数说明" class="headerlink" title="capimgbyxy()函数说明"></a>capimgbyxy()函数说明</h2><p>def capimgbyxy()</p>
+<p>函数说明：<br>根据x, y 、x_length, y_length、对图像自动截取</p>
+<h2 id="exam-函数说明"><a href="#exam-函数说明" class="headerlink" title="exam()函数说明"></a>exam()函数说明</h2><p>def exam(predicted_flag)</p>
+<p>形参说明：<br>predicted_flag - 等待标志，防止出错</p>
+<p>函数说明：<br>将预测的结果和应当正确的结果进行比对，如果朝向一致，则在截取框上用绿色显示正确朝向，如果错误，则显示红色的’wrong’字样。同时，比对结果将被加入res_list中</p>
+<p>73行，开始循环检测，根据xy_list内的元组数目决定循环次数<br>for coord in xy_list:</p>
+<p>图像预测部分循环和capacitor_exam.py没有太大区别。</p>
+<p>预测结果将会全部存放在当前目录的result.txt中</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/DeepLearning/" rel="tag"># DeepLearning</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/24/C%20Programming%20Hints/" rel="prev" title="C Programming Hints">
+      <i class="fa fa-chevron-left"></i> C Programming Hints
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/09/14/C%20math.h%20%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" rel="next" title="C math.h常用函数">
+      C math.h常用函数 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E9%A1%BA%E5%BA%8F%EF%BC%8C"><span class="nav-number">1.</span> <span class="nav-text">程序运行顺序，</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Image-train-py"><span class="nav-number">2.</span> <span class="nav-text">Image_train.py</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%AE%80%E8%A6%81%E8%AF%B4%E6%98%8E"><span class="nav-number">2.1.</span> <span class="nav-text">程序简要说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%9B%BE%E5%83%8F%E5%B9%B6%E5%A4%84%E7%90%86read-img-%E5%87%BD%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">2.2.</span> <span class="nav-text">读取图像并处理read_img()函数说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%92%E5%88%86%E8%AE%AD%E7%BB%83%E9%9B%86%E5%92%8C%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="nav-number">2.3.</span> <span class="nav-text">划分训练集和验证集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0inference-%E8%AF%B4%E6%98%8E"><span class="nav-number">2.4.</span> <span class="nav-text">神经网络定义函数inference()说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BD%99%E5%8F%98%E9%87%8F%E7%9A%84%E8%AF%B4%E6%98%8E"><span class="nav-number">2.5.</span> <span class="nav-text">其余变量的说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0minibatches-%E8%AF%B4%E6%98%8E"><span class="nav-number">2.6.</span> <span class="nav-text">批处理函数minibatches()说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C"><span class="nav-number">2.7.</span> <span class="nav-text">训练网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#capcitor-exam-py"><span class="nav-number">3.</span> <span class="nav-text">capcitor_exam.py</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%AE%80%E8%A6%81%E8%AF%B4%E6%98%8E-1"><span class="nav-number">3.1.</span> <span class="nav-text">程序简要说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E8%AF%B4%E6%98%8E"><span class="nav-number">3.2.</span> <span class="nav-text">变量定义说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#capture-%E5%87%BD%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">3.3.</span> <span class="nav-text">capture()函数说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E6%B5%8B%E9%83%A8%E5%88%86%E8%AF%B4%E6%98%8E"><span class="nav-number">3.4.</span> <span class="nav-text">预测部分说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%8F%82%E6%95%B0"><span class="nav-number">3.5.</span> <span class="nav-text">保存参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#capacitor-exam-auto-py"><span class="nav-number">4.</span> <span class="nav-text">capacitor_exam_auto.py</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%AE%80%E8%A6%81%E8%AF%B4%E6%98%8E-2"><span class="nav-number">4.1.</span> <span class="nav-text">程序简要说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89%E8%AF%B4%E6%98%8E-1"><span class="nav-number">4.2.</span> <span class="nav-text">变量定义说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#capimgbyxy-%E5%87%BD%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">4.3.</span> <span class="nav-text">capimgbyxy()函数说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exam-%E5%87%BD%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">4.4.</span> <span class="nav-text">exam()函数说明</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Finyaci</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Finyaci</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

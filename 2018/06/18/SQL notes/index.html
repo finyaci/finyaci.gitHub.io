@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="0123同时安装python2 python3 anaconda 对应命令行指令调用：python2 python3 pythonpython3 -m pip install fire  11234字段&#x2F;记录&#x2F;主键字段名称&#x2F;字段数据类型&#x2F;字段约束&#x2F;字段长度  212345DQL:selectDML:insert,delete,updateDDL:create,drop,alterTCL:commi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL notes">
+<meta property="og:url" content="http://example.com/2018/06/18/SQL%20notes/index.html">
+<meta property="og:site_name" content="Finyaci&#39;s Blog">
+<meta property="og:description" content="0123同时安装python2 python3 anaconda 对应命令行指令调用：python2 python3 pythonpython3 -m pip install fire  11234字段&#x2F;记录&#x2F;主键字段名称&#x2F;字段数据类型&#x2F;字段约束&#x2F;字段长度  212345DQL:selectDML:insert,delete,updateDDL:create,drop,alterTCL:commi">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-06-18T09:37:22.000Z">
+<meta property="article:modified_time" content="2018-07-09T02:53:19.323Z">
+<meta property="article:author" content="Finyaci">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2018/06/18/SQL%20notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>MySQL notes | Finyaci's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Finyaci's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/06/18/SQL%20notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL notes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-18 17:37:22" itemprop="dateCreated datePublished" datetime="2018-06-18T17:37:22+08:00">2018-06-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-07-09 10:53:19" itemprop="dateModified" datetime="2018-07-09T10:53:19+08:00">2018-07-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="0"><a href="#0" class="headerlink" title="0"></a>0</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">同时安装python2 python3 anaconda </span><br><span class="line">对应命令行指令调用：python2 python3 python</span><br><span class="line">python3 -m pip <span class="keyword">install</span> fire</span><br></pre></td></tr></table></figure>
+
+<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">字段/记录/主键</span><br><span class="line"></span><br><span class="line">字段名称/字段数据类型/字段约束/字段长度</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DQL:<span class="keyword">select</span></span><br><span class="line">DML:<span class="keyword">insert</span>,<span class="keyword">delete</span>,<span class="keyword">update</span></span><br><span class="line"><span class="keyword">DDL</span>:<span class="keyword">create</span>,<span class="keyword">drop</span>,<span class="keyword">alter</span></span><br><span class="line">TCL:<span class="keyword">commit</span>,<span class="keyword">rollback</span></span><br><span class="line">DCL:<span class="keyword">grant</span>,<span class="keyword">revoke</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="3-查看MySql数据库物理文件存放位置"><a href="#3-查看MySql数据库物理文件存放位置" class="headerlink" title="3 查看MySql数据库物理文件存放位置"></a>3 查看MySql数据库物理文件存放位置</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show global variables like &quot;%datadir%&quot;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-bjpn"><a href="#4-bjpn" class="headerlink" title="4 bjpn"></a>4 bjpn</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> bjpn;</span><br><span class="line"><span class="keyword">use</span> bjpn;</span><br><span class="line"></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> dept;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> salgrade;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> emp;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> dept(</span><br><span class="line">		deptno <span class="built_in">int</span>(<span class="number">10</span>) primary <span class="keyword">key</span>,</span><br><span class="line">		dname <span class="built_in">varchar</span>(<span class="number">14</span>),</span><br><span class="line">		loc <span class="built_in">varchar</span>(<span class="number">13</span>)</span><br><span class="line">		);</span><br><span class="line">		</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> salgrade(</span><br><span class="line">		grade <span class="built_in">int</span>(<span class="number">11</span>),</span><br><span class="line">		losal <span class="built_in">int</span>(<span class="number">11</span>),</span><br><span class="line">		hisal <span class="built_in">int</span>(<span class="number">11</span>)</span><br><span class="line">		);</span><br><span class="line">		</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp(</span><br><span class="line">		empno <span class="built_in">int</span>(<span class="number">4</span>) primary <span class="keyword">key</span>,</span><br><span class="line">		ename <span class="built_in">varchar</span>(<span class="number">10</span>),</span><br><span class="line">		job <span class="built_in">varchar</span>(<span class="number">9</span>),</span><br><span class="line">		mgr <span class="built_in">int</span>(<span class="number">4</span>),</span><br><span class="line">		hiredate <span class="built_in">date</span>,</span><br><span class="line">		sal <span class="keyword">double</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">		comm <span class="keyword">double</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">		deptno <span class="built_in">int</span>(<span class="number">2</span>)</span><br><span class="line">		);</span><br><span class="line">		</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept(deptno,dname,loc) <span class="keyword">values</span>(<span class="number">10</span>,<span class="string">&#x27;ACCOUNTING&#x27;</span>,<span class="string">&#x27;NEW YORK&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept(deptno,dname,loc) <span class="keyword">values</span>(<span class="number">20</span>,<span class="string">&#x27;RESEARCHING&#x27;</span>,<span class="string">&#x27;DALLAS&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept(deptno,dname,loc) <span class="keyword">values</span>(<span class="number">30</span>,<span class="string">&#x27;SALES&#x27;</span>,<span class="string">&#x27;CHICAGO&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept(deptno,dname,loc) <span class="keyword">values</span>(<span class="number">40</span>,<span class="string">&#x27;OPERATIONS&#x27;</span>,<span class="string">&#x27;BOSTON&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> salgrade(grade,losal,hisal) <span class="keyword">values</span>(<span class="number">1</span>,<span class="number">700</span>,<span class="number">1200</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> salgrade(grade,losal,hisal) <span class="keyword">values</span>(<span class="number">2</span>,<span class="number">1201</span>,<span class="number">1400</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> salgrade(grade,losal,hisal) <span class="keyword">values</span>(<span class="number">3</span>,<span class="number">1401</span>,<span class="number">2000</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> salgrade(grade,losal,hisal) <span class="keyword">values</span>(<span class="number">4</span>,<span class="number">2001</span>,<span class="number">3000</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> salgrade(grade,losal,hisal) <span class="keyword">values</span>(<span class="number">5</span>,<span class="number">3001</span>,<span class="number">5000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7369</span>,<span class="string">&#x27;SIMITH&#x27;</span>,<span class="string">&#x27;CLERK&#x27;</span>,<span class="number">7902</span>,<span class="string">&#x27;1980-12-17&#x27;</span>,<span class="number">800</span>,<span class="literal">null</span>,<span class="number">20</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7499</span>,<span class="string">&#x27;ALLEN&#x27;</span>,<span class="string">&#x27;SALESMAN&#x27;</span>,<span class="number">7698</span>,<span class="string">&#x27;1981-02-20&#x27;</span>,<span class="number">1600</span>,<span class="number">300</span>,<span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7521</span>,<span class="string">&#x27;WARD&#x27;</span>,<span class="string">&#x27;SALESMAN&#x27;</span>,<span class="number">7698</span>,<span class="string">&#x27;1981-02-22&#x27;</span>,<span class="number">1250</span>,<span class="number">500</span>,<span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7566</span>,<span class="string">&#x27;JONES&#x27;</span>,<span class="string">&#x27;MANAGER&#x27;</span>,<span class="number">7839</span>,<span class="string">&#x27;1981-04-02&#x27;</span>,<span class="number">2975</span>,<span class="literal">null</span>,<span class="number">20</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7654</span>,<span class="string">&#x27;MARTIN&#x27;</span>,<span class="string">&#x27;SALESMAN&#x27;</span>,<span class="number">7698</span>,<span class="string">&#x27;1981-09-28&#x27;</span>,<span class="number">1250</span>,<span class="number">1400</span>,<span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7698</span>,<span class="string">&#x27;BLAKE&#x27;</span>,<span class="string">&#x27;MANAGER&#x27;</span>,<span class="number">7839</span>,<span class="string">&#x27;1981-05-01&#x27;</span>,<span class="number">2850</span>,<span class="literal">null</span>,<span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7782</span>,<span class="string">&#x27;CLARK&#x27;</span>,<span class="string">&#x27;MANAGER&#x27;</span>,<span class="number">7839</span>,<span class="string">&#x27;1981-06-09&#x27;</span>,<span class="number">2450</span>,<span class="literal">null</span>,<span class="number">10</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7788</span>,<span class="string">&#x27;SCOTT&#x27;</span>,<span class="string">&#x27;ANALYST&#x27;</span>,<span class="number">7566</span>,<span class="string">&#x27;1987-04-19&#x27;</span>,<span class="number">3000</span>,<span class="literal">null</span>,<span class="number">20</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7839</span>,<span class="string">&#x27;KING&#x27;</span>,<span class="string">&#x27;PRESIDENT&#x27;</span>,<span class="literal">null</span>,<span class="string">&#x27;1981-11-17&#x27;</span>,<span class="number">5000</span>,<span class="literal">null</span>,<span class="number">10</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7844</span>,<span class="string">&#x27;TURNER&#x27;</span>,<span class="string">&#x27;SALESMAN&#x27;</span>,<span class="number">7698</span>,<span class="string">&#x27;1981-09-08&#x27;</span>,<span class="number">1500</span>,<span class="literal">null</span>,<span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7876</span>,<span class="string">&#x27;ADAMS&#x27;</span>,<span class="string">&#x27;CLERK&#x27;</span>,<span class="number">7788</span>,<span class="string">&#x27;1987-05-23&#x27;</span>,<span class="number">1100</span>,<span class="literal">null</span>,<span class="number">20</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7900</span>,<span class="string">&#x27;JAMES&#x27;</span>,<span class="string">&#x27;CLERK&#x27;</span>,<span class="number">7698</span>,<span class="string">&#x27;1981-12-03&#x27;</span>,<span class="number">950</span>,<span class="literal">null</span>,<span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7902</span>,<span class="string">&#x27;FORD&#x27;</span>,<span class="string">&#x27;ANALYST&#x27;</span>,<span class="number">7566</span>,<span class="string">&#x27;1981-12-03&#x27;</span>,<span class="number">3000</span>,<span class="literal">null</span>,<span class="number">20</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7934</span>,<span class="string">&#x27;MILLER&#x27;</span>,<span class="string">&#x27;CLERK&#x27;</span>,<span class="number">7782</span>,<span class="string">&#x27;1982-01-23&#x27;</span>,<span class="number">1300</span>,<span class="literal">null</span>,<span class="number">10</span>);</span><br><span class="line">	</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> dept;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> salgrade;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-查看文件结构"><a href="#4-查看文件结构" class="headerlink" title="4 查看文件结构"></a>4 查看文件结构</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">desc dept;</span><br><span class="line">desc emp;</span><br><span class="line">desc salgrade;</span><br></pre></td></tr></table></figure>
+
+<h1 id="5-查看每张表的内容"><a href="#5-查看每张表的内容" class="headerlink" title="5 查看每张表的内容"></a>5 查看每张表的内容</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> dept;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> salgrade;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp;</span><br></pre></td></tr></table></figure>
+
+<h1 id="6-查看数据库内所有表"><a href="#6-查看数据库内所有表" class="headerlink" title="6 查看数据库内所有表"></a>6 查看数据库内所有表</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">tables</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="7-常用命令"><a href="#7-常用命令" class="headerlink" title="7 常用命令"></a>7 常用命令</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">databases</span>;		//查看所有数据库</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">version</span>();	//查看版本</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">database</span>();	//查看当前使用的数据库</span><br><span class="line"></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">tables</span> <span class="keyword">from</span> <span class="keyword">test</span>;	//可以在其他数据库中看指定数据库的表</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> (<span class="keyword">table</span> <span class="keyword">name</span>);	//查看创建表的语句</span><br></pre></td></tr></table></figure>
+
+<h1 id="8-查询-select不会修改数据库的内容"><a href="#8-查询-select不会修改数据库的内容" class="headerlink" title="8 查询 select不会修改数据库的内容"></a>8 查询 select不会修改数据库的内容</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp;				//查询emp表中所有字段</span><br><span class="line"><span class="keyword">select</span> deptno <span class="keyword">from</span> emp;			//查询emp表中deptno字段</span><br><span class="line"><span class="keyword">select</span> empno,mgr <span class="keyword">from</span> emp;		//查询emp表中empno,mgr内容</span><br><span class="line"><span class="keyword">select</span> empno,sal*<span class="number">12</span> <span class="keyword">as</span> ysal <span class="keyword">from</span> emp;	//显示年薪</span><br></pre></td></tr></table></figure>
+<h1 id="9-修改数据库的密码"><a href="#9-修改数据库的密码" class="headerlink" title="9 修改数据库的密码"></a>9 修改数据库的密码</h1><p>方法1： 用SET PASSWORD命令 </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set password for 用户名@localhost = password(‘新密码’); </span><br><span class="line">mysql&gt; set password for root@localhost = password(‘root’);</span><br></pre></td></tr></table></figure>
+<h1 id="10-限定与排序"><a href="#10-限定与排序" class="headerlink" title="10 限定与排序"></a>10 限定与排序</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> job <span class="keyword">from</span> emp <span class="keyword">limit</span> <span class="number">5</span>,<span class="number">8</span>; 			//查询emp表中job字段从第6个数据开始下面8个数据</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">order</span> <span class="keyword">by</span> sal;			//查询emp表中所有数据按sal排序</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">order</span> <span class="keyword">by</span> sal <span class="keyword">desc</span>;	//查询emp表中所有数据按sal降序排序</span><br></pre></td></tr></table></figure>
+
+<h1 id="11-where-子句的使用"><a href="#11-where-子句的使用" class="headerlink" title="11 where 子句的使用"></a>11 where 子句的使用</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">select * from emp where sal&gt;2000;					//查询emp表中所有数据按sal&gt;2000的数据</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> sal&gt;<span class="number">2000</span> <span class="keyword">order</span> <span class="keyword">by</span> sal <span class="keyword">desc</span>;	//order by 子句应在 where之后</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> comm <span class="keyword">is</span> <span class="literal">NULL</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> comm <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">NULL</span>;</span><br><span class="line"><span class="keyword">select</span> ename,sal,deptno <span class="keyword">from</span> emp <span class="keyword">where</span> sal&gt;<span class="number">3000</span> <span class="keyword">and</span> deptno=<span class="number">10</span>;	//operators and or </span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> (deptno=<span class="number">10</span> <span class="keyword">or</span> deptno=<span class="number">20</span>) <span class="keyword">and</span> sal&gt;<span class="number">2000</span>; //and优先级高于or，圆括号可以改变优先级</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> mgr REGEXP <span class="string">&#x27;78..&#x27;</span>;			//使用正则表达式</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="12-创建表"><a href="#12-创建表" class="headerlink" title="12 创建表"></a>12 创建表</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">database</span> SHOP;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> SHOP;</span><br><span class="line">	<span class="keyword">use</span> SHOP;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">drop</span> <span class="keyword">table</span> customers <span class="keyword">if</span> <span class="keyword">exists</span>;</span><br><span class="line">	<span class="keyword">create</span> <span class="keyword">table</span> customers(</span><br><span class="line">		cust_id <span class="built_in">int</span>(<span class="number">10</span>) primary <span class="keyword">key</span>,</span><br><span class="line">		cust_name <span class="built_in">char</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">		cust_email <span class="built_in">char</span>(<span class="number">20</span>) <span class="literal">null</span></span><br><span class="line">		);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> customers(cust_id,cust_name,cust_email) <span class="keyword">values</span>(<span class="number">10000</span>,<span class="string">&#x27;Bob&#x27;</span>,<span class="string">&#x27;11@11.com&#x27;</span>);	</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> customers(cust_id,cust_name,cust_email) <span class="keyword">values</span>(<span class="number">10001</span>,<span class="string">&#x27;Mike&#x27;</span>,<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> customers(cust_id,cust_name,cust_email) <span class="keyword">values</span>(<span class="number">10002</span>,<span class="string">&#x27;Nancy&#x27;</span>,<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">update</span> customers <span class="keyword">set</span> cust_email=<span class="string">&#x27;22@22.com&#x27;</span> <span class="keyword">where</span> cust_id=<span class="number">10001</span>;</span><br><span class="line"><span class="keyword">update</span> customers <span class="keyword">set</span> cust_email=<span class="string">&#x27;111@22.com&#x27;</span> <span class="keyword">where</span> cust_id=<span class="number">10000</span>;</span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> customers <span class="keyword">where</span> cust_id = <span class="number">10002</span>;</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> customers <span class="keyword">add</span> cust_vip <span class="built_in">char</span>(<span class="number">3</span>);</span><br><span class="line"><span class="keyword">update</span> customers <span class="keyword">set</span> cust_vip = <span class="string">&quot;Yes&quot;</span> <span class="keyword">where</span> cust_id = <span class="number">10000</span>;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/05/01/WORDS_EXAMPLES__/" rel="prev" title="__WORDS_EXAMPLES__">
+      <i class="fa fa-chevron-left"></i> __WORDS_EXAMPLES__
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/06/19/Reding_Comprehension_Notes/" rel="next" title="__Reading_Comprehension_Notes__">
+      __Reading_Comprehension_Notes__ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0"><span class="nav-number">1.</span> <span class="nav-text">0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1"><span class="nav-number">2.</span> <span class="nav-text">1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2"><span class="nav-number">3.</span> <span class="nav-text">2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%9F%A5%E7%9C%8BMySql%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%A9%E7%90%86%E6%96%87%E4%BB%B6%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">3 查看MySql数据库物理文件存放位置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-bjpn"><span class="nav-number">5.</span> <span class="nav-text">4 bjpn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">6.</span> <span class="nav-text">4 查看文件结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E6%9F%A5%E7%9C%8B%E6%AF%8F%E5%BC%A0%E8%A1%A8%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">7.</span> <span class="nav-text">5 查看每张表的内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E6%89%80%E6%9C%89%E8%A1%A8"><span class="nav-number">8.</span> <span class="nav-text">6 查看数据库内所有表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">9.</span> <span class="nav-text">7 常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-%E6%9F%A5%E8%AF%A2-select%E4%B8%8D%E4%BC%9A%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">10.</span> <span class="nav-text">8 查询 select不会修改数据库的内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AF%86%E7%A0%81"><span class="nav-number">11.</span> <span class="nav-text">9 修改数据库的密码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-%E9%99%90%E5%AE%9A%E4%B8%8E%E6%8E%92%E5%BA%8F"><span class="nav-number">12.</span> <span class="nav-text">10 限定与排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-where-%E5%AD%90%E5%8F%A5%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">13.</span> <span class="nav-text">11 where 子句的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">14.</span> <span class="nav-text">12 创建表</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Finyaci</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Finyaci</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

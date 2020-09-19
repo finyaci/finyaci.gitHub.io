@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="计算机系统的层次高级语言机器 软件层汇编语言机器 软件层操作系统机器 软件层 机器语言机器 硬件层微指令系统    硬件层 定点数浮点数存储器存储器：存储二进制信息存储器的结构：MAR（地址存储器） MDR（数据存储器）存储体cache-主存-辅存 存取方式：顺序存取：磁带 从前往后依次寻找直接存取：磁盘 b+树 通过关键字找到数据大致范围，再在数据范围内找寻所要的数据随机存取：（RAM ROM）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成原理">
+<meta property="og:url" content="http://example.com/2020/04/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="Finyaci&#39;s Blog">
+<meta property="og:description" content="计算机系统的层次高级语言机器 软件层汇编语言机器 软件层操作系统机器 软件层 机器语言机器 硬件层微指令系统    硬件层 定点数浮点数存储器存储器：存储二进制信息存储器的结构：MAR（地址存储器） MDR（数据存储器）存储体cache-主存-辅存 存取方式：顺序存取：磁带 从前往后依次寻找直接存取：磁盘 b+树 通过关键字找到数据大致范围，再在数据范围内找寻所要的数据随机存取：（RAM ROM）">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-26T04:37:22.000Z">
+<meta property="article:modified_time" content="2020-05-11T04:16:00.000Z">
+<meta property="article:author" content="Finyaci">
+<meta property="article:tag" content="CS BASIC">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/04/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>计算机组成原理 | Finyaci's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Finyaci's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机组成原理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-26 12:37:22" itemprop="dateCreated datePublished" datetime="2020-04-26T12:37:22+08:00">2020-04-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-11 12:16:00" itemprop="dateModified" datetime="2020-05-11T12:16:00+08:00">2020-05-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="计算机系统的层次"><a href="#计算机系统的层次" class="headerlink" title="计算机系统的层次"></a>计算机系统的层次</h1><p>高级语言机器 软件层<br>汇编语言机器 软件层<br>操作系统机器 软件层</p>
+<p>机器语言机器 硬件层<br>微指令系统    硬件层</p>
+<h1 id="定点数"><a href="#定点数" class="headerlink" title="定点数"></a>定点数</h1><h1 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h1><h1 id="存储器"><a href="#存储器" class="headerlink" title="存储器"></a>存储器</h1><p>存储器：存储二进制信息<br>存储器的结构：MAR（地址存储器） MDR（数据存储器）存储体<br>cache-主存-辅存</p>
+<h2 id="存取方式："><a href="#存取方式：" class="headerlink" title="存取方式："></a>存取方式：</h2><p>顺序存取：磁带 从前往后依次寻找<br>直接存取：磁盘 b+树 通过关键字找到数据大致范围，再在数据范围内找寻所要的数据<br>随机存取：（RAM ROM） 通过地址直接访问，耗时为电流延迟</p>
+<h2 id="半导体随机存储器-易失性存储器"><a href="#半导体随机存储器-易失性存储器" class="headerlink" title="半导体随机存储器 易失性存储器"></a>半导体随机存储器 易失性存储器</h2><p>SRAM 静态随机存储器 使用触发器，不需要刷新，非破坏性读出，双稳态，运行快（不要刷新），功耗高，存储密度低，存储成本大<br>DRAM 动态随机存储器 使用电容，电荷会流失，充放电，破坏性读出，需要刷新，运行慢，功耗低，存储密度高，存储成本小</p>
+<p>SRAM CACHE<br>DRAM 主存</p>
+<p>DRAM刷新 2ms<br>主存采用行列式布局 可减少选通线<br>存取一个存储单元要行地址和列地址<br>刷新时，将一行单元读出再写入</p>
+<p>分散刷新：每次读写都刷新 读写刷新读写刷新的机器周期<br>集中刷新：2ms内选择一段时间集中刷新，此时存储器将不可用，成为死区 64us用刷新1936us可正常使用<br>两者结合异步刷新：将刷新均匀的分散到2ms内</p>
+<h2 id="只读存储器"><a href="#只读存储器" class="headerlink" title="只读存储器"></a>只读存储器</h2><p>作用：存放一些基本信息，告诉CPU RAM要调用哪些内容<br>ROM 可以和CPU直接通信，掉电不丢失 PS：硬盘需要经过IO才能和CPU通信</p>
+<p>最初不可写，只能读，<br>PROM 可编程<br>EPROM 可擦除可编程 紫外线、电擦除<br>闪存 U盘<br>固态硬盘</p>
+<h2 id="主存扩展"><a href="#主存扩展" class="headerlink" title="主存扩展"></a>主存扩展</h2><p>位扩 地址引脚共连<br>字扩展 通过片选选择，数据引脚共连</p>
+<h1 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h1><p>立即寻址 0 操作数就在指令字中<br>直接寻址 1 指令字中存放操作数的地址<br>间接寻址 2 指令字中存放的是指向操作数的地址的地址<br>寄存器寻址 0 寄存器内存放的就是操作数<br>寄存器间接寻址 1 寄存器中存放的是操作数的地址<br>隐含寻址 0 有一个操作数在指令字中，另一个操作数在某些寄存器内，通过指令来区分另一个操作数所在的寄存器</p>
+<p>偏移寻址<br>基址寻址 1 基址寄存器（BR）+指令中的地址<br>偏移寻址 1 变址寄存器（IX）+指令中的地址<br>相对寻址 1 程序计数器（PC）+指令中的地址</p>
+<p>堆栈寻址</p>
+<h1 id="CPU的5种功能"><a href="#CPU的5种功能" class="headerlink" title="CPU的5种功能"></a>CPU的5种功能</h1><ol>
+<li>指令控制 取指令分析指令执行指令</li>
+<li>操作控制 把各个操作送往相应的部件</li>
+<li>时间控制 按时间发送指令</li>
+<li>数据加工 算术运算逻辑运算</li>
+<li>中断处理 处理一些中断请求和异常</li>
+</ol>
+<h1 id="指令周期"><a href="#指令周期" class="headerlink" title="指令周期"></a>指令周期</h1><p>指令周期：取出并执行一条指令的时间，通常包含若干机器周期<br>机器周期：指令周期包含多个机器周期（例如取指周期，执行周期，间址周期，中断周期）<br>时钟周期：CPU操作的基本单位</p>
+<h2 id="指令执行方案"><a href="#指令执行方案" class="headerlink" title="指令执行方案"></a>指令执行方案</h2><ol>
+<li>单指令周期 串行执行指令，所有指令都按相同的时间执行，所以指令周期为最长指令的时间</li>
+<li>多指令周期 串行执行指令，时钟周期个数各不相同</li>
+<li>流水线     并行执行，不同机器周期需要不同硬件</li>
+</ol>
+<h1 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h1><p>总线：可以实现信息分时共享的公共信息线路</p>
+<p>##总线类型<br>地址总线，控制总线，数据总线<br>数据传输格式：串行总线（成本低，空间小），并行总线（成本高，占空间）速度？ 总线带宽（单位时间传输的数据位数）=工作频率*总线宽度 频率高干扰强所以并行不一定比串行的快<br>连接的部件：片内总线（芯片内部），系统总线（CPU IO MEM间），通信外部总线（计算机之间的通信）<br>时序控制方式：同步总线，异步总线</p>
+<h2 id="总线仲裁：多个设备同时请求一条总线时，选择一个设备使用总线"><a href="#总线仲裁：多个设备同时请求一条总线时，选择一个设备使用总线" class="headerlink" title="总线仲裁：多个设备同时请求一条总线时，选择一个设备使用总线"></a>总线仲裁：多个设备同时请求一条总线时，选择一个设备使用总线</h2><p>集中式 使用总线控制部件<br>链式查询方式（总线请求总线允许总线忙） 将总线允许信号依次传遍线路上的设备，靠近总线控制部件的设备优先获得总线控制权，并发出总线忙信号<br>计数器查询方式（设备地址总线请求总线忙） 总线控制部件中有计数器，计数器从零开始增加，和计数器相同的设备号通过设备地址立即获得总线控制权<br>独立请求 每个设备有单独的总线请求和总线允许线路</p>
+<h2 id="总线传输的四个阶段"><a href="#总线传输的四个阶段" class="headerlink" title="总线传输的四个阶段"></a>总线传输的四个阶段</h2><p>请求阶段：主模块设备申请总线使用权，总线控制机构进行总线仲裁<br>寻址阶段：主模块向从模块发出命令，开启从模块<br>传输阶段：传输数据<br>结束阶段：删除有关信息让出总线使用权</p>
+<h1 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h1><h2 id="主机访问IO方式"><a href="#主机访问IO方式" class="headerlink" title="主机访问IO方式"></a>主机访问IO方式</h2><p>程序查询方式 CPU在IO程序启动后就不断查询IO的状态，CPU要等待IO完成才能继续执行指令 IO与CPU串行工作<br>程序中断方式 IO启动时，不影响CPU工作，IO完成后向CPU提出中断请求，CPU将信息保存后执行IO操作，执行完毕后，恢复保存的信息继续执行之前的工作 CPU和IO大部分时间并行操作<br>DMA方式 IO完成后发出DMA请求，此时CPU不进行访存，总线控制权交由DMA，DMA将数据从IO设备写入内存，结束后控制权交给CPU使其继续执行</p>
+<h2 id="IO接口的主要功能"><a href="#IO接口的主要功能" class="headerlink" title="IO接口的主要功能"></a>IO接口的主要功能</h2><p>设备选址<br>传送命令<br>传送数据<br>反应IO的工作状态</p>
+<h2 id="IO编址方式"><a href="#IO编址方式" class="headerlink" title="IO编址方式"></a>IO编址方式</h2><p>统一编址：存储器映射方式 将IO端口映射到存储器中，对IO的操作就如同对内存的操作 优点：不需要IO命令，更大的地址空间 缺点：占用内存，速度慢<br>独立编址：IO映射方式 有独立的IO命令，操作IO设备使用IO命令即可 优点：不需要占用存储空间，编程时较清晰，速度快 缺点：有些外设要配有单独的指令，增加了控制的复杂性</p>
+<p>8086独立编址</p>
+<h2 id="IO接口的分类"><a href="#IO接口的分类" class="headerlink" title="IO接口的分类"></a>IO接口的分类</h2><p>数据传送方式：并口和串口<br>主机访问IO的控制方式：DMA接口 查询接口 中断接口<br>灵活性：可编程和不可编程接口</p>
+<h1 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h1><p>中断：CPU暂停当前任务，进而去执行其他任务，例如IO中断，当执行完任务后，由返回原任务的过程</p>
+<h2 id="中断分类"><a href="#中断分类" class="headerlink" title="中断分类"></a>中断分类</h2><p>内中断（与当前指令有关）：异常陷入<br>    自愿中断：访管指令<br>    强迫中断：<br>        硬件故障（缺页）<br>        软件中断（除0）<br>外中断（与当前指令无关）：<br>    IO外设请求<br>    人工干预（用户停止程序）<br>    可屏蔽中断：关中断也响应<br>    非屏蔽中断：关中断不响应</p>
+<p>中断隐指令：关中断 保存断电 引出中断服务程序（硬件向量法-通过向量地址进入指定的中断程序）<br>中断服务程序：<br>    单重中断：保护现场 执行程序 恢复现场 开中断 中断返回<br>    多重中断：保护现场和屏蔽字 开中断 执行程序 关中断 恢复现场和屏蔽字 开中断 中断返回</p>
+<h2 id="中断屏蔽技术"><a href="#中断屏蔽技术" class="headerlink" title="中断屏蔽技术"></a>中断屏蔽技术</h2><p>多重中断中 使用屏蔽字保证高级别的不会被低级别的中断</p>
+<h1 id="DMA传输方式"><a href="#DMA传输方式" class="headerlink" title="DMA传输方式"></a>DMA传输方式</h1><p>主存和DMA之间有一条通路，主存和IO交换数据时，不通过CPU而是DMA交换数据 </p>
+<ol>
+<li>停止CPU访存</li>
+<li>DMA与CPU交替访存 一个机器周期分为两个周期</li>
+<li>周期挪用 DMA需要访存时CPU让出机器周期<br> CPU不访存 不冲突<br> CPU正在访存 CPU存取周期结束让出总线<br> CPU和DMA同时访存 DMA优先</li>
+</ol>
+<h1 id="中断和DMA的区别"><a href="#中断和DMA的区别" class="headerlink" title="中断和DMA的区别"></a>中断和DMA的区别</h1><pre><code>    中断         DMA</code></pre>
+<p>响应：指令执行周期结束后响应    每个机器周期结束均可响应<br>场景：低速设备        高速设备<br>优先级：低            高<br>处理异常：可处理异常        不可处理异常</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CS-BASIC/" rel="tag"># CS BASIC</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/23/UML_BASIC/" rel="prev" title="UML基础知识">
+      <i class="fa fa-chevron-left"></i> UML基础知识
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/16/Digital%20Image%20Processing/" rel="next" title="Digital Image Processing">
+      Digital Image Processing <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B1%82%E6%AC%A1"><span class="nav-number">1.</span> <span class="nav-text">计算机系统的层次</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E7%82%B9%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">定点数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">浮点数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">4.</span> <span class="nav-text">存储器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%8F%96%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="nav-number">4.1.</span> <span class="nav-text">存取方式：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8A%E5%AF%BC%E4%BD%93%E9%9A%8F%E6%9C%BA%E5%AD%98%E5%82%A8%E5%99%A8-%E6%98%93%E5%A4%B1%E6%80%A7%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">4.2.</span> <span class="nav-text">半导体随机存储器 易失性存储器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">4.3.</span> <span class="nav-text">只读存储器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E5%AD%98%E6%89%A9%E5%B1%95"><span class="nav-number">4.4.</span> <span class="nav-text">主存扩展</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">寻址方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CPU%E7%9A%845%E7%A7%8D%E5%8A%9F%E8%83%BD"><span class="nav-number">6.</span> <span class="nav-text">CPU的5种功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E5%91%A8%E6%9C%9F"><span class="nav-number">7.</span> <span class="nav-text">指令周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%96%B9%E6%A1%88"><span class="nav-number">7.1.</span> <span class="nav-text">指令执行方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BA%BF"><span class="nav-number">8.</span> <span class="nav-text">总线</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BA%BF%E4%BB%B2%E8%A3%81%EF%BC%9A%E5%A4%9A%E4%B8%AA%E8%AE%BE%E5%A4%87%E5%90%8C%E6%97%B6%E8%AF%B7%E6%B1%82%E4%B8%80%E6%9D%A1%E6%80%BB%E7%BA%BF%E6%97%B6%EF%BC%8C%E9%80%89%E6%8B%A9%E4%B8%80%E4%B8%AA%E8%AE%BE%E5%A4%87%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BA%BF"><span class="nav-number">8.1.</span> <span class="nav-text">总线仲裁：多个设备同时请求一条总线时，选择一个设备使用总线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BA%BF%E4%BC%A0%E8%BE%93%E7%9A%84%E5%9B%9B%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="nav-number">8.2.</span> <span class="nav-text">总线传输的四个阶段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IO"><span class="nav-number">9.</span> <span class="nav-text">IO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E6%9C%BA%E8%AE%BF%E9%97%AEIO%E6%96%B9%E5%BC%8F"><span class="nav-number">9.1.</span> <span class="nav-text">主机访问IO方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO%E6%8E%A5%E5%8F%A3%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">9.2.</span> <span class="nav-text">IO接口的主要功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO%E7%BC%96%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="nav-number">9.3.</span> <span class="nav-text">IO编址方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">9.4.</span> <span class="nav-text">IO接口的分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD"><span class="nav-number">10.</span> <span class="nav-text">中断</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%88%86%E7%B1%BB"><span class="nav-number">10.1.</span> <span class="nav-text">中断分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%B1%8F%E8%94%BD%E6%8A%80%E6%9C%AF"><span class="nav-number">10.2.</span> <span class="nav-text">中断屏蔽技术</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DMA%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">DMA传输方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%92%8CDMA%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">12.</span> <span class="nav-text">中断和DMA的区别</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Finyaci</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Finyaci</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

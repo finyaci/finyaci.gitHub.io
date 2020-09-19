@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="智能手环功能：温湿度，计步，心率，睡眠时间，血压  模块：     温湿度模块 SMT20      心率血压 HP-6     计步 MPU6050 六轴陀螺仪 准备工作1. STM32-F111CEUx cortex-M 意法半导体 32位单片机指寄存器32位      C：代表管脚数量 48(16*3)  GPIOA(PA0~PA15)  GPIOB GPIOC     E：代表容量大小">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 Project">
+<meta property="og:url" content="http://example.com/2018/07/02/Project%20STM32/index.html">
+<meta property="og:site_name" content="Finyaci&#39;s Blog">
+<meta property="og:description" content="智能手环功能：温湿度，计步，心率，睡眠时间，血压  模块：     温湿度模块 SMT20      心率血压 HP-6     计步 MPU6050 六轴陀螺仪 准备工作1. STM32-F111CEUx cortex-M 意法半导体 32位单片机指寄存器32位      C：代表管脚数量 48(16*3)  GPIOA(PA0~PA15)  GPIOB GPIOC     E：代表容量大小">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-07-02T02:17:22.000Z">
+<meta property="article:modified_time" content="2018-07-04T02:32:30.078Z">
+<meta property="article:author" content="Finyaci">
+<meta property="article:tag" content="STM32">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2018/07/02/Project%20STM32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>STM32 Project | Finyaci's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Finyaci's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/07/02/Project%20STM32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          STM32 Project
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-02 10:17:22" itemprop="dateCreated datePublished" datetime="2018-07-02T10:17:22+08:00">2018-07-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-07-04 10:32:30" itemprop="dateModified" datetime="2018-07-04T10:32:30+08:00">2018-07-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="智能手环"><a href="#智能手环" class="headerlink" title="智能手环"></a>智能手环</h1><pre><code>功能：温湿度，计步，心率，睡眠时间，血压
+
+模块：
+    温湿度模块 SMT20 
+    心率血压 HP-6
+    计步 MPU6050 六轴陀螺仪</code></pre>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><pre><code>1. STM32-F111CEUx cortex-M 意法半导体 32位单片机指寄存器32位 
+    C：代表管脚数量 48(16*3)  GPIOA(PA0~PA15)  GPIOB GPIOC
+    E：代表容量大小 
+        flash 512K 掉电不丢失
+        SRAM 128K 掉电丢失 
+    Ux：封装耐温
+
+2. 编译软件 Keilv5
+    C 翻译 机器语言
+
+3. C语言基础
+    嵌入式C：
+    1，九条语句
+    2. 结构化编程(.c和.h每一个模块都要有一个对应的.c和.h文件)
+       一个工程里会有多个.c.h文件，但有且只有一个main()函数，工程从main()函数开始到main()函数结束</code></pre>
+<h2 id="main-c"><a href="#main-c" class="headerlink" title="main.c"></a>main.c</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;stm32f4xx.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// LED初始化函数；</span></span><br><span class="line">	<span class="comment">// LED灯亮代码；</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//led.c LED初始化函数文件</span></span><br><span class="line"><span class="comment">//led.h 写LED相关的宏定义声明</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>    3. 指针数组
+    4. 位操作：只改变变量的某一位而不改变变量的其他操作
+       因为后续编程需要大量对STM32的寄存器进行操作
+               = 赋值 &amp;按位与 |按位或 `按位取反 &lt;&lt; 左移 ()括号
+
+                对特定位写1:
+                    对X第4位写1
+                        X |= (1&lt;&lt;4);     0b 0000 0000 0000 0000 0000 0000 0001 0000
+                                        0b xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
+                                        0b xxxx xxxx xxxx xxxx xxxx xxxx xxx1 xxxx
+                        0|0 == 0
+                        0|1 == 1
+                        1|1 == 1
+
+               对特定位写0:
+                   对X第n位写0
+                       X &amp;= ~(1&lt;&lt;n);   0b 1111 1111 1111 1111 1111 1111 1110 1111 
+                                       0b xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
+                                        0b xxxx xxxx xxxx xxxx xxxx xxxx xxx0 xxxx
+                        0&amp;0 == 0
+                        0&amp;1 == 0
+                        1&amp;1 == 1
+
+4. 会看技术手册 (提供编程思路)
+    1) 这类芯片的参考手册 STM32Fxx中文参考手册
+    2) 这款芯片的芯片手册 STM32F411
+    3) 产品原理图(以图纸形式表现出各个模块之间的连线关系)
+    4) 模块对应的技术手册
+
+
+点亮一个LED？
+①LED在哪？(查找与单片机那些引脚相连原理图)
+    与PA7相连
+②LED如何点亮？
+    PA7输出低电平 根据原理图与电路知识
+③
+
+GPIO 通用输入输出口，单片机上的外设，有三组IO口资源(GPIOA GPIOB GPIOC 简称PA PB PC)，每组IO都有16个引脚，共48引脚
+
+IO口引脚的功能作用：
+1.作为普通功能进行 输入/输出
+2.作为复用功能进行 输入/输出 (SPI外设接口，ADC，定时器通道等)
+    IO口作用：单片机和外界交流信息的通道
+输出：单片机某个引脚输出特定电平，进而改变外围电路的过程(LED、BEEP、电机)
+输入：外围电路影响单片机某个引脚接收的电平的过程(按键)
+
+如何学习中文手册？
+用什么看什么结果导向
+
+点灯PA7
+1. 查阅GPIO章节
+2. 找到IO口如何进行输出
+3. 确定需要哪些操作
+4. 操作--&gt;代码
+5. 代码--&gt;工程</code></pre>
+<h1 id="Day2"><a href="#Day2" class="headerlink" title="Day2"></a>Day2</h1><p>#<br> Camera 1</p>
+<h1 id="GPIO-寄存器-GPIO-Register"><a href="#GPIO-寄存器-GPIO-Register" class="headerlink" title="GPIO 寄存器 (GPIO Register)"></a>GPIO 寄存器 (GPIO Register)</h1><pre><code>对GPIOA-&gt;MODER的第15位写0，14位写1
+
+GPIOA-&gt;MODER &amp;=~(1&lt;&lt;15);
+GPIOA-&gt;MODER |=(1&lt;&lt;14);
+
+对GPIOA-&gt;OTYPER的第7位写0
+GPIOA-&gt;OTYPER &amp;=~(1&lt;&lt;7);
+
+对GPIOA-&gt;OSPEEDR的第15位写1，14位写0
+GPIOA-&gt;OSPEEDR &amp;=~(1&lt;&lt;14);
+GPIOA-&gt;OSPEEDR |=(1&lt;&lt;15);
+
+对GPIOA-&gt;ODR的第7位写0 PA7输出低电平
+GPIOA-&gt;ODR &amp;=~(1&lt;&lt;7);
+
+RCC-&gt;AHB1ENR &amp;=~(1&lt;&lt;0)</code></pre>
+<p>main.c<br>led.c<br>led.h</p>
+<p>.c一般保存在user的src中<br>.h一般保存在user的inc中</p>
+<h1 id="Day3"><a href="#Day3" class="headerlink" title="Day3"></a>Day3</h1><p>OLED屏<br>1.了解模块的学习方法<br>2.OLED的特点参数<br>3.OLED驱动方法<br>4.如何使用OLED屏，显示汉字</p>
+<p>一、如何学习模块<br>1.找到模块和单片机的连接方式（查看原理图）</p>
+<p>OLED_CS     PB7        片选<br>OLED_RES     PB13    硬件复位<br>OLED_D/C     PA15    数据命令选择<br>OLED_SCL     PB13     时钟线<br>OLED_SI     PB5        MOSI主机发送从机接受，数据线<br>                    MISO主机接受从机发送，数据线<br>                    通信方式属于SPI通信</p>
+<p>SPI通信特点：同步串行全双工</p>
+<p>同步：要求通信双方步调一致，有一根时钟线连接双方<br>异步：通信双方没有时钟线相连，需要规定双方的波特率一致<br>串行：将数据一位一位进行传送，一般只有一到两根数据线<br>并行：一次将数据的各个位一并传输（数据线很多，16），传输速度快，短距离<br>单工：通信时数据流向只能是一方传给另一方<br>半双工：允许双向的通信，但是通信双方不能同时发送信息<br>全双工：允许双向的通信，但是通信双方可以同时发送信息</p>
+<p>2.根据原理图和模块手册找到驱动方法</p>
+<p>SPI通信<br>如何实现SPI通信？<br>①模拟时序法<br>②通信框图法（前提：此单片机要有SPI接口）<br>查阅STM32F4xx中文参考手册，根据通信框图配置相关寄存器即可</p>
+<p>3.模块的参数特点<br>OLED屏 用于显示<br>OLED特点：单色 具备自发光，不要背景光源<br>OLED参数：<br>    物理尺寸：1.3寸<br>    分辨率：132x64<br>    扫描方式：（型号）SH1106 列行式<br>    只使用128列，64行（8页）</p>
+<p>4.使用这个模块<br>如何显示汉字？<br>显示内容需要包含两种信息<br>①显示位置信息<br>②字模软件</p>
+<p>取模方法：</p>
+<p>删去行前缀的和行后缀的括号</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/STM32/" rel="tag"># STM32</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/06/19/Reding_Comprehension_Notes/" rel="prev" title="__Reading_Comprehension_Notes__">
+      <i class="fa fa-chevron-left"></i> __Reading_Comprehension_Notes__
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/07/13/Python%E5%BA%8F%E5%88%97%E8%A7%A3%E5%8C%85/" rel="next" title="Python序列解包">
+      Python序列解包 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E6%89%8B%E7%8E%AF"><span class="nav-number">1.</span> <span class="nav-text">智能手环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#main-c"><span class="nav-number">2.1.</span> <span class="nav-text">main.c</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day2"><span class="nav-number">3.</span> <span class="nav-text">Day2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GPIO-%E5%AF%84%E5%AD%98%E5%99%A8-GPIO-Register"><span class="nav-number">4.</span> <span class="nav-text">GPIO 寄存器 (GPIO Register)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day3"><span class="nav-number">5.</span> <span class="nav-text">Day3</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Finyaci</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Finyaci</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
