@@ -395,6 +395,91 @@ f(x,y) & \text{if x > g2old}
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/25/DesignPattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/25/DesignPattern/" class="post-title-link" itemprop="url">Java设计模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-04-25 16:37:22" itemprop="dateCreated datePublished" datetime="2020-04-25T16:37:22+08:00">2020-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-07 13:14:38" itemprop="dateModified" datetime="2020-10-07T13:14:38+08:00">2020-10-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="面向对象设计七大原则"><a href="#面向对象设计七大原则" class="headerlink" title="面向对象设计七大原则"></a>面向对象设计七大原则</h1><ul>
+<li>开闭原则OCP：对扩展开放对修改关闭</li>
+<li>单一职责原则：一个对象只包含单一职责</li>
+<li>依赖倒转原则：细节依赖抽象，底层依赖高层，反之不行</li>
+<li>接口隔离原则：客户端不应该依赖它不使用的接口</li>
+<li>里氏代换原则：任何引用基类的地方都应该透明的使用其子类</li>
+<li>迪米特法则：只和直接朋友通信（成员变量，返回值，函数的参数）最少知道原则</li>
+<li>合成复用原则：尽量使用合成/聚合的方式，避免使用继承的方式</li>
+</ul>
+<h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><h2 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h2><p>优缺点说明：<br>1) 优点：这种写法比较简单，就是在类装载的时候就完成实例化。避免了线程同<br>步问题。<br>2) 缺点：在类装载的时候就完成实例化，没有达到Lazy Loading的效果。如果从始<br>至终从未使用过这个实例，则会造成内存的浪费<br>3) 这种方式基于classloder机制避免了多线程的同步问题，不过， instance在类装载<br>时就实例化，在单例模式中大多数都是调用getInstance方法， 但是导致类装载<br>的原因有很多种， 因此不能确定有其他的方式（或者其他的静态方法）导致类<br>装载，这时候初始化instance就没有达到lazy loading的效果<br>4) 结论：这种单例模式可用， 可能造成内存浪费</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//饿汉式(静态变量)</span></span><br><span class="line"><span class="comment">//为什么是静态的，因为单例模式私有了构造方法，无法创建对象，所以只能使用静态方法去获取实例，所以实例变量也应该是静态的</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EagerSingleton</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1.私有构造方法</span></span><br><span class="line">    <span class="comment">// 2.本类内部私有实例变量</span></span><br><span class="line">    <span class="comment">// 3.提供实例的返回方法</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">EagerSingleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> EagerSingleton instance = <span class="keyword">new</span> EagerSingleton();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EagerSingleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//饿汉式(静态代码块)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BSEagerSingleton</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1.私有构造方法</span></span><br><span class="line">    <span class="comment">// 2.本类内部私有实例变量，只声明不创建</span></span><br><span class="line">    <span class="comment">// 3.静态代码块中初始化实例变量</span></span><br><span class="line">    <span class="comment">// 4.提供实例的返回方法</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">BSEagerSingleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> BSEagerSingleton instance;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        instance = <span class="keyword">new</span> BSEagerSingleton();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BSEagerSingleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h2><p>优缺点说明：<br>1) 解决了线程不安全问题<br>2) 效率太低了，每个线程在想获得类的实例时候，执行getInstance()方法都要进行<br>同步。而其实这个方法只执行一次实例化代码就够了，后面的想获得该类实例，<br>直接return就行了。方法进行同步效率太低<br>3) 结论： 在实际开发中， 不推荐使用这种方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//懒汉式(线程安全)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LazySingleton</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazySingleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazySingleton instance;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> LazySingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance==<span class="keyword">null</span>)</span><br><span class="line">            instance = <span class="keyword">new</span> LazySingleton();</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```Java</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```Java</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```Java</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```Java</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```Java</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">```Java</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">```Java</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```Java</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/04/23/UML_BASIC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1354,133 +1439,6 @@ f(x,y) & \text{if x > g2old}
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/03/15/ENGANS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/15/ENGANS/" class="post-title-link" itemprop="url">EngAns</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-15 18:53:10" itemprop="dateCreated datePublished" datetime="2020-03-15T18:53:10+08:00">2020-03-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:05:30" itemprop="dateModified" datetime="2020-09-18T23:05:30+08:00">2020-09-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="A-1"><a href="#A-1" class="headerlink" title="A.1"></a>A.1</h1><p>I had passed the CET-6 and achieved the second prize in Mathematical Modeling with my teammates.And I also won some college scholarship during my sophomore and junior year.I think I am a hardworking student and I have a good team spirit.Therfore I think I can cooperate well with my partner and supervisor in the future.</p>
-<h1 id="A-2"><a href="#A-2" class="headerlink" title="A.2"></a>A.2</h1><p>As the saying goes, failure is the mother of success.<br>When I fail,I will find out what made me fail.<br>After I find out the reason and gain experience,<br>I believe I will not be failed the next time.</p>
-<h1 id="A-3"><a href="#A-3" class="headerlink" title="A.3"></a>A.3</h1><p>First, Processes are dynamic, while programs are static,Process is a running program<br>Second, One program can correspond to multiple processes, but one process can only correspond to one program.<br>For example,open a program for more times,there are several processes generated but they only use one program.</p>
-<h1 id="A-4"><a href="#A-4" class="headerlink" title="A.4"></a>A.4</h1><p>Research is different from hobbies,if I can do this topic I will finish it as best as I can.<br>If it is really beyond my ability, I think I will communiate with my supervisor and express my real feeling to him or her as soon as possible. [ˈsuːpəvaɪzə(r)]</p>
-<h1 id="2-1"><a href="#2-1" class="headerlink" title="2.1"></a>2.1</h1><p>Web application often use Broswer/Server mode,we use QQ mail and Taobao through there website.And for some web games,we dont have to download any client,we can play on their web page.</p>
-<h1 id="2-2"><a href="#2-2" class="headerlink" title="2.2"></a>2.2</h1><p>First we have to do some needs analysis,including functional requirements and non-functional requirements,which means we have to clearly communicate with customers to figure out their true needs.<br>Besides,we also need to predict every situation that may be encountered during software development.</p>
-<h1 id="2-3"><a href="#2-3" class="headerlink" title="2.3"></a>2.3</h1><p>First is Machine language,it consists of zero and one.<br>Second,Assembly language,we use mne·mon·ic/nəˈmänik/ to program.<br>The last is High-level Languages like C C++ C# Java Python and so on.<br>These High-level language can improve programming efficiency</p>
-<h1 id="2-4-gt-A-1"><a href="#2-4-gt-A-1" class="headerlink" title="2.4 -&gt; A.1"></a>2.4 -&gt; A.1</h1><h1 id="3-1"><a href="#3-1" class="headerlink" title="3.1"></a>3.1</h1><p>I love C programming best.Through C, I became interested in programming.This give me the motivation to learn more about programming and Computer Science.After that I have learned some other programming language and programming skill.</p>
-<h1 id="3-2"><a href="#3-2" class="headerlink" title="3.2"></a>3.2</h1><p>Firewall is used to ensure the security of Internet,it can block some package that we do not let them in and limit some applications that we do not want them to be connected to Internet</p>
-<h1 id="3-3"><a href="#3-3" class="headerlink" title="3.3"></a>3.3</h1><p>Provides logical communication for application processes and realize end-to-end communication<br>And there are two most importent protocols in this layer. One is called TCP and the other is UDP.</p>
-<h1 id="3-4-gt-2-3"><a href="#3-4-gt-2-3" class="headerlink" title="3.4-&gt;2.3"></a>3.4-&gt;2.3</h1><h1 id="4-1"><a href="#4-1" class="headerlink" title="4.1"></a>4.1</h1><p>I graduated from Changzhou Institute of Technology.I was born in Zhenjiang so when I was a little child konw Jiangsu University.Besides,some of my teacher also graduated from Jiangsu University which Strengthen my impression of this place.It has a strong faculty and the campus is beautiful so I want to study here in the future.</p>
-<h1 id="4-2"><a href="#4-2" class="headerlink" title="4.2"></a>4.2</h1><p>First,We should keep our password safe and don’t let anyone konw it.If it is necessary,change the password regularly.<br>Second,We shouldn’t log in to our account in public network or unsafe network  in case our account been hacked by some bad guys.</p>
-<h1 id="4-3"><a href="#4-3" class="headerlink" title="4.3"></a>4.3</h1><p>No one can avoid criticism.If the fault is really casued by me.I will accept this criticism and correct my mistake or something I didn’t do well.</p>
-<h1 id="4-4"><a href="#4-4" class="headerlink" title="4.4"></a>4.4</h1><p>I think I am a bit stubborn. When someone want to change my mind or persuade me I always refuse to accept.But sometime it is not a good thing for me.So I try listen more people’s advice and think carefully.</p>
-<h1 id="5-1"><a href="#5-1" class="headerlink" title="5.1"></a>5.1</h1><p>It can be divided into seven phases.</p>
-<p>First is planning phase,in this phase, project leaders evaluate the terms of the project. This includes calculating costs, creating a timetable, and creating the teams and leadership structure for the project.</p>
-<p>Second is requirements analysis phase ,we determine what the application is supposed to do.We usually get requirements from users.</p>
-<p>Third is Design and Prototyping phase ,we can design the program according to SRS.Defines the basic problems we may encounter in software development such as architecture, platforms and User Interface</p>
-<p>Fourth is Software development phase,we choose the right language to program.This is the actual writing of the program.A small project might be written in few days.</p>
-<p>Fifth is Testing phase, we test our progaram ,find bugs and fix them.</p>
-<p>Sixth is Deployment phase, which means the application is made available to users.</p>
-<p>Seventh is Operations and Maintenance phase, we have to maintain our program and update them when necessary.</p>
-<p>SRS: Software Requirement Specification</p>
-<h1 id="5-2"><a href="#5-2" class="headerlink" title="5.2"></a>5.2</h1><p>With data structure we can use the computer effectively and make full use of the computer’s performance.<br>In some specific scenarios, choosing a good data structure will greatly improve performance.</p>
-<p>For example,in some query operations we often use sequential list,while in some modification operations linked list could be best.</p>
-<h1 id="5-3"><a href="#5-3" class="headerlink" title="5.3"></a>5.3</h1><p>The Internet of Things connects any item to the Internet. Through Internet they can exchange information to achieve intelligent identification.We can also locate and control them easily, which greatly imporve our lives.</p>
-<h1 id="5-4-amp-6-1-amp-6-3"><a href="#5-4-amp-6-1-amp-6-3" class="headerlink" title="5.4&amp;6.1&amp;6.3"></a>5.4&amp;6.1&amp;6.3</h1><p>Operating system is a basic software between user and computer hardware. It provides interface for users and it can effectively manage the processor,memory, I/O device and files to simplify users’ operations.Without OS it could be hard for most people to use computer.</p>
-<h1 id="6-1-gt-5-4"><a href="#6-1-gt-5-4" class="headerlink" title="6.1-&gt;5.4"></a>6.1-&gt;5.4</h1><h1 id="6-2"><a href="#6-2" class="headerlink" title="6.2"></a>6.2</h1><p>English is very important.Some latest paper are always written by English.So,If we are good at English,we have no need to wait somebody to trasnlate them.We can get the information immediately and directly.</p>
-<h1 id="6-3-gt-5-4"><a href="#6-3-gt-5-4" class="headerlink" title="6.3-&gt;5.4"></a>6.3-&gt;5.4</h1><h1 id="6-4"><a href="#6-4" class="headerlink" title="6.4"></a>6.4</h1><p>Database is a warehouse that stores,organizes and manages data.With the database,we can access and manage data easily and conveniently.</p>
-<h1 id="7-1-Why-AI"><a href="#7-1-Why-AI" class="headerlink" title="7.1 Why AI?"></a>7.1 Why AI?</h1><p>I konw some research fields just like Artificial Intelligence,Big Data,Computer Vision,Internet of thing and Internet Security.Among these fields,I like Artificial Intelligence best. Because Ｉ　think if computer can be intelligent that will be a huge breakthrough in human history.So this make me very exiciting</p>
-<h1 id="7-2-Go-board-which-country"><a href="#7-2-Go-board-which-country" class="headerlink" title="7.2 Go board which country?"></a>7.2 Go board which country?</h1><p>If I have a chance to go abroad, I want to go to the United States.Because American science and technology is first-rate in the world.</p>
-<h1 id="7-3"><a href="#7-3" class="headerlink" title="7.3"></a>7.3</h1><p>A computer is an automated device.It can receive and store information.After computer process these information it can output the result.<br>Computers make our lives more convenient. We can shop online and work remotely.It changed the way of our life.</p>
-<h1 id="7-4"><a href="#7-4" class="headerlink" title="7.4"></a>7.4</h1><p>I like doing some reading ,especially those history books</p>
-<h1 id="8-1"><a href="#8-1" class="headerlink" title="8.1"></a>8.1</h1><p>There are three pepole in my family.My father is a computer engineer and my mother is the assistant of my father.I was from Zhenjiang,Jurong,a silent town.Maoshan and Baohuashan are well known to the people. </p>
-<h1 id="8-2"><a href="#8-2" class="headerlink" title="8.2"></a>8.2</h1><p>If I was enrolled I will dedicate myself to research and projects.And If I have time, I will learn deeper in Computer Science.</p>
-<h1 id="8-3"><a href="#8-3" class="headerlink" title="8.3"></a>8.3</h1><p>I know there are some protocals like DNS,Telnet,DHCP,SMTP</p>
-<h1 id="8-4"><a href="#8-4" class="headerlink" title="8.4"></a>8.4</h1><p>Object-oriented language takes object as basic program structure unit.<br>The main feature of object-oriented language are encapsulation inheritance and polymorphism.</p>
-<p>[ɪnˌkæpsjuˈleɪʃn]<br>[ˌpɒlɪˈmɔːfɪzm]</p>
-<h1 id="9-2"><a href="#9-2" class="headerlink" title="9.2"></a>9.2</h1><p>I enjoy the time playing games with my friends.We cooperate with each other and finally we win. </p>
-<h1 id="9-3"><a href="#9-3" class="headerlink" title="9.3"></a>9.3</h1><p>If I have time, I would like to listen to music and read some books that I like.Maybe sometimes I would choose a good path with beautiful scene for bicycling.</p>
-<h1 id="9-4"><a href="#9-4" class="headerlink" title="9.4"></a>9.4</h1><p>There are five main components in a computer.They are arithmetic unit, control unit, memory, input device and output device.</p>
-<p>Arithmetic unit implements arithmetic and logical operations.<br>while Control unit fetches instructions and data from memory.<br>So the memory is used to store all data and programs.Then,computer get infomation from input device and output result through output device.</p>
-<h1 id="10-1-gt-4-1"><a href="#10-1-gt-4-1" class="headerlink" title="10.1-&gt;4.1"></a>10.1-&gt;4.1</h1><p>I was born in Zhenjiang so when I was a little child konw Jiangsu University.Besides,some of my teacher also graduated from Jiangsu University which Strengthen my impression of this place.It has a strong faculty and the campus is beautiful so I want to study here in the future.</p>
-<h1 id="10-2"><a href="#10-2" class="headerlink" title="10.2"></a>10.2</h1><h1 id="10-3"><a href="#10-3" class="headerlink" title="10.3"></a>10.3</h1><p>We usually divide computer networks into five layers.From top to bottom are the application layer, transport layer, network layer, data link layer and physical layer.Application layer provides logical communication between processes while transport layer is ports and network layer is hosts.Data link layer and physical layer give the basic services for upper layers.</p>
-<h1 id="10-4"><a href="#10-4" class="headerlink" title="10.4"></a>10.4</h1><p>I think being enrolled as a graduate is a challenge.Not everyone has this chance.<br>Besides,for me,I want to learn more about Computer Science and to reach a higher level.So I want to be a graduate.</p>
-<h1 id="11-1"><a href="#11-1" class="headerlink" title="11.1"></a>11.1</h1><ol>
-<li>First is System requirements analysis phase,we get actual requirements from our users.</li>
-<li>Second is Conceptual structure design phase,we establish conceptual model according to users’ requirements.In RDBMS we usually create Entity Relationship Diagram.</li>
-<li>Third is Logical structure design phase,we convert conceptual model to logical model.In RDBMS,we convert ER Diagram to Relationship model.</li>
-<li>Fourth is Physical structure design phase,we determine the database access method and storage structure.</li>
-<li>Fifth is Database implementation phase,we build database and do trial run.</li>
-<li>The last is Database operation and maintenance phase,we need to maintain our database when they in use.And we have to update our database if necessary.</li>
-</ol>
-<h1 id="11-2"><a href="#11-2" class="headerlink" title="11.2"></a>11.2</h1><p>I like reading books and programming.And I also playing chess.I like the feeling of playing against others.</p>
-<h1 id="11-3"><a href="#11-3" class="headerlink" title="11.3"></a>11.3</h1><p>Computer Vision,Internet of thing and Internet Security Multi-Media and big data<br>In Aritficial Intelligence,there are machine learning, expert system, natrual language processing.</p>
-<h1 id="11-4"><a href="#11-4" class="headerlink" title="11.4"></a>11.4</h1><p>Firewall can block some package that we do not let them in.<br>And We use digital signatures to prevent someone from tampering with information.Also we can use Virtual Private Network to ensure encrypted transmission.<br>[ɪnˈkrɪptɪd]</p>
-<h1 id="12-1-gt-3-1"><a href="#12-1-gt-3-1" class="headerlink" title="12.1 -&gt;3.1"></a>12.1 -&gt;3.1</h1><h1 id="12-2"><a href="#12-2" class="headerlink" title="12.2"></a>12.2</h1><p>First,the content of they learned.<br>Undergraduate students learn some basic subjects while Postgraduate students should do deeper research in their direction.</p>
-<p>Sencond,the way they study is different.<br>Undergraduate students are passive learners.There have to pass final exams. Postgraduate students have to learn by themselves and they have to find information and spend a lot of time in reading literature and papers.</p>
-<h1 id="12-3"><a href="#12-3" class="headerlink" title="12.3"></a>12.3</h1><p>I try to peace with my classmates and reduce the chance to conflict with anyone.<br>But if someone really conflicts with me.I choose to ignore him.</p>
-<h1 id="12-4"><a href="#12-4" class="headerlink" title="12.4"></a>12.4</h1><p>With the development of our technology&amp;society, more and more data we generate every day.<br>And our existing technology cannot manage such large-scale data.<br>We can use “4V” to describe the characteristics of Big data :<br>Volume-which means the quantity of data are very large<br>Variety-which means the many different types of data<br>Velocity-The ability to process data must keep up with the speed of data generation<br>Value-Big data has a lot of business value and scientific value<br>Therefore,there are many opportunities and challenges in big data</p>
-<h1 id="13-1-gt-5-4"><a href="#13-1-gt-5-4" class="headerlink" title="13.1-&gt;5.4"></a>13.1-&gt;5.4</h1><h1 id="13-2-gt-3-1"><a href="#13-2-gt-3-1" class="headerlink" title="13.2-&gt;3.1"></a>13.2-&gt;3.1</h1><h1 id="13-3"><a href="#13-3" class="headerlink" title="13.3"></a>13.3</h1><p>I can use some programming language but I haven’t done any project until now.So if my supervisor have some project I wish he or her could give me the chance to be his or her assistant.OR give me the chance to do it by myself. </p>
-<h1 id="13-4"><a href="#13-4" class="headerlink" title="13.4"></a>13.4</h1><p>I think I am a person with perseverance which means if I decide to do something, I will keep doing it.And I also have strong self-learning ability.If I want to learn something I will gather many information and select the best tutorial then I can learn something quickly.</p>
-<p>[ˌpɜːsəˈvɪərəns]</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1555,8 +1513,9 @@ f(x,y) & \text{if x > g2old}
         </a>
       </div>
       <div class="site-state-item site-state-tags">
+            <a href="/tags/">
         <span class="site-state-item-count">30</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
