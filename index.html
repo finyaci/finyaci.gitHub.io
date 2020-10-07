@@ -177,7 +177,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-19 14:51:40" itemprop="dateModified" datetime="2020-09-19T14:51:40+08:00">2020-09-19</time>
+                <time title="Modified: 2020-09-21 14:57:34" itemprop="dateModified" datetime="2020-09-21T14:57:34+08:00">2020-09-21</time>
               </span>
 
           
@@ -199,9 +199,9 @@
 <h2 id="BMP数据存放顺序"><a href="#BMP数据存放顺序" class="headerlink" title="BMP数据存放顺序"></a>BMP数据存放顺序</h2><p>自下而上 从左至右</p>
 <h2 id="反色-invert"><a href="#反色-invert" class="headerlink" title="反色(invert)"></a>反色(invert)</h2><p>反色：颜色量化级别是256则新图的RGB为255减去原图的RBG值，适用于真彩色，带调色板的彩色图和灰度图<br>真彩色：将反转的RGB重新写入<br>带调色板彩色图：将调色板反转</p>
 <h1 id="直方图"><a href="#直方图" class="headerlink" title="直方图"></a>直方图</h1><h2 id="直方图性质"><a href="#直方图性质" class="headerlink" title="直方图性质"></a>直方图性质</h2><p>无空间信息<br>可叠加性<br>一对多 一个直方图可能对应多个图像</p>
-<p>直方图均匀分布，则图像愈发清晰</p>
-<h2 id="直方图均衡化"><a href="#直方图均衡化" class="headerlink" title="直方图均衡化"></a>直方图均衡化</h2><p>目的：让一个图像的直方图均匀分布<br>A图直方图 p(r)=r<br>B图直方图 p(s)=s=1<br>现在要将A图直方图均衡化，即让A图符合B图</p>
-<p>策略：找到一个变换函数s=T(r)即可使A图均衡化<br>推导：在一定范围内两图的灰度值要相等即可</p>
+<p>直方图分布越均匀，则图像愈发清晰</p>
+<h2 id="直方图均衡化"><a href="#直方图均衡化" class="headerlink" title="直方图均衡化"></a>直方图均衡化</h2><p>目的：让一个图像的直方图均匀分布<br>A图直方图 r=p(r)<br>B图直方图 s=p(s)≡1<br>现在要将A图直方图均衡化，即让A图符合B图</p>
+<p>策略：找到一个变换函数s=T(r)即可使A图均衡化<br>推导：在一定灰度等级内两图的灰度分别相等即可</p>
 <p>$s=T(r)=1$</p>
 <p>$\int^{r}_{0}{p(r)dr} = \int^{s}_{0}{p(s)ds} = \int^{s}_{0}{1·ds}=s=T(r)$</p>
 <p>=&gt;</p>
@@ -212,6 +212,58 @@
 <p>又 $s=v$ </p>
 <p>=&gt;</p>
 <p>$z=G^{-1}(T(r))$ </p>
+<h1 id="灰度变换"><a href="#灰度变换" class="headerlink" title="灰度变换"></a>灰度变换</h1><p>f(x,y)-原来图像的点<br>g(x,y)-变换后图像的点</p>
+<h2 id="线性变换"><a href="#线性变换" class="headerlink" title="线性变换"></a>线性变换</h2><h3 id="加常数"><a href="#加常数" class="headerlink" title="加常数"></a>加常数</h3><ul>
+<li>$g(x,y)=f(x,y)±C$<br>压缩动态范围，图像对比度变低</li>
+</ul>
+<h3 id="图像反转"><a href="#图像反转" class="headerlink" title="图像反转"></a>图像反转</h3><ul>
+<li>$g(x,y)=255-f(x,y)$</li>
+</ul>
+<h3 id="乘常数"><a href="#乘常数" class="headerlink" title="乘常数"></a>乘常数</h3><ul>
+<li>$g(x,y)=Cf(x,y)$</li>
+</ul>
+<h2 id="分段线性变换"><a href="#分段线性变换" class="headerlink" title="分段线性变换"></a>分段线性变换</h2><h3 id="削波变换"><a href="#削波变换" class="headerlink" title="削波变换"></a>削波变换</h3><ul>
+<li>扩展某一灰度区间的动态范围</li>
+</ul>
+<script type="math/tex; mode=display">
+g(x,y) =
+\begin{cases}
+0,  & \text{if x < g1old} \\[2ex]
+Cf(x,y), & \text{if g1old < x < g2old} \\[2ex]
+255, & \text{if x > g2old}
+\end{cases}</script><h3 id="阈值变换"><a href="#阈值变换" class="headerlink" title="阈值变换"></a>阈值变换</h3><ul>
+<li>g1old = g2old</li>
+<li>转换成黑白的二值图</li>
+</ul>
+<script type="math/tex; mode=display">
+g(x,y) =
+\begin{cases}
+0,  & \text{if x < g1old} \\[2ex]
+255, & \text{if x > g2old}
+\end{cases}</script><h3 id="窗口变换"><a href="#窗口变换" class="headerlink" title="窗口变换"></a>窗口变换</h3><ul>
+<li>将某一部分感兴趣的灰度区间和其他部分分离开来</li>
+</ul>
+<h4 id="清除背景的窗口变换"><a href="#清除背景的窗口变换" class="headerlink" title="清除背景的窗口变换"></a>清除背景的窗口变换</h4><script type="math/tex; mode=display">
+g(x,y) =
+\begin{cases}
+0,  & \text{if x < g1old} \\[2ex]
+255, & \text{if g1old < x < g2old} \\[2ex]
+0, & \text{if x > g2old}
+\end{cases}</script><h4 id="保留背景的窗口变换"><a href="#保留背景的窗口变换" class="headerlink" title="保留背景的窗口变换"></a>保留背景的窗口变换</h4><script type="math/tex; mode=display">
+g(x,y) =
+\begin{cases}
+f(x,y),  & \text{if x < g1old} \\[2ex]
+255, & \text{if g1old < x < g2old} \\[2ex]
+f(x,y) & \text{if x > g2old}
+\end{cases}</script><h2 id="非线性变换"><a href="#非线性变换" class="headerlink" title="非线性变换"></a>非线性变换</h2><h3 id="指数变换"><a href="#指数变换" class="headerlink" title="指数变换"></a>指数变换</h3><ul>
+<li>低灰度区间扩展，高灰度区间压缩</li>
+</ul>
+<h3 id="对数变换"><a href="#对数变换" class="headerlink" title="对数变换"></a>对数变换</h3><ul>
+<li>高灰度区间扩展，低灰度区间压缩</li>
+</ul>
+<h3 id="幂函数"><a href="#幂函数" class="headerlink" title="幂函数"></a>幂函数</h3><h3 id="查找表LUT"><a href="#查找表LUT" class="headerlink" title="查找表LUT"></a>查找表LUT</h3><ul>
+<li>用户自定义</li>
+</ul>
 
       
     </div>
