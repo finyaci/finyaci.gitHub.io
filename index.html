@@ -182,7 +182,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-31 19:22:11" itemprop="dateModified" datetime="2020-10-31T19:22:11+08:00">2020-10-31</time>
+                <time title="Modified: 2020-11-15 16:47:44" itemprop="dateModified" datetime="2020-11-15T16:47:44+08:00">2020-11-15</time>
               </span>
 
           
@@ -197,8 +197,8 @@
 
       
           <p>Extract From <a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/">https://www.liaoxuefeng.com/</a></p>
-<h1 id="config"><a href="#config" class="headerlink" title="config"></a>config</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;Your Name&quot;</span></span><br><span class="line">$ git config --global user.email <span class="string">&quot;email@example.com&quot;</span></span><br></pre></td></tr></table></figure>
-<h1 id="init-repo"><a href="#init-repo" class="headerlink" title="init repo"></a>init repo</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+<h1 id="git的配置"><a href="#git的配置" class="headerlink" title="git的配置"></a>git的配置</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;Your Name&quot;</span></span><br><span class="line">$ git config --global user.email <span class="string">&quot;email@example.com&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="git仓库的初始化"><a href="#git仓库的初始化" class="headerlink" title="git仓库的初始化"></a>git仓库的初始化</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
 <h1 id="git-operation"><a href="#git-operation" class="headerlink" title="git operation"></a>git operation</h1><ul>
 <li>git add readme.txt 添加 </li>
 <li>git commit -m [message] 提交 </li>
@@ -208,7 +208,8 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vi readme.txt</span><br><span class="line">$ git add readme.txt</span><br><span class="line">$ git commit -m <span class="string">&quot;add 3 files.&quot;</span></span><br></pre></td></tr></table></figure>
 <h1 id="已提交的版本修改"><a href="#已提交的版本修改" class="headerlink" title="已提交的版本修改"></a>已提交的版本修改</h1><ul>
 <li>git log [—pretty=oneline] 查看提交历史，以便确定要回退到哪个版本</li>
-<li>git reset —hard HEAD^ 版本退回 </li>
+<li>git log —graph —pretty=oneline —abbrev-commit 树状图展示</li>
+<li>git reset —hard [HEAD^|commit id] 版本退回 </li>
 <li>git reflog 命令历史，以便确定要回到未来的哪个版本 </li>
 </ul>
 <p><strong>PS: 在Git中，用HEAD表示当前版本,上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100</strong></p>
@@ -234,12 +235,40 @@
 <p><strong>若已经使用git rm但没有提交，可使用git restore —staged <file>将暂存区的修改退回，再使用git restore将工作区的修改退回；</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ rm a.txt</span><br><span class="line"></span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add/rm &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        deleted:    a.txt</span><br><span class="line"></span><br><span class="line">$ git rm a.txt</span><br><span class="line">rm <span class="string">&#x27;a.txt&#x27;</span></span><br><span class="line"></span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        deleted:    a.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h1 id="git推送"><a href="#git推送" class="headerlink" title="git推送"></a>git推送</h1><ul>
-<li>git remote add origin <a target="_blank" rel="noopener" href="https://github.com/finyaci/learngit.git">https://github.com/finyaci/learngit.git</a> 加入远端仓库</li>
-<li>git push -u origin master 第一次推送</li>
-<li>git push origin master 之后推送</li>
+<li>git remote add <Reponame> <a target="_blank" rel="noopener" href="https://github.com/finyaci/learngit.git">https://github.com/finyaci/learngit.git</a> 加入远端仓库</li>
+<li>git push -u <Reponame> master 第一次推送</li>
+<li>git push <Reponame> master 之后推送</li>
+<li>git pull <Reponame> master 从远程拉取仓库</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="git-remote-操作"><a href="#git-remote-操作" class="headerlink" title="git remote 操作"></a>git remote 操作</h1><ul>
+<li>git remote -v 查看关联的远端仓库</li>
+<li>git remote rm <Reponame> 删除远程库的名字</li>
+</ul>
+<h1 id="git分支操作"><a href="#git分支操作" class="headerlink" title="git分支操作"></a>git分支操作</h1><p>REF: <a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424">https://www.liaoxuefeng.com/wiki/896043488029600/900003767775424</a></p>
+<ul>
+<li>git branch 列出所有分支，当前分支前面会标一个*号。</li>
+<li>git branch <Branchname> 创建一个分支</li>
+<li>git [checkout|switch] <Branchname> 切换到指定分支</li>
+<li>git switch -c <Branchname> 创建并切换到指定分支</li>
+<li>git branch -d <Branchname> 删除指定分支</li>
+<li>git merge <Branchname> 合并指定分支到当前分支<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git branch dec</span><br><span class="line"></span><br><span class="line">$ git branch</span><br><span class="line">  dec</span><br><span class="line">* master</span><br><span class="line"></span><br><span class="line">$ git checkout dec</span><br><span class="line">Switched to branch <span class="string">&#x27;dec&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h1><p>REF: <a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600/900388704535136">https://www.liaoxuefeng.com/wiki/896043488029600/900388704535136</a></p>
+<ul>
+<li>git stash 保存当前工作区内容</li>
+<li>git stash list 查看保存列表</li>
+<li>git stash pop 弹出工作区</li>
+<li>git stash apply <StashIdx> 恢复指定工作区不删除</li>
+<li>git cherry-pick <Commitid> 将指定的提交复制到当前分支</li>
+</ul>
+<h2 id="修改bug过程"><a href="#修改bug过程" class="headerlink" title="修改bug过程"></a>修改bug过程</h2><ul>
+<li>master上有bug，而此时你正在dev分支上工作，修改bug</li>
+</ul>
+<ul>
+<li>首先将工作区内容保存，其次从master创建分支issue-101修改bug，修改提交合并后，切换回dev分支，恢复工作区，并使用git cherry-pick命令将主分支上修改bug的内容也应用到dev分支上<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">$ git status	</span><br><span class="line">On branch dev</span><br><span class="line"></span><br><span class="line">$ git stash</span><br><span class="line">Saved working directory and index state WIP on dev: f52c633 add merge</span><br><span class="line"></span><br><span class="line">$ git checkout master</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">$ git checkout -b issue-101</span><br><span class="line">Switched to a new branch <span class="string">&#x27;issue-101&#x27;</span></span><br><span class="line">$ git add readme.txt </span><br><span class="line">$ git commit -m <span class="string">&quot;fix bug 101&quot;</span></span><br><span class="line">[issue-101 4c805e2] fix bug 101</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br><span class="line"></span><br><span class="line">$ git switch master</span><br><span class="line">$ git merge --no-ff -m <span class="string">&quot;merged bug fix 101&quot;</span> issue-101</span><br><span class="line"></span><br><span class="line">$ git switch dev</span><br><span class="line">$ git stash pop</span><br><span class="line">On branch dev</span><br><span class="line"></span><br><span class="line">$ git branch</span><br><span class="line">* dev</span><br><span class="line">  master</span><br><span class="line">$ git cherry-pick 4c805e2</span><br><span class="line">[master 1d4b803] fix bug 101</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
       
     </div>
@@ -539,7 +568,7 @@ f(x,y) & \text{if x > g2old}
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-07 13:20:17" itemprop="dateModified" datetime="2020-10-07T13:20:17+08:00">2020-10-07</time>
+                <time title="Modified: 2020-11-15 16:47:44" itemprop="dateModified" datetime="2020-11-15T16:47:44+08:00">2020-11-15</time>
               </span>
 
           
@@ -562,7 +591,7 @@ f(x,y) & \text{if x > g2old}
 <li>迪米特法则：只和直接朋友通信（成员变量，返回值，函数的参数）最少知道原则</li>
 <li>合成复用原则：尽量使用合成/聚合的方式，避免使用继承的方式</li>
 </ul>
-<h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><h2 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h2><p>优缺点说明：<br>1) 优点：这种写法比较简单，就是在类装载的时候就完成实例化。避免了线程同<br>步问题。<br>2) 缺点：在类装载的时候就完成实例化，没有达到Lazy Loading的效果。如果从始<br>至终从未使用过这个实例，则会造成内存的浪费<br>3) 这种方式基于classloder机制避免了多线程的同步问题，不过， instance在类装载<br>时就实例化，在单例模式中大多数都是调用getInstance方法， 但是导致类装载<br>的原因有很多种， 因此不能确定有其他的方式（或者其他的静态方法）导致类<br>装载，这时候初始化instance就没有达到lazy loading的效果<br>4) 结论：这种单例模式可用， 可能造成内存浪费</p>
+<h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1><h2 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h2><p>优缺点说明：<br>1) 优点：这种写法比较简单，就是在类装载的时候就完成实例化。避免了线程同<br>步问题。<br>2) 缺点：在类装载的时候就完成实例化，没有达到Lazy Loading的效果。如果从始<br>至终从未使用过这个实例，则会造成内存的浪费<br>3) 这种方式基于classloder机制避免了多线程的同步问题，不过， instance在类装载<br>时就实例化，在单例模式中大多数都是调用getInstance方法， 但是导致类装载<br>的原因有很多种，因此不能确定有其他的方式（或者其他的静态方法）导致类<br>装载，这时候初始化instance就没有达到lazy loading的效果<br>4) 结论：这种单例模式可用， 可能造成内存浪费</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//饿汉式(静态变量)</span></span><br><span class="line"><span class="comment">//为什么是静态的，因为单例模式私有了构造方法，无法创建对象，所以只能使用静态方法去获取实例，所以实例变量也应该是静态的</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EagerSingleton</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1.私有构造方法</span></span><br><span class="line">    <span class="comment">// 2.本类内部私有实例变量</span></span><br><span class="line">    <span class="comment">// 3.提供实例的返回方法</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">EagerSingleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> EagerSingleton instance = <span class="keyword">new</span> EagerSingleton();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EagerSingleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//饿汉式(静态代码块)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BSEagerSingleton</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1.私有构造方法</span></span><br><span class="line">    <span class="comment">// 2.本类内部私有实例变量，只声明不创建</span></span><br><span class="line">    <span class="comment">// 3.静态代码块中初始化实例变量</span></span><br><span class="line">    <span class="comment">// 4.提供实例的返回方法</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">BSEagerSingleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> BSEagerSingleton instance;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        instance = <span class="keyword">new</span> BSEagerSingleton();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BSEagerSingleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h2><p>优缺点说明：<br>1) 解决了线程不安全问题<br>2) 效率太低了，每个线程在想获得类的实例时候，执行getInstance()方法都要进行<br>同步。而其实这个方法只执行一次实例化代码就够了，后面的想获得该类实例，<br>直接return就行了。方法进行同步效率太低<br>3) 结论： 在实际开发中， 不推荐使用这种方式</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//懒汉式(线程安全)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LazySingleton</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazySingleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazySingleton instance;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> LazySingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance==<span class="keyword">null</span>)</span><br><span class="line">            instance = <span class="keyword">new</span> LazySingleton();</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
