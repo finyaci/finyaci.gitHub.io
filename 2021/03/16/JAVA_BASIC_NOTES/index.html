@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1 多态 A:虚拟方法调用  成员变量(属性)： 编译看左边(父类)，运行看左边(父类)。   成员方法： 编译看左边(父类)，运行看右边(子类)。 但是子类的特有方法无法调用（向下强转再调用），只能调用父类中定义过的方法，即只能调用父类中定义过的子类方法。   静态方法： 编译看左边(父类)，运行看左边(父类)。 (静态和类相关，算不上重写，所以，访问还是左边的)   总结： 只有非静态的成员方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识_笔记">
+<meta property="og:url" content="http://example.com/2021/03/16/JAVA_BASIC_NOTES/index.html">
+<meta property="og:site_name" content="Finyaci&#39;s Blog">
+<meta property="og:description" content="1 多态 A:虚拟方法调用  成员变量(属性)： 编译看左边(父类)，运行看左边(父类)。   成员方法： 编译看左边(父类)，运行看右边(子类)。 但是子类的特有方法无法调用（向下强转再调用），只能调用父类中定义过的方法，即只能调用父类中定义过的子类方法。   静态方法： 编译看左边(父类)，运行看左边(父类)。 (静态和类相关，算不上重写，所以，访问还是左边的)   总结： 只有非静态的成员方">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-16T10:37:22.000Z">
+<meta property="article:modified_time" content="2021-03-30T11:26:22.724Z">
+<meta property="article:author" content="Finyaci">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/03/16/JAVA_BASIC_NOTES/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Java基础知识_笔记 | Finyaci's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Finyaci's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/16/JAVA_BASIC_NOTES/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java基础知识_笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-16 18:37:22" itemprop="dateCreated datePublished" datetime="2021-03-16T18:37:22+08:00">2021-03-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-30 19:26:22" itemprop="dateModified" datetime="2021-03-30T19:26:22+08:00">2021-03-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-多态"><a href="#1-多态" class="headerlink" title="1 多态"></a>1 多态</h1><ul>
+<li><p>A:虚拟方法调用</p>
+<ul>
+<li>成员变量(属性)：<ul>
+<li>编译看左边(父类)，运行看左边(父类)。</li>
+</ul>
+</li>
+<li>成员方法：<ul>
+<li>编译看左边(父类)，运行看右边(子类)。</li>
+<li>但是子类的特有方法无法调用（向下强转再调用），只能调用父类中定义过的方法，即只能调用父类中定义过的子类方法。</li>
+</ul>
+</li>
+<li>静态方法：<ul>
+<li>编译看左边(父类)，运行看左边(父类)。</li>
+<li>(静态和类相关，算不上重写，所以，访问还是左边的)</li>
+</ul>
+</li>
+<li>总结：<ul>
+<li>只有非静态的成员方法,编译看左边,运行看右边 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>B: 实例：</p>
+<ul>
+<li>Dog和Cat共同继承Animal类，Animal类中定义一个接收Animal对象的方法，</li>
+<li>当传入对象为Dog的实例时，animal.sleep()执行的是Dog实例的方法，而当传入对象为Cat的实例时，animal.sleep()执行的是Cat实例的方法</li>
+<li>对于子类特有对象则需要分别转换类型</li>
+</ul>
+</li>
+<li>C:<br>  多态是运行时行为，即编译期无法确定函数调用，只有在运行时才能确定<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FirstSample</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Animal d1 = <span class="keyword">new</span> Dog();</span><br><span class="line">        Animal c1 = <span class="keyword">new</span> Cat();</span><br><span class="line"></span><br><span class="line">        method(c1); <span class="comment">// 一个接口,多种实现</span></span><br><span class="line">        method(d1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(Animal animal)</span></span>&#123;</span><br><span class="line">        animal.sleep(); <span class="comment">// 调用子类共有功能</span></span><br><span class="line">        <span class="keyword">if</span> (animal <span class="keyword">instanceof</span> Dog)&#123; <span class="comment">// 调用子类特有功能</span></span><br><span class="line">            Dog d1 = (Dog) animal;</span><br><span class="line">            d1.bark();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (animal <span class="keyword">instanceof</span> Cat)&#123;</span><br><span class="line">            Cat c1 = (Cat) animal;</span><br><span class="line">            c1.catchMouse();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Animal is sleeping&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;   <span class="comment">// 成员方法重写</span></span><br><span class="line">        System.out.println(<span class="string">&quot;Dog is sleeping&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bark</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog is barking&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Cat is sleeping&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">catchMouse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Cat is catching mouse&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Cat is sleeping</span></span><br><span class="line"><span class="comment">Cat is catching mouse</span></span><br><span class="line"><span class="comment">Dog is sleeping</span></span><br><span class="line"><span class="comment">Dog is barking</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="2-Collections"><a href="#2-Collections" class="headerlink" title="2 Collections"></a>2 Collections</h1><h2 id="2-1-List"><a href="#2-1-List" class="headerlink" title="2.1 List"></a>2.1 List</h2><ul>
+<li>List:<ul>
+<li>ArrayList</li>
+<li>LinkedList</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-1-1-List-lt-gt-Array-Java-API"><a href="#2-1-1-List-lt-gt-Array-Java-API" class="headerlink" title="2.1.1 List&lt;-&gt;Array Java API"></a>2.1.1 List&lt;-&gt;Array <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/ArrayList.html">Java API</a></h3><ul>
+<li>Object[]  toArray()<br>Returns an array containing all of the elements in this list in proper sequence (from first to last element).</li>
+<li><T> T[] toArray​(T[] a)<br>Returns an array containing all of the elements in this list in proper sequence (from first to last element); the runtime type of the returned array is that of the specified array.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        list.add(<span class="number">11</span>);</span><br><span class="line">        list.add(<span class="number">12</span>);</span><br><span class="line">        list.add(<span class="number">13</span>);</span><br><span class="line">        System.out.println(list.getClass());</span><br><span class="line"></span><br><span class="line">        Integer[] arr = list.toArray(<span class="keyword">new</span> Integer[<span class="number">0</span>]);</span><br><span class="line">        System.out.println(arr.getClass());</span><br><span class="line"></span><br><span class="line">        List&lt;Integer&gt; list2 = List.of(arr);</span><br><span class="line">        System.out.println(list2.getClass());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">class java.util.ArrayList</span></span><br><span class="line"><span class="comment">class [Ljava.lang.Integer;</span></span><br><span class="line"><span class="comment">class java.util.ImmutableCollections$ListN</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h1 id="3-泛型"><a href="#3-泛型" class="headerlink" title="3 泛型"></a>3 泛型</h1><h2 id="3-1-泛型方法-amp-静态泛型方法"><a href="#3-1-泛型方法-amp-静态泛型方法" class="headerlink" title="3.1 泛型方法&amp;静态泛型方法"></a>3.1 泛型方法&amp;静态泛型方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyClass&lt;String&gt; myClass = <span class="keyword">new</span> MyClass&lt;&gt;();</span><br><span class="line">        myClass.show(<span class="number">111</span>);</span><br><span class="line">        myClass.show(<span class="keyword">true</span>);</span><br><span class="line">        myClass.show(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">        myClass.setFirst(<span class="string">&quot;good&quot;</span>);</span><br><span class="line">        myClass.show(myClass.getFirst());</span><br><span class="line"></span><br><span class="line">        MyClass&lt;String&gt; myClass1 = MyClass.func(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">        MyClass&lt;Integer&gt; myClass2 = MyClass.func(<span class="number">11</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    T first;</span><br><span class="line">    T second;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getFirst</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> first;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFirst</span><span class="params">(T first)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.first = first;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getSecond</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> second;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSecond</span><span class="params">(T second)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.second = second;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> &lt;E&gt; <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">(E e)</span> </span>&#123;                 <span class="comment">// E是属于该方法的泛型       </span></span><br><span class="line">        System.out.println(e.getClass());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;M&gt; <span class="function">MyClass&lt;M&gt; <span class="title">func</span><span class="params">(M m)</span> </span>&#123;    <span class="comment">// M是属于该静态方法的泛型，静态方法先于类的加载，所以它无法获取T</span></span><br><span class="line">        System.out.println(m);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyClass&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">class java.lang.Integer</span></span><br><span class="line"><span class="comment">class java.lang.Boolean</span></span><br><span class="line"><span class="comment">class java.lang.String</span></span><br><span class="line"><span class="comment">class java.lang.String</span></span><br><span class="line"><span class="comment">hello</span></span><br><span class="line"><span class="comment">11</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-2-泛型通配符"><a href="#3-2-泛型通配符" class="headerlink" title="3.2 泛型通配符"></a>3.2 泛型通配符</h2><ul>
+<li>泛型通配符的含义是传递参数是选取符合条件类型中的一种</li>
+<li>&lt;?&gt; 任意类型中的一种<ul>
+<li>无限定通配符&lt;?&gt;很少使用，可以用<T>替换，同时它是所有<T>类型的超类</li>
+<li>无法使用add</li>
+</ul>
+</li>
+<li>&lt;? extends E&gt; 上界通配符 <ul>
+<li>为该实参E或其子类中的一种 </li>
+<li>使用&lt;? extend E&gt;通配符作为方法参数，表示方法内部代码对于参数可以读，不能写。</li>
+<li>对于List，无法进行add操作:<ul>
+<li>因为无法确定该泛型的实际参数，泛型下限也无法确定；假设B继承E，A继承B，若该泛型参数为子类类型A，根据规则可向其中存放不高于E类型的对象，往其中存放父类类型B，则明显不合适</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>&lt;? super E&gt; 下界通配符 <ul>
+<li>为该实参E或其父类中的一种</li>
+<li>使用&lt;? super E&gt;通配符作为方法参数，表示方法内部代码对于参数只能写，不能读。</li>
+<li>对于List，可以进行add操作:<ul>
+<li>可以存放任何E(包含E)的子类对象，因为该泛型的下限确定为E，因而任何E的子类均可存放</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>对比super和extend<ul>
+<li>&lt;? extends T&gt;允许调用读方法T get()获取T的引用，但不允许调用写方法set(T)传入T的引用（传入null除外）；</li>
+<li>&lt;? super T&gt;允许调用写方法set(T)传入T的引用，但不允许调用读方法T get()获取T的引用（获取Object除外）。 - get()方法返回的是Object类型</li>
+</ul>
+</li>
+<li>存取原则PECS<ul>
+<li>如果你想从一个数据类型（Producer）里获取数据，使用 ? extends 通配符</li>
+<li>如果你想把对象写入一个数据结构里（Consumer），使用 ? super 通配符</li>
+<li>如果你既想存，又想取，那就别用通配符。</li>
+</ul>
+</li>
+<li><p><T>和&lt;?&gt;</p>
+<ul>
+<li><T>是参数类型，常常用于泛型类或泛型方法的定义；</li>
+<li>&lt;?&gt;是通配符，一般不能直接用来定义类或泛型方法，因为它不能直接参与操作，常常用于泛型方法的调用代码或泛型方法的型参。</li>
+</ul>
+</li>
+<li><p>Example 1</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MiniCat</span> <span class="keyword">extends</span> <span class="title">Cat</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Pair&lt;? extends Cat&gt; p1 = <span class="keyword">new</span> Pair&lt;&gt;(<span class="keyword">new</span> MiniCat(),<span class="keyword">new</span> Cat());</span><br><span class="line">        Cat c1_cat1 = p1.getFirst();</span><br><span class="line">        Animal c1_animal1 = p1.getFirst();</span><br><span class="line">        <span class="comment">// Dog c1_dog1 = p1.getFirst();         // unavailable</span></span><br><span class="line">        <span class="comment">// MiniCat c1_minicat1 = p1.getFirst(); // unavailable</span></span><br><span class="line">        <span class="comment">// p1.setFirst(new Animal());           // unavailable</span></span><br><span class="line">        <span class="comment">// p1.setFirst(new Cat());              // unavailable</span></span><br><span class="line">        <span class="comment">// p1.setFirst(new MiniCat());          // unavailable</span></span><br><span class="line"></span><br><span class="line">        Pair&lt;? <span class="keyword">super</span> Cat&gt; p2 = <span class="keyword">new</span> Pair&lt;&gt;(<span class="keyword">new</span> Animal(),<span class="keyword">new</span> MiniCat());</span><br><span class="line">        p2.setFirst(<span class="keyword">new</span> MiniCat());</span><br><span class="line">        p2.setFirst(<span class="keyword">new</span> Cat());</span><br><span class="line">        <span class="comment">// p2.setFirst(new Animal());           // unavailable 定义了下界为Cat</span></span><br><span class="line">        <span class="comment">// p2.setFirst(new Dog());              // unavailable</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// get的返回值均为Object类型</span></span><br><span class="line">        MiniCat c2_mini1 = (MiniCat) p2.getFirst();</span><br><span class="line">        MiniCat c2_mini2 = (MiniCat) p2.getLast();</span><br><span class="line"></span><br><span class="line">        Pair&lt;?&gt; p3 = <span class="keyword">new</span> Pair&lt;&gt;(<span class="keyword">new</span> Cat(),<span class="keyword">new</span> Cat());</span><br><span class="line">        <span class="comment">// p3.setFirst(new Cat());</span></span><br><span class="line">        Cat c3 =(Cat) p3.getFirst();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> T first;</span><br><span class="line">    <span class="keyword">private</span> T last;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(T first, T last)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.first = first;</span><br><span class="line">        <span class="keyword">this</span>.last = last;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getFirst</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> first;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getLast</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> last;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFirst</span><span class="params">(T first)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.first = first;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLast</span><span class="params">(T last)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.last = last;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Example 2</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstSample</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;? extends Cat&gt; list2 = <span class="keyword">new</span> ArrayList&lt;&gt;(); <span class="comment">// 无法使用add</span></span><br><span class="line">        ArrayList&lt;? <span class="keyword">super</span> Cat&gt; list3 = <span class="keyword">new</span> ArrayList&lt;&gt;();   <span class="comment">// 可以使用add，可存放Cat及其子类</span></span><br><span class="line">        <span class="comment">//list2.add(new Cat(4));</span></span><br><span class="line">        <span class="comment">//list2.add(new MiniCat(4));</span></span><br><span class="line">        list3.add(<span class="keyword">new</span> MiniCat(<span class="number">5</span>));</span><br><span class="line">        list3.add(<span class="keyword">new</span> Cat(<span class="number">4</span>));</span><br><span class="line">        <span class="comment">//list3.add(new Animal(9));</span></span><br><span class="line"></span><br><span class="line">        ArrayList&lt;Animal&gt; animals = <span class="keyword">new</span> ArrayList&lt;&gt;();  <span class="comment">// 可以加入Animal及其子类对象</span></span><br><span class="line">        ArrayList&lt;Cat&gt; cats = <span class="keyword">new</span> ArrayList&lt;&gt;();        <span class="comment">// 可以加入Cat及其子类对象</span></span><br><span class="line">        ArrayList&lt;MiniCat&gt; miniCats = <span class="keyword">new</span> ArrayList&lt;&gt;();<span class="comment">// 可以加入MiniCat及其子类对象</span></span><br><span class="line"></span><br><span class="line">        animals.add(<span class="keyword">new</span> Animal(<span class="number">5</span>));</span><br><span class="line">        animals.add(<span class="keyword">new</span> Cat(<span class="number">4</span>));</span><br><span class="line">        animals.add(<span class="keyword">new</span> MiniCat(<span class="number">3</span>));</span><br><span class="line"></span><br><span class="line">        cats.add(<span class="keyword">new</span> MiniCat(<span class="number">2</span>));</span><br><span class="line">        cats.add(<span class="keyword">new</span> Cat(<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">        showList(animals);</span><br><span class="line">        showList(cats);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">showList</span><span class="params">(ArrayList&lt;? <span class="keyword">super</span> Cat&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//list.add(new Animal(4));</span></span><br><span class="line">        list.add(<span class="keyword">new</span> Cat(<span class="number">4</span>));</span><br><span class="line">        list.add(<span class="keyword">new</span> MiniCat(<span class="number">4</span>));</span><br><span class="line">        <span class="keyword">for</span> (Object o : list</span><br><span class="line">        ) &#123;</span><br><span class="line">            System.out.print(o);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> idx;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Animal</span><span class="params">(<span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.idx = idx;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Animal&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;idx=&quot;</span> + idx +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Cat</span><span class="params">(<span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(idx);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Cat&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;idx=&quot;</span> + idx +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MiniCat</span> <span class="keyword">extends</span> <span class="title">Cat</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MiniCat</span><span class="params">(<span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(idx);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;MiniCat&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;idx=&quot;</span> + idx +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Animal&#123;idx=5&#125;Cat&#123;idx=4&#125;MiniCat&#123;idx=3&#125;Cat&#123;idx=4&#125;MiniCat&#123;idx=4&#125;</span></span><br><span class="line"><span class="comment">MiniCat&#123;idx=2&#125;Cat&#123;idx=1&#125;Cat&#123;idx=4&#125;MiniCat&#123;idx=4&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="4-反射"><a href="#4-反射" class="headerlink" title="4 反射"></a>4 反射</h1><h2 id="4-1-常用API"><a href="#4-1-常用API" class="headerlink" title="4.1 常用API"></a>4.1 常用API</h2><p>通过Class实例的方法可以获取Method实例：getMethod()，getMethods()，getDeclaredMethod()，getDeclaredMethods()；</p>
+<p>通过Method实例可以获取方法信息：getName()，getReturnType()，getParameterTypes()，getModifiers()；</p>
+<p>通过Method实例可以调用某个对象的方法：Object invoke(Object instance, Object… parameters)；</p>
+<p>通过设置setAccessible(true)来访问非public方法；</p>
+<h1 id="5-Comparable接口的使用"><a href="#5-Comparable接口的使用" class="headerlink" title="5 Comparable接口的使用"></a>5 Comparable接口的使用</h1><ul>
+<li><p>Example2</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.google.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Foo</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Foo</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;Foo&gt; fooArrayList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        fooArrayList.add(<span class="keyword">new</span> Foo(<span class="string">&quot;Jackal&quot;</span>));</span><br><span class="line">        fooArrayList.add(<span class="keyword">new</span> Foo(<span class="string">&quot;Jack&quot;</span>));</span><br><span class="line">        fooArrayList.add(<span class="keyword">new</span> Foo(<span class="string">&quot;Jackie&quot;</span>));</span><br><span class="line">        fooArrayList.add(<span class="keyword">new</span> Foo(<span class="string">&quot;John&quot;</span>));</span><br><span class="line">        fooArrayList.add(<span class="keyword">new</span> Foo(<span class="string">&quot;Abe&quot;</span>));</span><br><span class="line">        fooArrayList.add(<span class="keyword">new</span> Foo(<span class="string">&quot;Alice&quot;</span>));</span><br><span class="line">        Collections.sort(fooArrayList);</span><br><span class="line">        System.out.println(fooArrayList);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Foo&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;name=&#x27;&quot;</span> + name + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Foo</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Foo o)</span> </span>&#123;       <span class="comment">// this-o&gt;0 左边大于右边返回正数，Collections.sort()升序排列，所以顺序是 o - this</span></span><br><span class="line">        <span class="keyword">char</span>[] o1n = <span class="keyword">this</span>.getName().toCharArray();</span><br><span class="line">        <span class="keyword">char</span>[] o2n = o.getName().toCharArray();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Math.min(o1n.length, o2n.length); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (o1n[i] == o2n[i])</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> o1n[i] - o2n[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> o1n.length-o2n.length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[Foo&#123;name=&#x27;Abe&#x27;&#125;, Foo&#123;name=&#x27;Alice&#x27;&#125;, Foo&#123;name=&#x27;Jack&#x27;&#125;, Foo&#123;name=&#x27;Jackal&#x27;&#125;, Foo&#123;name=&#x27;Jackie&#x27;&#125;, Foo&#123;name=&#x27;John&#x27;&#125;]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Example2</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.TreeSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstSample</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        TreeSet&lt;Person&gt; treeSet = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line">        treeSet.add(<span class="keyword">new</span> Person(<span class="string">&quot;Jack&quot;</span>, <span class="number">15</span>));</span><br><span class="line">        treeSet.add(<span class="keyword">new</span> Person(<span class="string">&quot;Joe&quot;</span>, <span class="number">12</span>));</span><br><span class="line">        treeSet.add(<span class="keyword">new</span> Person(<span class="string">&quot;Jerry&quot;</span>, <span class="number">18</span>));</span><br><span class="line">        treeSet.add(<span class="keyword">new</span> Person(<span class="string">&quot;John&quot;</span>, <span class="number">25</span>));</span><br><span class="line">        treeSet.add(<span class="keyword">new</span> Person(<span class="string">&quot;Jackie&quot;</span>, <span class="number">15</span>));</span><br><span class="line">        treeSet.add(<span class="keyword">new</span> Person(<span class="string">&quot;Jackal&quot;</span>, <span class="number">12</span>));</span><br><span class="line">        treeSet.add(<span class="keyword">new</span> Person(<span class="string">&quot;Jason&quot;</span>, <span class="number">15</span>));</span><br><span class="line">        System.out.println(treeSet);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Person</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Person&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;name=&#x27;&quot;</span> + name + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, age=&quot;</span> + age +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Person p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> age = <span class="keyword">this</span>.age - p.age;     <span class="comment">//调用对象的根节点和传入对象作差</span></span><br><span class="line">        <span class="keyword">return</span> age == <span class="number">0</span> ? <span class="keyword">this</span>.name.compareTo(p.name) : age;<span class="comment">//如果年龄相同，就按照名字排序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[Person&#123;name=&#x27;Jackal&#x27;, age=12&#125;, Person&#123;name=&#x27;Joe&#x27;, age=12&#125;, Person&#123;name=&#x27;Jack&#x27;, age=15&#125;, Person&#123;name=&#x27;Jackie&#x27;, age=15&#125;, Person&#123;name=&#x27;Jason&#x27;, age=15&#125;, Person&#123;name=&#x27;Jerry&#x27;, age=18&#125;, Person&#123;name=&#x27;John&#x27;, age=25&#125;]</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/14/Pytorch_Tutorial/" rel="prev" title="Pytorch_tutorial">
+      <i class="fa fa-chevron-left"></i> Pytorch_tutorial
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/25/JAVA_EE+JAVA_WEB/" rel="next" title="JavaEE+JavaWeb">
+      JavaEE+JavaWeb <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%A4%9A%E6%80%81"><span class="nav-number">1.</span> <span class="nav-text">1 多态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Collections"><span class="nav-number">2.</span> <span class="nav-text">2 Collections</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-List"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 List</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-List-lt-gt-Array-Java-API"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 List&lt;-&gt;Array Java API</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%B3%9B%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">3 泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95-amp-%E9%9D%99%E6%80%81%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 泛型方法&amp;静态泛型方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E6%B3%9B%E5%9E%8B%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 泛型通配符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E5%8F%8D%E5%B0%84"><span class="nav-number">4.</span> <span class="nav-text">4 反射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E5%B8%B8%E7%94%A8API"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 常用API</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Comparable%E6%8E%A5%E5%8F%A3%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">5 Comparable接口的使用</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Finyaci</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Finyaci</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

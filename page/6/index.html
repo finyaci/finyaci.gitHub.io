@@ -151,6 +151,912 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/07/02/Project%20STM32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/07/02/Project%20STM32/" class="post-title-link" itemprop="url">STM32 Project</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-02 10:17:22" itemprop="dateCreated datePublished" datetime="2018-07-02T10:17:22+08:00">2018-07-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-07-04 10:32:30" itemprop="dateModified" datetime="2018-07-04T10:32:30+08:00">2018-07-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="智能手环"><a href="#智能手环" class="headerlink" title="智能手环"></a>智能手环</h1><pre><code>功能：温湿度，计步，心率，睡眠时间，血压
+
+模块：
+    温湿度模块 SMT20 
+    心率血压 HP-6
+    计步 MPU6050 六轴陀螺仪
+</code></pre><h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><pre><code>1. STM32-F111CEUx cortex-M 意法半导体 32位单片机指寄存器32位 
+    C：代表管脚数量 48(16*3)  GPIOA(PA0~PA15)  GPIOB GPIOC
+    E：代表容量大小 
+        flash 512K 掉电不丢失
+        SRAM 128K 掉电丢失 
+    Ux：封装耐温
+
+2. 编译软件 Keilv5
+    C 翻译 机器语言
+
+3. C语言基础
+    嵌入式C：
+    1，九条语句
+    2. 结构化编程(.c和.h每一个模块都要有一个对应的.c和.h文件)
+       一个工程里会有多个.c.h文件，但有且只有一个main()函数，工程从main()函数开始到main()函数结束
+</code></pre><h2 id="main-c"><a href="#main-c" class="headerlink" title="main.c"></a>main.c</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;stm32f4xx.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// LED初始化函数；</span></span><br><span class="line">	<span class="comment">// LED灯亮代码；</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//led.c LED初始化函数文件</span></span><br><span class="line"><span class="comment">//led.h 写LED相关的宏定义声明</span></span><br></pre></td></tr></table></figure>
+<pre><code>    3. 指针数组
+    4. 位操作：只改变变量的某一位而不改变变量的其他操作
+       因为后续编程需要大量对STM32的寄存器进行操作
+               = 赋值 &amp;按位与 |按位或 `按位取反 &lt;&lt; 左移 ()括号
+
+                对特定位写1:
+                    对X第4位写1
+                        X |= (1&lt;&lt;4);     0b 0000 0000 0000 0000 0000 0000 0001 0000
+                                        0b xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
+                                        0b xxxx xxxx xxxx xxxx xxxx xxxx xxx1 xxxx
+                        0|0 == 0
+                        0|1 == 1
+                        1|1 == 1
+
+               对特定位写0:
+                   对X第n位写0
+                       X &amp;= ~(1&lt;&lt;n);   0b 1111 1111 1111 1111 1111 1111 1110 1111 
+                                       0b xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
+                                        0b xxxx xxxx xxxx xxxx xxxx xxxx xxx0 xxxx
+                        0&amp;0 == 0
+                        0&amp;1 == 0
+                        1&amp;1 == 1
+
+4. 会看技术手册 (提供编程思路)
+    1) 这类芯片的参考手册 STM32Fxx中文参考手册
+    2) 这款芯片的芯片手册 STM32F411
+    3) 产品原理图(以图纸形式表现出各个模块之间的连线关系)
+    4) 模块对应的技术手册
+
+
+点亮一个LED？
+①LED在哪？(查找与单片机那些引脚相连原理图)
+    与PA7相连
+②LED如何点亮？
+    PA7输出低电平 根据原理图与电路知识
+③
+
+GPIO 通用输入输出口，单片机上的外设，有三组IO口资源(GPIOA GPIOB GPIOC 简称PA PB PC)，每组IO都有16个引脚，共48引脚
+
+IO口引脚的功能作用：
+1.作为普通功能进行 输入/输出
+2.作为复用功能进行 输入/输出 (SPI外设接口，ADC，定时器通道等)
+    IO口作用：单片机和外界交流信息的通道
+输出：单片机某个引脚输出特定电平，进而改变外围电路的过程(LED、BEEP、电机)
+输入：外围电路影响单片机某个引脚接收的电平的过程(按键)
+
+如何学习中文手册？
+用什么看什么结果导向
+
+点灯PA7
+1. 查阅GPIO章节
+2. 找到IO口如何进行输出
+3. 确定需要哪些操作
+4. 操作--&gt;代码
+5. 代码--&gt;工程
+</code></pre><h1 id="Day2"><a href="#Day2" class="headerlink" title="Day2"></a>Day2</h1><p>#<br> Camera 1</p>
+<h1 id="GPIO-寄存器-GPIO-Register"><a href="#GPIO-寄存器-GPIO-Register" class="headerlink" title="GPIO 寄存器 (GPIO Register)"></a>GPIO 寄存器 (GPIO Register)</h1><pre><code>对GPIOA-&gt;MODER的第15位写0，14位写1
+
+GPIOA-&gt;MODER &amp;=~(1&lt;&lt;15);
+GPIOA-&gt;MODER |=(1&lt;&lt;14);
+
+对GPIOA-&gt;OTYPER的第7位写0
+GPIOA-&gt;OTYPER &amp;=~(1&lt;&lt;7);
+
+对GPIOA-&gt;OSPEEDR的第15位写1，14位写0
+GPIOA-&gt;OSPEEDR &amp;=~(1&lt;&lt;14);
+GPIOA-&gt;OSPEEDR |=(1&lt;&lt;15);
+
+对GPIOA-&gt;ODR的第7位写0 PA7输出低电平
+GPIOA-&gt;ODR &amp;=~(1&lt;&lt;7);
+
+RCC-&gt;AHB1ENR &amp;=~(1&lt;&lt;0)
+</code></pre><p>main.c<br>led.c<br>led.h</p>
+<p>.c一般保存在user的src中<br>.h一般保存在user的inc中</p>
+<h1 id="Day3"><a href="#Day3" class="headerlink" title="Day3"></a>Day3</h1><p>OLED屏<br>1.了解模块的学习方法<br>2.OLED的特点参数<br>3.OLED驱动方法<br>4.如何使用OLED屏，显示汉字</p>
+<p>一、如何学习模块<br>1.找到模块和单片机的连接方式（查看原理图）</p>
+<p>OLED_CS     PB7        片选<br>OLED_RES     PB13    硬件复位<br>OLED_D/C     PA15    数据命令选择<br>OLED_SCL     PB13     时钟线<br>OLED_SI     PB5        MOSI主机发送从机接受，数据线<br>                    MISO主机接受从机发送，数据线<br>                    通信方式属于SPI通信</p>
+<p>SPI通信特点：同步串行全双工</p>
+<p>同步：要求通信双方步调一致，有一根时钟线连接双方<br>异步：通信双方没有时钟线相连，需要规定双方的波特率一致<br>串行：将数据一位一位进行传送，一般只有一到两根数据线<br>并行：一次将数据的各个位一并传输（数据线很多，16），传输速度快，短距离<br>单工：通信时数据流向只能是一方传给另一方<br>半双工：允许双向的通信，但是通信双方不能同时发送信息<br>全双工：允许双向的通信，但是通信双方可以同时发送信息</p>
+<p>2.根据原理图和模块手册找到驱动方法</p>
+<p>SPI通信<br>如何实现SPI通信？<br>①模拟时序法<br>②通信框图法（前提：此单片机要有SPI接口）<br>查阅STM32F4xx中文参考手册，根据通信框图配置相关寄存器即可</p>
+<p>3.模块的参数特点<br>OLED屏 用于显示<br>OLED特点：单色 具备自发光，不要背景光源<br>OLED参数：<br>    物理尺寸：1.3寸<br>    分辨率：132x64<br>    扫描方式：（型号）SH1106 列行式<br>    只使用128列，64行（8页）</p>
+<p>4.使用这个模块<br>如何显示汉字？<br>显示内容需要包含两种信息<br>①显示位置信息<br>②字模软件</p>
+<p>取模方法：</p>
+<p>删去行前缀的和行后缀的括号</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/06/19/Reding_Comprehension_Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/06/19/Reding_Comprehension_Notes/" class="post-title-link" itemprop="url">__Reading_Comprehension_Notes__</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-19 19:27:20" itemprop="dateCreated datePublished" datetime="2018-06-19T19:27:20+08:00">2018-06-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-07-06 09:11:07" itemprop="dateModified" datetime="2018-07-06T09:11:07+08:00">2018-07-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="HuaYan-E-1-150A-Text1"><a href="#HuaYan-E-1-150A-Text1" class="headerlink" title="HuaYan E.1 150A Text1"></a>HuaYan E.1 150A Text1</h1><p>downside<br>indenfensible<br>intrusiveness</p>
+<p>His mere presence (= just the fact that he was there) made her feel afraid.只凭…就足以</p>
+<p>transcendence<br>very 非常，很；(    )；</p>
+<p>monastery<br>monarchy<br>monarch</p>
+<h1 id="HuaYan-E-1-150A-Text2"><a href="#HuaYan-E-1-150A-Text2" class="headerlink" title="HuaYan E.1 150A Text2"></a>HuaYan E.1 150A Text2</h1><p>on top of<br>in terms of<br>ground</p>
+<h1 id="HuaYan-E-1-150A-Text3"><a href="#HuaYan-E-1-150A-Text3" class="headerlink" title="HuaYan E.1 150A Text3"></a>HuaYan E.1 150A Text3</h1><p>provisiong<br>in essence<br>in effect 有效；(    )；<br>state 国家；州；陈述；国家的；<br>precede<br>preclude<br>naturalization<br>fashion 流行；(    )；<br>uniform 制服；(    )；<br>liberal</p>
+<p>law enforcement 执法<br>in contact with 与…接触<br>reinforcement<br>enforcement<br>joint     交点，结点；(    )；</p>
+<p>A v. B 法律术语 A控告B<br>Arizona v. United States<br>explicit 明确的<br>comply with<br>complied with<br>compile<br>remarkable 显著的；不同寻常的；</p>
+<p>complaint<br>compliant</p>
+<h1 id="HuaYan-E-1-150A-Text4"><a href="#HuaYan-E-1-150A-Text4" class="headerlink" title="HuaYan E.1 150A Text4"></a>HuaYan E.1 150A Text4</h1><p>insane<br>infant<br>infancy</p>
+<p>from the bottom up<br>more than anything<br>nothing more than<br>part with sth.  割舍</p>
+<p>in office<br>in the office</p>
+<p>in part 在某种程度上</p>
+<blockquote>
+<blockquote>
+<p>What I wanted, more than anything, was a few days’ rest. </p>
+<p>Locking up men does nothing more than keep them off the streets.</p>
+</blockquote>
+</blockquote>
+<h1 id="HuaYan-E-1-150A-Text5"><a href="#HuaYan-E-1-150A-Text5" class="headerlink" title="HuaYan E.1 150A Text5"></a>HuaYan E.1 150A Text5</h1><p>refrain<br>sweeping<br>upset 失望的；难过的；(    )；<br>discernable<br>lame tame lane<br>comprehensive<br>comprehension<br>burdensome<br>swallow 吞；(    )；(    )<br>specify</p>
+<p>disruptive technology<br>novel application</p>
+<p>The Attorney General was aware of the political implications of his decision to prosecute…<br>The implication was obvious: vote for us or it will be very embarrassing for you…</p>
+<p><Writing> the implications of sth. (…的影响)<br>They failed to consider the wider implications of their actions.(他们没有考虑到他们的行动会产生更广泛的影响。)</p>
+<p><Writing> They fail to do sth. (未能做… 没有做…)</p>
+<p>say [无被动态] to suggest or give sth as an example or a possibility 比方说；假设<br>Let’s take any writer, say (= for example) Dickens…</p>
+<p>The Amendment 美国宪法修正案<br>Fourth Amendment 第四宪法修正案</p>
+<p>As (so often) is the case,…</p>
+<h1 id="HuaYan-E-1-150A-Text6"><a href="#HuaYan-E-1-150A-Text6" class="headerlink" title="HuaYan E.1 150A Text6"></a>HuaYan E.1 150A Text6</h1><h1 id="HuaYan-E-1-150B-Text2"><a href="#HuaYan-E-1-150B-Text2" class="headerlink" title="HuaYan E.1 150B Text2"></a>HuaYan E.1 150B Text2</h1><p>offical 官方的；(    )；<br>grapple with<br>grapple (    )；(    )；<br>introduce new law<br>introduce tariffs</p>
+<blockquote>
+<p>~ sth (into/to sth) to make sth available for use, discussion, etc. for the first time 推行；实施；采用</p>
+</blockquote>
+<p>scrutiny 认真彻底的审查<br>protest<br>overreach<br>subsidize<br>inform sb. about sth.<br>grocery</p>
+<p>take measures to do sth.<br>measures from doing sth. to doing sth. should be taken to do sth.</p>
+<h1 id="HuaYan-E-1-150B-Text3"><a href="#HuaYan-E-1-150B-Text3" class="headerlink" title="HuaYan E.1 150B Text3"></a>HuaYan E.1 150B Text3</h1><p>deceitful<br>liar<br>oversight(2)<br>overlook<br>rein in<br>racketeer<br>fraud<br>unanimous<br>uphold(2)<br>underline<br>underlie</p>
+<h1 id="HuaYan-E-2-150A-Text1"><a href="#HuaYan-E-2-150A-Text1" class="headerlink" title="HuaYan E.2 150A Text1"></a>HuaYan E.2 150A Text1</h1><p>bounty<br>bountiful<br>exercise(2)<br>term<br>lavishness<br>conditional<br>condition</p>
+<h1 id="HuaYan-E-2-150A-Text2"><a href="#HuaYan-E-2-150A-Text2" class="headerlink" title="HuaYan E.2 150A Text2"></a>HuaYan E.2 150A Text2</h1><p>adhere(2)</p>
+<h1 id="HuaYan-E-2-150A-Text3"><a href="#HuaYan-E-2-150A-Text3" class="headerlink" title="HuaYan E.2 150A Text3"></a>HuaYan E.2 150A Text3</h1><p>overall<br>over all<br>uneven<br>even<br>expound<br>in place of<br>flaw</p>
+<h1 id="HuaYan-E-2-150A-Text4"><a href="#HuaYan-E-2-150A-Text4" class="headerlink" title="HuaYan E.2 150A Text4"></a>HuaYan E.2 150A Text4</h1><p>ripe<br>centenarian<br>ascribe<br>profile(3)</p>
+<h1 id="HuaYan-E-2-150A-Text6"><a href="#HuaYan-E-2-150A-Text6" class="headerlink" title="HuaYan E.2 150A Text6"></a>HuaYan E.2 150A Text6</h1><p>grounded<br>all but</p>
+<h1 id="HuaYan-E-2-150A-Text7"><a href="#HuaYan-E-2-150A-Text7" class="headerlink" title="HuaYan E.2 150A Text7"></a>HuaYan E.2 150A Text7</h1><p>mandatory<br>mandate<br>proliferation<br>dictate<br>cult</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/06/18/SQL%20notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/06/18/SQL%20notes/" class="post-title-link" itemprop="url">MySQL notes</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-18 17:37:22" itemprop="dateCreated datePublished" datetime="2018-06-18T17:37:22+08:00">2018-06-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-07-09 10:53:19" itemprop="dateModified" datetime="2018-07-09T10:53:19+08:00">2018-07-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="0"><a href="#0" class="headerlink" title="0"></a>0</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">同时安装python2 python3 anaconda </span><br><span class="line">对应命令行指令调用：python2 python3 python</span><br><span class="line">python3 -m pip <span class="keyword">install</span> fire</span><br></pre></td></tr></table></figure>
+<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">字段/记录/主键</span><br><span class="line"></span><br><span class="line">字段名称/字段数据类型/字段约束/字段长度</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DQL:<span class="keyword">select</span></span><br><span class="line">DML:<span class="keyword">insert</span>,<span class="keyword">delete</span>,<span class="keyword">update</span></span><br><span class="line"><span class="keyword">DDL</span>:<span class="keyword">create</span>,<span class="keyword">drop</span>,<span class="keyword">alter</span></span><br><span class="line">TCL:<span class="keyword">commit</span>,<span class="keyword">rollback</span></span><br><span class="line">DCL:<span class="keyword">grant</span>,<span class="keyword">revoke</span></span><br></pre></td></tr></table></figure>
+<h1 id="3-查看MySql数据库物理文件存放位置"><a href="#3-查看MySql数据库物理文件存放位置" class="headerlink" title="3 查看MySql数据库物理文件存放位置"></a>3 查看MySql数据库物理文件存放位置</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show global variables like &quot;%datadir%&quot;;</span><br></pre></td></tr></table></figure>
+<h1 id="4-bjpn"><a href="#4-bjpn" class="headerlink" title="4 bjpn"></a>4 bjpn</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> bjpn;</span><br><span class="line"><span class="keyword">use</span> bjpn;</span><br><span class="line"></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> dept;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> salgrade;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> emp;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> dept(</span><br><span class="line">		deptno <span class="built_in">int</span>(<span class="number">10</span>) primary <span class="keyword">key</span>,</span><br><span class="line">		dname <span class="built_in">varchar</span>(<span class="number">14</span>),</span><br><span class="line">		loc <span class="built_in">varchar</span>(<span class="number">13</span>)</span><br><span class="line">		);</span><br><span class="line">		</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> salgrade(</span><br><span class="line">		grade <span class="built_in">int</span>(<span class="number">11</span>),</span><br><span class="line">		losal <span class="built_in">int</span>(<span class="number">11</span>),</span><br><span class="line">		hisal <span class="built_in">int</span>(<span class="number">11</span>)</span><br><span class="line">		);</span><br><span class="line">		</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp(</span><br><span class="line">		empno <span class="built_in">int</span>(<span class="number">4</span>) primary <span class="keyword">key</span>,</span><br><span class="line">		ename <span class="built_in">varchar</span>(<span class="number">10</span>),</span><br><span class="line">		job <span class="built_in">varchar</span>(<span class="number">9</span>),</span><br><span class="line">		mgr <span class="built_in">int</span>(<span class="number">4</span>),</span><br><span class="line">		hiredate <span class="built_in">date</span>,</span><br><span class="line">		sal <span class="keyword">double</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">		comm <span class="keyword">double</span>(<span class="number">7</span>,<span class="number">2</span>),</span><br><span class="line">		deptno <span class="built_in">int</span>(<span class="number">2</span>)</span><br><span class="line">		);</span><br><span class="line">		</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept(deptno,dname,loc) <span class="keyword">values</span>(<span class="number">10</span>,<span class="string">&#x27;ACCOUNTING&#x27;</span>,<span class="string">&#x27;NEW YORK&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept(deptno,dname,loc) <span class="keyword">values</span>(<span class="number">20</span>,<span class="string">&#x27;RESEARCHING&#x27;</span>,<span class="string">&#x27;DALLAS&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept(deptno,dname,loc) <span class="keyword">values</span>(<span class="number">30</span>,<span class="string">&#x27;SALES&#x27;</span>,<span class="string">&#x27;CHICAGO&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept(deptno,dname,loc) <span class="keyword">values</span>(<span class="number">40</span>,<span class="string">&#x27;OPERATIONS&#x27;</span>,<span class="string">&#x27;BOSTON&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> salgrade(grade,losal,hisal) <span class="keyword">values</span>(<span class="number">1</span>,<span class="number">700</span>,<span class="number">1200</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> salgrade(grade,losal,hisal) <span class="keyword">values</span>(<span class="number">2</span>,<span class="number">1201</span>,<span class="number">1400</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> salgrade(grade,losal,hisal) <span class="keyword">values</span>(<span class="number">3</span>,<span class="number">1401</span>,<span class="number">2000</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> salgrade(grade,losal,hisal) <span class="keyword">values</span>(<span class="number">4</span>,<span class="number">2001</span>,<span class="number">3000</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> salgrade(grade,losal,hisal) <span class="keyword">values</span>(<span class="number">5</span>,<span class="number">3001</span>,<span class="number">5000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7369</span>,<span class="string">&#x27;SIMITH&#x27;</span>,<span class="string">&#x27;CLERK&#x27;</span>,<span class="number">7902</span>,<span class="string">&#x27;1980-12-17&#x27;</span>,<span class="number">800</span>,<span class="literal">null</span>,<span class="number">20</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7499</span>,<span class="string">&#x27;ALLEN&#x27;</span>,<span class="string">&#x27;SALESMAN&#x27;</span>,<span class="number">7698</span>,<span class="string">&#x27;1981-02-20&#x27;</span>,<span class="number">1600</span>,<span class="number">300</span>,<span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7521</span>,<span class="string">&#x27;WARD&#x27;</span>,<span class="string">&#x27;SALESMAN&#x27;</span>,<span class="number">7698</span>,<span class="string">&#x27;1981-02-22&#x27;</span>,<span class="number">1250</span>,<span class="number">500</span>,<span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7566</span>,<span class="string">&#x27;JONES&#x27;</span>,<span class="string">&#x27;MANAGER&#x27;</span>,<span class="number">7839</span>,<span class="string">&#x27;1981-04-02&#x27;</span>,<span class="number">2975</span>,<span class="literal">null</span>,<span class="number">20</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7654</span>,<span class="string">&#x27;MARTIN&#x27;</span>,<span class="string">&#x27;SALESMAN&#x27;</span>,<span class="number">7698</span>,<span class="string">&#x27;1981-09-28&#x27;</span>,<span class="number">1250</span>,<span class="number">1400</span>,<span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7698</span>,<span class="string">&#x27;BLAKE&#x27;</span>,<span class="string">&#x27;MANAGER&#x27;</span>,<span class="number">7839</span>,<span class="string">&#x27;1981-05-01&#x27;</span>,<span class="number">2850</span>,<span class="literal">null</span>,<span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7782</span>,<span class="string">&#x27;CLARK&#x27;</span>,<span class="string">&#x27;MANAGER&#x27;</span>,<span class="number">7839</span>,<span class="string">&#x27;1981-06-09&#x27;</span>,<span class="number">2450</span>,<span class="literal">null</span>,<span class="number">10</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7788</span>,<span class="string">&#x27;SCOTT&#x27;</span>,<span class="string">&#x27;ANALYST&#x27;</span>,<span class="number">7566</span>,<span class="string">&#x27;1987-04-19&#x27;</span>,<span class="number">3000</span>,<span class="literal">null</span>,<span class="number">20</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7839</span>,<span class="string">&#x27;KING&#x27;</span>,<span class="string">&#x27;PRESIDENT&#x27;</span>,<span class="literal">null</span>,<span class="string">&#x27;1981-11-17&#x27;</span>,<span class="number">5000</span>,<span class="literal">null</span>,<span class="number">10</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7844</span>,<span class="string">&#x27;TURNER&#x27;</span>,<span class="string">&#x27;SALESMAN&#x27;</span>,<span class="number">7698</span>,<span class="string">&#x27;1981-09-08&#x27;</span>,<span class="number">1500</span>,<span class="literal">null</span>,<span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7876</span>,<span class="string">&#x27;ADAMS&#x27;</span>,<span class="string">&#x27;CLERK&#x27;</span>,<span class="number">7788</span>,<span class="string">&#x27;1987-05-23&#x27;</span>,<span class="number">1100</span>,<span class="literal">null</span>,<span class="number">20</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7900</span>,<span class="string">&#x27;JAMES&#x27;</span>,<span class="string">&#x27;CLERK&#x27;</span>,<span class="number">7698</span>,<span class="string">&#x27;1981-12-03&#x27;</span>,<span class="number">950</span>,<span class="literal">null</span>,<span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7902</span>,<span class="string">&#x27;FORD&#x27;</span>,<span class="string">&#x27;ANALYST&#x27;</span>,<span class="number">7566</span>,<span class="string">&#x27;1981-12-03&#x27;</span>,<span class="number">3000</span>,<span class="literal">null</span>,<span class="number">20</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(empno,ename,job,mgr,hiredate,sal,comm,deptno)</span><br><span class="line">	<span class="keyword">values</span>(<span class="number">7934</span>,<span class="string">&#x27;MILLER&#x27;</span>,<span class="string">&#x27;CLERK&#x27;</span>,<span class="number">7782</span>,<span class="string">&#x27;1982-01-23&#x27;</span>,<span class="number">1300</span>,<span class="literal">null</span>,<span class="number">10</span>);</span><br><span class="line">	</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> dept;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> salgrade;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp;</span><br></pre></td></tr></table></figure>
+<h1 id="4-查看文件结构"><a href="#4-查看文件结构" class="headerlink" title="4 查看文件结构"></a>4 查看文件结构</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">desc dept;</span><br><span class="line">desc emp;</span><br><span class="line">desc salgrade;</span><br></pre></td></tr></table></figure>
+<h1 id="5-查看每张表的内容"><a href="#5-查看每张表的内容" class="headerlink" title="5 查看每张表的内容"></a>5 查看每张表的内容</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> dept;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> salgrade;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp;</span><br></pre></td></tr></table></figure>
+<h1 id="6-查看数据库内所有表"><a href="#6-查看数据库内所有表" class="headerlink" title="6 查看数据库内所有表"></a>6 查看数据库内所有表</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">tables</span>;</span><br></pre></td></tr></table></figure>
+<h1 id="7-常用命令"><a href="#7-常用命令" class="headerlink" title="7 常用命令"></a>7 常用命令</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">databases</span>;		//查看所有数据库</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">version</span>();	//查看版本</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">database</span>();	//查看当前使用的数据库</span><br><span class="line"></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">tables</span> <span class="keyword">from</span> <span class="keyword">test</span>;	//可以在其他数据库中看指定数据库的表</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> (<span class="keyword">table</span> <span class="keyword">name</span>);	//查看创建表的语句</span><br></pre></td></tr></table></figure>
+<h1 id="8-查询-select不会修改数据库的内容"><a href="#8-查询-select不会修改数据库的内容" class="headerlink" title="8 查询 select不会修改数据库的内容"></a>8 查询 select不会修改数据库的内容</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp;				//查询emp表中所有字段</span><br><span class="line"><span class="keyword">select</span> deptno <span class="keyword">from</span> emp;			//查询emp表中deptno字段</span><br><span class="line"><span class="keyword">select</span> empno,mgr <span class="keyword">from</span> emp;		//查询emp表中empno,mgr内容</span><br><span class="line"><span class="keyword">select</span> empno,sal*<span class="number">12</span> <span class="keyword">as</span> ysal <span class="keyword">from</span> emp;	//显示年薪</span><br></pre></td></tr></table></figure>
+<h1 id="9-修改数据库的密码"><a href="#9-修改数据库的密码" class="headerlink" title="9 修改数据库的密码"></a>9 修改数据库的密码</h1><p>方法1： 用SET PASSWORD命令<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set password for 用户名@localhost = password(‘新密码’); </span><br><span class="line">mysql&gt; set password for root@localhost = password(‘root’);</span><br></pre></td></tr></table></figure></p>
+<h1 id="10-限定与排序"><a href="#10-限定与排序" class="headerlink" title="10 限定与排序"></a>10 限定与排序</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> job <span class="keyword">from</span> emp <span class="keyword">limit</span> <span class="number">5</span>,<span class="number">8</span>; 			//查询emp表中job字段从第6个数据开始下面8个数据</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">order</span> <span class="keyword">by</span> sal;			//查询emp表中所有数据按sal排序</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">order</span> <span class="keyword">by</span> sal <span class="keyword">desc</span>;	//查询emp表中所有数据按sal降序排序</span><br></pre></td></tr></table></figure>
+<h1 id="11-where-子句的使用"><a href="#11-where-子句的使用" class="headerlink" title="11 where 子句的使用"></a>11 where 子句的使用</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">select * from emp where sal&gt;2000;					//查询emp表中所有数据按sal&gt;2000的数据</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> sal&gt;<span class="number">2000</span> <span class="keyword">order</span> <span class="keyword">by</span> sal <span class="keyword">desc</span>;	//order by 子句应在 where之后</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> comm <span class="keyword">is</span> <span class="literal">NULL</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> comm <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">NULL</span>;</span><br><span class="line"><span class="keyword">select</span> ename,sal,deptno <span class="keyword">from</span> emp <span class="keyword">where</span> sal&gt;<span class="number">3000</span> <span class="keyword">and</span> deptno=<span class="number">10</span>;	//operators and or </span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> (deptno=<span class="number">10</span> <span class="keyword">or</span> deptno=<span class="number">20</span>) <span class="keyword">and</span> sal&gt;<span class="number">2000</span>; //and优先级高于or，圆括号可以改变优先级</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> mgr REGEXP <span class="string">&#x27;78..&#x27;</span>;			//使用正则表达式</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="12-创建表"><a href="#12-创建表" class="headerlink" title="12 创建表"></a>12 创建表</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">database</span> SHOP;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> SHOP;</span><br><span class="line">	<span class="keyword">use</span> SHOP;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">drop</span> <span class="keyword">table</span> customers <span class="keyword">if</span> <span class="keyword">exists</span>;</span><br><span class="line">	<span class="keyword">create</span> <span class="keyword">table</span> customers(</span><br><span class="line">		cust_id <span class="built_in">int</span>(<span class="number">10</span>) primary <span class="keyword">key</span>,</span><br><span class="line">		cust_name <span class="built_in">char</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">		cust_email <span class="built_in">char</span>(<span class="number">20</span>) <span class="literal">null</span></span><br><span class="line">		);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> customers(cust_id,cust_name,cust_email) <span class="keyword">values</span>(<span class="number">10000</span>,<span class="string">&#x27;Bob&#x27;</span>,<span class="string">&#x27;11@11.com&#x27;</span>);	</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> customers(cust_id,cust_name,cust_email) <span class="keyword">values</span>(<span class="number">10001</span>,<span class="string">&#x27;Mike&#x27;</span>,<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> customers(cust_id,cust_name,cust_email) <span class="keyword">values</span>(<span class="number">10002</span>,<span class="string">&#x27;Nancy&#x27;</span>,<span class="literal">null</span>);</span><br><span class="line"><span class="keyword">update</span> customers <span class="keyword">set</span> cust_email=<span class="string">&#x27;22@22.com&#x27;</span> <span class="keyword">where</span> cust_id=<span class="number">10001</span>;</span><br><span class="line"><span class="keyword">update</span> customers <span class="keyword">set</span> cust_email=<span class="string">&#x27;111@22.com&#x27;</span> <span class="keyword">where</span> cust_id=<span class="number">10000</span>;</span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> customers <span class="keyword">where</span> cust_id = <span class="number">10002</span>;</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> customers <span class="keyword">add</span> cust_vip <span class="built_in">char</span>(<span class="number">3</span>);</span><br><span class="line"><span class="keyword">update</span> customers <span class="keyword">set</span> cust_vip = <span class="string">&quot;Yes&quot;</span> <span class="keyword">where</span> cust_id = <span class="number">10000</span>;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/05/01/WORDS_EXAMPLES__/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/01/WORDS_EXAMPLES__/" class="post-title-link" itemprop="url">__WORDS_EXAMPLES__</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-05-01 20:37:22" itemprop="dateCreated datePublished" datetime="2018-05-01T20:37:22+08:00">2018-05-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-05-15 14:19:58" itemprop="dateModified" datetime="2018-05-15T14:19:58+08:00">2018-05-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>He was the most relentless enemy I have ever known.</p>
+<p>The pressure now was relentless.</p>
+<p>It’s important to rinse the rice to remove the starch </p>
+<p>Use a toothbrush on your tongue as well, and rinse your mouth frequently. </p>
+<p>Estonia said it too planned to hold a referendum on independence. </p>
+<p>It took her a full month to summon the courage to tell her mother. </p>
+<p>Howe summoned a doctor and hurried over…</p>
+<p>…the economic disparities between East and West Berlin.</p>
+<p>The President is attempting to dispel the notion that he has neglected the economy.</p>
+<p> A government split would have dire consequences for domestic peace… </p>
+<p>…a book of children’s verse, which ranged from the barely tolerable to the utterly dire.</p>
+<p>The shooting occurred in the 34th Precinct.</p>
+<p>California is vying with other states to capture a piece of the growing communications market… </p>
+<p>Unemployment is now rampant in most of Europe.</p>
+<h1 id="NEED-TO-SOLVE"><a href="#NEED-TO-SOLVE" class="headerlink" title="NEED TO SOLVE"></a>NEED TO SOLVE</h1><p> At its peak in 2007 it was worth some $65 billion, reckons Clare McAndrew, founder of Arts Economics, a research firm—double the figure five years earlier. </p>
+<p> But as the Nuclear Regulatory Commission (NRC) reviews the company’s application, it should keep in mind what promises (from Entergy) are worth.</p>
+<p> You should keep in mind what I say.<br> You should think what is important at this time.<br> You should think what color is the best choice.</p>
+<pre><code>what /ˈwɑːt/ /ˈwʌt/ adjective
+**always used before a noun**
+
+1 
+— used to ask someone to indicate the identity or nature of someone or something
+    What fool told you that?
+    What book did you read?
+    What news have you heard from him?
+[+] more examples
+
+2 
+— used to say that someone or something is remarkable for having good or bad qualities
+    What a good idea!
+    What mountains!
+    Remember what fun we had?
+[+] more examples
+
+3 
+— used to refer to an amount that someone has, uses, etc.
+She gave what money she had [=she gave all the money she had] to the homeless man.
+Give what excuses you will—it makes no difference. [=no excuses that you may give will make any difference]
+He soon gambled away what (little) money he had left.
+We spent what (little) time remained chatting.
+</code></pre>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/03/26/WORDS_COLLECTIONS__/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/26/WORDS_COLLECTIONS__/" class="post-title-link" itemprop="url">__WORDS_COLLECTIONS__</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-03-26 20:37:22" itemprop="dateCreated datePublished" datetime="2018-03-26T20:37:22+08:00">2018-03-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-09-22 09:56:48" itemprop="dateModified" datetime="2018-09-22T09:56:48+08:00">2018-09-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="2018-03-27"><a href="#2018-03-27" class="headerlink" title="2018-03-27"></a>2018-03-27</h1><p>ballad        |||||||+++  9608<br>plump        |||||+++    9595</p>
+<h1 id="2018-03-28"><a href="#2018-03-28" class="headerlink" title="2018-03-28"></a>2018-03-28</h1><p>apprehension(3)++<br>apprehensive<br>comprehension</p>
+<pre><code>bounty        ||+||    9365
+bound     [baʊnd]
+hound
+boundary
+bonus    [ˈbəʊnəs]
+bounce     [baʊns]
+</code></pre><p>stunt(2)     |||            9306<br>trek [trek]    ||++         9304<br>fluorescent        |+<br>superfluous</p>
+<h1 id="2018-03-29"><a href="#2018-03-29" class="headerlink" title="2018-03-29"></a>2018-03-29</h1><p>upheaval    ||+|<br>blender        |||++        9109</p>
+<h1 id="2018-03-31"><a href="#2018-03-31" class="headerlink" title="2018-03-31"></a>2018-03-31</h1><pre><code>snag    +++
+scour    +++
+scout
+scant    |+++
+scent    |+++
+</code></pre><p>wagon</p>
+<h1 id="2018-04-01"><a href="#2018-04-01" class="headerlink" title="2018-04-01"></a>2018-04-01</h1><p>stunt(2)     +            9306<br>congestion(2)     |+<br>bunk(2)    +                9091<br>rig        |                9005<br>impede    |                8975<br>sag        |||                8931</p>
+<h1 id="2018-04-02"><a href="#2018-04-02" class="headerlink" title="2018-04-02"></a>2018-04-02</h1><p>emanate<br>seep        |</p>
+<h1 id="2018-04-07"><a href="#2018-04-07" class="headerlink" title="2018-04-07"></a>2018-04-07</h1><p>malaria         [məˈleəriə]<br>eradicate    |<br>equilibrium    |<br>phenomenal    |<br>orchestrate<br>excavation                9094</p>
+<p>flip(3)<br>infuse(2)<br>chuck<br>chunk<br>chalk<br>mundane</p>
+<h1 id="2018-04-12"><a href="#2018-04-12" class="headerlink" title="2018-04-12"></a>2018-04-12</h1><pre><code>stifle        [ˈstaɪfl] ||        8416
+strife
+trivial
+
+perennial     [pəˈreniəl] 
+perpetual
+peripheral            8531
+</code></pre><p>hefty        ||+            8651<br>clamp</p>
+<pre><code>cavate
+excavate      [ˈekskəveɪt]
+excursion
+exaggerate        
+extravagent     [ɪkˈstrævəgənt]
+extricate
+evacuate
+eradicate
+</code></pre><p>开凿        ：——————<br>短途旅行    ：——————<br>扩大；夸张    ：——————<br>奢侈的        ：——————<br>摆脱        ：——————<br>疏散        ：——————<br>根除        ：——————</p>
+<p>ubiquitous            ++<br>lavender            ++</p>
+<p>poker    pork        ++<br>disciplinary        ++<br>interdisciplinary    ++<br>moose        ++<br>mustache    ||++        8260<br>consortium    |<br>slate        +<br>contour        |+<br>bluff        |+            7989<br>flirt        +</p>
+<h1 id="2018-04-14"><a href="#2018-04-14" class="headerlink" title="2018-04-14"></a>2018-04-14</h1><p>ledge                |        8472<br>heed                |||||     9338<br>shun                ||||++    9321<br>aura                |+<br>cadet cedar            +|<br>narotic                ||||||    8597<br>villain                ||||    8098</p>
+<h1 id="2018-04-18"><a href="#2018-04-18" class="headerlink" title="2018-04-18"></a>2018-04-18</h1><p>alignment            |         8063<br>syllable            ||||<br>woe    foe    woo            |||        8285<br>shudder    shutter        ||||     8045<br>succumb                        8040<br>brag                |||        8208<br>yearn        [jɜ:n]            8148<br>prop<br>pod        +<br>prod    +</p>
+<pre><code>perennial 
+perpetual
+peripheral                8531
+</code></pre><p>disparate    |</p>
+<h1 id="2018-04-21"><a href="#2018-04-21" class="headerlink" title="2018-04-21"></a>2018-04-21</h1><p>slick lick<br>bluff<br>crate<br>bust(4) 打碎；半身像；胸围；突击搜查<br>plum plump<br>slab</p>
+<h1 id="2018-04-23"><a href="#2018-04-23" class="headerlink" title="2018-04-23"></a>2018-04-23</h1><p>discretion<br>systematically<br>topple<br>rancher<br>nap    snap<br>foliage<br>shack<br>pastoral<br>felony<br>platter<br>palette        [ˈpælət]<br>beet<br>beetle<br>spinach</p>
+<p>attic                    7318<br>stump stomp                7445<br>flatten                    7578</p>
+<p>sitcom<br>culinary                7907<br>asylum        |            7926        </p>
+<p>fumble        ||||        8017<br>nudge        ||||        7878<br>mumble        |||            7627<br>forensic    ||||         7476      [fəˈrensɪk]<br>perpetrator    |||            8069    [ˈpɜ:pətreɪtə(r)]</p>
+<p>cram scam                7512<br>crap                    7362<br>bust lust<br>protein                            [ˈprəʊti:n]<br>apron(2) adorn    |||        8236<br>aquatic        |+            8358<br>eerie        +</p>
+<p>flex        ||++            9035<br>graffiti    |+||            8991<br>fraternity    |+++<br>murky(2)    |+++            9287<br>stud        ||+|++</p>
+<h1 id="2018-04-23-1"><a href="#2018-04-23-1" class="headerlink" title="2018-04-23"></a>2018-04-23</h1><p>implicate implicit<br>raft craft graft        7497</p>
+<pre><code>humble puddle
+fumble mumble
+rubble rumble 
+crumble grumble
+</code></pre><h1 id="2018-05-01"><a href="#2018-05-01" class="headerlink" title="2018-05-01"></a>2018-05-01</h1><p>pub<br>arsenal<br>lament<br>cohort<br>coherent<br>cohesive<br>forensic<br>torse<br>shack<br>crap<br>spinach<br>renowned renewed<br>attic<br>dwarf  draft<br>stew simmer<br>pottery<br>lodge</p>
+<p>fungus<br>hue                    7180<br>maternal<br>canopy                7152<br>dune tune<br>elaborate laboratory<br>sleek sleeve<br>plaque<br>sedan<br>cuff</p>
+<p>conform<br>heck<br>elusive                7034<br>exclusive elude<br>squash<br>clown crown<br>tout(2)<br>demise<br>patio<br>prairie<br>slick<br>optimal optical</p>
+<p>lurk                    7304<br>dire                    7197<br>ruthless</p>
+<p>pristine    ||||||+        8395    [ˈprɪsti:n]<br>mince(2) wince    frown    ||+    8326</p>
+<p>steroids<br>asteroid<br>mimic<br>marsh<br>mourn</p>
+<p>lash<br>transcend<br>canoe crane crank<br>bracelet<br>oval cane cone<br>disparity            7182<br>fury                6670<br>monotony<br>roster                6574<br>diesel     [ˈdi:zl]<br>dispel</p>
+<p>elk<br>cuisine<br>culinary</p>
+<p>pastoral                7376</p>
+<p>bum<br>con<br>coax    [kəʊks]<br>plasma                    8414<br>vie<br>clump<br>rampant(2)             ||+        8875</p>
+<h1 id="2018-05-02"><a href="#2018-05-02" class="headerlink" title="2018-05-02"></a>2018-05-02</h1><p>swirl<br>tract track tactic tractor<br>topple toddler<br>stroll<br>wan WAN<br>par<br>calf<br>corpse<br>salvation<br>slave</p>
+<p>invoke<br>tub<br>pub<br>prospective<br>trophy<br>tumble tremble</p>
+<p>prone(2)                6314<br>lobster                    6305<br>bolster<br>chore                    6112</p>
+<p>gospel                    5532<br>rattle cattle<br>proponent                5827<br>prosecute persecute<br>sanctuary refuge        6067<br>interrogation            6805<br>peril pillar cedar        7761<br>relentless                7147<br>sermon summon beckon    6705<br>tangible                7300<br>tribunal                7275<br>cuff                    7071<br>shed(3)<br>smack mock                7328<br>shovel shove shave        7364<br>superintendent    ||||    5572<br>flake blank flank chalk        7896<br>plank flank frank ||||||*    8216<br>silhouette            ||||    8082<br>whine                |        8068</p>
+<p>broccoli                8009<br>solicit                    7864</p>
+<h1 id="2018-05-02-1"><a href="#2018-05-02-1" class="headerlink" title="2018-05-02"></a>2018-05-02</h1><p>venue<br>condom<br>mandatory<br>prosecute<br>persecute<br>proponent<br>advertise adversary advocacy<br>trout<br>pious(2)<br>poise poison            6338</p>
+<p>whisk(2)<br>precinct    ||||        7268<br>demon                    5477<br>bead                    5424<br>villain        [ˈvɪlən]<br>vanilla        [vəˈnɪlə]<br>protagonist(2)    ||||    7666<br>skillet                    5712<br>altar                    5743<br>referendum                6866<br>referral<br>pervasive    persuasive<br>canyon        [ˈkænjən]    5515<br>squint    squash            6469</p>
+<p>militia     [məˈlɪʃə]<br>marijuana      [ˌmærəˈwɑ:nə]<br>paradigm                5263<br>paranoid      [ˈpærənɔɪd]<br>pragmatic                7644<br>gel(2)</p>
+<pre><code>cram
+cramp
+cramped
+</code></pre><p>almond                    7645<br>slab stab curb             7598<br>scrub                    7684<br>dart                    7354<br>mural                    7395<br>lament(2)    ||||        7516<br>impeachment    ||||        7732<br>discretion    ||            7686<br>squat crouch    +<br>incumbent    |++            9414<br>anomic<br>anonymity<br>anonymous<br>anatomy                ++<br>abnormity<br>anomaly        ||+<em>        9064<br>frantic franchise        7578<br>stifle                ||    8416<br>pry(2)                ||+    8654<br>rinse        ||||        7144    raisin [ˈreɪzn]<br>cult                    5319<br>mound    [maʊnd]         5129<br>confine confess            5407<br>caution<br>auction<br>falter(2)    ||</em>            9534<br>fatten<br>tremble tumble</p>
+<h1 id="2018-05-07"><a href="#2018-05-07" class="headerlink" title="2018-05-07"></a>2018-05-07</h1><p>secular</p>
+<pre><code>stumble
+tumble
+falter
+tremble
+scramble
+crumble
+rumble
+rubble
+puddle
+peddle
+gravel
+humble
+timber
+grumble
+mumble
+huddle     [ˈhʌdl]
+hurdle     [ˈhɜ:dl]
+fumble
+</code></pre><p>tuck(2)<br>needle<br>crawl claw curl<br>hurl foul<br>buck bunk<br>dearth<br>pitcher(2)<br>peer(+1)<br>consensus<br>prompt(2)<br>correspondant<br>oven<br>rub<br>retain(2)<br>corporate incorporate<br>deputy<br>unconstitutional</p>
+<h1 id="2018-05-09"><a href="#2018-05-09" class="headerlink" title="2018-05-09"></a>2018-05-09</h1><p>zeal seal<br>howl hurl foul<br>stoop steep slope ramp damp<br>vocal<br>lest<br>appal<br>gown<br>dormitory<br>preside<br>segregate<br>decay<br>default(3)<br>huddle<br>innumerable [ɪˈnju:mərəbl]<br>limp limb<br>funeral<br>herald<br>mock(2)<br>repertoire<br>vulgar<br>whatsoever<br>lean<br>psychiatry<br>vessel(2)</p>
+<h2 id="Table-1"><a href="#Table-1" class="headerlink" title="Table 1"></a>Table 1</h2><p>stray        ||+|++<br>bounty        ||+||        9365<br>vacant scent scant<br>high-end    |++<br>misconduct !|||+        9112<br>chuck chunk chuckle    churn|||     9003<br>chalk    [tʃɔ:k]<br>heed<br>outpost<br>crib        | rib<br>shun        |<br>contentious    ||||*    [kənˈtenʃəs]<br>continental            [ˌkɒntɪˈnentl]<br>continuous<br>contiguous            [kənˈtɪgjuəs]<br>contagious            [kənˈteɪdʒəs]<br>contingency            [kənˈtɪndʒənsi]<br>warden            ||++         9548        [ˈwɔ:dn]<br>satin            ++<br>    sour<br>    scour        +++<br>    scout<br>    apparel        |++<br>    crumble<br>    falter<br>    fumble<br>    mumble<br>    huddle<br>anatomy<br>asylum<br>caucus    [ˈkɔ:kəs]     |||+<br>syllable            ||||<br>congestion<br>scour(2)<br>ballad<br>plump<br>equilibrium<br>emulate(2) emanate<br>excavation<br>hefty        ||+            8651<br>phenomenal<br>    perennial        [pəˈreniəl]<br>    perpetual<br>    peripheral        [pəˈrɪfərəl]    8531<br>disciplinary<br>interdisciplinary<br>slate<br>flirt<br>disparate<br>disparity<br>foliage [ˈfəʊliɪdʒ]<br>shack<br>beet<br>beetle<br>flatten    flat<br>falter<br>nudge<br>sniff<br>eerie<br>murky(2)<br>nuisance<br>nuance         ||+            9313        [ˈnju:ɑ:ns]<br>culinary<br>perpetrator<br>adorn<br>felony<br>pastoral<br>discretion<br>bust(4)<br>bluff<br>crate<br>topple    [ˈtɒpl]<br>slab stab<br>sitcom<br>consortium<br>mundane<br>infuse(2)<br>confine<br>distil dilute<br>paralysis                 [pəˈræləsɪs]<br>paranoid            |</p>
+<p>dearth<br>peer(+1)<br>pitcher(2)<br>palette        [ˈpælɪt]<br>platter<br>flip(3)<br>spinach        [ˈspɪnɪtʃ]<br>graffiti     [grəˈfi:ti]<br>rancher<br>attic        [ˈætɪk]<br>contentious</p>
+<p>//4-23</p>
+<h2 id="考研单词"><a href="#考研单词" class="headerlink" title="考研单词"></a>考研单词</h2><h3 id="List-1-15"><a href="#List-1-15" class="headerlink" title="List 1-15"></a>List 1-15</h3><p>default<br>segregate +<br>separate<br>lest<br>confine<br>confess<br>appal<br>gown<br>herald<br>funeral<br>mock(2)<br>repertoire<br>whatsoever<br>vulgar<br>vinegar<br>deposit(2)<br>sketch<br>obscure<br>stern<br>erroneous<br>pedal panel<br>means mean<br>manufacture<br>bibliography<br>encyclopaedia<br>stocking<br>meditation<br>mediation<br>aural<br>aura<br>intuition<br>expertise<br>dye         |<br>inference<br>    intricate<br>    extricate<br>    exquisite<br>condense<br>property<br>harness<br>harass<br>shrewd         |<br>smuggle<br>torment<br>torture<br>timid<br>pat<br>suite<br>slam        |<br>futile<br>fertile<br>bind(2) 装订<br>stomp<br>stump</p>
+<h3 id="List-16-30"><a href="#List-16-30" class="headerlink" title="List 16-30"></a>List 16-30</h3><p>persist<br>persevere<br>maiden<br>dusk<br>stale<br>slum<br>slam<br>sham<br>cloak<br>dissipate<br>parcel<br>desperate<br>coalition<br>vowel<br>bowel<br>towel<br>clause<br>strife<br>tame<br>gallop<br>dubious<br>waterproof<br>presumably<br>pump pulp plump plum<br>reckon<br>lorry<br>trait<br>proceeding<br>processing<br>deputy<br>debut<br>ditch<br>stumble<br>    bundle<br>    huddle<br>    hurdle<br>magistrate<br>quench<br>wrench<br>trench<br>statute [ˈstætʃu:t]<br>statue     [ˈstætʃu:]<br>status    [ˈsteɪtəs]<br>state<br>glitter<br>chin<br>catastrophe<br>mingle<br>steward<br>oven<br>dumb<br>mute<br>slip<br>slipper<br>thrust<br>relish<br>slap<br>repetition<br>soluble    [ˈsɒljəbl]<br>solution(+1)<br>brittle<br>slit<br>silt<br>outfit</p>
+<h3 id="List-31-50"><a href="#List-31-50" class="headerlink" title="List 31-50"></a>List 31-50</h3><p>brandy<br>utmost<br>rod<br>expenditure<br>entail implicate<br>entitle<br>shilling<br>rake brake<br>beast<br>paperback hardback<br>pebble<br>puddle<br>outing<br>slit silt<br>awe awful<br>stangant<br>illiterate<br>steak<br>bleak<br>spite  in spite of<br>mute<br>wrinkle<br>hygiene<br>distract<br>postage<br>mutter<br>nerve<br>poll<br>toll    [təʊl]<br>toil    [tɔɪl]<br>trolly<br>monotonous<br>mundane<br>superfluous<br>spicy<br>spice     [spaɪs]<br>specimen    [ˈspesɪmən]<br>feeble<br>daunt<br>haunt<br>lapse<br>crow<br>wagon<br>tempo<br>temporal<br>foster<br>chop<br>tumble<br>saturate<br>vicinity<br>rehearse<br>nasty<br>scent<br>scant<br>lag<br>appetite<br>breed(2)    培育；品种<br>pose<br>nap<br>barn<br>transit<br>mug<br>glacier<br>decree<br>dial<br>radar<br>pursuit<br>diagram<br>abolish<br>hug<br>prosecute<br>prospect<br>density<br>dentist<br>beloved<br>excerpt<br>franchise<br>ivory<br>drip<br>pratitioner<br>mosquito<br>curb<br>distinct<br>stir from<br>ridge rigid<br>    defect<br>    deflect<br>    deficit<br>    depict<br>tow tug<br>brow<br>tilt<br>silt slit<br>dimension<br>pneumonia tuberculosis<br>repel<br>rebel</p>
+<p>hail(2)<br>snatch<br>scratch<br>deflect<br>furious<br>obedience obesity<br>preclude<br>tray tram trolly<br>quartz<br>quart<br>incorporate<br>corporate<br>cooperate<br>tramp<br>swell(2)<br>wheat<br>sweat<br>metric<br>prey<br>pray<br>cargo<br>redundant defendant<br>rejoice<br>botany<br>cone<br>hone<br>oval<br>oven<br>ivory<br>irony<br>endow<br>deplore [dɪˈplɔ:(r)]<br>ballot poll gallop<br>sham slam slum<br>ingredient<br>distress dress<br>revolt<br>refund<br>wicked wreck<br>gauge<br>bundle(3) 一捆；捆绑；塞进<br>merchandise<br>franchise<br>profile(2) 侧面轮廓；简介<br>piston [ˈpɪstən]<br>pistol<br>contagious<br>cunning<br>tub<br>chap<br>chorus<br>rattle(2)<br>buck<br>bulk<br>bulky<br>burglar begger<br>saddle<br>ditch<br>reel(3)<br>extinct<br>instinct<br>pint</p>
+<p>volt<br>contentious 引起争论的<br>contagious<br>lavish vanish vanity<br>lavishness<br>outfit<br>maiden<br>dusk<br>panorama<br>paralysis<br>paranoid<br>dread<br>plunge(2)<br>breed(2)<br>discreet [dɪˈskri:t] wary fury<br>decree discrete [dɪˈskri:t]<br>discreate [dɪskri:’eɪt]<br>thrift drift<br>stir(3) 移动；激发；搅动，使得混合<br>flip(4) 迅速打开(或关掉);快速翻阅;(使)移动;勃然大怒<br>foul<br>hut</p>
+<p>arsenal        [ˈɑ:sənl]<br>renowned     [rɪˈnaʊnd]<br>exacerbate    [ɪgˈzæsəbeɪt]<br>pottery<br>fungus        [ˈfʌŋgəs]<br>hue<br>membrane<br>dismantle<br>below blow(2) blew<br>infrared<br>symposium<br>    contentious    ||||<em>    [kənˈtenʃəs]<br>    continental            [ˌkɒntɪˈnentl]<br>    contiguous            [kənˈtɪgjuəs]<br>    continuous            [kənˈtɪnjuəs]<br>    contagious            [kənˈteɪdʒəs]<br>    contingency            [kənˈtɪndʒənsi]<br>queer<br>outlaw(2)    |+++</em><br>emulate        |<br>bladder        |</p>
+<p>stifle        [ˈstaɪfl] ||        8416<br>    peripheral<br>    perpetual<br>    perennial     [pəˈreniəl]<br>ubiquitous<br>steward<br>nudge<br>murky<br>culinary<br>flatten<br>perpetrator    [ˈpɜ:pətreɪtə(r)]<br>pastoral    [ˈpɑ:stərəl]<br>sitcom<br>slab<br>paralysis<br>paranoid<br>paradime</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/03/21/%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E6%B3%B0%E5%8B%92%E5%B1%95%E5%BC%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/21/%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E6%B3%B0%E5%8B%92%E5%B1%95%E5%BC%80/" class="post-title-link" itemprop="url">三角函数泰勒展开</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-03-21 22:45:06 / Modified: 22:51:06" itemprop="dateCreated datePublished" datetime="2018-03-21T22:45:06+08:00">2018-03-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/sin2%CE%B10000.jpg" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/sin2%CE%B10001.jpg" alt="img"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/12/13/pcs%20BaiduNetdisk%20Download/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/13/pcs%20BaiduNetdisk%20Download/" class="post-title-link" itemprop="url">pcs BaiduNetdisk Download</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2017-12-13 19:04:14 / Modified: 19:33:01" itemprop="dateCreated datePublished" datetime="2017-12-13T19:04:14+08:00">2017-12-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pcs login</span><br></pre></td></tr></table></figure>
+<h1 id="显示目录内容"><a href="#显示目录内容" class="headerlink" title="显示目录内容"></a>显示目录内容</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pcs ls &#x2F;	#显示根目录下的内容</span><br><span class="line">pcs ls &#x2F;123 #显示123文件夹下的内容</span><br></pre></td></tr></table></figure>
+<h1 id="改变路径"><a href="#改变路径" class="headerlink" title="改变路径"></a>改变路径</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pcs cd 123&#x2F;</span><br></pre></td></tr></table></figure>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pcs d NetdiskFile.rar ClientFile.rar</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/11/24/%E5%90%AC%E5%8A%9B%E8%AF%8D%E6%B1%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/24/%E5%90%AC%E5%8A%9B%E8%AF%8D%E6%B1%87/" class="post-title-link" itemprop="url">听力词汇</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2017-11-24 20:04:25 / Modified: 16:15:00" itemprop="dateCreated datePublished" datetime="2017-11-24T20:04:25+08:00">2017-11-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li>harass</li>
+</ol>
+<p>(1) A woman reporter complained one of them sexually harassed her in the locker room.</p>
+<ol>
+<li><p>resort to <strong>诉诸</strong></p>
+</li>
+<li><p>shrewd</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/11/14/CET6%20-%20%E8%AF%95%E5%8D%B7%E7%94%9F%E8%AF%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/14/CET6%20-%20%E8%AF%95%E5%8D%B7%E7%94%9F%E8%AF%8D/" class="post-title-link" itemprop="url">CET6 - 试卷生词</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2017-11-14 20:04:25 / Modified: 19:17:18" itemprop="dateCreated datePublished" datetime="2017-11-14T20:04:25+08:00">2017-11-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="2015-12-2"><a href="#2015-12-2" class="headerlink" title="2015.12 - 2"></a>2015.12 - 2</h1><h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><ol>
+<li><p>freight<br>(1) Freight is the movement of goods by trucks, trains, ships, or aeroplanes.<br>(2) Freight is goods that are transported by trucks, trains, ships, or aeroplanes.</p>
+</li>
+<li><p>merit<br>(1) The merits of something are its advantages or other good points.<br>(2) If someone or something merits a particular action or treatment, they deserve it. </p>
+</li>
+<li><p>deserve<br>(1)  If you say that a person or thing deserves something, you mean that they should have it or receive it because of their actions or qualities.</p>
+</li>
+<li><p>intensive</p>
+</li>
+<li><p>permeate</p>
+</li>
+<li><p>echo n./v.<br>(1) An echo is a sound caused by a noise being reflected off a surface such as a wall.<br>(2) If you echo someone’s words, you repeat them or express agreement with their attitude or opinion.<br>(3) A detail or feature that reminds you of something else can be referred to as an echo.</p>
+</li>
+</ol>
+<ol>
+<li><p>address(+1) <strong>v. 称呼</strong></p>
+</li>
+<li><p>term(s)<br>(1) 时期<br>(2) 术语<br>(3) 称为<br>(4) 条款<br>(5) in terms of </p>
+</li>
+</ol>
+<h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><ol>
+<li>sanction<br>(1) legal sanction<br>(2) without the sanction of the government</li>
+<li>watered-down</li>
+<li>curriculum</li>
+<li>overly <strong>adv. 过度地；极度地</strong></li>
+<li>diluted<br>(1) If a liquid is diluted or dilutes, it is added to or mixes with water or another liquid, and becomes weaker.<br>(2) If someone or something dilutes a belief, quality, or value, they make it weaker and less effective. </li>
+<li>superiority<br>(1)  If one side in a war or conflict has superiority, it has an advantage over its enemy, for example because it has more soldiers or better equipment.</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2017/11/05/%E9%98%85%E8%AF%BB%E7%94%A8%E8%AF%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -206,1048 +1112,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/11/01/%E4%BD%9C%E6%96%87%E7%94%A8%E8%AF%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/11/01/%E4%BD%9C%E6%96%87%E7%94%A8%E8%AF%8D/" class="post-title-link" itemprop="url">作文用词</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-11-01 20:04:25" itemprop="dateCreated datePublished" datetime="2017-11-01T20:04:25+08:00">2017-11-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-11-20 14:05:07" itemprop="dateModified" datetime="2017-11-20T14:05:07+08:00">2017-11-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="a-tremendous-influence-on-巨大的影响"><a href="#a-tremendous-influence-on-巨大的影响" class="headerlink" title="a tremendous influence on 巨大的影响"></a>a tremendous influence on 巨大的影响</h1><p>Globalization exerted a tremendous influence on modern Arabic literature.<br>全球化对阿拉伯文学的影响是多方面的.</p>
-<h1 id="the-development-and-diffusion-of-ideas-思想的发展和传播"><a href="#the-development-and-diffusion-of-ideas-思想的发展和传播" class="headerlink" title="the development and diffusion of ideas 思想的发展和传播"></a>the development and diffusion of ideas 思想的发展和传播</h1><p>the development and diffusion of sth.</p>
-<p>sth. ： culture/ideas/</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/10/31/no%20branch%20%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/10/31/no%20branch%20%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">no branch 的解决方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-10-31 20:04:25" itemprop="dateCreated datePublished" datetime="2017-10-31T20:04:25+08:00">2017-10-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-11-05 12:43:01" itemprop="dateModified" datetime="2017-11-05T12:43:01+08:00">2017-11-05</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在GitHub 仓库中新建一个branch<br>更改config中branch与之一致</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/10/31/%E5%BD%A2%E8%BF%91%E8%AF%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/10/31/%E5%BD%A2%E8%BF%91%E8%AF%8D/" class="post-title-link" itemprop="url">形近词</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-10-31 20:04:25" itemprop="dateCreated datePublished" datetime="2017-10-31T20:04:25+08:00">2017-10-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-04-07 19:36:24" itemprop="dateModified" datetime="2018-04-07T19:36:24+08:00">2018-04-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>heap <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=heap">heap</a><br>leap <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=leap">leap</a><br>reap <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=reap">reap</a></p>
-<p>foul(2) <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=foul">foul</a><br>hurl(2) <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=hurl">hurl</a><br>foil <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=foil">foil</a></p>
-<h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><p>trench <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=trench">trench</a><br>wrench <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=wrench">wrench</a><br>summit <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=summit">summit</a><br>submit <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=submit">submit</a><br>moral <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=moral">moral</a><br>mortal <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=mortal">mortal</a><br>ethnical <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=ethnical">ethnical</a><br>ethnic <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=ethnic">ethnic</a></p>
-<h1 id="3"><a href="#3" class="headerlink" title="3"></a>3</h1><p>contract(3) <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=contract">contract</a><br>contact <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=contact">contact</a><br>intact <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=intact">intact</a><br>compact <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=compact">compact</a></p>
-<h1 id="4"><a href="#4" class="headerlink" title="4"></a>4</h1><p>convict(2) <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=convict">convict</a><br>convince <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=convince">convince</a></p>
-<h1 id="5"><a href="#5" class="headerlink" title="5"></a>5</h1><p>counsel(2) <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=counsel">counsel</a><br>council <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=council">council</a></p>
-<h1 id="6"><a href="#6" class="headerlink" title="6"></a>6</h1><p>compile <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=compile">compile</a><br>comple <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=comple">comple</a><br>comply <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=comply">comply</a></p>
-<h1 id="7"><a href="#7" class="headerlink" title="7"></a>7</h1><p>concise <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=concise">concise</a><br>precise <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=precise">precise</a></p>
-<h1 id="8"><a href="#8" class="headerlink" title="8"></a>8</h1><p>conscientious(adj.) <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=conscientious">conscientious</a><br>conscience(n.) <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=conscience">conscience</a></p>
-<h1 id="9"><a href="#9" class="headerlink" title="9"></a>9</h1><p>inferior <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=inferior">inferior</a><br>interior <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=interior">interior</a></p>
-<blockquote>
-<p>t&amp;fuck</p>
-</blockquote>
-<h1 id="10"><a href="#10" class="headerlink" title="10"></a>10</h1><p>speculate <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=speculate">speculate</a><br>spectacular <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=spectacular">spectacular</a><br>spectacle <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=spectacle">spectacle</a></p>
-<h1 id="11"><a href="#11" class="headerlink" title="11"></a>11</h1><p>entity <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=entity">entity</a><br>entitle <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=entitle">entitle</a><br>epoch <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=epoch">epoch</a><br>echo <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=echo">echo</a></p>
-<h1 id="12"><a href="#12" class="headerlink" title="12"></a>12</h1><p>frank <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=frank">frank</a><br>flank <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=flank">flank</a><br>terminal <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=terminal">terminal</a><br>thermal <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=thermal">thermal</a></p>
-<h1 id="13"><a href="#13" class="headerlink" title="13"></a>13</h1><p>intricate <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=intricate">intricate</a><br>intrinsic <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=intrinsic">intrinsic</a></p>
-<h1 id="14"><a href="#14" class="headerlink" title="14"></a>14</h1><p>division <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=division">division</a><br>diversion <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=diversion">diversion</a></p>
-<h1 id="15"><a href="#15" class="headerlink" title="15"></a>15</h1><p>fling <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=fling">fling</a><br>sting <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=sting">sting</a><br>inflict <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=inflict">inflict</a><br>implict <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=implict">implict</a></p>
-<h1 id="16"><a href="#16" class="headerlink" title="16"></a>16</h1><p>irritate <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=irritate">irritate</a><br>irrigate <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=irrigate">irrigate</a><br>attorney <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=attorney">attorney</a><br>arrogant <a target="_blank" rel="noopener" href="http://dict.youdao.com/search?keyfrom=chrome.extension&amp;q=arrogant">arrogant</a></p>
-<h1 id="17"><a href="#17" class="headerlink" title="17"></a>17</h1><p>bounty            赏金<br>bound            be ~ to 必定<br>hound            追逼；猎犬<br>boundary        边界<br>bonus            红利<br>bounce            弹跳</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/10/13/Linux%20%20%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/10/13/Linux%20%20%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">Linux 基础命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-10-13 23:34:14" itemprop="dateCreated datePublished" datetime="2017-10-13T23:34:14+08:00">2017-10-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-10-15 13:36:47" itemprop="dateModified" datetime="2017-10-15T13:36:47+08:00">2017-10-15</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>ls<br>dir<br>cd<br>rm<br>pwd<br>touch </p>
-<p>vi<br>cat<br>gedit<br>more</p>
-<p>ls -alh<br>ls -alh &gt; xxx.txt<br>ls -alh &gt;&gt; xxx.txt<br>ls -alh /bin<br>ls -alh /bin | more </p>
-<p>rm *.txt<br>rm 1?2.txt</p>
-<p>man ls<br>—help<br>history<br>clear</p>
-<p>mkdir A/B/C/D -p<br>rmdir C                     C必须是非空文件夹<br>rm C -r                        C删除文件夹</p>
-<p>mv<br>ln file.txt -s softlink.txt<br>ln file.txt hardlink.txt</p>
-<p>cat file1.txt file2.txt &gt; combinition.txt</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/09/24/CET6%20-%20Grammer%20Notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/24/CET6%20-%20Grammer%20Notes/" class="post-title-link" itemprop="url">CET6 - Grammer Notes</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2017-09-24 12:53:23 / Modified: 14:25:14" itemprop="dateCreated datePublished" datetime="2017-09-24T12:53:23+08:00">2017-09-24</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-To-do-n-adj-adv-—-Subject-Object-Predicative-Attribute-Adverbial"><a href="#1-To-do-n-adj-adv-—-Subject-Object-Predicative-Attribute-Adverbial" class="headerlink" title="1 To do : n./adj./adv. — Subject,Object,Predicative,Attribute,Adverbial"></a>1 To do : n./adj./adv. — Subject,Object,Predicative,Attribute,Adverbial</h1><p><strong>To love</strong> for the sake of being loved is human.(Subject)</p>
-<p>It’s impossible for us <strong>to master English in a short time.</strong>(Subject)</p>
-<p>help <strong>(to) do sth.</strong>(Object)</p>
-<p>ability <strong> to do </strong> (Attribute)</p>
-<p>He is the best man <strong>to choose</strong>.(Attribute)<br>He is the best man to be chosen.(被选择)<br>He is the best man to make a choice.(去选择)</p>
-<p><strong>To avoid criticism</strong>,do nothing,say nothing,be nothing.(O-Adverbial)</p>
-<p>He lived <strong>to be a hundred years</strong>.(R-Adverbial)</p>
-<h1 id="2-V-ING-V-ED-adj-adv-—-Attribute-Adverbial-Complement"><a href="#2-V-ING-V-ED-adj-adv-—-Attribute-Adverbial-Complement" class="headerlink" title="2 V-ING V-ED adj./adv. — Attribute,Adverbial,Complement"></a>2 V-ING V-ED adj./adv. — Attribute,Adverbial,Complement</h1><h2 id="V-ING"><a href="#V-ING" class="headerlink" title="V-ING"></a>V-ING</h2><p>Signs <strong>barring cell-phone use</strong> are a familiar sight to anyone.(Attribute)</p>
-<p>Unidentified Flying Object<br>=unidentified objects that fly</p>
-<p>falling leaves<br>=leaves are falling</p>
-<p>Waiting for a bus, a brick fell on my head.(<font color="red">Wrong</font>)<br>A brick fell on my head while I was waiting for a bus.(Correct)</p>
-<h2 id="V-ED"><a href="#V-ED" class="headerlink" title="V-ED"></a>V-ED</h2><p>a respected writer<br>=a writer who is respected</p>
-<p>boiled water<br>water that has been boiled</p>
-<p>I fell in love with you <strong>at the first sight</strong>.(修饰fell)</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/09/18/%E8%AF%8D%E8%AF%AD%E8%BE%A8%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/18/%E8%AF%8D%E8%AF%AD%E8%BE%A8%E6%9E%90/" class="post-title-link" itemprop="url">词语辨析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-09-18 20:04:25" itemprop="dateCreated datePublished" datetime="2017-09-18T20:04:25+08:00">2017-09-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-11-12 14:17:32" itemprop="dateModified" datetime="2017-11-12T14:17:32+08:00">2017-11-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-设备"><a href="#1-设备" class="headerlink" title="1 设备"></a>1 设备</h1><blockquote>
-<p>fixture 是指(建筑物内的)固定装置,如(浴盆、管道、水箱、抽水马桶等），指的是那些即使住户改变住所一般也不移动的装置。</p>
-<p>appliance侧重指家用机器或设备，尤指家用电器。</p>
-<p>facilities常用复数形式，指可供使用的设备或设施。</p>
-<p>apparatus既可指某种具体的由许多不同零件构成的复杂的仪器、装置或器械，又可指它们的总称。</p>
-<p>equipment多指成套的或重型的设备或装备。通常用作不可数名词。</p>
-<p>images in baidu</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://image.baidu.com/search/index?tn=baiduimage&amp;ipn=r&amp;ct=201326592&amp;cl=2&amp;lm=-1&amp;st=-1&amp;fm=result&amp;fr=&amp;sf=1&amp;fmq=1505737814031_R&amp;pv=&amp;ic=0&amp;nc=1&amp;z=&amp;se=1&amp;showtab=0&amp;fb=0&amp;width=&amp;height=&amp;face=0&amp;istype=2&amp;ie=utf-8&amp;word=fixture">fixture</a><br><a target="_blank" rel="noopener" href="https://image.baidu.com/search/index?tn=baiduimage&amp;ipn=r&amp;ct=201326592&amp;cl=2&amp;lm=-1&amp;st=-1&amp;fm=result&amp;fr=&amp;sf=1&amp;fmq=1505738042889_R&amp;pv=&amp;ic=0&amp;nc=1&amp;z=&amp;se=1&amp;showtab=0&amp;fb=0&amp;width=&amp;height=&amp;face=0&amp;istype=2&amp;ie=utf-8&amp;word=appliance">appliance</a><br><a target="_blank" rel="noopener" href="https://image.baidu.com/search/index?tn=baiduimage&amp;ipn=r&amp;ct=201326592&amp;cl=2&amp;lm=-1&amp;st=-1&amp;fm=result&amp;fr=&amp;sf=1&amp;fmq=1505738072106_R&amp;pv=&amp;ic=0&amp;nc=1&amp;z=&amp;se=1&amp;showtab=0&amp;fb=0&amp;width=&amp;height=&amp;face=0&amp;istype=2&amp;ie=utf-8&amp;word=facilities">facilities</a><br><a target="_blank" rel="noopener" href="https://image.baidu.com/search/index?tn=baiduimage&amp;ipn=r&amp;ct=201326592&amp;cl=2&amp;lm=-1&amp;st=-1&amp;fm=result&amp;fr=&amp;sf=1&amp;fmq=1505738109043_R&amp;pv=&amp;ic=0&amp;nc=1&amp;z=&amp;se=1&amp;showtab=0&amp;fb=0&amp;width=&amp;height=&amp;face=0&amp;istype=2&amp;ie=utf-8&amp;word=apparatus">apparatus</a><br><a target="_blank" rel="noopener" href="https://image.baidu.com/search/index?tn=baiduimage&amp;ipn=r&amp;ct=201326592&amp;cl=2&amp;lm=-1&amp;st=-1&amp;fm=result&amp;fr=&amp;sf=1&amp;fmq=1505738121570_R&amp;pv=&amp;ic=0&amp;nc=1&amp;z=&amp;se=1&amp;showtab=0&amp;fb=0&amp;width=&amp;height=&amp;face=0&amp;istype=2&amp;ie=utf-8&amp;word=equipment">equipment</a></p>
-<h1 id="2-提供"><a href="#2-提供" class="headerlink" title="2 提供"></a>2 提供</h1><p>furnish</p>
-<p>provide</p>
-<p>supply</p>
-<h1 id="3-打破、弄碎"><a href="#3-打破、弄碎" class="headerlink" title="3 打破、弄碎"></a>3 打破、弄碎</h1><blockquote>
-<p>break 常用词，含义广泛，多指猛然用力将坚硬物打破或损坏。</p>
-<p>crush 指用力把东西压破或变形。</p>
-<p>crack 多指因长期使用或经受压力，物体表现呈现裂纹、裂口或破裂、裂开，但一般没成碎片。</p>
-<p>shatter 指破裂为许多支离破碎的碎片，多用指易碎事物。</p>
-<p>smash 指突然而猛烈地重击某物，使之破碎或完全变形。</p>
-<p>burst 指某物因内部外部压力过大而出现严重破裂、爆开或账破。</p>
-<p>fracture 比crack的破裂程度更深更严重，常指断裂，医学上指骨折。</p>
-</blockquote>
-<h1 id="4-爆炸"><a href="#4-爆炸" class="headerlink" title="4 爆炸"></a>4 爆炸</h1><p>explode 指物体爆炸而释放大量热能的一刹那。</p>
-<p>burst 强调爆炸能量的突然释放和力量的突然迸发。</p>
-<h1 id="5-严肃"><a href="#5-严肃" class="headerlink" title="5 严肃"></a>5 严肃</h1><p>solemn 指人表情或场景气氛严肃，侧重威严名印象深刻。</p>
-<p>sober 侧重<font color="red">因控制或抑制自己的感情</font>而表现出的庄重。</p>
-<p>earnest 指严肃，认真，含诚恳和热情意味。</p>
-<p>grave 侧重严肃和尊严，需要认真思考，含令人担忧意味。</p>
-<p>severe 指面孔的严肃，法律的严厉，伤病的严重。着重严厉性，无丝毫温情。</p>
-<p>serious 指具有关键、严肃或严重意义的事情。</p>
-<h1 id="6-主导的；支配地位的"><a href="#6-主导的；支配地位的" class="headerlink" title="6 主导的；支配地位的"></a>6 主导的；支配地位的</h1><p>sovereign 侧重指其他事物都从属于或低于它的。</p>
-<p>predominant 侧重指影响与新近的优势。</p>
-<p>dominant 强调权威。</p>
-<h1 id="7-假设"><a href="#7-假设" class="headerlink" title="7 假设"></a>7 假设</h1><p>supposition 可与assumption换用，还可表某种试探性的主观看法或建议。</p>
-<p>assumption 侧重主观推测或主观设想。</p>
-<p>hypothesis 书面用词，指有待作进一步检验或证实的假设。</p>
-<p>presumption 着重指以可能性为依据的假设。</p>
-<p>premise 逻辑推理的<font color="red">前提条件</font>。an idea or theory on which a statement or action is based<br>(+1) <strong>n. 经营场所; 办公场所</strong></p>
-<h1 id="8-木材"><a href="#8-木材" class="headerlink" title="8 木材"></a>8 木材</h1><p>timber 指经过匠人初步加要的备用木材，多用于英国英语。</p>
-<p>wood 最普通用词，含义广，除表示“木材，木”外，还可用复数形式表示森林。</p>
-<p>lumber 指伐下后未经削磨的木材，现多用于美国英语中。</p>
-<p>log 指原木或圆木。</p>
-<h1 id="9-大"><a href="#9-大" class="headerlink" title="9 大"></a>9 大</h1><p>tremendous 指某物很大，大得惊人；也可用作引申意义。<br>colossal 侧重尺寸、规模和体积的无比巨大。<br>huge 含义广，强调体积或容积的庞大。也可用于引申意义。<br>gigantic 指面积或体积的巨大，但多用于引申意义。<br>massive 指大的体积、数量和重量，侧重庞大而笨重。<br>vast 多指空间、面积、范围的巨大，不涉及重量。<br>enormous 指体积、数量或程度远远超过一般标准。<br>immense 正式用词，侧重空间的广阔，也指面积或分量的巨大。<br>giant 非正式用词，多为褒义。指如巨人般的庞大体积。</p>
-<h1 id="10-微不足道的"><a href="#10-微不足道的" class="headerlink" title="10 微不足道的"></a>10 微不足道的</h1><p>petty 指在同类中是最小最微不足道的人或事物。<br>trivial 指无特别价值或重要意义的普通小事。</p>
-<h1 id="11-微妙"><a href="#11-微妙" class="headerlink" title="11 微妙"></a>11 微妙</h1><p>delicate 侧重指需要谨慎处理和对待。<br>fine 隐含“不易察觉的”意味。<br>subtle 侧重有洞察、领悟事物细微差别以及微妙关系的能力。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/09/13/%E8%B4%AA%E5%90%83%E8%9B%87C%20%E6%BA%90%E7%A0%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/13/%E8%B4%AA%E5%90%83%E8%9B%87C%20%E6%BA%90%E7%A0%81/" class="post-title-link" itemprop="url">贪吃蛇C源码</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2017-09-13 18:04:23 / Modified: 17:52:19" itemprop="dateCreated datePublished" datetime="2017-09-13T18:04:23+08:00">2017-09-13</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;conio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//蛇</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">SNAKE</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x[<span class="number">100</span>];								<span class="comment">//蛇的横坐标,x[0]</span></span><br><span class="line">	<span class="keyword">int</span> y[<span class="number">100</span>];								<span class="comment">//蛇的纵坐标,y[0]蛇尾</span></span><br><span class="line">	<span class="keyword">int</span> nCount;								<span class="comment">//蛇吃的食物个数</span></span><br><span class="line">	<span class="keyword">int</span> nLength;								<span class="comment">//蛇的长度</span></span><br><span class="line">	<span class="keyword">int</span> nSpeed;								<span class="comment">//蛇的移动速度</span></span><br><span class="line">&#125; Snake;</span><br><span class="line"></span><br><span class="line"><span class="comment">//食物</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">FOOD</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x;										<span class="comment">//食物的横坐标</span></span><br><span class="line">	<span class="keyword">int</span> y;										<span class="comment">//食物的纵坐标</span></span><br><span class="line">&#125;Food;</span><br><span class="line"></span><br><span class="line"><span class="comment">//**********************************************************</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FRAMEX 3							<span class="comment">//</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FRAMEY 3							<span class="comment">//</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FRAMEWIDTH 20				<span class="comment">//</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FRAMEHEIGHT 20				<span class="comment">//</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//**********************************************************</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">NewGame</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">StartGame</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MakeFrame</span><span class="params">(HANDLE hOut)</span></span>; <span class="comment">//绘制游戏窗口</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetPosition</span><span class="params">(HANDLE hOut,<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>;				<span class="comment">//光标移动位置</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitSnake</span><span class="params">(Snake *pSnake)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitFood</span><span class="params">(HANDLE hOut, SNAKE *pSnake, FOOD *pFood)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintSnake</span><span class="params">(HANDLE hOut,Snake *pSnake)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintMenu</span><span class="params">(HANDLE hOut,Snake *pSnake,FOOD *pFood)</span></span>; <span class="comment">//打印菜单信息</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ClearMenu</span><span class="params">(HANDLE hOut, Snake *pSnake, FOOD *pFood)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MoveSnake</span><span class="params">(HANDLE hOut, Snake *pSnake)</span></span>;	<span class="comment">//移动蛇</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">RefreshSnake</span><span class="params">(HANDLE hOut, Snake *pSnake, FOOD *pFood)</span></span>;<span class="comment">//吃到食物后刷新蛇的属性</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CheckTrigger</span><span class="params">(HANDLE hOut, Snake *pSnake,FOOD *pFood)</span></span>;	<span class="comment">//检测蛇是否碰到食物</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SnakeDead</span><span class="params">(HANDLE hOut, Snake *pSnake)</span></span>;	<span class="comment">//判断蛇是否碰边</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">HideCursor</span><span class="params">()</span></span>;														<span class="comment">//隐藏光标</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	HideCursor();</span><br><span class="line">	StartGame();</span><br><span class="line">	<span class="keyword">while</span> (NewGame()==<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		system(<span class="string">&quot;cls&quot;</span>);</span><br><span class="line">		StartGame();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">HideCursor</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	HANDLE hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);</span><br><span class="line">	CONSOLE_CURSOR_INFO ConsoleCursorInfo;</span><br><span class="line">	GetConsoleCursorInfo(hConsoleOutput, &amp;ConsoleCursorInfo);</span><br><span class="line">	ConsoleCursorInfo.bVisible = FALSE;</span><br><span class="line">	SetConsoleCursorInfo(hConsoleOutput, &amp;ConsoleCursorInfo);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//**********************************************************</span></span><br><span class="line"><span class="comment">//函数定义</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">StartGame</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);</span><br><span class="line">	MakeFrame(hOut);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//定义蛇,食物</span></span><br><span class="line">	Snake snake;</span><br><span class="line">	Food food;</span><br><span class="line"></span><br><span class="line">	InitSnake(&amp;snake);</span><br><span class="line">	PrintSnake(hOut, &amp;snake);</span><br><span class="line"></span><br><span class="line">	InitFood(hOut,&amp;snake,&amp;food);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> ch = <span class="string">&#x27;w&#x27;</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">//打印菜单</span></span><br><span class="line">		ClearMenu(hOut, &amp;snake, &amp;food);</span><br><span class="line">		PrintMenu(hOut,&amp;snake,&amp;food);</span><br><span class="line">		<span class="comment">//判断按键是否按下</span></span><br><span class="line">		<span class="keyword">if</span> (kbhit())</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">//getch();  不需要按回车确定；读取键值</span></span><br><span class="line">			<span class="comment">//getchar(); 需要按回车确定；从Console读取对应字符ASCII码值</span></span><br><span class="line"></span><br><span class="line">			ch = getch();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">switch</span> (ch)			<span class="comment">//判断方向</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">&#x27;w&#x27;</span>: &#123;</span><br><span class="line">					MoveSnake(hOut, &amp;snake);</span><br><span class="line">					snake.y[snake.nLength - <span class="number">1</span>] -= <span class="number">1</span>;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">&#x27;s&#x27;</span>: &#123;</span><br><span class="line">					MoveSnake(hOut, &amp;snake);</span><br><span class="line">					snake.y[snake.nLength - <span class="number">1</span>] += <span class="number">1</span>;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">&#x27;a&#x27;</span>: &#123;</span><br><span class="line">					MoveSnake(hOut, &amp;snake);</span><br><span class="line">					snake.x[snake.nLength - <span class="number">1</span>] -= <span class="number">2</span>;	<span class="comment">//两个字符</span></span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">&#x27;d&#x27;</span>: &#123;</span><br><span class="line">					MoveSnake(hOut, &amp;snake);</span><br><span class="line">					snake.x[snake.nLength - <span class="number">1</span>] += <span class="number">2</span>;	<span class="comment">//两个字符</span></span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;   </span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		PrintSnake(hOut, &amp;snake);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span> (SnakeDead(hOut, &amp;snake))	<span class="comment">//游戏结束</span></span><br><span class="line"></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">//	system(&quot;cls&quot;);</span></span><br><span class="line">			SetPosition(hOut, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;GAME OVER!!&quot;</span>);</span><br><span class="line">			getch();</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (CheckTrigger(hOut, &amp;snake, &amp;food) == <span class="number">1</span>)				<span class="comment">//吃到食物</span></span><br><span class="line">		&#123;</span><br><span class="line">			RefreshSnake(hOut,&amp;snake,&amp;food);</span><br><span class="line">			InitFood(hOut, &amp;snake, &amp;food);</span><br><span class="line">		&#125;</span><br><span class="line">				</span><br><span class="line">		Sleep(snake.nSpeed);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MakeFrame</span><span class="params">(HANDLE hOut)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	SetPosition(hOut, FRAMEX, FRAMEY);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;┌&quot;</span>);</span><br><span class="line">	SetPosition(hOut, FRAMEX + FRAMEWIDTH*<span class="number">2</span> - <span class="number">2</span>, FRAMEY);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;┐&quot;</span>);</span><br><span class="line">	SetPosition(hOut, FRAMEX, FRAMEY + FRAMEHEIGHT<span class="number">-1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;└&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt; FRAMEWIDTH * <span class="number">2</span> - <span class="number">2</span>;i += <span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		SetPosition(hOut, FRAMEX + i,FRAMEY);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;━&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt; FRAMEWIDTH * <span class="number">2</span> - <span class="number">2</span>;i += <span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		SetPosition(hOut, FRAMEX + i,FRAMEY+FRAMEHEIGHT<span class="number">-1</span>);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;━&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; FRAMEHEIGHT<span class="number">-1</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		SetPosition(hOut, FRAMEX, FRAMEY+i);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;│&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; FRAMEHEIGHT<span class="number">-1</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		SetPosition(hOut, FRAMEX+FRAMEWIDTH*<span class="number">2</span><span class="number">-2</span>, FRAMEY + i);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;│&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	SetPosition(hOut, FRAMEX + FRAMEWIDTH * <span class="number">2</span> - <span class="number">2</span>, FRAMEY + FRAMEHEIGHT<span class="number">-1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;┘&quot;</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetPosition</span><span class="params">(HANDLE hOut, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span>  <span class="comment">//设置光标位置</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	COORD pos;</span><br><span class="line">	pos.X = x;</span><br><span class="line">	pos.Y = y;</span><br><span class="line">	SetConsoleCursorPosition(hOut,pos);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitSnake</span><span class="params">(Snake *pSnake)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	(*pSnake).x[<span class="number">0</span>] = FRAMEX + <span class="number">2</span>;</span><br><span class="line">	(*pSnake).y[<span class="number">0</span>] = FRAMEY + FRAMEHEIGHT / <span class="number">2</span>;</span><br><span class="line">	(*pSnake).nSpeed = <span class="number">500</span>;										<span class="comment">//300ms</span></span><br><span class="line">	(*pSnake).nCount = <span class="number">0</span>;</span><br><span class="line">	(*pSnake).nLength = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;(*pSnake).nLength;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		(*pSnake).x[i] = (*pSnake).x[i - <span class="number">1</span>] + <span class="number">2</span>;			<span class="comment">//从蛇尾开始，前一节横坐标为后一节横坐标+2</span></span><br><span class="line">		(*pSnake).y[i] = (*pSnake).y[i - <span class="number">1</span>];					<span class="comment">//</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitFood</span><span class="params">(HANDLE hOut,SNAKE *pSnake,FOOD *pFood)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	srand((<span class="keyword">unsigned</span> <span class="keyword">int</span>)time(<span class="literal">NULL</span>));</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">		1、食物在游戏框架内,不能生成到边框</span></span><br><span class="line"><span class="comment">		2、食物不能在蛇的身上</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> i;</span><br><span class="line">		(*pFood).x = rand() % FRAMEWIDTH - <span class="number">2</span>; <span class="comment">// 0~FRAMEWIDTH-1 ，保证右边框不会生成食物</span></span><br><span class="line">		(*pFood).y = rand() % FRAMEHEIGHT <span class="number">-1</span>;<span class="comment">// 0~FRAMEHEIGHT-1，保证下边框不会生成食物</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> ((*pFood).x &lt;= <span class="number">0</span> || (*pFood).y &lt;= <span class="number">0</span>)</span><br><span class="line">			<span class="keyword">continue</span>;		<span class="comment">//生成在了左或上边框 ,跳出，重新生成食物</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		(*pFood).x = (*pFood).x * <span class="number">2</span> + FRAMEX;</span><br><span class="line">		(*pFood).y = (*pFood).y + FRAMEY;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>;i &lt; (*pSnake).nLength;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> ((*pFood).x == (*pSnake).x[i] &amp;&amp; (*pFood).y == (*pSnake).y[i])</span><br><span class="line">				<span class="keyword">break</span>;	<span class="comment">//生成的食物和此节蛇重合，那就不需要再看蛇剩余的部分是否与食物重叠了</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (i == (*pSnake).nLength)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">//说明蛇尾，蛇头及所有的蛇身都不与食物重叠</span></span><br><span class="line">			SetPosition(hOut, (*pFood).x, (*pFood).y);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;F&quot;</span>);</span><br><span class="line">			<span class="keyword">break</span>; <span class="comment">//生成食物完毕，跳出大循环</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintSnake</span><span class="params">(HANDLE hOut, Snake *pSnake)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;(*pSnake).nLength;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		SetPosition(hOut, (*pSnake).x[i], (*pSnake).y[i]);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (i == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;◆&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (i == (*pSnake).nLength - <span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;●&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;■&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintMenu</span><span class="params">(HANDLE hOut, Snake *pSnake, FOOD *pFood)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//游戏等级</span></span><br><span class="line">	SetPosition(hOut,FRAMEX+FRAMEWIDTH*<span class="number">2</span>+<span class="number">3</span>,FRAMEY+<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;游戏等级 : %d&quot;</span>, (*pSnake).nCount/<span class="number">5</span>+<span class="number">1</span>);</span><br><span class="line">	<span class="comment">//游戏得分</span></span><br><span class="line">	SetPosition(hOut, FRAMEX + FRAMEWIDTH * <span class="number">2</span> + <span class="number">3</span>, FRAMEY + <span class="number">3</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;游戏得分 : %d&quot;</span>, (*pSnake).nCount);</span><br><span class="line">	<span class="comment">//食物个数</span></span><br><span class="line">	SetPosition(hOut, FRAMEX + FRAMEWIDTH * <span class="number">2</span> + <span class="number">3</span>, FRAMEY + <span class="number">5</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;食物个数 : %d&quot;</span>, (*pSnake).nCount);</span><br><span class="line">	<span class="comment">//游戏速度</span></span><br><span class="line">	SetPosition(hOut, FRAMEX + FRAMEWIDTH * <span class="number">2</span> + <span class="number">3</span>, FRAMEY + <span class="number">7</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;游戏速度 : %d&quot;</span>, (*pSnake).nSpeed);</span><br><span class="line">	<span class="comment">//食物坐标</span></span><br><span class="line">	SetPosition(hOut, FRAMEX + FRAMEWIDTH * <span class="number">2</span> + <span class="number">3</span>, FRAMEY + <span class="number">9</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;食物坐标 :  ( %d , %d ) &quot;</span>, (*pFood).x,(*pFood).y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ClearMenu</span><span class="params">(HANDLE hOut, Snake *pSnake, FOOD *pFood)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//游戏等级</span></span><br><span class="line">	SetPosition(hOut, FRAMEX + FRAMEWIDTH * <span class="number">2</span> + <span class="number">3</span>, FRAMEY + <span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;                                     &quot;</span>);</span><br><span class="line">	<span class="comment">//游戏得分</span></span><br><span class="line">	SetPosition(hOut, FRAMEX + FRAMEWIDTH * <span class="number">2</span> + <span class="number">3</span>, FRAMEY + <span class="number">3</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;                                     &quot;</span>);</span><br><span class="line">	<span class="comment">//食物个数</span></span><br><span class="line">	SetPosition(hOut, FRAMEX + FRAMEWIDTH * <span class="number">2</span> + <span class="number">3</span>, FRAMEY + <span class="number">5</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;                                     &quot;</span>);</span><br><span class="line">	<span class="comment">//游戏速度</span></span><br><span class="line">	SetPosition(hOut, FRAMEX + FRAMEWIDTH * <span class="number">2</span> + <span class="number">3</span>, FRAMEY + <span class="number">7</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;                                     &quot;</span>);</span><br><span class="line">	<span class="comment">//食物坐标</span></span><br><span class="line">	SetPosition(hOut, FRAMEX + FRAMEWIDTH * <span class="number">2</span> + <span class="number">3</span>, FRAMEY + <span class="number">9</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;                                     &quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MoveSnake</span><span class="params">(HANDLE hOut, Snake *pSnake)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// 1、蛇的尾巴给前一节</span></span><br><span class="line"></span><br><span class="line">	SetPosition(hOut, (*pSnake).x[<span class="number">0</span>], (*pSnake).y[<span class="number">0</span>]);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;  &quot;</span>);						<span class="comment">//清空蛇尾</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; (*pSnake).nLength;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		(*pSnake).x[i<span class="number">-1</span>] = (*pSnake).x[i];</span><br><span class="line">		(*pSnake).y[i<span class="number">-1</span>] = (*pSnake).y[i];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CheckTrigger</span><span class="params">(HANDLE hOut, Snake *pSnake, FOOD *pFood)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ((*pSnake).x[(*pSnake).nLength - <span class="number">1</span>] == (*pFood).x &amp;&amp; (*pSnake).y[(*pSnake).nLength - <span class="number">1</span>] == (*pFood).y)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">RefreshSnake</span><span class="params">(HANDLE hOut, Snake *pSnake, FOOD *pFood)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	(*pSnake).nLength++;</span><br><span class="line">	(*pSnake).nCount++;</span><br><span class="line">	<span class="keyword">if</span>((*pSnake).nCount%<span class="number">5</span>==<span class="number">0</span>)</span><br><span class="line">	(*pSnake).nSpeed = (*pSnake).nSpeed/<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = (*pSnake).nLength - <span class="number">1</span>;i &gt; <span class="number">0</span>;i--)</span><br><span class="line">	&#123;</span><br><span class="line">		(*pSnake).x[i] = (*pSnake).x[i - <span class="number">1</span>];</span><br><span class="line">		(*pSnake).y[i] = (*pSnake).y[i - <span class="number">1</span>];</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SnakeDead</span><span class="params">(HANDLE hOut, Snake *pSnake)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ((*pSnake).x[(*pSnake).nLength - <span class="number">1</span>] == FRAMEX || (*pSnake).x[(*pSnake).nLength - <span class="number">1</span>] == FRAMEX + FRAMEWIDTH*<span class="number">2</span><span class="number">-2</span> || (*pSnake).y[(*pSnake).nLength - <span class="number">1</span>] == FRAMEY || (*pSnake).y[(*pSnake).nLength - <span class="number">1</span>] == FRAMEY + FRAMEHEIGHT<span class="number">-1</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">NewGame</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> key = <span class="string">&#x27;n&#x27;</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;重新开始游戏？(y/n)&quot;</span>);</span><br><span class="line">	key = getch();</span><br><span class="line">	<span class="keyword">if</span> (key == <span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/09/04/%E8%AE%B0%E8%83%8C%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/09/04/%E8%AE%B0%E8%83%8C%E8%A1%A8/" class="post-title-link" itemprop="url">记背表</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-09-04 12:44:12" itemprop="dateCreated datePublished" datetime="2017-09-04T12:44:12+08:00">2017-09-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-12-28 18:49:35" itemprop="dateModified" datetime="2017-12-28T18:49:35+08:00">2017-12-28</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="023-024"><a href="#023-024" class="headerlink" title="023-024"></a>023-024</h1><p>adverse(3)<br>avert(2)<br>supervise<br>revise<br>proversion(4)<br>provided<br>provident<br>prudent</p>
-<h1 id="08-27"><a href="#08-27" class="headerlink" title="08-27"></a>08-27</h1><p>interevenue<br>convention(3)<br>conventional<br>inventory<br>antique(2)</p>
-<h1 id="08-22"><a href="#08-22" class="headerlink" title="08-22"></a>08-22</h1><p>objection<br>objective<br>subjective</p>
-<h1 id="10-14"><a href="#10-14" class="headerlink" title="10.14"></a>10.14</h1><ol>
-<li>disciple <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/disciple">disciple</a></li>
-<li>bizarre <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/bizarre">bizarre</a></li>
-<li>brittle <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/brittle">brittle</a></li>
-<li>clamp <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/clamp">clamp</a></li>
-<li>compatible <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/compatible">compatible</a></li>
-<li>contemplate <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/contemplate">contemplate</a></li>
-<li>diffuse <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/diffuse">diffuse</a></li>
-<li>delicate <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/delicate">delicate</a></li>
-<li>whip <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/whip">whip</a></li>
-<li>flaw <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/flaw">flaw</a></li>
-<li>granular <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/granular">granular</a></li>
-<li>graze <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/graze">graze</a></li>
-<li>fuss <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/fuss">fuss</a></li>
-<li>temperament <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/temperament">temperament</a></li>
-</ol>
-<blockquote>
-<p>Sentence and Phrase</p>
-</blockquote>
-<ol>
-<li>(1)A disciple of the economist John Maynard Keynes</li>
-<li>(1)a bizarre situation</li>
-<li>(1)brittle bones<br>(2)a brittle temperament<br>(3)a brittle laugh </li>
-<li>(1) <strong>clamp sth. on sb.</strong> I clamped a hand on his shoulder.<br>(2) <strong>clamp down (on sb./sth.)</strong> a campaign by police to clamp down on street crime.<br>(3) Clamp the two halves together until the glue dries.</li>
-<li>(1) compatible software<br>(2) compatible blood groups</li>
-<li>(1) I have never contemplated living abroad.<br>(2) She lay in bed,contemplating.<br>(3) She contemplated him in silence.</li>
-<li>(1) a diffuse community<br>(2) a diffuse style of writing</li>
-<li>(1) Babies have very delicate skin.<br>(2) a delicate constitution<br>(3) her delicate hands<br>(4) the delicate mechanisms clock<br>(5) a delicate problem<br>(6) a delicate flavour</li>
-<li>(1) He cracked his whip and the horse leapt forward.</li>
-<li><p>(1) The argument is full of flaws.<br>(2) There is always a flaw in the character of a tragic hero.</p>
-</li>
-<li><p>(1) granular fertilizer</p>
-</li>
-<li>(1) There were cows grazing beside the river.<br>(2) I fell and grazed my knee.</li>
-<li>(1) to have an artist temperament</li>
-</ol>
-<h1 id="10-26"><a href="#10-26" class="headerlink" title="10.26"></a>10.26</h1><p>filial <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/filial">filial</a><br>sophisticated <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/sophisticated">sophisticated</a><br>sophomore <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/sophomore">sophomore</a><br>multitude <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/multitude">multitude</a><br>perennial <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/perennial">perennial</a><br>appraise <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/appraise">appraise</a><br>compartment <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/compartment">compartment</a><br>spring <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/spring">spring</a><br>articulate <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/articulate">articulate</a><br>shatter <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/shatter">shatter</a><br>spectacular <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/spectacular">spectacular</a><br>pedal <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/pedal">pedal</a><br>disrupt <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/disrupt">disrupt</a><br>susceptible <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/susceptible">susceptible</a><br>attorney <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/attorney">attorney</a><br>arrogant <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/arrogant">arrogant</a><br>barren(2) <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/barren">barren</a><br>brittle <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/brittle">brittle</a><br>bump(3) <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/bump">bump</a><br>catalyst <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/catalyst">catalyst</a><br>chronic <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/chronic">chronic</a><br>clarify <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/clarify">clarify</a><br>clarity <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/clarity">clarity</a><br>cluster <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/cluster">cluster</a><br>collide <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/collide">collide</a><br>client(2) <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/client">client</a><br>compatible <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/compatible">compatible</a><br>concise <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/concise">concise</a><br>compound <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/compound">compound</a><br>consequence(2) <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/consequence">consequence</a><br>contemplate <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/contemplate">contemplate</a><br>nucleus <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/nucleus">nucleus</a><br>neutral <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/neutral">neutral</a><br>neuron <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/neuron">neuron</a><br>denounce <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/dennounce">denounce</a><br>denote <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/denote">denote</a><br>dilute <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/dilute">dilute</a><br>ethnic <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/ethnic">ethnic</a><br>ethical <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/ethical">ethical</a><br>manipulate <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/manipulate">manipulate</a><br>instinct <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/instinct">instinct</a><br>obscure <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/obscure">obscure</a><br>obstruct <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/obstruct">obstruct</a><br>obstacle <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/obstacle">obstacle</a><br>obsession <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/obsession">obsession</a><br>endorse <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/endorse">endorse</a><br>feeble <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/feeble">feeble</a><br>explict <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/explicit">explicit</a><br>graze <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/graze">graze</a><br>intrinsic <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/intrinsic">intrinsic</a><br>inherent <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/inherent">inherent</a><br>precise <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/precise">precise</a><br>previous <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/previous">previous</a><br>precious <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/precious">precious</a><br>concise <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/concise">concise</a><br>perceive <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/perceive">perceive</a><br>intact <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/intact">intact</a><br>interim <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/interim">interim</a><br>integrity <a target="_blank" rel="noopener" href="http://fanyi.baidu.com/#en/zh/integrity">integrity</a></p>
-<h1 id="11-12"><a href="#11-12" class="headerlink" title="11.12"></a>11.12</h1><ol>
-<li><p>sterile<br>(1) This disease causes sterility in both males and females.<br>(2) He always made sure that any cuts were protected by sterile dressings.</p>
-</li>
-<li><p>browse(2) graze(2)</p>
-</li>
-<li><p>contaminate<br>(1) Have any fish been contaminated in the Arctic Ocean?</p>
-</li>
-<li><p>contempt<br>(syn.) despise</p>
-</li>
-<li><p>contrive<br>(1) contrive to do sth.<br>(2) The oil companies were accused of contriving a shortage of petrol to justify price increases.</p>
-</li>
-<li><p>justify 使正当<br>judge 法官</p>
-</li>
-<li><p>correlate 使关联</p>
-</li>
-<li><p>counsel</p>
-</li>
-<li><p>intuitive<br>(opp.) counterintuitive</p>
-</li>
-<li><p>constrain</p>
-<blockquote>
-<p>To constrain someone or something means to limit their development or force them to behave in a particular way. </p>
-</blockquote>
-</li>
-</ol>
-<p>constraint<br>constrained</p>
-<h1 id="11-16"><a href="#11-16" class="headerlink" title="11.16"></a>11.16</h1><ol>
-<li><p>mortgage</p>
-</li>
-<li><p>detain<br>(1) Police have detained two suspects in connection with the attack.<br>(2) To detain someone means to delay them, for example, by talking to them.</p>
-</li>
-<li><p>maintain<br>(1) If you say that someone maintains that something is true, you mean that they have stated their opinion strongly but not everyone agrees with them or believes them.</p>
-</li>
-<li><p>manoeuvre<br>(1) If you manoeuvre something into or out of an awkward position, you skilfully move it there.<br>(2) If you manoeuvre a situation, you change it in a clever and skilful way so that you can benefit from it.<br>(3) Military manoeuvres are training exercises which involve the movement of soldiers and equipment over a large area. </p>
-</li>
-<li><p>deteriorate<br>(1) If something deteriorates, it becomes worse in some way. </p>
-</li>
-<li><p>derail</p>
-</li>
-<li><p>depict<br>…a gallery of pictures depicting Lee’s most famous battles.</p>
-</li>
-<li><p>dense<br>(1) A dense column of smoke rose several miles into the air.</p>
-</li>
-<li><p>forsake<br>(1) I still love him and I would never forsake him.</p>
-</li>
-<li><p>scorn<br>(1) If you scorn something, you refuse to have it or accept it because you think it is not good enough or suitable for you.<br>(2) If you treat someone or something with scorn, you show contempt for them.</p>
-</li>
-<li><p>detach<br>(1) If you detach one thing from another that it is attached to, you remove it. If one thing detaches from another, it becomes separated from it.</p>
-</li>
-<li><p>diagnose<br>(1) The soldiers were diagnosed as having flu.</p>
-</li>
-<li><p>dignity<br>(1) her extraordinary dignity and composure.<br>(2) If you talk about the dignity of people or their lives or activities, you mean that they are valuable and worthy of respect.</p>
-</li>
-<li><p>diffuse<br>(1) the development and diffusion of ideas.</p>
-</li>
-<li><p>diminish<br>(1) When something diminishes, or when something diminishes it, it becomes reduced in size, importance, or intensity.<br>(2) He never put her down or diminished her.</p>
-</li>
-<li><p>currency</p>
-</li>
-<li><p>solitude<br>(1) Solitude is the state of being alone, especially when this is peaceful and pleasant.</p>
-</li>
-<li><p>regulate<br>(1) To regulate an activity or process means to control it, especially by means of rules. </p>
-</li>
-<li><p>deregulation<br>(1) Deregulation is the removal of controls and restrictions in a particular area of business or trade.</p>
-</li>
-<li><p>reception<br>(1) A reception is a formal party which is given to welcome someone or to celebrate a special event.</p>
-</li>
-<li><p>disperse<br>(1) When a group of people disperses or when someone disperses them, the group splits up and the people leave in different directions.<br>(2) When something disperses or when you disperse it, it spreads over a wide area. </p>
-</li>
-<li><p>dispense<br>(1) to dispense a person from an obligation<br>(2) If you obtain a product by getting it out of a machine, you can say that the machine dispenses the product.<br>(3) When a pharmacist dispenses medicine, he or she prepares it, and gives or sells it to the patient or customer. </p>
-</li>
-<li><p>dispatch<br>(1)  If you dispatch someone to a place, you send them there for a particular reason.<br>(2) dispatch order 发运单 ; 发货单</p>
-</li>
-<li><p>dissipate<br>(1) When something dissipates or when you dissipate it, it becomes less or becomes less strong until it disappears or goes away completely. </p>
-</li>
-<li><p>distil<br>(1)  If a liquid such as whisky or water is distilled, it is heated until it changes into steam or vapour and then cooled until it becomes liquid again. This is usually done in order to make it pure.</p>
-</li>
-<li><p>dwell on<br>(1) If you dwell on something, especially something unpleasant, you think, speak, or write about it a lot or for quite a long time.<br>(2) dweller</p>
-</li>
-<li><p>drastic<br>(1) If you have to take drastic action in order to solve a problem, you have to do something extreme to solve it. </p>
-</li>
-<li><p>doctrine<br>(1) A doctrine is a set of principles or beliefs, especially religious ones.</p>
-</li>
-<li><p>dividend<br>(1) A dividend is the part of a company’s profits which is paid to people who own shares in the company. </p>
-</li>
-<li><p>overstate<br>(1) If you say that someone is overstating something, you mean they are describing it in a way that makes it seem more important or serious than it really is. </p>
-</li>
-<li><p>malicious </p>
-</li>
-<li><p>malware</p>
-</li>
-</ol>
-<h1 id="11-17"><a href="#11-17" class="headerlink" title="11.17"></a>11.17</h1><ol>
-<li><p>edible<br>(1) edible oils</p>
-</li>
-<li><p>elaborate<br>(1) You use elaborate to describe something that is very complex because it has a lot of different parts.<br>(2) If you elaborate a plan or theory, you develop it by making it more complicated and more effective.<br>(3) If you elaborate on something that has been said, you say more about it, or give more details. </p>
-</li>
-<li><p>elicit<br>(1) If you elicit a response or a reaction, you do or say something that makes other people respond or react.<br>(2) If you elicit a piece of information, you get it by asking the right questions.</p>
-</li>
-<li><p>endorse<br>(1) If you endorse a product or company, you appear in advertisements for it.<br>(2) If you endorse someone or something, you say publicly that you support or approve of them. </p>
-</li>
-<li><p>endow<br>(1) If you endow something with a particular feature or quality, you provide it with that feature or quality.<br>(2) If someone endows an institution, scholarship, or project, they provide a large amount of money that will produce the income needed to pay for it.</p>
-</li>
-<li><p>ego</p>
-</li>
-<li><p>empirical<br>(1) empiricism<br>(2) Empirical evidence or study relies on practical experience rather than theories.</p>
-</li>
-<li><p>facet</p>
-</li>
-<li><p>expel<br>(1) If someone is expelled from a school or organization, they are officially told to leave because they have behaved badly.<br>(2) If people are expelled from a place, they are made to leave it, often by force.</p>
-</li>
-<li><p>curricular<br>extracurricular</p>
-</li>
-<li><p>fascinating<br>(1) If you describe something as fascinating, you find it very interesting and attractive, and your thoughts tend to concentrate on it.</p>
-</li>
-<li><p>fidelity<br>(1) Women expect fidelity from their men.</p>
-</li>
-<li><p>flock<br>(1) a flock of sheep<br>(2) a flock of schoolchildren</p>
-</li>
-<li><p>formative<br>(1) A formative period of time or experience is one that has an important and lasting influence on a person’s character and attitudes. </p>
-</li>
-<li><p>foremost<br>(1) The foremost thing or person in a group is the most important or best.</p>
-</li>
-<li><p>identical<br>(1) The three bombs were virtually identical.</p>
-</li>
-<li><p>virtually<br>(1) actually really</p>
-</li>
-<li><p>fraud<br>(1) A fraud is something or someone that deceives people in a way that is illegal or dishonest.</p>
-</li>
-<li><p>deception<br>(1) deceive<br>(2) deceptive </p>
-</li>
-<li><p>vulnerable<br>(1) Someone who is vulnerable is weak and without protection, with the result that they are easily hurt physically or emotionally.<br>(2) be vulnerable to a disease</p>
-</li>
-<li><p>domesticate</p>
-</li>
-<li><p>monetary</p>
-</li>
-<li><p>downturn<br>(1) If there is a downturn in the economy or in a company or industry, it becomes worse or less successful than it had been.</p>
-</li>
-<li><p>deficit<br>(1) A deficit is the amount by which something is less than what is required or expected, especially the amount by which the total money received is less than the total money spent. </p>
-</li>
-</ol>
-<h1 id="11-22"><a href="#11-22" class="headerlink" title="11.22"></a>11.22</h1><ol>
-<li><p>nucleus</p>
-</li>
-<li><p>epidemic<br>(1) If an activity that you disapprove of is increasing or spreading rapidly, you can refer to this as an epidemic of that activity.<br>(2) If there is an epidemic of a particular disease somewhere, it affects a very large number of people there and spreads quickly to other areas.</p>
-</li>
-<li><p>bail</p>
-</li>
-<li><p>captive<br>(1) If you take someone captive or hold someone captive, you take or keep them as a prisoner.</p>
-</li>
-<li><p>brick</p>
-</li>
-<li><p>sock<br>(1) If you sock someone or something, you hit them hard.<br>(2) If someone is socked with something bad, it happens to them.</p>
-</li>
-<li><p>colonel<br>(1) This particular place was run by an ex-Army colonel.</p>
-</li>
-<li><p>migrate<br>(1) If people migrate, they move from one place to another, especially in order to find work or to live somewhere for a short time.</p>
-</li>
-<li><p>unanimous<br>(1) When a group of people are unanimous, they all agree about something or all vote for the same thing.</p>
-</li>
-<li><p>inanimate<br>(1) An inanimate object is one that has no life.</p>
-</li>
-<li><p>automatic(+1)<br>(1) An automatic action is one that you do without thinking about it.</p>
-</li>
-<li><p>poultry<br>(1)  You can refer to chickens, ducks, and other birds that are kept for their eggs and meat as poultry.</p>
-</li>
-<li><p>proposition<br>(1) A proposition is a statement or an idea that people can consider or discuss to decide whether it is true.<br>(2) A proposition is a question or statement about an issue of public policy that appears on a voting paper so that people can vote for or against it.<br>(3) A proposition is an offer or a suggestion that someone makes to you, usually concerning some work or business that you might be able to do together. </p>
-</li>
-<li><p>elaborate<br>(1) You use elaborate to describe something that is very complex because it has a lot of different parts.<br>(2) Elaborate plans, systems, and procedures are complicated because they have been planned in very great detail, sometimes too much detail.</p>
-</li>
-<li><p>proficient<br>(1) If you are proficient in something, you can do it well.</p>
-</li>
-<li><p>precedent<br>(1) If there is a precedent for an action or event, it has happened before, and this can be regarded as an argument for doing it again. </p>
-</li>
-<li><p>predecessor<br>(1) The predecessor of an object or machine is the object or machine that came before it in a sequence or process of development.</p>
-</li>
-<li><p>hamper<br>(1) A hamper is a large basket with a lid, used especially for carrying food.<br>(2) If someone or something hampers you, they make it difficult for you to do what you are trying to do.</p>
-</li>
-<li><p>handicap<br>(1) A handicap is a physical or mental disability.<br>(2) A handicap is an event or situation that places you at a disadvantage and makes it harder for you to do something.</p>
-</li>
-<li><p>haunt<br>(1) Something that haunts a person or organization regularly causes them problems over a long period of time.<br>(2) A place that is the haunt of a particular person is one which they often visit because they enjoy going there.</p>
-</li>
-</ol>
-<h1 id="11-23"><a href="#11-23" class="headerlink" title="11.23"></a>11.23</h1><ol>
-<li><p>implict<br>(1) implict knowledge</p>
-</li>
-<li><p>inflict<br>(1) To inflict harm or damage on someone or something means to make them suffer it. </p>
-</li>
-<li><p>impulse<br>(1) An impulse is a sudden desire to do something.<br>(2) An impulse is a short electrical signal that is sent along a wire or nerve or through the air, usually as one of a series. </p>
-</li>
-<li><p>inaugurate<br>(1) If you inaugurate a new system or service, you start it.<br>(2) When a new building or institution is inaugurated, it is declared open in a formal ceremony.<br>(3) When a new leader is inaugurated, they are formally given their new position at an official ceremony.</p>
-</li>
-<li><p>incorporate<br>(1) If one thing incorporates another thing, it includes the other thing.<br>(2) If someone or something is incorporated into a large group, system, or area, they become a part of it. </p>
-</li>
-<li><p>inclusive</p>
-</li>
-<li><p>indulge<br>(1) If you indulge in something or if you indulge yourself, you allow yourself to have or do something that you know you will enjoy.<br>(2) If you indulge someone, you let them have or do what they want, even if this is not good for them. </p>
-</li>
-<li><p>indifferent<br>(1) If you describe something or someone as indifferent, you mean that their standard or quality is not very good, and often quite bad.<br>(2) If you accuse someone of being indifferent to something, you mean that they have a complete lack of interest in it.</p>
-</li>
-<li><p>indignant<br>(1) If you are indignant, you are shocked and angry, because you think that something is unjust or unfair.</p>
-</li>
-<li><p>infrastructure<br>(1) The infrastructure of a country, society, or organization consists of the basic facilities such as transportation, communications, power supplies, and buildings, which enable it to function.</p>
-</li>
-<li><p>ingenious<br>(1) Something that is ingenious is very clever and involves new ideas, methods, or equipment.</p>
-</li>
-<li><p>integrity(2)</p>
-</li>
-<li><p>intensify<br>(1) If you intensify something or if it intensifies, it becomes greater in strength, amount, or degree. </p>
-</li>
-<li><p>interval<br>(1) An interval between two events or dates is the period of time between them. </p>
-</li>
-<li><p>deliberately</p>
-</li>
-<li><p>intimidate<br>(1) If you intimidate someone, you deliberately make them frightened enough to do what you want them to do.</p>
-</li>
-<li><p>irritate</p>
-</li>
-<li><p>jeopardize<br>(1) To jeopardize a situation or activity means to do something that may destroy it or cause it to fail.</p>
-</li>
-<li><p>juvenile<br>(1) Juvenile crime is increasing at a terrifying rate.</p>
-</li>
-<li><p>latent<br>(1) Latent is used to describe something which is hidden and not obvious at the moment, but which may develop further in the future.</p>
-</li>
-<li><p>marginal<br>(1) If you describe something as marginal, you mean that it is small or not very important.<br>(2) If you describe people as marginal, you mean that they are not involved in the main events or developments in society because they are poor or have no power.<br>(3) Marginal activities, costs, or taxes are not the main part of a business or an economic system, but often make the difference between its success or failure, and are therefore important to control. </p>
-</li>
-<li><p>luxuriant<br>(1) Luxuriant plants, trees, and gardens are large, healthy, and growing well.<br>(2) If you describe someone’s hair as luxuriant, you mean that it is very thick and healthy.</p>
-</li>
-<li><p>mediate</p>
-</li>
-<li><p>melody<br>(1) I whistle melodies from Beethoven and Vivaldi and the more popular classical composers.</p>
-</li>
-<li><p>memorandum</p>
-</li>
-<li><p>mentor<br>(1) A person’s mentor is someone who gives them help and advice over a period of time, especially help and advice related to their job.</p>
-</li>
-<li><p>mortal</p>
-</li>
-<li><p>mutter<br>(1) If you mutter, you speak very quietly so that you cannot easily be heard, often because you are complaining about something.</p>
-</li>
-<li><p>narrative<br>(1) Narrative is the description of a series of events, usually in a novel. </p>
-</li>
-<li><p>niche<br>(1) A niche in the market is a specific area of marketing which has its own particular requirements, customers, and products.<br>(2) Your niche is the job or activity which is exactly suitable for you.<br>(3) A niche is a hollow area in a wall which has been made to hold a statue, or a natural hollow part in a hill or cliff.</p>
-</li>
-<li><p>nominate<br>(1) If someone is nominated for a job or position, their name is formally suggested as a candidate for it.<br>(2) If you nominate someone to a job or position, you formally choose them to hold that job or position.</p>
-</li>
-<li><p>obligation<br>(1) If you have an obligation to do something, it is your duty to do that thing. </p>
-</li>
-<li><p>odor<br>(1)  An odour is a particular and distinctive smell.</p>
-</li>
-<li><p>offspring<br>(1) You can refer to a person’s children or to an animal’s young as their offspring.</p>
-</li>
-</ol>
-<h1 id="11-28"><a href="#11-28" class="headerlink" title="11.28"></a>11.28</h1><ol>
-<li><p>hedonistic<br>(1) …an eccentric and flamboyant nobleman with a hedonistic lifestyle.</p>
-</li>
-<li><p>henceforth<br>(1) Henceforth means from this or that time onward.</p>
-</li>
-<li><p>immersion<br>(1) Immersion of something in a liquid means putting it into the liquid so that it is completely covered.<br>(2) Someone’s immersion in a subject is their complete involvement in it.</p>
-</li>
-<li><p>incredulity<br>If someone reacts with incredulity to something, they are unable to believe it because it is very surprising or shocking.</p>
-</li>
-<li><p>overt<br>(1) An overt action or attitude is done or shown in an open and obvious way.</p>
-</li>
-<li><p>oppress<br>(1) To oppress people means to treat them cruelly, or to prevent them from having the same opportunities, freedom, and benefits as others.</p>
-</li>
-<li><p>patrol<br>(1) When soldiers, police, or guards patrol an area or building, they move around it in order to make sure that there is no trouble there. </p>
-</li>
-</ol>
-<h1 id="12-22"><a href="#12-22" class="headerlink" title="12.22"></a>12.22</h1><ol>
-<li><p>culminate<br>(1) to reach the end or the final result of something<br>(2) to be the end or final result of (something)</p>
-</li>
-<li><p>customary</p>
-</li>
-<li><p>cynical<br>(1) believing that people are generally selfish and dishonest<br>(2) selfish and dishonest in a way that shows no concern about treating other people fairly</p>
-</li>
-<li><p>dazzle<br>(1) of a bright light : to cause (someone) to be unable to see for a short time<br>(2) : to greatly impress or surprise (someone) by being very attractive or exciting</p>
-</li>
-<li><p>debit<br>(1) v. : to record as money paid out or as a debt <strong> The amount was debited on my bank statement. </strong><br>(2) n. : an entry in a business record showing money paid out or owed</p>
-</li>
-<li><p>curb<br>(1) n. : a short border along the edge of a street that is usually made of stone or concrete<br>n. : something that controls or limits something else<br>(2) v. : to control or limit (something)</p>
-</li>
-<li><p>delegate</p>
-</li>
-<li><p>defy<br>(1) : to refuse boldly to obey or yield to The protesters defied orders to leave.<br>(2) : to challenge to do something thought to be impossible : dare I defy you to explain the trick.<br>(3) : to resist attempts at : withstand The scene defies description.</p>
-</li>
-<li><p>blunt<br>(1) : having a thick edge or point : not sharp<br>(2) : saying or expressing something in a very direct way that may upset some people</p>
-</li>
-<li><p>deduct<br>deducted; deducting<br>(1) : to take away an amount of something : subtract</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2017/01/16/Markdown%E8%AF%AD%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/01/16/Markdown%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">Markdown 语法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-01-16 19:51:05" itemprop="dateCreated datePublished" datetime="2017-01-16T19:51:05+08:00">2017-01-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:12:05" itemprop="dateModified" datetime="2020-09-18T23:12:05+08:00">2020-09-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="兼容HTLM"><a href="#兼容HTLM" class="headerlink" title="兼容HTLM"></a>兼容HTLM</h1><p>　　<br>　　Markdown兼容HTML</p>
-<h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h1><p>　　<br>　　标题是每篇文章都需要也是最常用的格式，在 Markdown 中，如果一段文字被定义为标题，只要在这段文字前加 # 号即可。</p>
-<p># h1　　一级标题<br>## h2　　二级标题<br>### h3　　三级标题<br>#### h4　　四级标题<br>##### h5　　五级标题<br>###### h6　　六级标题</p>
-<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><p>　　<br>　　如果你需要引用一小段别处的句子，那么就要用引用的格式。</p>
-<blockquote>
-<p>例如这样</p>
-</blockquote>
-<p>　　只需要在文本前加入 &gt; 这种尖括号（大于号）即可</p>
-<h1 id="空格和回车"><a href="#空格和回车" class="headerlink" title="空格和回车"></a>空格和回车</h1><p>　　<br>　　空格　shift+space切换全角空格</p>
-<p>　　回车　空格+空格+回车</p>
-<h1 id="图片与链接"><a href="#图片与链接" class="headerlink" title="图片与链接"></a>图片与链接</h1><p>　　<br>　　插入链接与插入图片的语法很像，区别在一个 ! 号</p>
-<p>　　图片为：![](){ImgCap}{/ImgCap}</p>
-<p>　　链接为：[]()</p>
-<h2 id="插入链接"><a href="#插入链接" class="headerlink" title="插入链接"></a>插入链接</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[baidu.com](http:&#x2F;&#x2F;baidu.com)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>  <a target="_blank" rel="noopener" href="http://baidu.com">baidu.com</a></p>
-<h2 id="自动链接"><a href="#自动链接" class="headerlink" title="自动链接"></a>自动链接</h2><p>　　使用尖括号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;http:&#x2F;&#x2F;finyaci.github.io&gt;</span><br><span class="line">&lt;http:&#x2F;&#x2F;wikis.paradoxplaza.com&#x2F;&gt;</span><br></pre></td></tr></table></figure><br><a target="_blank" rel="noopener" href="http://finyaci.github.io">http://finyaci.github.io</a><br><a target="_blank" rel="noopener" href="http://wikis.paradoxplaza.com/">http://wikis.paradoxplaza.com/</a></p>
-<h2 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h2><p>  网页链接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![Mou icon](http:&#x2F;&#x2F;mouapp.com&#x2F;Mou_128.png)</span><br></pre></td></tr></table></figure><br>  <img src="http://mouapp.com/Mou_128.png" alt="Mou icon"></p>
-<h2 id="插入本地图片"><a href="#插入本地图片" class="headerlink" title="插入本地图片"></a>插入本地图片</h2><p>想要插入本地图片，可以将本地图片上传至github仓库，再从github引入链接<br>例如这样:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">![image kyuudou](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;finyaci&#x2F;Blog-Resources&#x2F;master&#x2F;Res&#x2F;image%20test&#x2F;kyuudou.jpg)</span><br><span class="line"></span><br></pre></td></tr></table></figure><br><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/image%20test/kyuudou.jpg" alt="image kyuudou">
-　</p>
-<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><p>　　<br>列表的显示只需要在文字前加上 - 或 * 即可变为无序列表，<br>有序列表则直接在文字前加1. 2. 3.<br>符号要和文字之间加上一个字符的空格。</p>
-<h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><p><strong>格式:</strong><br>* 1<br>* 2<br>* 3  </p>
-<p><strong>效果:</strong>
-　　</p>
-<ul>
-<li>1</li>
-<li>2</li>
-<li>3</li>
-</ul>
-<h2 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h2><p><strong>格式:</strong><br>1. 1<br>2. 2<br>3. 3  </p>
-<p><strong>效果:</strong></p>
-<ol>
-<li>1</li>
-<li>2</li>
-<li>3</li>
-</ol>
-<h1 id="字体与格式"><a href="#字体与格式" class="headerlink" title="字体与格式"></a>字体与格式</h1><h2 id="字体、字号、颜色"><a href="#字体、字号、颜色" class="headerlink" title="字体、字号、颜色"></a>字体、字号、颜色</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;font face&#x3D;&quot;黑体&quot;&gt;我是黑体字&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font face&#x3D;&quot;微软雅黑&quot;&gt;我是微软雅黑&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font face&#x3D;&quot;STCAIYUN&quot;&gt;我是华文彩云&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;#0099ff size&#x3D;5 face&#x3D;&quot;黑体&quot;&gt;黑体&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;#00ffff size&#x3D;3&gt;null&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;gray size&#x3D;5&gt;gray&lt;&#x2F;font&gt;</span><br></pre></td></tr></table></figure>
-<p><font face="黑体">我是黑体字</font></p>
-<p><font face="微软雅黑">我是微软雅黑</font></p>
-<p><font face="STCAIYUN">我是华文彩云</font></p>
-<p><font color=#0099ff size=5 face="黑体">黑体</font></p>
-<p><font color=#00ffff size=3>水色</font></p>
-<p><font color=gray size=5>gray</font></p>
-<h2 id="粗体与斜体"><a href="#粗体与斜体" class="headerlink" title="粗体与斜体"></a>粗体与斜体</h2><p>　　<br>用两个 * 包含一段文本就是粗体的语法，<br>用一个 * 包含一段文本就是斜体的语法。</p>
-<p>　　粗体 **粗体**   　<strong>粗体</strong></p>
-<p>　　斜体 *斜体* 　　　　<em>斜体</em></p>
-<h1 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h1><p>　　<br>分割线的语法只需要三个 * 号，例如：</p>
-<hr>
-<h1 id="代码框"><a href="#代码框" class="headerlink" title="代码框"></a>代码框</h1><p>　　</p>
-<p>需要引用代码时，如果引用的语句只有一段，不分行，可以用 ` 将语句包起来。<br>如果引用的语句为多行，可以将```置于这段代码的首行和末行。</p>
-<p><code>print(&quot;hello world&quot;)</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">num &#x3D; input(&quot;Please enter a number:&quot;)</span><br><span class="line">num &#x3D; int(num)</span><br><span class="line">if num&gt;5:</span><br><span class="line">	print(&quot;The number is more than 5.&quot;)</span><br><span class="line">else:</span><br><span class="line">	print(&quot;The number is less than 5.&quot;)</span><br><span class="line"></span><br><span class="line">print(&quot;You call these program? Rua!&quot;)</span><br></pre></td></tr></table></figure></p>
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p> <a target="_blank" rel="noopener" href="http://www.jianshu.com/p/1e402922ee32/">Markdown——入门指南</a><br> <a target="_blank" rel="noopener" href="http://www.jianshu.com/p/q81RER">献给写作者的 Markdown 新手指南</a><br> <a target="_blank" rel="noopener" href="http://wowubuntu.com/markdown/basic.html">Markdown: Basics （快速入门）</a><br> <a target="_blank" rel="noopener" href="http://blog.csdn.net/u011419965/article/details/50536937">Markdown 语法 示例 字体 字号 颜色</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1313,14 +1181,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
