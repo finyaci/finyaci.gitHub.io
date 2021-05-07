@@ -151,6 +151,394 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/24/Linux_Basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/24/Linux_Basic/" class="post-title-link" itemprop="url">Linux Basic</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-01-24 22:17:52" itemprop="dateCreated datePublished" datetime="2019-01-24T22:17:52+08:00">2019-01-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-05-29 09:15:25" itemprop="dateModified" datetime="2019-05-29T09:15:25+08:00">2019-05-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-目录简介"><a href="#1-目录简介" class="headerlink" title="1 目录简介"></a>1 目录简介</h1><ul>
+<li>/usr/bin             可执行二进制文件</li>
+<li>/lib                 库文件</li>
+<li>/usr/include         头文件</li>
+</ul>
+<h1 id="2-文件类型"><a href="#2-文件类型" class="headerlink" title="2 文件类型"></a>2 文件类型</h1><ul>
+<li>d 目录文件</li>
+<li>- 普通文件</li>
+<li>l 链接文件         link</li>
+<li>c 硬件字符设备     char /dev</li>
+<li>b 硬件块设备     block</li>
+<li>s 管道文件</li>
+</ul>
+<h1 id="3-文件权限"><a href="#3-文件权限" class="headerlink" title="3 文件权限"></a>3 文件权限</h1><p>-rw-r—r— root root 文件所有者 用户组 其他用户 文件所有者 文件属于用户组<br>r read<br>w write<br>x exe</p>
+<ul>
+<li>whoami</li>
+<li>cat /etc/group</li>
+<li>cat /etc/passwd</li>
+</ul>
+<h1 id="4-命令查询"><a href="#4-命令查询" class="headerlink" title="4 命令查询"></a>4 命令查询</h1><ul>
+<li>command [-options][parameter1]</li>
+</ul>
+<h2 id="—help-查询"><a href="#—help-查询" class="headerlink" title="—help 查询"></a>—help 查询</h2><ul>
+<li>ls —help 查询ls的用法</li>
+</ul>
+<h2 id="man-查询"><a href="#man-查询" class="headerlink" title="man 查询"></a>man 查询</h2><p>f 前滚<br>b 后滚<br>h 所有功能键</p>
+<ul>
+<li>enter 滚一行</li>
+<li>space 下一屏</li>
+<li><p>/word 搜索word</p>
+</li>
+<li><p>man man</p>
+</li>
+<li>man 1 printf</li>
+<li>man 3 printf</li>
+</ul>
+<h2 id="查询章节"><a href="#查询章节" class="headerlink" title="查询章节"></a>查询章节</h2><ul>
+<li>whatis printf</li>
+<li><p>output:</p>
+<p>printf (1)           - format and print data<br>printf (3)           - formatted output conversion</p>
+</li>
+</ul>
+<h2 id="which-查看命令的存放位置"><a href="#which-查看命令的存放位置" class="headerlink" title="which 查看命令的存放位置"></a>which 查看命令的存放位置</h2><ul>
+<li>which gcc</li>
+<li>which ls</li>
+<li>which rm</li>
+</ul>
+<h1 id="5-文件管理"><a href="#5-文件管理" class="headerlink" title="5 文件管理"></a>5 文件管理</h1><h2 id="ls-amp-输出重定向"><a href="#ls-amp-输出重定向" class="headerlink" title="ls &amp; 输出重定向"></a>ls &amp; 输出重定向</h2><ul>
+<li>ls 1.txt 可用于搜索</li>
+<li>ls -lah > 2.txt 输出重定向</li>
+<li><p>ls >> 2.txt 追加</p>
+</li>
+<li><p>cat 1.txt 2.txt > abc.txt 将12的内容取出重定向输出到abc</p>
+</li>
+</ul>
+<h2 id="分屏显示"><a href="#分屏显示" class="headerlink" title="分屏显示"></a>分屏显示</h2><ul>
+<li>more 2.txt</li>
+</ul>
+<h2 id="管道"><a href="#管道" class="headerlink" title="| 管道"></a>| 管道</h2><p>一个命令的输出可以作为另一个命令的输入</p>
+<ul>
+<li>cd /usr/include/</li>
+<li>ls | grep std</li>
+</ul>
+<p>output:</p>
+<p>stdc-predef.h<br>stdint.h<br>stdio_ext.h<br>stdio.h<br>stdlib.h<br>unistd.h</p>
+<ul>
+<li>ls /usr/include/ | more<br>分屏显示</li>
+</ul>
+<h2 id="清屏"><a href="#清屏" class="headerlink" title="清屏"></a>清屏</h2><ul>
+<li>ctrl+l</li>
+<li>clear</li>
+</ul>
+<h2 id="获取当前路径"><a href="#获取当前路径" class="headerlink" title="获取当前路径"></a>获取当前路径</h2><ul>
+<li>pwd</li>
+</ul>
+<h2 id="mkdir-rmdir-rm"><a href="#mkdir-rmdir-rm" class="headerlink" title="mkdir rmdir rm"></a>mkdir rmdir rm</h2><ul>
+<li>mkdir a/b/c -p     递归创建</li>
+<li>rmdir             无法递归删除</li>
+<li>rm a -rf         递归删除文件夹且不提示</li>
+<li>rm * -rf         慎用，全部删除</li>
+</ul>
+<h2 id="ln-建立链接文件"><a href="#ln-建立链接文件" class="headerlink" title="ln 建立链接文件"></a>ln 建立链接文件</h2><h3 id="链接普通文件"><a href="#链接普通文件" class="headerlink" title="链接普通文件"></a>链接普通文件</h3><ul>
+<li>ln -s 源文件 链接文件<h3 id="链接目录"><a href="#链接目录" class="headerlink" title="链接目录"></a>链接目录</h3></li>
+<li>ln -s 源目录 链接目录</li>
+</ul>
+<h2 id="grep-文本查找"><a href="#grep-文本查找" class="headerlink" title="grep 文本查找"></a>grep 文本查找</h2><ul>
+<li>grep mike text.txt -n 显示行号</li>
+<li>grep mike text.txt -i 忽略大小写</li>
+<li><p>grep mike text.txt -v 取反</p>
+</li>
+<li><p>grep ^a text.txt -n     查找以a开头的行</p>
+</li>
+<li>grep ke$ text.txt -n     查找以ke结尾的行</li>
+<li>grep 1 2 3 text.txt     查找关键字1或2或3</li>
+<li>grep “1 2 3” text.txt     查找1 2 3整体</li>
+</ul>
+<h2 id="find-查找文件"><a href="#find-查找文件" class="headerlink" title="find 查找文件"></a>find 查找文件</h2><ul>
+<li>find ./ -name *.c</li>
+<li>find /usr/include/ -name stdio*</li>
+<li>find ./ -size +12k -size -16k</li>
+<li>find ./ -perm 0777        搜索权限777的文件</li>
+</ul>
+<h2 id="cp-拷贝"><a href="#cp-拷贝" class="headerlink" title="cp 拷贝"></a>cp 拷贝</h2><ul>
+<li>cp src des -r          文件夹拷贝</li>
+<li>cp src.c des.c         文件拷贝</li>
+<li>-f 无提示 -v显示拷贝进度</li>
+<li>cp /lib ~/Test -rv     将/下lib文件夹拷贝至home的Test文件夹下</li>
+</ul>
+<h2 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h2><ul>
+<li>mv mike.c aaa.c                  改名</li>
+<li>mv mike.c ~/Test/bbb.c          移动到Test下并改名</li>
+</ul>
+<h2 id="file-查看文件类型"><a href="#file-查看文件类型" class="headerlink" title="file 查看文件类型"></a>file 查看文件类型</h2><ul>
+<li>file \<filename\></li>
+</ul>
+<h2 id="tar-打包"><a href="#tar-打包" class="headerlink" title="tar 打包"></a>tar 打包</h2><ul>
+<li>tar -cvf name.tar *                 当前目录下所有文件打包       </li>
+<li>tar -cvf name.tar 1.txt 2.txt</li>
+<li>tar -xvf name.tar                      解包      </li>
+<li>tar -xvf name.tar -C ~/Test/1         解包到指定目录要加-C</li>
+</ul>
+<h2 id="查看文件夹大小"><a href="#查看文件夹大小" class="headerlink" title="查看文件夹大小"></a>查看文件夹大小</h2><ul>
+<li>du ~/Test -h</li>
+</ul>
+<h2 id="gzip-压缩"><a href="#gzip-压缩" class="headerlink" title="gzip 压缩"></a>gzip 压缩</h2><ul>
+<li>gzip [-r] xxx.tar  压缩成tar.gz</li>
+<li>gzip -d xxx.tar.gz 解压成tar文件</li>
+</ul>
+<h3 id="压缩打包"><a href="#压缩打包" class="headerlink" title="压缩打包"></a>压缩打包</h3><ul>
+<li>tar -cvzf name.tar.gz 1.txt</li>
+<li>tar -xvzf name.tar.gz</li>
+</ul>
+<h2 id="bzip2"><a href="#bzip2" class="headerlink" title="bzip2"></a>bzip2</h2><ul>
+<li>bzip2 [-z] xxx.tar</li>
+<li>bzip2 -d xxx.tar.bz2</li>
+</ul>
+<h3 id="压缩打包-1"><a href="#压缩打包-1" class="headerlink" title="压缩打包"></a>压缩打包</h3><ul>
+<li>tar -cvjf name.tar.gz 1.txt</li>
+<li>tar -xvjf name.tar.gz</li>
+</ul>
+<h2 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h2><ul>
+<li>zip压缩文件的目标文件不需要指定扩展名</li>
+<li>zip -r(必须要加此参数) 目标文件(没有扩展名) 源文件</li>
+<li>zip -r test *</li>
+</ul>
+<h2 id="unzip"><a href="#unzip" class="headerlink" title="unzip"></a>unzip</h2><ul>
+<li>unzip -d 路径(必须写) 解压文件</li>
+<li>unzip -d ./ test.zip</li>
+</ul>
+<h1 id="6-用户管理"><a href="#6-用户管理" class="headerlink" title="6 用户管理"></a>6 用户管理</h1><h2 id="who-whoami-w"><a href="#who-whoami-w" class="headerlink" title="who whoami w"></a>who whoami w</h2><ul>
+<li>whoami</li>
+<li>who</li>
+<li>w</li>
+</ul>
+<h2 id="su-用户切换"><a href="#su-用户切换" class="headerlink" title="su 用户切换"></a>su 用户切换</h2><ul>
+<li>sudo su [root]    切换到root用户</li>
+<li>sudo su - [root]  切换root用户并改变当前路径为root的目录</li>
+<li>sudo su finyaci 切换到普通用户</li>
+<li>sudo su - finyaci 切换到普通用户并改变当前路径</li>
+</ul>
+<h2 id="groupadd-groupdel-用户组增删"><a href="#groupadd-groupdel-用户组增删" class="headerlink" title="groupadd groupdel  用户组增删"></a>groupadd groupdel  用户组增删</h2><ul>
+<li>cat /etc/group    查看 用户组名 用户组id</li>
+<li>sudo groupadd g1</li>
+<li>sudo groupdel</li>
+</ul>
+<h2 id="usermod-useradd-userdel-用户增删改变用户组"><a href="#usermod-useradd-userdel-用户增删改变用户组" class="headerlink" title="usermod useradd userdel  用户增删改变用户组"></a>usermod useradd userdel  用户增删改变用户组</h2><ul>
+<li>cat /etc/passwd   查看用户信息 用户名 用户id 用户组id</li>
+<li>sudo useradd -d /home/finyaci finyaci -m  -d 指定主目录 用户名 -m如果指定目录不存在自动创建目录</li>
+<li>sudo useradd -d /home/g2u1 g2u1 -m -g g2  -g 指定用户组</li>
+<li>sudo usermod -g \<username\> \<groupname\>    改变用户所属的组别</li>
+<li>sudo uerdel \<username\>                    删除用户         </li>
+<li>sudo uerdel -r \<username\>                 删除用户并删除主目录</li>
+</ul>
+<h2 id="更改密码-passwd"><a href="#更改密码-passwd" class="headerlink" title="更改密码 passwd"></a>更改密码 passwd</h2><ul>
+<li>sudo passwd g2u1  </li>
+</ul>
+<h2 id="查看登录记录"><a href="#查看登录记录" class="headerlink" title="查看登录记录"></a>查看登录记录</h2><ul>
+<li>sudo last</li>
+</ul>
+<h2 id="chmod-修改文件权限"><a href="#chmod-修改文件权限" class="headerlink" title="chmod 修改文件权限"></a>chmod 修改文件权限</h2><p><strong>chmod u/g/o/a +/-/= rwx 文件</strong><br><strong>r—:4 -w-:2 —x:1 —-:0</strong></p>
+<ul>
+<li>chmod u-w 1.txt</li>
+<li>chmod u=rx 1.txt</li>
+<li>chmod 777 1.txt</li>
+</ul>
+<p>> 对于文件夹:<br>> 没有r权限则无法查看文件夹内容<br>> 没有x权限则无法进入文件夹<br>> 没有w权限则无法在文件夹内新建或删除内容  </p>
+<h2 id="chown-chgrp-修改文件所有者-修改文件所属组"><a href="#chown-chgrp-修改文件所有者-修改文件所属组" class="headerlink" title="chown chgrp 修改文件所有者 修改文件所属组"></a>chown chgrp 修改文件所有者 修改文件所属组</h2><p><strong>-rw-r—r— root root</strong><br><strong>文件所有者权限 用户组权限 其他用户权限 文件所有者 文件属于用户组</strong><br><strong>chown 用户名 文件或目录</strong></p>
+<ul>
+<li>sudo chown g2u1 2.txt</li>
+<li>sudo chgrp g2 2.txt</li>
+</ul>
+<h1 id="6-系统管理"><a href="#6-系统管理" class="headerlink" title="6  系统管理"></a>6  系统管理</h1><h2 id="cal-date-查看日历-查看当前日期"><a href="#cal-date-查看日历-查看当前日期" class="headerlink" title="cal date 查看日历 查看当前日期"></a>cal date 查看日历 查看当前日期</h2><ul>
+<li>cal</li>
+<li>date</li>
+</ul>
+<h2 id="ps-查看进程信息"><a href="#ps-查看进程信息" class="headerlink" title="ps 查看进程信息"></a>ps 查看进程信息</h2><p><strong>-a 显示终端上所有进程</strong><br><strong>-u 显示进程详细状态</strong><br><strong>-x 显示没有终端控制的程序</strong><br><strong>-w 加宽显示</strong><br><strong>-r 显示正在运行的程序</strong>  </p>
+<ul>
+<li>ps -aux</li>
+</ul>
+<h3 id="借助管道过滤进程信息"><a href="#借助管道过滤进程信息" class="headerlink" title="借助管道过滤进程信息"></a>借助管道过滤进程信息</h3><ul>
+<li>ps -aux | grep g2u1</li>
+</ul>
+<h2 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h2><ul>
+<li>kill \<PID\>    终止进程</li>
+<li>kill -9 \<PID\> 杀死进程</li>
+</ul>
+<h2 id="top-动态显示进程"><a href="#top-动态显示进程" class="headerlink" title="top 动态显示进程"></a>top 动态显示进程</h2><p><strong>M：内存排序</strong><br><strong>P：CPU排序</strong><br><strong>T：运行时间排序</strong><br><strong>U：用户名筛选进程</strong><br><strong>K：输入PID杀死进程</strong><br><strong>q 退出 h 帮助</strong>  </p>
+<ul>
+<li>top</li>
+<li>top -d \<interval\> 指定更新时间间隔</li>
+</ul>
+<p><strong>ctrl+z 切换到后台</strong></p>
+<h2 id="amp-jobs-fg-后台程序"><a href="#amp-jobs-fg-后台程序" class="headerlink" title="&amp; jobs fg 后台程序"></a>&amp; jobs fg 后台程序</h2><p><strong>&amp; 在后台运行</strong></p>
+<ul>
+<li>vi hello.c<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span> </span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">  getchar();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line">- gcc hello.c -o hello</span><br><span class="line">- ./hello &amp; 以后台方式运行</span><br><span class="line"></span><br><span class="line">**jobs 查看后台任务列表**  </span><br><span class="line">- jobs</span><br><span class="line">**fg 将后台任务放到前台执行**  </span><br><span class="line">- fg</span><br><span class="line">- fg <span class="number">1</span></span><br><span class="line">- fg <span class="number">2</span></span><br><span class="line"></span><br><span class="line">#<span class="meta"># reboot shutdown 关机重启</span></span><br><span class="line">- reboot                重启</span><br><span class="line">- shutdown -r now       重启</span><br><span class="line">- shutdown -h now       立刻关机</span><br><span class="line">- shutdown -h <span class="number">20</span>:<span class="number">25</span>     指定时间关机</span><br><span class="line">- shutdown -h +<span class="number">5</span>        五分钟后关机</span><br><span class="line"></span><br><span class="line">## 切换字符界面</span><br><span class="line">ctrl+alt+f2</span><br><span class="line">ctrl+alt+f7</span><br><span class="line"></span><br><span class="line">#<span class="meta"># df 查看磁盘空间</span></span><br><span class="line">- df -h</span><br><span class="line">- df ./ -h</span><br><span class="line"></span><br><span class="line">#<span class="meta"># du 查看文件夹大小</span></span><br><span class="line">- du ./ -h</span><br><span class="line">- du ./ -a 递归查看文件夹内文件大小</span><br><span class="line"></span><br><span class="line">#<span class="meta"># ifconfig 网络查看 (win下 ipconfig)</span></span><br><span class="line">- ifconfig</span><br><span class="line"></span><br><span class="line">#<span class="meta"># vi</span></span><br><span class="line">##<span class="meta"># vim配置</span></span><br><span class="line">- cd</span><br><span class="line">- vim .vimrc</span><br></pre></td></tr></table></figure>
+set showcmd<br>set number<br>```   </li>
+</ul>
+<h3 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h3><ul>
+<li>vi hello.c +5 光标默认第五行</li>
+<li>vi hello.c 使用vi创建文件并编辑  </li>
+</ul>
+<h3 id="基础命令-amp-快捷键"><a href="#基础命令-amp-快捷键" class="headerlink" title="基础命令&amp;快捷键"></a>基础命令&amp;快捷键</h3><h4 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h4><ul>
+<li>:wq shift+zz  退出保存</li>
+<li>:q!           退出不保存  </li>
+<li>:x            退出保存</li>
+<li>:X            加密</li>
+<li>:!<command>   暂时离开并执行命令</li>
+<li>:w filename   写入保存</li>
+</ul>
+<h4 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h4><ul>
+<li>i            光标左边插入模式</li>
+<li>shift+i      行首插入</li>
+<li>a            光标右边插入模式</li>
+<li>shift+a      行末插入</li>
+<li>x            删除</li>
+<li>dw           删除光标位置到下个单词</li>
+<li>db           删除光标位置到前个单词</li>
+<li>daw : delete the word under the cursor    </li>
+<li>caw : delete the word under the cursor and put you in insert mode</li>
+<li>o            光标下方开启新行</li>
+<li>shift+o      光标上方开启新行</li>
+</ul>
+<h4 id="复制粘贴撤销重做"><a href="#复制粘贴撤销重做" class="headerlink" title="复制粘贴撤销重做"></a>复制粘贴撤销重做</h4><ul>
+<li>[n]dd   剪切从当前行开始的n行</li>
+<li>[n]yy   复制从当前行开始的n行</li>
+<li>p       粘贴</li>
+<li>u 撤销</li>
+<li>. 重做</li>
+</ul>
+<h4 id="文本定位"><a href="#文本定位" class="headerlink" title="文本定位"></a>文本定位</h4><ul>
+<li>gg      文档开始</li>
+<li>shift+g 文档末尾</li>
+<li>[n]gg 或 [n]shift+g 指定文档位置</li>
+</ul>
+<h4 id="文本查找"><a href="#文本查找" class="headerlink" title="文本查找"></a>文本查找</h4><ul>
+<li>/字符串      查找相匹配的内容</li>
+<li>n           下一个</li>
+<li>shift+n     上一个</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/13/Numpy_Basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/13/Numpy_Basic/" class="post-title-link" itemprop="url">Numpy Basic</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-01-13 12:37:22" itemprop="dateCreated datePublished" datetime="2019-01-13T12:37:22+08:00">2019-01-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-01-24 22:09:20" itemprop="dateModified" datetime="2019-01-24T22:09:20+08:00">2019-01-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">A = np.arange(<span class="number">0</span>, <span class="number">10</span>)</span><br><span class="line">B = np.array([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(A)</span><br><span class="line">print(B)</span><br><span class="line">print(B[np.array([<span class="number">0</span>,<span class="number">2</span>])])</span><br><span class="line">print(B[np.array([<span class="number">0</span>,<span class="number">2</span>])][np.array([<span class="number">1</span>])])</span><br><span class="line"></span><br><span class="line">res:</span><br><span class="line">[<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span>]</span><br><span class="line">[[<span class="number">1</span> <span class="number">2</span>]</span><br><span class="line"> [<span class="number">2</span> <span class="number">3</span>]</span><br><span class="line"> [<span class="number">3</span> <span class="number">4</span>]]</span><br><span class="line">[[<span class="number">1</span> <span class="number">2</span>]</span><br><span class="line"> [<span class="number">3</span> <span class="number">4</span>]]</span><br><span class="line">[[<span class="number">3</span> <span class="number">4</span>]]</span><br></pre></td></tr></table></figure>
+<h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">A = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line">B = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">              [<span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">7</span>]])</span><br><span class="line"></span><br><span class="line">A_ = A.reshape(<span class="number">1</span>, A.size)</span><br><span class="line">print(A_)</span><br><span class="line">print(A_.ndim)</span><br><span class="line">print(A.ndim)</span><br><span class="line">print(B.ndim)</span><br><span class="line"></span><br><span class="line">res:</span><br><span class="line">[[<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>]]</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/05/Deep%20Learning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3185,974 +3573,6 @@ PS：民族精神的核心-爱国主义
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/09/10/19%E6%94%BF%E6%B2%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/09/10/19%E6%94%BF%E6%B2%BB/" class="post-title-link" itemprop="url">2019 Politics - 马原</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-09-10 20:37:22" itemprop="dateCreated datePublished" datetime="2018-09-10T20:37:22+08:00">2018-09-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-11-28 20:56:17" itemprop="dateModified" datetime="2018-11-28T20:56:17+08:00">2018-11-28</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="马原（24’）"><a href="#马原（24’）" class="headerlink" title="马原（24’）"></a>马原（24’）</h1><pre><code>马哲（18&#39;,分析） 马政经 科社（4&#39;-6&#39;）
-</code></pre><p>哲学：<br>    a.哲学的基本问题及不同的哲学流派<br>    b.唯物论<br>    c.辨证法<br>    d.认识论<br>    e.唯物史观</p>
-<h1 id="1-哲学的基本问题："><a href="#1-哲学的基本问题：" class="headerlink" title="1.哲学的基本问题："></a>1.哲学的基本问题：</h1><h3 id="物质和意识何者为第一性（本源）"><a href="#物质和意识何者为第一性（本源）" class="headerlink" title="物质和意识何者为第一性（本源）?"></a>物质和意识何者为第一性（本源）?</h3><h4 id="唯物主义学派-物质有第一性"><a href="#唯物主义学派-物质有第一性" class="headerlink" title="唯物主义学派 物质有第一性"></a>唯物主义学派 物质有第一性</h4><p>1.古典朴素唯物主义 - 物质由一种或几种实物组成<br>2.机械（形而上学）唯物主义 - 物质由最小粒子（原子分子等）组成<br>3.现代辨证唯物主义 - 物质</p>
-<h4 id="唯心主义学派-精神有第一性"><a href="#唯心主义学派-精神有第一性" class="headerlink" title="唯心主义学派 精神有第一性"></a>唯心主义学派 精神有第一性</h4><p>1.主观唯心主义 - 精神即本我的精神<br>2.客观唯心主义 - 精神是独立于人之外的客观精神（绝对精神）<br>3.不彻底的唯心主义 - 二元论</p>
-<h3 id="物质和意识是否具有同一性（精神是否可以认识外部世界）"><a href="#物质和意识是否具有同一性（精神是否可以认识外部世界）" class="headerlink" title="物质和意识是否具有同一性（精神是否可以认识外部世界）"></a>物质和意识是否具有同一性（精神是否可以认识外部世界）</h3><h4 id="可知论（唯物，唯心）：人的意识可以认识客观世界"><a href="#可知论（唯物，唯心）：人的意识可以认识客观世界" class="headerlink" title="可知论（唯物，唯心）：人的意识可以认识客观世界"></a>可知论（唯物，唯心）：人的意识可以认识客观世界</h4><pre><code>PS：一切唯物论者和彻底的唯心论者都是可知论者
-</code></pre><h4 id="不可知论（二元论）：不可以认识客观世界"><a href="#不可知论（二元论）：不可以认识客观世界" class="headerlink" title="不可知论（二元论）：不可以认识客观世界"></a>不可知论（二元论）：不可以认识客观世界</h4><h2 id="2-物质"><a href="#2-物质" class="headerlink" title="2.物质"></a>2.物质</h2><h3 id="物质的定义"><a href="#物质的定义" class="headerlink" title="物质的定义"></a>物质的定义</h3><pre><code>&lt;=&gt;不依赖于人的感觉而存在，不以人的意志为转移
-</code></pre><h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><pre><code>是物质的：钢铁，生产关系，生产力，人类历史，物质
-不是物质：爱情，语言的含义
-</code></pre><h2 id="3-意识"><a href="#3-意识" class="headerlink" title="3.意识"></a>3.意识</h2><h3 id="意识的定义"><a href="#意识的定义" class="headerlink" title="意识的定义"></a>意识的定义</h3><pre><code>是物质世界的主观映象。人的机能。发展产物
-</code></pre><font color="red">PS：意识是人独有的</font>
-
-<h3 id="意识的三个阶段"><a href="#意识的三个阶段" class="headerlink" title="意识的三个阶段"></a>意识的三个阶段</h3><pre><code>1.一切物质，低等生物
-2.高等动物的感觉心里
-3.人的意识
-</code></pre><h3 id="促成意识的因素"><a href="#促成意识的因素" class="headerlink" title="促成意识的因素"></a>促成意识的因素</h3><pre><code>劳动是决定性的作用
-XX是重要作用
-</code></pre><h3 id="意识的作用——能动"><a href="#意识的作用——能动" class="headerlink" title="意识的作用——能动"></a>意识的作用——能动</h3><pre><code>1.自觉性，目的性，计划性 积极
-2.反映现象本质
-3.指导改造客观世界
-4.指导，控制人的行为活动
-</code></pre><h2 id="4-实践"><a href="#4-实践" class="headerlink" title="4.实践"></a>4.实践</h2><h3 id="实践的定义"><a href="#实践的定义" class="headerlink" title="实践的定义"></a>实践的定义</h3><pre><code>&gt;实践是人类能动地改造世界客观物质性活动
-人类：实践的主体，人才能实践，其他东西不能实践
-客观物质性：实践是物质
-</code></pre><h3 id="实践的特点（ATTENTION）"><a href="#实践的特点（ATTENTION）" class="headerlink" title="实践的特点（ATTENTION）"></a>实践的特点（ATTENTION）</h3><pre><code>1.直接现实性 - 把脑中的物变成现实的物
-2.自觉能动性 - 受意识指导
-3.社会历史性 - 不同时代人的实践不一样
-</code></pre><h3 id="实践基本形式"><a href="#实践基本形式" class="headerlink" title="实践基本形式"></a>实践基本形式</h3><pre><code>1.物质生产实践（劳动）
-2.社会政治实践（搞关系）
-3.科学文化实践（探索未知领域）
-</code></pre><h3 id="实践标准的确定性与不确定性及其意义"><a href="#实践标准的确定性与不确定性及其意义" class="headerlink" title="实践标准的确定性与不确定性及其意义"></a>实践标准的确定性与不确定性及其意义</h3><pre><code>1.实践是检验真理的唯一标准不能作绝对化的理解,实践标准是确定性和不确定性的统一,也就是绝对性和相对性的统一.　　
-2.实践标准的确定性,是指实践作为检验真理的客观标准,是唯一的,此外再没有其他的客观标准了；而且某种理论或认识是否具有真理性,归根结底将由实践来鉴别,这是确定的.承认实践标准的客观性和唯一性,也就必然承认实践标准的确定性.否认实践标准的确定性,将导致唯心主义和不可知论.　　
-3.实践标准的不确定性,是指实践检验认识是一个过程；同时,一定条件下的实践也不可避免带有自己的社会历史的局限性.从这个意义上说,实践标准又具有不确定性.否认实践标准的不确定性,就会使人的思想僵化,把人们的认识变成绝对不变的教条.
-</code></pre><h3 id="实践标准的确定性-绝对性"><a href="#实践标准的确定性-绝对性" class="headerlink" title="实践标准的确定性-绝对性"></a>实践标准的确定性-绝对性</h3><pre><code>实践是检验真理的唯一标准
-</code></pre><h3 id="实践标准的不确定性-相对性"><a href="#实践标准的不确定性-相对性" class="headerlink" title="实践标准的不确定性-相对性"></a>实践标准的不确定性-相对性</h3><pre><code>受主客观和历史条件的制约，不能绝对的予以正确
-</code></pre><h2 id="5-对立统一（矛盾）规律（ATTENTION）"><a href="#5-对立统一（矛盾）规律（ATTENTION）" class="headerlink" title="5.对立统一（矛盾）规律（ATTENTION）"></a>5.对立统一（矛盾）规律（ATTENTION）</h2><h3 id="矛盾既有同一性又有斗争性"><a href="#矛盾既有同一性又有斗争性" class="headerlink" title="矛盾既有同一性又有斗争性"></a>矛盾既有同一性又有斗争性</h3><pre><code>矛盾的同一性: 相互依存（互为存在），相互贯通（相互转换）
-矛盾的斗争性: 相互排斥，相互分离
-PS：矛盾的斗争形式：1.对抗性（激烈）-资本主义社会 2.非对抗性（缓和）- 社会主义社会
-</code></pre><h3 id="矛盾的作用"><a href="#矛盾的作用" class="headerlink" title="矛盾的作用"></a>矛盾的作用</h3><pre><code>同一性：1.双方利用对方发展自己 2.双方吸取利于自身的因素 3.双方向对立面转化而发展，规定事物发展方向
-斗争性：1.斗争促进双方力量变化-量变 2.斗争促进双方性质变化-质变
-</code></pre><h3 id="方法论意义："><a href="#方法论意义：" class="headerlink" title="方法论意义："></a>方法论意义：</h3><pre><code>1.一分为二 2.求同存异，和谐相处
-3.相互转化 
-4.批判继承
-</code></pre><h1 id="一、绪论"><a href="#一、绪论" class="headerlink" title="一、绪论"></a>一、绪论</h1><h2 id="哲学的基本问题"><a href="#哲学的基本问题" class="headerlink" title="哲学的基本问题"></a>哲学的基本问题</h2><h3 id="物质和意识何者为第一性（本源）-1"><a href="#物质和意识何者为第一性（本源）-1" class="headerlink" title="物质和意识何者为第一性（本源）?"></a>物质和意识何者为第一性（本源）?</h3><h4 id="唯物主义学派-物质有第一性-1"><a href="#唯物主义学派-物质有第一性-1" class="headerlink" title="唯物主义学派 物质有第一性"></a>唯物主义学派 物质有第一性</h4><pre><code>1.古典朴素唯物主义 - 物质由一种或几种实物组成
-2.机械（形而上学）唯物主义 - 物质由最小粒子（原子分子等）组成
-3.现代辨证唯物主义 - 物质
-</code></pre><h4 id="唯心主义学派-精神有第一性-1"><a href="#唯心主义学派-精神有第一性-1" class="headerlink" title="唯心主义学派 精神有第一性"></a>唯心主义学派 精神有第一性</h4><pre><code>1.主观唯心主义 - 精神即本我的精神
-2.客观唯心主义 - 精神是独立于人之外的客观精神（绝对精神）
-3.不彻底的唯心主义 - 二元论
-4.不彻底的唯物主义 - 旧唯物主义论 物质上唯物历史上唯心
-</code></pre><h3 id="物质和意识是否具有同一性（精神是否可以认识外部世界）-1"><a href="#物质和意识是否具有同一性（精神是否可以认识外部世界）-1" class="headerlink" title="物质和意识是否具有同一性（精神是否可以认识外部世界）"></a>物质和意识是否具有同一性（精神是否可以认识外部世界）</h3><h4 id="可知论（唯物，唯心）：人的意识可以认识客观世界-1"><a href="#可知论（唯物，唯心）：人的意识可以认识客观世界-1" class="headerlink" title="可知论（唯物，唯心）：人的意识可以认识客观世界"></a>可知论（唯物，唯心）：人的意识可以认识客观世界</h4><pre><code>PS：一切唯物论者和彻底的唯心论者都是可知论者
-</code></pre><h4 id="不可知论（二元论）：不可以认识客观世界-1"><a href="#不可知论（二元论）：不可以认识客观世界-1" class="headerlink" title="不可知论（二元论）：不可以认识客观世界"></a>不可知论（二元论）：不可以认识客观世界</h4><h3 id="4"><a href="#4" class="headerlink" title="-4-"></a>-4-</h3><pre><code>马克思主义强大生命力的根源：以实践为基础的科学性革命性统一
-马克思主义最基本最鲜明的特征：实践性，科学性，革命性
-马克思主义独有的特征：实践性，科学性
-</code></pre><h3 id="5"><a href="#5" class="headerlink" title="-5-"></a>-5-</h3><pre><code>1.无产阶级 最根本 的世界观方法论：辩证唯物主义，历史唯物主义
-2.马克思主义 最鲜明 的政治立场：以劳动人民为主体的广大人民的根本利益
-3.马克思主义 最重要 的理论品质：理论联系实-际实事求是实践检验真理，与时俱进
-（ATTENTION）4.马克思主义最崇高的社会理想：共产主义社会：物质财富极大丰富，人民精神境界极大丰富，每个人自由全面发展
-</code></pre><h3 id="6"><a href="#6" class="headerlink" title="-6-"></a>-6-</h3><pre><code>（哲学基本问题及哲学流派）
-哲学上：马克思两大贡献：1.历史唯物主义（唯物史观）2.辨证唯物主义
-理论上：唯物史观 剩余价值学说
-主义区分理论与哲学
-</code></pre><h1 id="二、唯物论"><a href="#二、唯物论" class="headerlink" title="二、唯物论"></a>二、唯物论</h1><h2 id="物质观"><a href="#物质观" class="headerlink" title="物质观"></a>物质观</h2><h3 id="7-物质范畴"><a href="#7-物质范畴" class="headerlink" title="-7- 物质范畴"></a>-7- 物质范畴</h3><h4 id="物质的定义（借助与意识关系定义）"><a href="#物质的定义（借助与意识关系定义）" class="headerlink" title="物质的定义（借助与意识关系定义）"></a>物质的定义（借助与意识关系定义）</h4><pre><code>&lt;=&gt;不依赖于人的感觉而存在，不以人的意志为转移
-</code></pre><h4 id="物质的唯一特性：客观实在"><a href="#物质的唯一特性：客观实在" class="headerlink" title="物质的唯一特性：客观实在"></a>物质的唯一特性：客观实在</h4><h3 id="8-物质和运动"><a href="#8-物质和运动" class="headerlink" title="-8- 物质和运动"></a>-8- 物质和运动</h3><h4 id="运动的定义"><a href="#运动的定义" class="headerlink" title="运动的定义"></a>运动的定义</h4><pre><code>变化 运动是物质的存在方式和根本属性
-</code></pre><h4 id="物质和运动的关系（词性不一致-不可分割）"><a href="#物质和运动的关系（词性不一致-不可分割）" class="headerlink" title="物质和运动的关系（词性不一致-不可分割）"></a>物质和运动的关系（词性不一致-不可分割）</h4><pre><code>不可分割 运动的物质，物质在运动
-</code></pre><h4 id="方法论意义"><a href="#方法论意义" class="headerlink" title="方法论意义"></a>方法论意义</h4><pre><code>脱离物质谈运动——&gt;唯心主义
-脱离运动谈物质——&gt;形而上学
-</code></pre><h3 id="9-运动和静止"><a href="#9-运动和静止" class="headerlink" title="-9- 运动和静止"></a>-9- 运动和静止</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><pre><code>一定条件下的稳定状态，空间位置和根本性质暂时不变
-</code></pre><h4 id="运动和静止的关系（词性一致-对立统一）"><a href="#运动和静止的关系（词性一致-对立统一）" class="headerlink" title="运动和静止的关系（词性一致-对立统一）"></a>运动和静止的关系（词性一致-对立统一）</h4><pre><code>对立统一 
-区别：运动是绝对的无条件的，静止是相对的有条件的
-联系：静中有动，动中有静
-</code></pre><h4 id="方法论意义-1"><a href="#方法论意义-1" class="headerlink" title="方法论意义"></a>方法论意义</h4><pre><code>夸大静止-&gt;形而上学
-夸大运动-&gt;诡辩论（河-赫拉克里特）
-
-PS：运动是物质的存在方式，时空是运动的存在方式
-</code></pre><h3 id="10-物质运动与时空"><a href="#10-物质运动与时空" class="headerlink" title="-10-物质运动与时空"></a>-10-物质运动与时空</h3><h4 id="时间与空间的定义"><a href="#时间与空间的定义" class="headerlink" title="时间与空间的定义"></a>时间与空间的定义</h4><pre><code>时间：物质运动的持续性，顺序性，特点：一维性
-空间：物质运动的广延性，伸展性，特点：三维性
-时空是运动的存在方式
-时空的特点（理解-选择对应选项）：客观性（不以人的意志为转移），绝对性（客观存在），相对性（ATTENTION相对论，速度改变时空改变），有限性（微观-一节课），无限性（宏观-宇宙）
-</code></pre><h4 id="时空与运动的关系"><a href="#时空与运动的关系" class="headerlink" title="时空与运动的关系"></a>时空与运动的关系</h4><pre><code>不可分割
-</code></pre><h2 id="意识观"><a href="#意识观" class="headerlink" title="意识观"></a>意识观</h2><h3 id="11-意识的起源本质作用"><a href="#11-意识的起源本质作用" class="headerlink" title="-11-意识的起源本质作用"></a>-11-意识的起源本质作用</h3><h4 id="意识的定义-1"><a href="#意识的定义-1" class="headerlink" title="意识的定义"></a>意识的定义</h4><pre><code>是物质世界的主观映象。人的机能。发展产物
-</code></pre><font color="red">PS：意识是人独有的</font>
-
-<h4 id="意识的三个阶段-1"><a href="#意识的三个阶段-1" class="headerlink" title="意识的三个阶段"></a>意识的三个阶段</h4><pre><code>1.一切物质，低等生物
-2.高等动物的感觉心里
-3.人的意识
-</code></pre><h4 id="促成意识的因素-1"><a href="#促成意识的因素-1" class="headerlink" title="促成意识的因素"></a>促成意识的因素</h4><pre><code>劳动是决定性的作用
-XX是重要作用
-</code></pre><h4 id="分析题-意识的作用——能动"><a href="#分析题-意识的作用——能动" class="headerlink" title="(分析题)意识的作用——能动"></a>(分析题)意识的作用——能动</h4><font color="red"> 
-    1.自觉性，目的性，计划性 积极
-    2.创造性 联想想象
-    3.指导改造客观世界
-    4.指导，控制人的行为活动
-</font>>
-
-#### 物质和意识的关系（对立统一-既区别又统一）
-    区别：1.物质本源，意识派生 2.物质不是意识意识不是物质
-    3.物质不能替代意识意识不能替代物质
-    联系：1.物质和意识可相互转化 2.意识依赖物质，又有点相对独立 3.物质决定意识，意识反作用于物质
-
-### -12-主观能动性和客观规律性的统一
-    尊重规律的前提下发挥能动性才能成功的实践
-    正确发挥主观能动性：1.规律 2.实践 3.物质基础
-
-### -13- 世界的物质统一性原理及其意义
-    1.世界统一的，世界的本原是一个
-    2.世界是物质的
-    3.世界是多样的 -（批判形而上学）
-
-<font color="red">1.马哲彻底坚持辨证法，唯心部分坚持辨证法</font>
-<font color="red">2.马哲历史上唯物，唯心历史上唯心</font>
-<font color="red">3.马哲坚持能动反映论，唯心坚持先验论</font>
-<font color="red">4.马哲彻底坚持辨证法，旧唯物完全不认同辨证法</font>
-<font color="red">5.马哲历史上唯物，旧唯物历史上唯心</font>
-<font color="red">6.马哲坚持实践，旧唯物没有</font>
-<font color="red">7.马哲坚持能动反映论，旧唯物坚持机械反映论</font>
-
-<h4 id="分析题-世界的物质统一性原理（一切从实际出发）"><a href="#分析题-世界的物质统一性原理（一切从实际出发）" class="headerlink" title="(分析题) 世界的物质统一性原理（一切从实际出发）"></a>(分析题) 世界的物质统一性原理（一切从实际出发）</h4><pre><code>理论意义：是马哲的基石，马哲的一切原则都以此为根本和前提
-实践意义：从事一切工作的立足点，一切从实际出发思想路线的哲学基础
-</code></pre><h1 id="三、辩证法"><a href="#三、辩证法" class="headerlink" title="三、辩证法"></a>三、辩证法</h1><p>1.两大总特征（世界是怎样的）：a.联系 b.发展<br>2.五对范畴：a原因和结果 b必然和偶然 c可能和现实 d现象和本质 e内容和形式 （概念关系方法论）<br>3.三大规律 ：a.对立统一 b.量变质变 c.否定之否定</p>
-<h2 id="两大总特征"><a href="#两大总特征" class="headerlink" title="两大总特征"></a>两大总特征</h2><p>1.普遍联系<br>2.永恒发展</p>
-<h3 id="14-1联系的含义"><a href="#14-1联系的含义" class="headerlink" title="-14-1联系的含义"></a>-14-1联系的含义</h3><pre><code>定义：事物之间的相互影响相互制约
-特点：1.客观性 2.普遍性 3.多样性（直接联系间接联系）4.条件性（条件对事物发展有制约作用，条件是可改变的没有条件可创造条件，条件不是任意的要遵循客观规律）
-PS：辩证法要求在区别中看到联系，联系中看到区别
-</code></pre><font color="red">知行合一违法马克思主义辩证法，因为它只讲联系不讲区别（制约），知行统（同）一才符合马克思辩证法，但选正确！！！！！！！！！！！！！！！！！！</font>
-
-<h3 id="14-2系统的观点"><a href="#14-2系统的观点" class="headerlink" title="-14-2系统的观点"></a>-14-2系统的观点</h3><pre><code>稳定结构，特定功能
-系统的整体性：
-1.整体具有部分所不具有的新功能
-2.脱离了整体的部分将丧失原有的功能
-</code></pre><h3 id="15-1-发展的含义"><a href="#15-1-发展的含义" class="headerlink" title="-15-1 发展的含义"></a>-15-1 发展的含义</h3><pre><code>1.运动 2.前进上升的运动 3.发展的实质是新事物的产生和旧事物的灭亡
-PS：运动=变化&gt;发展
-事物是永恒发展的
-</code></pre><h3 id="15-2-新旧事物的关系（高频）"><a href="#15-2-新旧事物的关系（高频）" class="headerlink" title="-15-2 新旧事物的关系（高频）"></a>-15-2 新旧事物的关系（高频）</h3><pre><code>新事物：合乎历史前进方向，有远大前途的东西
-旧事物：丧失历史必然性，日趋灭亡的东西
-新事物不可战胜：
-1.有新结构，适应新环境
-2.旧事物的改良，吸收了旧事物的优点，新内容
-3.符合人民的利益
-PS：新旧事物界定并不取决时间先后
-</code></pre><h3 id="15-3-过程的观点"><a href="#15-3-过程的观点" class="headerlink" title="-15-3 过程的观点"></a>-15-3 过程的观点</h3><pre><code>1.世界不是即成事物的集合体，而是过程的集合体
-2.一切在历史上产生的都要在历史上灭亡
-3.任何事物都有它的过去现在将来
-言而总之，总而言之：事物是过程的（而非绝对事物）
-</code></pre><h3 id="16-原因和结果"><a href="#16-原因和结果" class="headerlink" title="-16- 原因和结果"></a>-16- 原因和结果</h3><pre><code>揭示事物前后相继彼此制约的关系范畴
-1.原因是引起某种现象的现象
-2.结果是被某种现象引起的现象
-PS：前后相继的事物不一定是因果，除非后继是由前因导致
-
-关系：对立统一
-1.原因和结果的区分既是确定的，也是不确定的
-2.互为因果，因产生果，果影响因
-3.由果及因，由因得果
-4.因果关系是复杂的 特别的：同因异果，同果异因，多因多果，复合因果，所以不能说：有其因必有其果，有其果必有其因（反例：同因异果，同果异因）
-方法论：凡事预则立不预则废
-</code></pre><h3 id="17-必然性与偶然性"><a href="#17-必然性与偶然性" class="headerlink" title="-17-必然性与偶然性"></a>-17-必然性与偶然性</h3><pre><code>发生、发展和灭亡不同趋势的范畴
-
-关系：对立统一
-区别：事物发展中必然起决定性作用，偶然起影响作用
-联系：相互转化1.必然寓于偶然，通过大量的偶然表现出来 2.偶然背后隐藏着必然，偶然发生的事物是有原因的，所以这种偶然是一种必然。
-
-方法论:把握规律（必然），把握机遇（偶然）
-</code></pre><h3 id="18-可能性和现实性"><a href="#18-可能性和现实性" class="headerlink" title="-18- 可能性和现实性"></a>-18- 可能性和现实性</h3><pre><code>可能和不可能：现实中的依据 1.有-&gt;可能 2.没有-&gt;不可能
-现实的可能和抽象的可能：依据是否充分 1.充分-&gt;现实的可能 2.不充分-&gt;抽象（非现实，潜在）的可能
-好的可能和坏的可能
-</code></pre><h3 id="19-现象和本质"><a href="#19-现象和本质" class="headerlink" title="-19- 现象和本质"></a>-19- 现象和本质</h3><pre><code>假象也是本质的表现
-假象不是错觉，假象是客观的错觉是主观的
-</code></pre><h3 id="20-内容和形式"><a href="#20-内容和形式" class="headerlink" title="-20- 内容和形式"></a>-20- 内容和形式</h3><pre><code>内容：事物的一切要素    
-形式：表现方式
-
-关系：对立统一
-联系：内容决定形式，形式反作用于内容。内容都有形式，形式离不开内容。形式适合内容，积极作用，反之消极作用。
-</code></pre><h2 id="对立统一规律（分析题）-发展当地原因和动力"><a href="#对立统一规律（分析题）-发展当地原因和动力" class="headerlink" title="对立统一规律（分析题）-发展当地原因和动力"></a>对立统一规律（分析题）-发展当地原因和动力</h2><p>唯物辩证法的实质与核心<br>1.同一性和斗争性的辩证关系原理（分析）<br>2.同一性和斗争性在事物发展中的作用原理（分析）<br>3.内因和外因的辨证关系原理（分析）<br>4.普遍性和特殊性的辨证关系原理（分析）<br>5.矛盾的不平衡发展原理（分析）<br>矛盾分析法</p>
-<h3 id="21-1-唯物辩证法的实质与核心（选择）"><a href="#21-1-唯物辩证法的实质与核心（选择）" class="headerlink" title="-21-1 唯物辩证法的实质与核心（选择）"></a>-21-1 唯物辩证法的实质与核心（选择）</h3><pre><code>唯物辩证法的实质与核心：对立统一
-原因：1.回答了事物发展的原因，揭示了普遍联系和永恒发展 2.贯穿其他规律 3.矛盾分析法 4.承认对立统一-唯物辩证法，否则，形而上学
-</code></pre><h3 id="21-2-同一性和斗争性的辩证关系原理（分析）（高频）"><a href="#21-2-同一性和斗争性的辩证关系原理（分析）（高频）" class="headerlink" title="-21-2 同一性和斗争性的辩证关系原理（分析）（高频）"></a>-21-2 同一性和斗争性的辩证关系原理（分析）（高频）</h3><pre><code>矛盾的同一性: 相互依存（互为存在），相互贯通（相互转换）
-矛盾的斗争性: 相互排斥，相互分离
-PS：矛盾的斗争形式：1.对抗性（激烈）-资本主义社会 2.非对抗性（缓和）- 社会主义社会
-PPS：矛盾既有同一性又有斗争性，同时存在
-PPPS：辨证关系=矛盾关系=对立统一关系=斗争同一关系
-</code></pre><font color="red">分析题
-
-    关系：对立统一
-    联系：相互联结，没有同一性就没有斗争性，没有斗争性就没有同一性，相互联结关系较强的斗争性强，弱的就弱。
-    区别：斗争性是无条件存在的，同一性是有条件存在的（并非所有事物都有相互联系，相互依存）
-
-    方法论意义：
-    1.一分为二 2.求同存异
-    3.相互转化 4.批判继承
-
-</font>
-
-<pre><code>分析题使用：
-（待补）
-</code></pre><h3 id="21-3-同一性和斗争性在事物发展中的作用原理（分析）（高频）"><a href="#21-3-同一性和斗争性在事物发展中的作用原理（分析）（高频）" class="headerlink" title="-21-3 同一性和斗争性在事物发展中的作用原理（分析）（高频）"></a>-21-3 同一性和斗争性在事物发展中的作用原理（分析）（高频）</h3><font color="red">分析题
-    同一性：1.双方利用对方发展自己 2.双方吸取利于自身的因素 3.双方向对立面转化而发展(强弱方反转)，规定事物发展方向
-    斗争性：1.斗争促进双方力量变化-量变 2.斗争促进双方性质变化-质变
-
-    方法论：
-    同一性-相辅相成
-    斗争性-相反相成
-    从事物对立面把握事物统一，逆向思考
-    和谐不是无差别的一致
-</font>
-
-<h3 id="21-4-内因和外因的辨证关系原理（分析）"><a href="#21-4-内因和外因的辨证关系原理（分析）" class="headerlink" title="-21-4 内因和外因的辨证关系原理（分析）"></a>-21-4 内因和外因的辨证关系原理（分析）</h3><pre><code>定义：内部矛盾-内因 外部矛盾-外因
-关系：对立统一
-区别：内因是事物发展的根本原因，外因改变事物发展的进程，是事物发展的第二原因
-联系：外因必须通过内因起作用，贯通推动事物发展
-
-方法论：内因决定事物发展，外因影响事物发展
-</code></pre><h3 id="21-5-普遍性和特殊性的辨证关系原理（分析）（高频）"><a href="#21-5-普遍性和特殊性的辨证关系原理（分析）（高频）" class="headerlink" title="-21-5 普遍性和特殊性的辨证关系原理（分析）（高频）"></a>-21-5 普遍性和特殊性的辨证关系原理（分析）（高频）</h3><font color="red">     
-    矛盾的普遍性：处处有矛盾
-    矛盾的特殊性：矛盾各有其特点 1.不同事物矛盾不同 2.不同阶段矛盾不同 3.诸多矛盾及每一矛盾不同方面各有不同性质地位
-
-    关系：
-    区别：共性是无条件的绝对的，个性是有条件的相对的
-    联系：共性和个性共存，共性中有个性，个性离不开共性
-
-    方法论意义：具体问题具体分析
-</font>
-
-<h3 id="21-6-矛盾的不平衡发展原理（分析）"><a href="#21-6-矛盾的不平衡发展原理（分析）" class="headerlink" title="-21-6 矛盾的不平衡发展原理（分析）"></a>-21-6 矛盾的不平衡发展原理（分析）</h3><font color="red"> 
-    主要矛盾处于支配地位起决定性作用，次要矛盾处于服从地位。每一对矛盾中既有矛盾的主要方面又有矛盾的次要方面。
-    原理：事物的性质主要是由主要矛盾决定的
-    方法论意义：“两点论”“重点论”，抓关键，看主流
-</font>
-
-<h2 id="质量互变定律（选择）-发展的过程和状态"><a href="#质量互变定律（选择）-发展的过程和状态" class="headerlink" title="质量互变定律（选择）- 发展的过程和状态"></a>质量互变定律（选择）- 发展的过程和状态</h2><pre><code>质：认识和实践的起点和基础
-量：认识的深化和精确化，估计事物的地位作用
-度：界限
-量变：数量增减和次序的变动 注意次序！！
-质变：根本变化
-
-联系：
-1.量变是质变的必要准备 - 错误观点：激变论
-2.质变是量变的必然结果 - 错误观点：庸俗进化论
-3.量变和质变是相互渗透 量变过程中有阶段性和局部性的部分质变，质变过程中有旧质在量上的收缩和新质在量上的扩张
-
-理论上方法论:夸大质变：激变论 夸大量变：庸俗进化论
-实践中的方法论：适度原则 对社会主义初级阶段 改革发展和稳定
-</code></pre><h2 id="否定之否定定律-发展的方向和归宿"><a href="#否定之否定定律-发展的方向和归宿" class="headerlink" title="否定之否定定律 - 发展的方向和归宿"></a>否定之否定定律 - 发展的方向和归宿</h2><pre><code>肯定因素：维持现成事物存在的因素 - 错误观点-形而上学-外在因素促成事物灭亡
-否定因素：促成现成事物灭亡的因素
-辨证否定观：辨证否定的实质是“扬弃” - 错误观点-形而上学-非黑即白
-
-否定之否定规律：两次否定，三个阶段。仿佛是向原来出发点的“回复”，但这是在更高阶段的“回复”，是“扬弃”的结果。
-
-理论上方法论:只看到回归，没看到发展：循环论 只看到发展，看不到回归：直线论
-实践中的方法论：前途是光明的 道路是曲折的 
-</code></pre><h2 id="24-四个全面战略布局-新发展理念-对唯物辩证法的创造性运用"><a href="#24-四个全面战略布局-新发展理念-对唯物辩证法的创造性运用" class="headerlink" title="-24- 四个全面战略布局 新发展理念 对唯物辩证法的创造性运用"></a>-24- 四个全面战略布局 新发展理念 对唯物辩证法的创造性运用</h2><pre><code>四个全面：全面依法治国，全面从严治党，全面小康社会，全面深化改革
-联系发展，整体全面，矛盾分析法
-五大理念：系统量变质变，否定之否定，具体问题具体分析，两点论重点论
-</code></pre><h1 id="四、认识论"><a href="#四、认识论" class="headerlink" title="四、认识论"></a>四、认识论</h1><p>1.认识的来源和本质<br>2.认识的过程和规律<br>3.认识的结果</p>
-<h2 id="25-实践的含义、特征和基本形式"><a href="#25-实践的含义、特征和基本形式" class="headerlink" title="-25-实践的含义、特征和基本形式"></a>-25-实践的含义、特征和基本形式</h2><h3 id="25-实践的含义"><a href="#25-实践的含义" class="headerlink" title="-25-实践的含义"></a>-25-实践的含义</h3><pre><code>&gt;实践是人类能动地改造世界客观物质性活动
-人类：实践的主体，人才能实践，其他东西不能实践，能动性的动作才叫实践，本能不属于实践
-客观物质性：实践是物质
-</code></pre><h3 id="26-实践的特点（ATTENTION）"><a href="#26-实践的特点（ATTENTION）" class="headerlink" title="-26-实践的特点（ATTENTION）"></a>-26-实践的特点（ATTENTION）</h3><pre><code>1.直接现实性 - 把脑中的物变成现实的物
-2.自觉能动性 - 受意识指导
-3.社会历史性 - 不同时代人的实践不一样
-</code></pre><h3 id="27-实践基本形式"><a href="#27-实践基本形式" class="headerlink" title="-27-实践基本形式"></a>-27-实践基本形式</h3><pre><code>1.物质生产实践（劳动）
-2.社会政治实践（搞关系）
-3.科学文化实践（探索未知领域）
-</code></pre><h4 id="实践标准的确定性与不确定性及其意义-1"><a href="#实践标准的确定性与不确定性及其意义-1" class="headerlink" title="实践标准的确定性与不确定性及其意义"></a>实践标准的确定性与不确定性及其意义</h4><pre><code>1.实践是检验真理的唯一标准不能作绝对化的理解,实践标准是确定性和不确定性的统一,也就是绝对性和相对性的统一.　　
-2.实践标准的确定性,是指实践作为检验真理的客观标准,是唯一的,此外再没有其他的客观标准了；而且某种理论或认识是否具有真理性,归根结底将由实践来鉴别,这是确定的.承认实践标准的客观性和唯一性,也就必然承认实践标准的确定性.否认实践标准的确定性,将导致唯心主义和不可知论.　　
-3.实践标准的不确定性,是指实践检验认识是一个过程；同时,一定条件下的实践也不可避免带有自己的社会历史的局限性.从这个意义上说,实践标准又具有不确定性.否认实践标准的不确定性,就会使人的思想僵化,把人们的认识变成绝对不变的教条.
-</code></pre><h4 id="实践标准的确定性-绝对性-1"><a href="#实践标准的确定性-绝对性-1" class="headerlink" title="实践标准的确定性-绝对性"></a>实践标准的确定性-绝对性</h4><pre><code>实践是检验真理的唯一标准
-</code></pre><h4 id="实践标准的不确定性-相对性-1"><a href="#实践标准的不确定性-相对性-1" class="headerlink" title="实践标准的不确定性-相对性"></a>实践标准的不确定性-相对性</h4><pre><code>受主客观和历史条件的制约，不能绝对的予以正确
-</code></pre><h2 id="28-主体客体中介"><a href="#28-主体客体中介" class="headerlink" title="-28-主体客体中介"></a>-28-主体客体中介</h2><pre><code>主体是实践和认识的个人
-主体特点：自主性能动性 设定实践目的，操作实践中介，改造实践客体
-主体能力：自然能力（体能） 精神能力（意志）
-实践主体：个体主体，群体主体，人类主体
-
-客体是被实践和认识的对象，客体不等同于客观存在的事物
-
-中介是各种形式的工具手段...
-实践的中介系统：物质性工具（望远镜，竹竿）语言符号工具（语言文字）
-
-主客体之间的关系：1.实践关系（改造） 2.认识关系（认识） 3.价值关系（用没有用）
-实践关系是最根本的关系
-实践的主体和客体与认识的主体和客体在本质上是一致的
-
-主题和客体相互作用的环节：1.计划 2.行动 3.反馈调节
-</code></pre><h2 id="28-实践决定认识（分析题）"><a href="#28-实践决定认识（分析题）" class="headerlink" title="-28- 实践决定认识（分析题）"></a>-28- 实践决定认识（分析题）</h2><font color="red">
-     为什么实践决定认识？
-
-    1.实践是认识的来源。实践产生了认识的需求，实践为认识的形成提供了可能 
-    2.实践是认识的动力
-    3.实践是认识的目的
-    4.实践是检验认识是否正确的标准
-</font>
-    认识来源：1.实践-决定性作用 2.间接经验 3.生理因素 
-
-## -28- 认识反作用于实践（分析题）
-<font color="red">
-
-    为什么认识对实践有指导作用？
-    1.实践受意识支配，决定了实践离不开认识的指导
-    2.认识的成果具有相对独立性（认识可以保留），形成后便能指导实践
-
-    3.认识指导实践表现在：找规律，创理论，定目标，选方式，改自身（适应环境）
-    4.认识反作用于实践的两种情况：促进实践，阻碍实践
-
-    理论：认识的高级形式
-    1.理论是对事物本质和规律的认识，应该走在实践前面，指导实践
-    2.科学理论预见未来，端正实践方向
-    3.科学理论作为精神力量，推动人在实践中创新
-
-</font>
-
-<pre><code>实践决定认识，认识反作用于实践
-实践先于认识，认识是实践的先导（指导）
-实践高于认识，实践与认识具有同一性（不能说合一 ）
-</code></pre><h2 id="29-认识的本质（选择）"><a href="#29-认识的本质（选择）" class="headerlink" title="-29- 认识的本质（选择）"></a>-29- 认识的本质（选择）</h2><pre><code>唯心主义先验论：认识不是对事物的反映，而是先于事物而存在的
-唯物主义反映论：先有客观事物，才有认识，认识是对客观事物的反映
-辩证唯物主义：能动反映（事物在脑中会加工改造）
-形而上学唯物主义：机械反映
-
-认识的本质：1.反映特性是人类认识的基本规定性 2.能动反映具有创造性 3.模仿+创造=认识
-</code></pre><h2 id="30-认识的两次飞跃（分析）"><a href="#30-认识的两次飞跃（分析）" class="headerlink" title="-30- 认识的两次飞跃（分析）"></a>-30- 认识的两次飞跃（分析）</h2><font color="red">
-    从感性认识到理性认识，从理性认识到实践认识
-
-    感性认识-低级阶段-外部形态-直接具体的反映-感觉知觉表象
-    理性认识-高级阶段-内部联系-间接概括的反映-概念判断推理假说
-
-    联系：1.感性认识和理性认识相互依存 2.认识过程中，相互渗透，感性中有理性，理性中有感性
-
-    夸大理性：教条主义（死读书）
-    夸大感性：经验主义（不读书）
-
-    感性认识上升到理性认识的条件：1.实践获得感性材料 2.理性思考加工感性材料
-
-</font>    
-
-<h2 id="31-认识过程重定理性因素和非理性因素"><a href="#31-认识过程重定理性因素和非理性因素" class="headerlink" title="-31- 认识过程重定理性因素和非理性因素"></a>-31- 认识过程重定理性因素和非理性因素</h2><font color="red">
-    理性因素：理性直观，理性思维能力-指导作用，解释作用，预见作用
-    非理性因素：人的情感意志-激活作用，驱动作用，控制作用
-
-</font>
-
-<h2 id="32-认识的规律-反复性-无限性"><a href="#32-认识的规律-反复性-无限性" class="headerlink" title="-32- 认识的规律 - 反复性 - 无限性"></a>-32- 认识的规律 - 反复性 - 无限性</h2><font color="red">
-    反复性：事物的认识经过从感性到理性的认识，由理性到实践，多次反复才能完成
-    客观上：事物暴露有个过程
-    主观上：主体认识能力提高需要过程
-
-    无限性：事物发展过程中，认识永无止境，无限发展，形式上循环往复，实质是前进上升
-
-    实践超前认识：冒进主义（左）
-    实践落后认识：保守主义（右）
-</font>
-
-
-<h2 id="33-真理及其特点（分析题）"><a href="#33-真理及其特点（分析题）" class="headerlink" title="-33- 真理及其特点（分析题）"></a>-33- 真理及其特点（分析题）</h2><h3 id="真理的定义"><a href="#真理的定义" class="headerlink" title="真理的定义"></a>真理的定义</h3><font color="red">
-    真理是人们对于 客观事物 及其 规律 的 正确认识
-    真理具有 1.客观性 2.一元性（同一种事物只有一种真理）
-    3.绝对性 
-        a、就客观性而言，真理是对客观事物及其规律的正确认识，包含不依赖人意识的客观内容，是无条件绝对的（PS：真理是对的，无条件的真理） 
-        b、人类认识的本性而言，完全可正确认识无限发展的物质世界，每个真理的获得都是对无限发展的物质世界的接近，是无条件绝对的（PS：人的认知能力是无穷的，可以完全认真这个世界） 
-        c、真理的发展而言，无数相对真理总和构成绝对真理（真理不断否定累积趋近终极真理）
-    4.相对性
-        a、广度上：只是对客观世界的一定范围、方面的正确认识，有待于扩展
-        b、深度上：只是对特定事物一定程度、层次的近似正确认识，有待深化
-        c、进程上：只是对事物一定发展阶段的正确认识，有待发展
-    真理一定是有用的
-
-    批判：有用即真理
-    批判：多数人承认的就是真理
-
-</font>
-
-<h3 id="绝对真理和相对真理的对立统一关系："><a href="#绝对真理和相对真理的对立统一关系：" class="headerlink" title="绝对真理和相对真理的对立统一关系："></a>绝对真理和相对真理的对立统一关系：</h3><font color="red">
-
-    1.绝对真理和相对真理是同一客观真理的两重属性
-    2.绝对真理和相对真理相互联结，相互包含
-    3.绝对真理和相对真理辨证转化
-
-    绝对真理和相对真理与人的至上性和非至上性统一
-    真理是具体的有条件的，不是抽象的
-
-    只看到绝对真理：教条主义
-    只看到相对真理：诡辩论 （怀疑主义）
-
-</font>
-
-<h3 id="真理与谬误"><a href="#真理与谬误" class="headerlink" title="真理与谬误"></a>真理与谬误</h3><pre><code>实践是标准，并不排斥逻辑证明的作用，它是检验真理的补充，但实践才是唯一标准
-</code></pre><font color="red">
-
-    谬误是对客观事物的错误认识
-    1.真理与谬误是对立的，有明确界限的
-    2.真理与谬误是统一的，相互依存
-    3.一定条件下，真理与谬误相互转化
-    一定范围内，真理与谬误是对立的
-    超出一定范围，则可相互转化，真理变谬误，谬误变真理
-
-</font>
-
-<h1 id="五、唯物史观"><a href="#五、唯物史观" class="headerlink" title="五、唯物史观"></a>五、唯物史观</h1><p>1.社会发展的物质动因<br>2.人民群众创造历史</p>
-<h2 id="40-唯物史观和唯心史观的对立"><a href="#40-唯物史观和唯心史观的对立" class="headerlink" title="-40- 唯物史观和唯心史观的对立"></a>-40- 唯物史观和唯心史观的对立</h2><pre><code>唯心史观缺陷：1.只看到历史发展的精神力量，忽略物质动因 2.只看到英雄人物的力量，没看到人民群众的力量-分水岭
-</code></pre><h2 id="41-社会存在和社会意识（重点选择）"><a href="#41-社会存在和社会意识（重点选择）" class="headerlink" title="-41- 社会存在和社会意识（重点选择）"></a>-41- 社会存在和社会意识（重点选择）</h2><pre><code>社会存在：1.地理环境-影响因素 2.人口因素-影响因素 3.生产方式-决定性力量
-生产方式：1.生产力（决定力量）2.生产关系
-社会意识：1.社会心理 2.自发形成的风俗、习惯
-3.社会意识形式-a.社会意识形态-阶级见解不一致（政治法律，道德，艺术，宗教，哲学） b.非社会意识形态-与经济阶级利益无关（自然学科）
-
-社会存在决定社会意识：
-1.社会存在是社会意识内容的客观来源，社会意识是社会物质生活过程及其条件的主观反映
-2.社会意识是人们进行社会物质交往的产物
-3.随着社会存在的发展，社会意识也相应的 或早或迟 地发展和变化
-
-社会意识反作用于社会存在：
-1.社会意识与社会发展的不平衡性（社会是否发达与意识是否先进无关）
-2.社会意识内部各种形式之间的相互影响及各自具有历史的继承性（例如封建思想的残余）
-3.好的社会意识促进社会存在，反之亦然
-
-社会意识的相对独立性：1.社会意识与社会存在发展不平衡 2.社会意识内部相互影响 3.受意识反作用于社会存在（最突出）
-</code></pre><h2 id="42-生产力与生产关系的矛盾运动规律"><a href="#42-生产力与生产关系的矛盾运动规律" class="headerlink" title="-42- 生产力与生产关系的矛盾运动规律"></a>-42- 生产力与生产关系的矛盾运动规律</h2><pre><code>生产力-人和自然的关系
-1.劳动资料即劳动手段-工具
-2.劳动对象 劳动资料+劳动对象=生产资料
-3.劳动者-最活跃的因素
-
-科技是第一生产力，但它不属于生产力下的三因素，科技这些因素相结合发挥巨大作用
-
-生产关系-人与人-包括生产资料所有制的关系，生产中人与人的关系和产品分配关系
-生产资料所有制是最基本的，决定性的区分不同生产方式，判定社会经济结构性质（封建，资本，共产）的客观依据
-
-生产力是生产的物质内容，生产关系是生产的社会形式
-
-生产力+生产关系=生产方式
-
-生产力决定生产关系
-好的生产关系促进于生产力，反之亦然。
-</code></pre><font color="red">
-社会发展的第一规律：生产关系一定要适应生产力发展的规律
-</font>
-
-<h2 id="43-经济基础与上层建筑的矛盾运动规律"><a href="#43-经济基础与上层建筑的矛盾运动规律" class="headerlink" title="-43- 经济基础与上层建筑的矛盾运动规律"></a>-43- 经济基础与上层建筑的矛盾运动规律</h2><pre><code>经济基础：生产力所决定的生产关系总和
-
-生产力决定生产关系，生产力决定经济基础
-
-上层建筑：经济基础之上的1.意识形态2.相应的制度组织设施
-1.观念上层建筑（就是社会意识形态）
-2.政治上层建筑
-
-社会意识 vs. 上层建筑
-非社会意识形态-社会意识形态（观念上层建筑）-政治上层建筑
-</code></pre><font color="red">
-政治上层建筑居于主导地位，国家政权是核心
-</font>
-
-<pre><code>关系：1.经济基础决定上层建筑 2.上层建筑反作用于经济基础，可以影响社会性质和历史进程，但不能决定历史发展的总趋势（生产力决定历史发展总趋势）
-</code></pre><font color="red">
-社会发展的第二规律：上层建筑一定要适应经济基础的发展
-
-判断生产关系先进：生产关系适应生产力的发展
-判断上层建筑先进：经济基础适应生产力的发展
-发展生产力->好的上层建筑
-</font>
-
-<h2 id="44-社会形态更替的一般规律和特殊形式"><a href="#44-社会形态更替的一般规律和特殊形式" class="headerlink" title="-44- 社会形态更替的一般规律和特殊形式"></a>-44- 社会形态更替的一般规律和特殊形式</h2><pre><code>社会形态：经济基础与上层建筑的统一体
-包括：经济形态，政治形态，意识形态
-经济基础是骨骼，上层建筑是血肉
-
-1.社会形态更替的统一性和多样性
-    纵向：时间 统一性（原奴封资共）和多样性（跳过几个阶段）
-    横向：不同国家各自特点和共同点
-2.社会形态更替的必然性和人们的历史选择性
-    民族利益
-    民族特点
-    交往（苏联）
-3.社会形态更替的前进性与曲折性
-    否定之否定-曲折上升
-</code></pre><h2 id="45-社会基本矛盾是社会发展的动力"><a href="#45-社会基本矛盾是社会发展的动力" class="headerlink" title="-45-社会基本矛盾是社会发展的动力"></a>-45-社会基本矛盾是社会发展的动力</h2><pre><code>社会基本矛盾：生产力与生产关系，经济基础与上层建筑的矛盾
-1.生产力是社会基本矛盾最基本的动力因素，社会发展进步的决定力量
-2.生产力与生产关系的矛盾是一切历史冲突的根源，决定社会中其他矛盾的存在和发展
-3.社会基本矛盾有不同表现形式和解决方式，从根本上影响社会形态变化发展
-
-社会基本矛盾-决定性（根本动力）；阶级，革命，改革，科技-重要性
-</code></pre><h2 id="49-科技社会在发展的作用"><a href="#49-科技社会在发展的作用" class="headerlink" title="-49- 科技社会在发展的作用"></a>-49- 科技社会在发展的作用</h2><pre><code>生产生活思维
-</code></pre><h2 id="51-现实的人及其本质"><a href="#51-现实的人及其本质" class="headerlink" title="-51- 现实的人及其本质"></a>-51- 现实的人及其本质</h2><pre><code>现实的人-有条件的
-抽象的人
-
-人与动物相区别：人的本质是劳动
-人与人相区别：人的本质是一切社会关系的总和
-</code></pre><h2 id="52-人民群众创造历史"><a href="#52-人民群众创造历史" class="headerlink" title="-52- 人民群众创造历史"></a>-52- 人民群众创造历史</h2><pre><code>人民群众-推动历史的人，人们-大多数人-劳动群众知识分子
-反动派-逆历史潮流
-
-为什么人民群众创造历史？
-1.物质精神财富创造者 2.社会变革决定力量 3.先进生产力先进文化创造者，实现自身利益根本力量
-
-经济条件是人民群众创造历史的根本制约因素
-
-方法论：
-
-群众观点：人民群众自己解放自己，全心全意为人民服务，一切向人民群众负责，虚心向群众学习
-
-群众路线：一切为了群众，一切依靠群众，从群众中来，到群众中去 
-
-个人在社会历史中的作用：一定作用，甚至决定作用，但不能决定历史发展的基本趋势，而是与人民一起创造历史
-</code></pre><h2 id="必然王国和自由王国"><a href="#必然王国和自由王国" class="headerlink" title="必然王国和自由王国"></a>必然王国和自由王国</h2><pre><code>自由是对必然的认识和客观世界的改造
-必然王国是指人们在认识和实践活动中，对客观事物及其规律还没有形成真正的认识而不能自觉地支配自己和外部世界的一种社会状态；
-自由王国则指人们在认识和实践活动中，认识了客观事物及其规律并自觉依照这一认识来支配自己和外部世界的一种社会状态。
-</code></pre><h1 id="错题知识点-马哲"><a href="#错题知识点-马哲" class="headerlink" title="错题知识点 - 马哲"></a>错题知识点 - 马哲</h1><h2 id="a-哲学的物质和自然科学的物质-单13"><a href="#a-哲学的物质和自然科学的物质-单13" class="headerlink" title="-a-哲学的物质和自然科学的物质 单13"></a>-a-哲学的物质和自然科学的物质 单13</h2><pre><code>哲学-共性 自然科学-个性
-</code></pre><h2 id="b-物质和意识的对立-单15"><a href="#b-物质和意识的对立-单15" class="headerlink" title="-b-物质和意识的对立 单15"></a>-b-物质和意识的对立 单15</h2><pre><code>哲学的基本问题：物质和意识何者为第一性
-物质和意识对立只在何者为第一性的范围内
-物质和意识具有同一性-对立统一
-</code></pre><h2 id="c-客观唯心主义"><a href="#c-客观唯心主义" class="headerlink" title="-c-客观唯心主义"></a>-c-客观唯心主义</h2><pre><code>绝对精神，道，理，宇宙精神
-</code></pre><h2 id="d-主观唯心主义"><a href="#d-主观唯心主义" class="headerlink" title="-d-主观唯心主义"></a>-d-主观唯心主义</h2><pre><code>我，存在就是被感知，精神，心
-</code></pre><h2 id="e-方法论-单42"><a href="#e-方法论-单42" class="headerlink" title="-e-方法论 单42"></a>-e-方法论 单42</h2><pre><code>把握规律（必然），把握机遇（偶然）
-预则立不预则废（因果）
-</code></pre><h2 id="f-记忆部分问题"><a href="#f-记忆部分问题" class="headerlink" title="-f- 记忆部分问题"></a>-f- 记忆部分问题</h2><pre><code>马克思主义产生的自然科学前提-______社会历史条件-______思想前提-______
-唯物辩证法总特征-______
-《德意志意识形态》-______
-《资本论》-______
-《共产党宣言》-______
-马克思主义的鲜明特征-______
-马克思主义最鲜明的品格-______
-马克思主义最鲜明的政治立场-______
-马克思主义区别其他理论的显著特征-______
-马克思主义最重要的理论品质-______
-马克思主义最崇高的社会理想-______
-无产阶级最根本的世界观方法论-______
-马克思主义当代价值-______
-</code></pre><h2 id="f-记忆部分答案"><a href="#f-记忆部分答案" class="headerlink" title="-f- 记忆部分答案"></a>-f- 记忆部分答案</h2><pre><code>马克思主义产生的自然科学前提：细胞学说，生物进化论，能量守恒和转化；社会历史条件：资本主义经济发展；思想前提：唯心——&gt;唯物，革命民主--&gt;共产主义
-唯物辩证法 总特征-联系和发展
-《德意志意识形态》：历史唯物主义
-《资本论》：工人阶级圣经
-《共产党宣言》：伟大事件，共同纲领，第一次全面阐述科社，标志着科社诞生
-马克思主义的 鲜明特征-人民性,实践性,发展性,科学性,革命性
-马克思主义 最鲜明 的品格-人民性
-马克思主义 最鲜明 的政治立场：以劳动人民为主体的广大人民的根本利益
-马克思主义 区别 其他理论的显著特征-实践性
-马克思主义 最重要 的理论品质：理论联系实际实事求是实践检验真理，与时俱进
-马克思主义最崇高的社会理想：共产主义社会：物质财富极大丰富，人民精神境界极大丰富，每个人自由全面发展
-无产阶级 最根本 的世界观方法论：辩证唯物主义，历史唯物主义
-马克思主义当代价值：中国发展，认识世界，社会进步（没有改革）
-</code></pre><h1 id="六、政治经济学"><a href="#六、政治经济学" class="headerlink" title="六、政治经济学"></a>六、政治经济学</h1><p> 1.简单商品经济-价值是什么，价值如何衡量，价值如何表现，价值有何规律<br> 2.发达商品经济（资本主义）-自由竞争阶段，垄断阶段</p>
-<h2 id="54-资本主义生产关系和生产方式的形成"><a href="#54-资本主义生产关系和生产方式的形成" class="headerlink" title="-54-资本主义生产关系和生产方式的形成"></a>-54-资本主义生产关系和生产方式的形成</h2><pre><code>资本主义产生的途径：1.小商品经济分化 2.商人和高利贷者转化
-资本原始积累：1.暴力剥夺农民土地 2.暴力手段掠夺货币财富
-资本主义革命，产业革命-&gt;资本主义建立
-</code></pre><h2 id="55-价值是什么-隐藏在商品里的抽象劳动"><a href="#55-价值是什么-隐藏在商品里的抽象劳动" class="headerlink" title="-55-价值是什么-隐藏在商品里的抽象劳动"></a>-55-价值是什么-隐藏在商品里的抽象劳动</h2><pre><code>商品经济对应自然经济
-商品经济：以交换（以物换物？）为目的的而进行生产的经济形式
-商品经济产生的历史条件：1.社会分工 2.生产资料和劳动产品属于不同所有者（私有）
-
-商品是用来交换满足人民某种需要的劳动产品，商品必须有价值和使用价值，是价值和使用价值的矛盾统一体
-使用价值-满足人需要的某种属性-自然属性-共有的属性-构成社会财富的物质内容
-价值-人类的劳动体力脑力耗费-社会属性-生产者的社会关系（劳动换劳动）
-
-价值和使用价值是对立统一的
-对立：不可兼得（为了获取价值要让出其使用价值，为了获得使用价值要付出价值） 
-统一：如果没有使用价值，对它劳动是没有价值的；如果有使用价值，但不劳动那也没有价值
-PS：空气泥土就没有价值
-
-交换价值-交换价值是一种使用价值同另一种使用价值相交换的量的比例或关系-表现为使用价值和使用价值交换的比例-实际上决定交换比例的是商品的价值
-
-价值的存在以使用价值的存在为前提，有价值的一定有使用价值
-使用价值是价值的物质承担者，也是交换价值的物质承担者，价值寓于使用价值，
-商品的价值实体是凝结在商品里的无差别人类劳动，价值是交换价值的基础，交换价值是价值的表现形式
-
-劳动的二重性：劳动既有具体劳动也有抽象劳动
-具体劳动：生产一定使用价值的不同形式的具体劳动，有用劳动-劳动的自然属性 ————&gt; 使用价值
-抽象劳动：无差别的人类劳动-劳动的社会属性 ————&gt; 价值
-</code></pre><h2 id="56-价值如何衡量"><a href="#56-价值如何衡量" class="headerlink" title="-56- 价值如何衡量"></a>-56- 价值如何衡量</h2><pre><code>社会必要劳动时间-正常情况下，制造某种商品的平均劳动时间-决定商品价值
-商品价值与时间成正比，与生产率反比
-
-社会劳动生产率增加-单位商品价值量减少-相同时间生产商品数量增多-商品价值总量不变
-个别劳动生产率增加-单位商品价值量不变-相同时间生产商品数量增多-商品价值总量增多
-
-影响劳动生产率的因素：劳动者平均熟练程度，科技水平，生产过程的社会结合，生产资料的规模和效能以及自然条件
-
-商品的价值量是以简单劳动为尺度计量的，
-复杂劳动等于自乘或多倍的简单劳动
-简单劳动和复杂劳动的配比由市场决定
-</code></pre><h2 id="57-价值如何表现"><a href="#57-价值如何表现" class="headerlink" title="-57- 价值如何表现"></a>-57- 价值如何表现</h2><pre><code>商品的使用价值很直观
-
-商品价值形式的发展经历四个阶段：1.简单或偶然的价值形式（1只羊=2把斧子）2.总和或扩大的价值形式 3.一般的价值形式 4.货币价值形式
-
-货币-金银的一般等价物，长期交换过程中形成的固定地充当一般等价物的商品
-PS：货币天然是金银，金银天然不是货币
-</code></pre><h3 id="货币的五种职能"><a href="#货币的五种职能" class="headerlink" title="货币的五种职能"></a>货币的五种职能</h3><pre><code>价值尺度：衡量其他商品的价值-1.货币是商品自身有价值-价值衡量价值 2.观念上的货币-在头脑中以货币充当的价值衡量某一事物的价值
-流通手段：商品交换的媒介-1.必须是现实的货币 2.可以不足值-一两黄金可以不足一两-衍生出了纸币-无价值-纸币没有价值尺度的功能
-贮藏手段：囤积金银
-支付手段：清偿债务，支付赋税工资租金等
-PS：支付-没有现货交易 流通-现货交易（一手交钱一手交货）
-世界货币：国际流通
-</code></pre><h3 id="货币的产生使整商品世界分化为两极"><a href="#货币的产生使整商品世界分化为两极" class="headerlink" title="货币的产生使整商品世界分化为两极"></a>货币的产生使整商品世界分化为两极</h3><pre><code>一极是各种各样的具体商品-代表商品的使用价值
-另一极是货币-代表商品的价值
-商品的使用价值和价值的矛盾变成了具体商品和货币的矛盾
-</code></pre><h2 id="58-价值有何规律"><a href="#58-价值有何规律" class="headerlink" title="-58-价值有何规律"></a>-58-价值有何规律</h2><h3 id="价值规律的内容"><a href="#价值规律的内容" class="headerlink" title="价值规律的内容"></a>价值规律的内容</h3><pre><code>商品的价值由社会必要劳动时间决定-再生产劳动力价值的时间
-商品交换以价值为基础，按照等价交换的原则进行
-</code></pre><h3 id="价值规律的表现形式"><a href="#价值规律的表现形式" class="headerlink" title="价值规律的表现形式"></a>价值规律的表现形式</h3><pre><code>商品价格围绕价值自发发波动
-价格：供求，币值，价值
-</code></pre><h3 id="价值规律的作用"><a href="#价值规律的作用" class="headerlink" title="价值规律的作用"></a>价值规律的作用</h3><pre><code>1.自发调节生产资料和劳动力在各生产部门的分配比率
-2.自发刺激社会生产力发展(技术革新)
-3.自发调节社会收入分配(有本事多赚)
-</code></pre><h3 id="价值规律的消极作用"><a href="#价值规律的消极作用" class="headerlink" title="价值规律的消极作用"></a>价值规律的消极作用</h3><pre><code>1.垄断，阻碍技术发展
-2.商品生产者两极分化
-3.自发调节生产资料和劳动力在各生产部门的分配比率--&gt;资源浪费
-</code></pre><h2 id="59-私有制基础上商品经济的基本矛盾"><a href="#59-私有制基础上商品经济的基本矛盾" class="headerlink" title="-59-私有制基础上商品经济的基本矛盾"></a>-59-私有制基础上商品经济的基本矛盾</h2><pre><code>私人劳动（私人角度）和社会劳动（社会分工的角度）的矛盾构成私有制商品经济的基本矛盾
-私人劳动和社会劳动之间的矛盾在资本主义制度下进一步发展成资本主义的基本矛盾，即生产资料的资本主义私有制和生产社会化之间的矛盾，正是这一矛盾的不断运动，资本主义终将灭亡
-
-PS：私人劳动和社会劳动是简单商品经济的基本矛盾．．它是所有商品内在矛盾的根源．
-一：私人劳动是指劳动具有私人性质．因为在私有制的条件下．．生产商品者占有生产资料．生产多少．怎么生产以及如何分配都是他私人的事．
-社会矛盾是指劳动具有社会性质．在社会分工条件下．生产者生产的产品不是供给自己消费的。他是为他人和社会需要而生产的．．是社会总劳动的组成部分．．
-要解决私人劳动和社会劳动的矛盾也就是说私人劳动要被社会所承认和接受．．可想而知就必须通过商品交换．而如果交换不成功也就是制造商品的的具体劳动得不到社会的承认．．这就使得抽象劳动不能实现其价值．．这就成了具体劳动和抽象劳动的矛盾．而劳动二重性有决定商品二因素．有形成了使用价值和价值的矛盾．还值得注意的是如果生产者的私人劳动的个别劳动时间高于社会必要劳动时间．就会让生产者在竞争中处于不利位置．甚至破产．这显然又形成了个别劳动时间和社会必要劳动时间的矛盾．归根结底具体劳动和抽象劳动的矛盾．使用价值和价值的矛盾．个别劳动时间和社会必要劳动的矛盾都根源与私人劳动和社会劳动的矛盾．
-二：私人劳动和社会劳动的矛盾又决定着私有制商品经济的产生和发展的全过程．．随着社会分工和私有制的发展．私人劳动和社会劳动的矛盾也随之发展．并且推动了简单商品经济的规模和范围不断扩大．是私人劳动和社会劳动的矛盾的进一步发展为社会化大生产和生产资料资本主义私人占有之间的矛盾．进而推进简单商品经济发展为资本主义商品经济．
-</code></pre><h2 id="60-马克思劳动价值论的意义"><a href="#60-马克思劳动价值论的意义" class="headerlink" title="-60- 马克思劳动价值论的意义"></a>-60- 马克思劳动价值论的意义</h2><pre><code>马克思在继承古典政治经济学劳动创造价值理论的同时，创立了劳动二重性理论
-劳动二重性理论成为了理解政治经济学的枢纽
-</code></pre><h3 id="深化马克思劳动价值论的意义"><a href="#深化马克思劳动价值论的意义" class="headerlink" title="深化马克思劳动价值论的意义"></a>深化马克思劳动价值论的意义</h3><pre><code>1.生产性劳动也是劳动
-2.科技人员，经营管理人员
-3.科技知识信息在财富和价值创造中的作用
-4.价值创造和价值分配关系的认识（资本家也应该获取一部分）
-</code></pre><h2 id="61-劳动成为商品与货币转化为资本"><a href="#61-劳动成为商品与货币转化为资本" class="headerlink" title="-61- 劳动成为商品与货币转化为资本"></a>-61- 劳动成为商品与货币转化为资本</h2><pre><code>劳动力：人的体力和脑力总和，劳动能力
-劳动力的使用即劳动
-劳动成为商品：1.劳动者是自由人 2.劳动者除了自由，一无所有。除劳动力没有其他可卖
-
-劳动力的价值=生产维持发展延续劳动所必需的生活品的价值
-1.维持劳动者生存的必需生活资料的价值 
-2.维持劳动者家属生存的必需生活资料的价值
-3.劳动者接受教育和训练的费用 
-劳动力价值构成包含历史道德因素-时期地区不同
-</code></pre><h3 id="劳动力商品的使用价值是劳动"><a href="#劳动力商品的使用价值是劳动" class="headerlink" title="劳动力商品的使用价值是劳动"></a>劳动力商品的使用价值是劳动</h3><pre><code>劳动力商品的使用价值是劳动，而劳动是普通商品价值的源泉-劳动力商品的使用价值就是价值的源泉，而且劳动力商品在消费过程中可以创造新价值，而且新价值的价值比劳动力本身的价值更大，因而能获得剩余价值，货币就可转化成资本
-劳动力这种特殊商品可以增殖，用于购买劳动力的货币叫资本
-</code></pre><h2 id="63-剩余价值的生产"><a href="#63-剩余价值的生产" class="headerlink" title="-63-剩余价值的生产"></a>-63-剩余价值的生产</h2><pre><code>资本主义生产过程是劳动过程（工人角度）和价值增殖（资本家角度）过程的统一
-
-从劳动角度：
-具体劳动：1.将生产资料的价值转移到商品中 2.生产商品的使用价值
-抽象劳动：生产新价值：1.必要劳动-用于再生产劳动力自身的价值（可变资本在价值生产过程中没被转移到商品中，而是由工人劳动再生产出来的）2.剩余劳动-剩余价值
-
-从资本角度：
-不变资本C-购买生产资料（劳动资料，劳动对象）的资本，不会增值
-可变资本V-用于购买劳动力的资本，可以增殖
-剩余价值M=工人生产的新价值-可变资本（工资）
-剩余价值率M&#39;=M/V-反映资本家对工人的剥削程度
-
-从时间角度：
-全天8小时工作
-前4个小时，为自己劳动，创造劳动力价值（工资），称为必要劳动时间
-后4给小时，为资本家劳动，创造剩余价值，称为剩余劳动时间        
-
-绝对剩余价值：必要劳动时间不变，延长工作时间，提高工作强度而产生的剩余价值
-相对剩余价值：必要劳动时间减少（通过技术等），相对延长剩余劳动时间产生的剩余价值
-相同点：1.都延长剩余劳动时间 不同点：2.绝对无技术进步，相对有；绝对必要时间没有缩短，相对有
-超额剩余价值：企业由于提高劳动生产率而使商品的个别价值低于社会价值的差额（由于技术进步某企业的产品价值和社会均价的差值）   
-超额（当全社会技术都进步，超额剩余价值消失，但相对剩余价值还存在）————&gt;相对
-
-生产自动化是资本家获取超额剩余价值的手段，雇佣工人的剩余劳动仍然是剩余价值的唯一源泉1.不存在绝对的无人2.剥削生产机器者，转移剥削
-</code></pre><h2 id="64-资本的积累"><a href="#64-资本的积累" class="headerlink" title="-64- 资本的积累"></a>-64- 资本的积累</h2><h3 id="资本的积累"><a href="#资本的积累" class="headerlink" title="资本的积累"></a>资本的积累</h3><pre><code>资本的积累：剩余价值的资本化
-
-剩余价值全部用于消费-生产在原有规模上重复进行-资本主
-义简单生产
-资本主义再生产的特点：扩大再生产
-
-资本积累是资本主义扩大再生产的源泉
-资本积累的源泉是剩余价值
-剩余价值-&gt;资本积累-&gt;扩大再生产
-
-资本积累的本质：利用工人的剩余价值扩大再生产，进一步加强对工人的剥削和统治
-
-资本积累的规模：工人剥削程度，劳动生产率，所用资本和所费资本的差额，资本家垫付资本的大小
-</code></pre><h3 id="资本的有机构成"><a href="#资本的有机构成" class="headerlink" title="资本的有机构成"></a>资本的有机构成</h3><pre><code>资本的技术构成：生产资料和劳动力之间的比例
-资本的价值构成：不变资本和可变资本的比例 C：V
-
-资本的有机构成：由技术构成决定并反映技术构成的变化的价值构成 C：V
-1.技术构成决定价值构成（生产资料和生产力比例决定对应不变资本和可变资本的比例）
-2.技术构成的变化使得价值构成也变化，价值构成变化因此体现技术构成的变化（生产资料和生产力比例的变化引起对应不变资本和可变资本比例的变化）
- PS：两个条件缺一不可
- PPS：价值构成的变化是由生产资料的涨价不是资本的有机构成(价值构成变化并不是因为技术构成变化导致的所以不是资本的有机构成)
-
- PS：资本主义生产过程中，资本的有机构成呈现不断提高趋势。有机构成提高，可变资本减少--&gt;大量失业，相对人口过剩--&gt;贫富差距加大--&gt;资本主义必将灭亡
-</code></pre><h2 id="66-剩余价值的循环"><a href="#66-剩余价值的循环" class="headerlink" title="-66-剩余价值的循环"></a>-66-剩余价值的循环</h2><pre><code>产业资本在循环过程中经历的三个不同阶段及资本执行的三种职能
-购买阶段-货币资本职能
-生产阶段-生产资本职能
-售卖阶段-商品资本职能
-
-产业资本运动的两个条件：三种职能空间上并存，时间上相继
-
-资本的周转：资本在运动中增殖，周而复始，不断反复循环
-
-资本周转的快慢：1.资本周转时间 2.生产资本中固定资本（多次转移到产品里中-设备）和流动资本（一次转移到产品里中-劳动对象，工资）的构成，流动资本越大，周转越快
-
-固定资本-劳动资料，流动资本-工资、劳动对象
-不变资本-劳动对象、劳动资料，可变资本-工资
-
-社会再生产的核心问题是社会总产品的实现问题，即价值补偿（卖的出去）和实物补偿（买到原料）
-
-I（生产生产资料） II（生产生活资料）商品价值构成 = C+V+M
-ΣI=I(C)+I(V)+I(M) 
-ΣII=II(C)+II(V)+II(M)
-
-I(V)+I(M)=II(C) 良性
-
-经济危机是资本主义条件下以强制方式解决社会再生产的实现问题的途径
-</code></pre><h2 id="66-剩余价值的分配"><a href="#66-剩余价值的分配" class="headerlink" title="-66- 剩余价值的分配"></a>-66- 剩余价值的分配</h2><pre><code>资本主义工资的本质：劳动力的价值或价格
-资本主义工资表现为：“劳动的价格”或工人全部劳动的报酬，模糊了工人必要劳动和剩余劳动的界限，掩盖资本主义剥削的关系
-
-（生产成本）成本价格=不变资本+可变资本 C+V
-利润=剩余价值 R=M
-平均利润=平均利润率*成本价格
-平均利润率=剩余价值总量（利润总量）/社会总资本 行业间竞争形成的
-生产价格=成本价格+平均利润
-价格围绕价值上下波动；资本主义中，价格围绕生产价格上下波动
-超额利润=超额剩余价值 行业内企业间形成的
-平均利润率不阻碍超额利润的形成
-
-等量资本获得等量利润
-
-理论上：马克思创立了剩余价值理论，创立了唯物史观
-哲学上：创立了唯物史观，形成了辨证唯物主义
-</code></pre><h2 id="68-资本主义的基本矛盾与经济危机"><a href="#68-资本主义的基本矛盾与经济危机" class="headerlink" title="-68-资本主义的基本矛盾与经济危机"></a>-68-资本主义的基本矛盾与经济危机</h2><pre><code>资本主义的基本矛盾：生产资料私人占有和生产社会化的矛盾-经济危机的根本原因
-具体表现：1.生产无限扩大与劳动人民支付能力的需求相对缩小的矛盾 2.个别企业内部生产的有组织性和整个社会生产的无政府状态之间的矛盾
-生产力和生产关系之间的矛盾在资本主义社会的具体体现
-
-生产相对过剩是资本主义经济危机的本质特征
-经济危机的可能性是由货币作为支付手段和流通手段引起的
-经济危机：危机（本质阶段），萧条，复苏，高涨
-</code></pre><h2 id="69-资本主义国家政治制度及其本质"><a href="#69-资本主义国家政治制度及其本质" class="headerlink" title="-69-资本主义国家政治制度及其本质"></a>-69-资本主义国家政治制度及其本质</h2><pre><code>职能：服务资本主义制度和资产阶级利益，资产阶级进行政治统治的工具
-对内：政治统治和社会管理
-对外：国际交往和维护国家安全及利益
-
-民主制度：主权在民，天赋人权，分权制衡，自由平等博，爱社会契约
-法制：宪法，私有制，主权在民，分权制衡
-国家政权：立法权行政权司法权分立
-
-资本主义政治制度的进步作用和局限性：
-1.金钱操纵下的民主，资产阶级精英统治下的民主
-2.法律名义上平等掩盖事实上的不平等
-3.政党制是一种维护资产阶级统治的政治制度，多党制是资产阶级选择自己国家管理者，实现其内部利益平衡的政治机制
-</code></pre><h2 id="71-资本主义从竞争到垄断"><a href="#71-资本主义从竞争到垄断" class="headerlink" title="-71-资本主义从竞争到垄断"></a>-71-资本主义从竞争到垄断</h2><pre><code>资本主义-自由竞争的资本主义，垄断资本主义
-垄断资本主义-私人垄断资本主义，国家垄断资本主义
-
-生产集中：生产资料，劳动力和商品集中于少数大企业
-资本集中：大资本吞并小资本，越来越多资本为少数大资本所支配
-
-垄断：少数资本主义大企业为获得高额利润，协议或联合对价格产量销售价格进行操纵或控制
-
-垄断形成的原因：1.获得高额利润2.避免两败俱伤3.形成竞争限制
-
-垄断的本质：联合来操纵并控制商品生产和销售市场，操纵垄断价格，攫取高额利润
-
-垄断资本主义阶段仍然存在竞争：
-1.竞争的经济条件，私有制
-2.垄断必须通过竞争来维持，否则垄断地位就会被取代
-3.不存在一个垄断组织囊括一切部门，一切社会的绝对垄断
-
-垄断条件下的竞争于自由竞争相比，具有新特点：
-1.竞争的主要目的是为了获得高额垄断利润
-2.不仅采用经济手段，还采取非经济手段
-3.竞争的范围更广规模更大
-
-金融：资金的融通
-金融资本：工业垄断和银行垄断资本融合在一起形成的垄断资本
-
-金融资本的形成：1.金融联系2.资本参与3.人士参与
-金融寡头 经济上：参与制 政治上：个人联合
-通过建立政策咨询机构，掌握新闻科教文化来左右和影响内政外交于社会生活
-
-垄断利润：凭借垄断地位而获得的高额利润
-垄断价格=成本价格+平均利润+垄断利润
-垄断高价-卖产品，垄断低价-采购原材料
-
-简单商品时期表现形式：价格围绕价值上下波动
-自由竞争资本主义表现形式：价格围绕生产价格上下波动
-垄断资本主义表现形式：价格围绕垄断价格上下波动
-</code></pre><h2 id="72-垄断资本主义的发展"><a href="#72-垄断资本主义的发展" class="headerlink" title="-72- 垄断资本主义的发展"></a>-72- 垄断资本主义的发展</h2><h3 id="国家垄断资本主义"><a href="#国家垄断资本主义" class="headerlink" title="国家垄断资本主义"></a>国家垄断资本主义</h3><pre><code>国家垄断资本主义：国家政权和私人垄断资本融合在一起的垄断资本主义
-国家垄断资本主义形成原因：
-1.社会生产力的发展-根本原因，要求生产资料在更大范围内被支配 
-2.经济波动和经济危机
-3.缓和社会矛盾，协调利益关系
-
-国家垄断资本主义的主要形式：1.国企2.公私合营3.国家向私人垄断企业订货提供补贴4.宏观调控5.微观规制
-
-宏观调控的目的：经济快速增长，充分就业，物价稳定，国际收支平衡
-★微观规制的目的：规范市场秩序，限制垄断，保护竞争，维护公众合法权益
-主要类型：反托拉斯法，公共事业规制，社会经济规制
-
-国家垄断资本主义，对资本主义发展产生积极作用，但资本主义基本矛盾仍然存在，所以资本主义必然灭亡
-</code></pre><h3 id="金融自由化与金融创新是金融垄断资本得以壮大的重要制度"><a href="#金融自由化与金融创新是金融垄断资本得以壮大的重要制度" class="headerlink" title="金融自由化与金融创新是金融垄断资本得以壮大的重要制度"></a>金融自由化与金融创新是金融垄断资本得以壮大的重要制度</h3><pre><code>垄断资本主义：金融化程度不断提高：
-1.金融业在国名经济中地位大幅上升
-2.实体经济的资本利润率下降，不得不把利润的一部分投入金融领域，金融资本急剧膨胀
-3.制造业就业人数减少，金融为核心的服务就业人数逐步增加
-4.虚拟经济脱离实体经济
-
-金融垄断资本的发展，一方面促进了资本主义的发展，但是经济过度虚拟化，导致金融危机频繁发生，全球经济灾难
-</code></pre><h3 id="垄断资本向世界范围扩展的经济动因"><a href="#垄断资本向世界范围扩展的经济动因" class="headerlink" title="垄断资本向世界范围扩展的经济动因"></a>垄断资本向世界范围扩展的经济动因</h3><pre><code>1.过剩资本输出
-2.非要害技术转移国外
-3.争夺商品销售市场
-4.确保原材料可靠来源（以资本换取原料）
-
-基本形式：1.借贷资本输出2.生产资本输出3.商品资本输出
-输出资本来源：1.私人资本输出2.国家资本输出
-后果：资本输出国有利的（但并不是没有害），资本输入国双刃剑
-
-国际垄断同盟瓜分以经济实力为基础
-早期-国际卡特尔
-当代-跨国公司，国家垄断资本主义的国际联盟（欧盟，七国集团）
-
-二战后，从事国际经济协调，维护国际经济秩序的国际性协调组织：国际货币基金组织，世界银行，世界贸易组织
-
-国际垄断同盟一定程度上促进全球经济，但根本还是为资产阶级服务
-
-经济全球化-贸易，生产，金融，企业经营
-生产力发展根本原因
-</code></pre><h2 id="74-当代资本主义经济增长新变化的表现和特点"><a href="#74-当代资本主义经济增长新变化的表现和特点" class="headerlink" title="-74-当代资本主义经济增长新变化的表现和特点"></a>-74-当代资本主义经济增长新变化的表现和特点</h2><pre><code>生产资料所有制变化：
-1.个体资本所有制
-2.私人股份所有制
-3.国家资本所有制
-4.法人资本所有制
-劳资分配关系的变化：职工参与决策，终身雇佣，职工持股，社会福利普遍化全民化
-社会阶层变化：资本家不再直接管理，CEO，知识型和服务型劳动者数量变化，劳动方式改变
-经济危机新特点：去工业化产业空心化，高度金融化，周期性危机和结构性危机
-政治制度变化：多元化，公民权利扩大，
-
-新变化的原因：生产力的发展
-</code></pre><h1 id="七、科学社会主义"><a href="#七、科学社会主义" class="headerlink" title="七、科学社会主义"></a>七、科学社会主义</h1><h2 id="79-空想社会主义的产生发展局限性"><a href="#79-空想社会主义的产生发展局限性" class="headerlink" title="-79-空想社会主义的产生发展局限性"></a>-79-空想社会主义的产生发展局限性</h2><pre><code>社会主义史上历史飞跃：1.空想到科学 2.理论到实践
-代表人物：圣西门傅里叶欧文科学社会主义的直接思想来源
-
-空想社会主义局限性：
-1.没有揭示资本主义必然灭亡的经济根源（私有制）
-2.看不到埋葬资本主义的力量（工人阶级）
-3.找不到通往理想社会的道路
-
-理论上：创立唯物史观，创立剩余价值学说-&gt;创立了科学社会主义
-第一国际巴黎公社-
-</code></pre><h2 id="82-无产阶级革命与俄国的探索"><a href="#82-无产阶级革命与俄国的探索" class="headerlink" title="-82-无产阶级革命与俄国的探索"></a>-82-无产阶级革命与俄国的探索</h2><pre><code>1.理论变为现实
-2.打击帝国主义，鼓舞革命
-3.激励了殖民地，半殖民地民族
-4.促进马克思列宁主义传播
-
-列宁把马克思主义和俄国国情结合，重大贡献宝贵思想
-
-苏联模式：
-经济方面：1.重工业 2.单一生产资料公有制，排斥市场
-政治方面：过度集权，软弱监督
-</code></pre><h2 id="87-社会主义首先在经济文化相对落后的国家取得胜利的原因"><a href="#87-社会主义首先在经济文化相对落后的国家取得胜利的原因" class="headerlink" title="-87-社会主义首先在经济文化相对落后的国家取得胜利的原因"></a>-87-社会主义首先在经济文化相对落后的国家取得胜利的原因</h2><pre><code>1.革命的客观形势和条件决定的（只有社会主义行得通）
-2.不违背生产关系适合生产力的状况的规律（封建主义跳过资本主义进入社会主义）
-</code></pre><h2 id="89-马克思主义预见未来社会"><a href="#89-马克思主义预见未来社会" class="headerlink" title="-89-马克思主义预见未来社会"></a>-89-马克思主义预见未来社会</h2><pre><code>1.在揭示人类社会发展的一般规律上指明社会发展方向
-2.在剖析资本主义社会旧世界中阐发未来新世界特点
-3.揭示未来社会一边特征，不做细节描述
-</code></pre><h2 id="90-共产主义基本特征"><a href="#90-共产主义基本特征" class="headerlink" title="-90-共产主义基本特征"></a>-90-共产主义基本特征</h2><pre><code>1.物质财富极大丰富，按需分配
-2.人们精神境界极大提高
-3.每个人自由全面发展，必然王国向自由王国的飞跃
-</code></pre><h2 id="92-两个必然两个绝不会"><a href="#92-两个必然两个绝不会" class="headerlink" title="-92-两个必然两个绝不会"></a>-92-两个必然两个绝不会</h2><pre><code>资本主义必将灭亡共产主义必然胜利
-无论哪种社会形态，在它所能容纳的全部生产力发挥出来，是绝不会灭亡的；而新的更高的生产关系在它的物质存在条件在旧社会的胎胞成熟以前是绝不会出现的
-</code></pre>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/07/13/Python%E5%BA%8F%E5%88%97%E8%A7%A3%E5%8C%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/13/Python%E5%BA%8F%E5%88%97%E8%A7%A3%E5%8C%85/" class="post-title-link" itemprop="url">Python序列解包</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2018-07-13 20:37:22 / Modified: 20:57:16" itemprop="dateCreated datePublished" datetime="2018-07-13T20:37:22+08:00">2018-07-13</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>a = 1,2,3<br>print(a)</p>
-<p>aa = (1,2,3)<br>print(aa)</p>
-<h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><p>b,c = (22,33)<br>print(b,c)</p>
-<h1 id="3-列表解包1"><a href="#3-列表解包1" class="headerlink" title="3 列表解包1"></a>3 列表解包1</h1><p>mm,nn = [123,234]<br>print(mm,nn)</p>
-<h1 id="4-列表解包2"><a href="#4-列表解包2" class="headerlink" title="4 列表解包2"></a>4 列表解包2</h1><p>pp, = [“_pp”]<br>ppx = [“_ppx”]<br>print(pp)<br>print(ppx)</p>
-<h1 id="5-列表解包3"><a href="#5-列表解包3" class="headerlink" title="5 列表解包3"></a>5 列表解包3</h1><p>ee,ff,gg,*other = [“_ee”,”_ff”,”_gg”,”_hh”,”_ii”]<br>print(ee,ff,gg,other)</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -4222,7 +3642,7 @@ I(V)+I(M)=II(C) 良性
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

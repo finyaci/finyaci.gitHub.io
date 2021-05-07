@@ -151,6 +151,215 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2017/01/16/Markdown%E8%AF%AD%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/01/16/Markdown%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">Markdown 语法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-01-16 19:51:05" itemprop="dateCreated datePublished" datetime="2017-01-16T19:51:05+08:00">2017-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-05-07 18:50:15" itemprop="dateModified" datetime="2021-05-07T18:50:15+08:00">2021-05-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="兼容HTLM"><a href="#兼容HTLM" class="headerlink" title="兼容HTLM"></a>兼容HTLM</h1><p>　　<br>　　Markdown兼容HTML</p>
+<h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h1><p>　　<br>　　标题是每篇文章都需要也是最常用的格式，在 Markdown 中，如果一段文字被定义为标题，只要在这段文字前加 # 号即可。</p>
+<p># h1　　一级标题<br>## h2　　二级标题<br>### h3　　三级标题<br>#### h4　　四级标题<br>##### h5　　五级标题<br>###### h6　　六级标题</p>
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><p>　　<br>　　如果你需要引用一小段别处的句子，那么就要用引用的格式。</p>
+<blockquote>
+<p>例如这样</p>
+</blockquote>
+<p>　　只需要在文本前加入 &gt; 这种尖括号（大于号）即可</p>
+<h1 id="空格和回车"><a href="#空格和回车" class="headerlink" title="空格和回车"></a>空格和回车</h1><p>　　<br>　　空格　shift+space切换全角空格</p>
+<p>　　回车　空格+空格+回车</p>
+<h1 id="图片与链接"><a href="#图片与链接" class="headerlink" title="图片与链接"></a>图片与链接</h1><p>　　<br>　　插入链接与插入图片的语法很像，区别在一个 ! 号</p>
+<p>　　图片为：![](){ImgCap}{/ImgCap}</p>
+<p>　　链接为：[]()</p>
+<h2 id="插入链接"><a href="#插入链接" class="headerlink" title="插入链接"></a>插入链接</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[baidu.com](http:&#x2F;&#x2F;baidu.com)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>  <a target="_blank" rel="noopener" href="http://baidu.com">baidu.com</a></p>
+<h2 id="自动链接"><a href="#自动链接" class="headerlink" title="自动链接"></a>自动链接</h2><p>　　使用尖括号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;http:&#x2F;&#x2F;finyaci.github.io&gt;</span><br><span class="line">&lt;http:&#x2F;&#x2F;wikis.paradoxplaza.com&#x2F;&gt;</span><br></pre></td></tr></table></figure><br><a target="_blank" rel="noopener" href="http://finyaci.github.io">http://finyaci.github.io</a><br><a target="_blank" rel="noopener" href="http://wikis.paradoxplaza.com/">http://wikis.paradoxplaza.com/</a></p>
+<h2 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h2><p>  网页链接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![Mou icon](http:&#x2F;&#x2F;mouapp.com&#x2F;Mou_128.png)</span><br></pre></td></tr></table></figure><br>  <img src="http://mouapp.com/Mou_128.png" alt="Mou icon"></p>
+<h2 id="插入本地图片"><a href="#插入本地图片" class="headerlink" title="插入本地图片"></a>插入本地图片</h2><p>想要插入本地图片，可以将本地图片上传至github仓库，再从github引入链接<br>例如这样:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">![image kyuudou](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;finyaci&#x2F;Blog-Resources&#x2F;master&#x2F;Res&#x2F;image%20test&#x2F;kyuudou.jpg)</span><br><span class="line"></span><br></pre></td></tr></table></figure><br><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/image%20test/kyuudou.jpg" alt="image kyuudou"></p>
+<h2 id="链接中带括号"><a href="#链接中带括号" class="headerlink" title="链接中带括号"></a>链接中带括号</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[baidu][1]</span><br><span class="line">[select][2]</span><br><span class="line"></span><br><span class="line">[1]:http:&#x2F;&#x2F;www.baidu.com&#x2F;</span><br><span class="line">[2]:https:&#x2F;&#x2F;jsoup.org&#x2F;apidocs&#x2F;org&#x2F;jsoup&#x2F;nodes&#x2F;Element.html#select(java.lang.String)</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="http://www.baidu.com/">baidu</a><br><a target="_blank" rel="noopener" href="https://jsoup.org/apidocs/org/jsoup/nodes/Element.html#select(java.lang.String)">select</a></p>
+<p>　</p>
+<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><p>　　<br>列表的显示只需要在文字前加上 - 或 * 即可变为无序列表，<br>有序列表则直接在文字前加1. 2. 3.<br>符号要和文字之间加上一个字符的空格。</p>
+<h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><p><strong>格式:</strong><br>* 1<br>* 2<br>* 3  </p>
+<p><strong>效果:</strong>
+　　</p>
+<ul>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+</ul>
+<h2 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h2><p><strong>格式:</strong><br>1. 1<br>2. 2<br>3. 3  </p>
+<p><strong>效果:</strong></p>
+<ol>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+</ol>
+<h1 id="字体与格式"><a href="#字体与格式" class="headerlink" title="字体与格式"></a>字体与格式</h1><h2 id="字体、字号、颜色"><a href="#字体、字号、颜色" class="headerlink" title="字体、字号、颜色"></a>字体、字号、颜色</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;font face&#x3D;&quot;黑体&quot;&gt;我是黑体字&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font face&#x3D;&quot;微软雅黑&quot;&gt;我是微软雅黑&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font face&#x3D;&quot;STCAIYUN&quot;&gt;我是华文彩云&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;#0099ff size&#x3D;5 face&#x3D;&quot;黑体&quot;&gt;黑体&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;#00ffff size&#x3D;3&gt;null&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;gray size&#x3D;5&gt;gray&lt;&#x2F;font&gt;</span><br></pre></td></tr></table></figure>
+<p><font face="黑体">我是黑体字</font></p>
+<p><font face="微软雅黑">我是微软雅黑</font></p>
+<p><font face="STCAIYUN">我是华文彩云</font></p>
+<p><font color=#0099ff size=5 face="黑体">黑体</font></p>
+<p><font color=#00ffff size=3>水色</font></p>
+<p><font color=gray size=5>gray</font></p>
+<h2 id="粗体与斜体"><a href="#粗体与斜体" class="headerlink" title="粗体与斜体"></a>粗体与斜体</h2><p>　　<br>用两个 * 包含一段文本就是粗体的语法，<br>用一个 * 包含一段文本就是斜体的语法。</p>
+<p>　　粗体 **粗体**   　<strong>粗体</strong></p>
+<p>　　斜体 *斜体* 　　　　<em>斜体</em></p>
+<h1 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h1><p>　　<br>分割线的语法只需要三个 * 号，例如：</p>
+<hr>
+<h1 id="代码框"><a href="#代码框" class="headerlink" title="代码框"></a>代码框</h1><p>　　<br>需要引用代码时，如果引用的语句只有一段，不分行，可以用 ` 将语句包起来。<br>如果引用的语句为多行，可以将```置于这段代码的首行和末行。</p>
+<p><code>print(&quot;hello world&quot;)</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">num &#x3D; input(&quot;Please enter a number:&quot;)</span><br><span class="line">num &#x3D; int(num)</span><br><span class="line">if num&gt;5:</span><br><span class="line">	print(&quot;The number is more than 5.&quot;)</span><br><span class="line">else:</span><br><span class="line">	print(&quot;The number is less than 5.&quot;)</span><br><span class="line"></span><br><span class="line">print(&quot;You call these program? Rua!&quot;)</span><br></pre></td></tr></table></figure></p>
+<h1 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Tables</th>
+<th style="text-align:center">Are</th>
+<th style="text-align:right">Cool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>col 3 is</td>
+<td style="text-align:center">right-aligned</td>
+<td style="text-align:right">$1600</td>
+</tr>
+<tr>
+<td>col 2 is</td>
+<td style="text-align:center">centered</td>
+<td style="text-align:right">$12</td>
+</tr>
+<tr>
+<td>zebra stripes</td>
+<td style="text-align:center">are neat</td>
+<td style="text-align:right">$1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p> <a target="_blank" rel="noopener" href="http://www.jianshu.com/p/1e402922ee32/">Markdown——入门指南</a><br> <a target="_blank" rel="noopener" href="http://www.jianshu.com/p/q81RER">献给写作者的 Markdown 新手指南</a><br> <a target="_blank" rel="noopener" href="http://wowubuntu.com/markdown/basic.html">Markdown: Basics （快速入门）</a><br> <a target="_blank" rel="noopener" href="http://blog.csdn.net/u011419965/article/details/50536937">Markdown 语法 示例 字体 字号 颜色</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2000/01/01/Python%20format()%E6%A0%BC%E5%BC%8F%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Finyaci">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Finyaci's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2000/01/01/Python%20format()%E6%A0%BC%E5%BC%8F%E5%8C%96/" class="post-title-link" itemprop="url">Python format()格式化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2000-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2000-01-01T00:00:00+08:00">2000-01-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-18 23:03:42" itemprop="dateModified" datetime="2020-09-18T23:03:42+08:00">2020-09-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#123;0&#125; love &#123;1&#125;.&#123;2&#125;&#x27;</span>.format(<span class="string">&quot;I&quot;</span>,<span class="string">&quot;F&quot;</span>,<span class="string">&quot;com&quot;</span>)</span><br><span class="line"><span class="string">&#x27;I love F.com&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#123;a&#125; love &#123;bb&#125;.&#123;c&#125;&#x27;</span>.format(a = <span class="string">&quot;I&quot;</span>,bb = <span class="string">&quot;F&quot;</span>,c = <span class="string">&quot;com&quot;</span>)</span><br><span class="line"><span class="string">&#x27;I love F.com&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&quot;&#123;&#123;0&#125;&#125;&quot;</span>.format(<span class="string">&#x27;haha&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;&#123;0&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#123;0:.1f&#125;&#123;1&#125;&#x27;</span>.format(<span class="number">27.658</span>,<span class="string">&#x27;GB&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;27.7GB&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;&#123;0:.2f&#125;&#123;1&#125;&#x27;</span>.format(<span class="number">27.658</span>,<span class="string">&#x27;GB&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;27.66GB&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2000/01/01/Python%20with%E8%AF%AD%E5%8F%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -720,189 +929,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2000/01/01/Requests%20%E5%BA%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2000/01/01/Requests%20%E5%BA%93/" class="post-title-link" itemprop="url">Requests 库</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2000-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2000-01-01T00:00:00+08:00">2000-01-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:03:35" itemprop="dateModified" datetime="2020-09-18T23:03:35+08:00">2020-09-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="http://docs.python-requests.org/zh_CN/latest/index.html">快速上手 — Requests 文档</a></p>
-<h1 id="1-requests库"><a href="#1-requests库" class="headerlink" title="1 requests库"></a>1 requests库</h1><h2 id="1-1"><a href="#1-1" class="headerlink" title="1.1"></a>1.1</h2><p><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/Python%20BIT/1Requests%20方法.JPG" alt="requests库 的7个主要方法"></p>
-<p><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/Python%20BIT/2Response%20对象的属性.JPG" alt="Response对象属性"></p>
-<p><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/Python%20BIT/3Requests库的异常.JPG" alt="Requests库的异常"></p>
-<p><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/Python%20BIT/4.raise_for_status.JPG" alt="raise_for_status()"></p>
-<p><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/Python%20BIT/5爬取网页通用代码框架.JPG" alt="爬取网页通用代码框架"></p>
-<p><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/Python%20BIT/6爬取网页通用代码框架输出结果比较.JPG" alt="爬取网页通用代码框架输出结果比较"></p>
-<h2 id="1-2-requests-get-url-params-None-kwargs"><a href="#1-2-requests-get-url-params-None-kwargs" class="headerlink" title="1.2 requests.get(url,params = None,**kwargs)"></a>1.2 requests.get(url,params = None,**kwargs)</h2><p><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/Python%20BIT/8params.JPG" alt="params"><br><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/Python%20BIT/9data.JPG" alt="data"><br><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/Python%20BIT/10json.JPG" alt="json"><br><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/master/Res/Python%20BIT/11headers.JPG" alt="headers"></p>
-<h1 id="2-爬取源码"><a href="#2-爬取源码" class="headerlink" title="2 爬取源码"></a>2 爬取源码</h1><h2 id="2-1-爬取京东页面-—-一般方法"><a href="#2-1-爬取京东页面-—-一般方法" class="headerlink" title="2.1 爬取京东页面 — 一般方法"></a>2.1 爬取京东页面 — 一般方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">&quot;https://item.jd.com/2967929.html&quot;</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	r = requests.get(url)</span><br><span class="line">	r.raise_for_status()</span><br><span class="line">	r.encoding = r.apparent_encoding</span><br><span class="line">	print(r.text) </span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">	print(爬取失败)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="2-2-爬取亚马逊-—-伪装成浏览器"><a href="#2-2-爬取亚马逊-—-伪装成浏览器" class="headerlink" title="2.2 爬取亚马逊 — 伪装成浏览器"></a>2.2 爬取亚马逊 — 伪装成浏览器</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">&quot;https://www.amazon.cn/gp/product/B01M8L5Z3Y&quot;</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	kv = &#123;<span class="string">&#x27;user-agent&#x27;</span>:<span class="string">&#x27;Mozilla/5.0&#x27;</span>&#125;</span><br><span class="line">	r = requests.get(url,headers = kv)</span><br><span class="line">	r.raise_for_status()</span><br><span class="line">	r.encoding = r.apparent_encoding</span><br><span class="line">	print(r.text)</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">	print(<span class="string">&#x27;爬取失败&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="2-3-360-amp-百度关键词"><a href="#2-3-360-amp-百度关键词" class="headerlink" title="2.3 360&amp;百度关键词"></a>2.3 360&amp;百度关键词</h2><p><img src="https://raw.githubusercontent.com/finyaci/Blog-Resources/a4e37432eb667a5f406068787600cf9f3f1b414f/Res/Python%20BIT/7搜索引擎关键词提交接口.JPG" alt="搜索引擎关键词提交接口"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">keyword = <span class="string">&#x27;Python&#x27;</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	kv = &#123;<span class="string">&#x27;wd&#x27;</span>:keyword&#125;</span><br><span class="line">	r = requests.get(<span class="string">&quot;http://www.baidu.com/s&quot;</span>,params = kv)</span><br><span class="line">	print(r.request.url)</span><br><span class="line">	r.raise_for_status()</span><br><span class="line">	print(len(r.text))</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">	print(<span class="string">&quot;爬取失败&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2000/01/01/U3D_RES/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Finyaci">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Finyaci's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2000/01/01/U3D_RES/" class="post-title-link" itemprop="url">U3D-001</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2000-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2000-01-01T00:00:00+08:00">2000-01-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-18 23:09:56" itemprop="dateModified" datetime="2020-09-18T23:09:56+08:00">2020-09-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Unity游戏开发视频教程目录 v18.6</p>
-<p>siki  SiKi学院  7月19日<br>本文是我发布的一个Unity游戏开发的学习目录，适合人群有下面的几种：<br>    想要做独立游戏的人<br>    想要找游戏开发相关工作的人<br>    对游戏开发感兴趣的人<br>    闲的蛋疼的人</p>
-<p>下面的学习路线每一步前面都有一个编号，可以直接在公众号里回复编号，查看这个学习内容的详细信息（课时列表和课时预览视频）</p>
-<p>大家有任何课程上的建议可以直接在SiKi学院（www.sikiedu.com）的课程讨论区里面提问，大家发的每一条信息我都会看，由于时间限制所以不一定都会回复。<br>你如果想做一些支持siki的事情的话你可以做下面的几件事情：<br>1，分享siki发布的每篇文章到朋友圈<br>2，把siki的公众号推荐你身边需要的朋友<br>有更多朋友的支持，我会走的更远，推出更多的视频教程</p>
-<p>我的微信公众号是：sikiedu<br>我的QQ号是：804632564<br>我的微博是：weibo.com/ipengcheng<br>SiKi学院：www.sikiedu.com(更新最新课程)</p>
-<p>一、最新课程<br>Shader Forge入门<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1n8324ujcUYmeMb40si30RQ">https://pan.baidu.com/s/1n8324ujcUYmeMb40si30RQ</a><br>密码：uxuq</p>
-<p>强大的UI编辑器 - FairyGUI入门教程<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1bmlElfaOFH5zGB92hILZKg">https://pan.baidu.com/s/1bmlElfaOFH5zGB92hILZKg</a><br>密码：jyqp</p>
-<p>Unity初级案例 - 愤怒的小鸟<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ZNzqsdiic6zWCXNOnlvElA">https://pan.baidu.com/s/1ZNzqsdiic6zWCXNOnlvElA</a><br>密码：l7fh</p>
-<p>AR系列教程 - Vuforia入门（Unity2017）<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1j4Nt_SCROrTsKU8_EIbYRg">https://pan.baidu.com/s/1j4Nt_SCROrTsKU8_EIbYRg</a><br>密码：kdrz</p>
-<p>Unity换装系统<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1yEOjBKM18_zRFuZIzDorMQ">https://pan.baidu.com/s/1yEOjBKM18_zRFuZIzDorMQ</a><br>密码：ovde</p>
-<p>通过实例学习：游戏存档和读档<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1v981EiRQ5ZQf0jmQPlHdMw">https://pan.baidu.com/s/1v981EiRQ5ZQf0jmQPlHdMw</a><br>密码：3424</p>
-<p>Unity新功能指南 - 使用TileMap快速构造2D关卡（Unity2017）<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1tY3yzPxVxB6s_wpZ3u5e8A">https://pan.baidu.com/s/1tY3yzPxVxB6s_wpZ3u5e8A</a><br>密码：too6</p>
-<p>Unity中级案例 - 甜品消消乐（Unity2017）<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1qO8QzFI8djJbvt_9BXM9zw">https://pan.baidu.com/s/1qO8QzFI8djJbvt_9BXM9zw</a><br>密码：gel8</p>
-<p>Unity初级案例 - 吃豆人<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/14acyKi4SB4gCY2_y2G0WNw">https://pan.baidu.com/s/14acyKi4SB4gCY2_y2G0WNw</a><br>密码：qtpr</p>
-<p>Unity实用插件 - EasyTouch5使用指南<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1RsmJcFAcub2Nz_eRhTdTjw">https://pan.baidu.com/s/1RsmJcFAcub2Nz_eRhTdTjw</a><br>密码：qrd5</p>
-<p>Unity初级案例 - 坦克大战<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1eGVzYU-pQLZntuGcFfm0Ww">https://pan.baidu.com/s/1eGVzYU-pQLZntuGcFfm0Ww</a><br>密码：exqi</p>
-<p>Unity初级案例 - 贪吃蛇<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1eHOcT584m8ifY-PJ1dUOtA">https://pan.baidu.com/s/1eHOcT584m8ifY-PJ1dUOtA</a><br>密码：5123</p>
-<p>Unity中级案例 - 捕鱼达人<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1BavBRS2tgLHFPMYgov3eRQ">https://pan.baidu.com/s/1BavBRS2tgLHFPMYgov3eRQ</a><br>密码：kz50</p>
-<p>零基础入门Unity - 古迹探险<br>链接：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1tlcEMnvA9B4cRj6sWRe_RA">https://pan.baidu.com/s/1tlcEMnvA9B4cRj6sWRe_RA</a><br>密码：66yn</p>
-<p>Unity API常用方法和类详细讲解<br><a target="_blank" rel="noopener" href="http://www.sikiedu.com/course/59/tasks">http://www.sikiedu.com/course/59/tasks</a></p>
-<p>AR系列教程 - Vuforia入门 ( Unity 2017.3 )<br><a target="_blank" rel="noopener" href="http://www.sikiedu.com/course/133">http://www.sikiedu.com/course/133</a></p>
-<p>Unity换装系统（Unity 2017.2）<br><a target="_blank" rel="noopener" href="http://www.sikiedu.com/course/130">http://www.sikiedu.com/course/130</a></p>
-<p>通过实例学习：游戏的存档与读档（Unity 2017.2）<br><a target="_blank" rel="noopener" href="http://www.sikiedu.com/course/129">http://www.sikiedu.com/course/129</a></p>
-<p>Unreal入门第二季 密室逃脱（Unreal基本知识学习）<br><a target="_blank" rel="noopener" href="http://www.sikiedu.com/course/124">http://www.sikiedu.com/course/124</a></p>
-<p>Unity新功能指南 - 使用TileMap快速构造2D关卡（Unity2017.3）<br><a target="_blank" rel="noopener" href="http://www.sikiedu.com/course/94">http://www.sikiedu.com/course/94</a></p>
-<p>Unity中级案例-甜品消消乐（Unity2017.2）<br><a target="_blank" rel="noopener" href="http://www.sikiedu.com/course/93">http://www.sikiedu.com/course/93</a></p>
-<p>Unity初级案例 - 吃豆人（Unity2017.2.0）<br><a target="_blank" rel="noopener" href="http://www.sikiedu.com/course/92">http://www.sikiedu.com/course/92</a></p>
-<p>Unity实用插件 - EasyTouch5使用指南（Unity2017.2.0p4）<br><a target="_blank" rel="noopener" href="http://www.sikiedu.com/course/91">http://www.sikiedu.com/course/91</a></p>
-<p>Unity初级案例 - 坦克大战(Unity2017.1)<br><a target="_blank" rel="noopener" href="http://www.sikiedu.com/course/90">http://www.sikiedu.com/course/90</a></p>
-<p>Unity初级案例 - 贪吃蛇（Unity2017.2.0）<br><a target="_blank" rel="noopener" href="http://www.sikiedu.com/course/89">http://www.sikiedu.com/course/89</a></p>
-<p>Unity中级案例 - 捕鱼达人（Unity5.6.4）<br><a target="_blank" rel="noopener" href="http://www.sikiedu.com/course/88">http://www.sikiedu.com/course/88</a></p>
-<p>Unreal入门第一季 C++编程学习<br><a target="_blank" rel="noopener" href="http://www.sikiedu.com/course/86">http://www.sikiedu.com/course/86</a></p>
-<p>126 Unity研究实验室（公众号内回复126）<br>127 如何制作塔防游戏（基于Unity5.5）<br>128 Unity编辑器扩展（Advanced Editor Scripting）<br>129 MySQL数据库从零到精通（Unity服务器端基础）</p>
-<p>二、案例教程<br>Unity5.2入门课程 - 进入Unity开发的奇幻世界<br>    共24课时 时长2h42m<br>    链接： <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1mhDZO7m">https://pan.baidu.com/s/1mhDZO7m</a><br>Tanks坦克大战视频教程<br>    共12课时<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1eTbuUxO">https://pan.baidu.com/s/1eTbuUxO</a> 密码:qi4b<br>Unity2D游戏开发2D Roguelike拾荒者<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1pMvvufp">https://pan.baidu.com/s/1pMvvufp</a> 密码:lzfa<br>如何使用Unity5.3开发2D游戏-视频教程<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1hud8VEc">https://pan.baidu.com/s/1hud8VEc</a> 密码:5evt<br>使用Unity5.2开发《我的世界》Minecraft（入门教程）<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1eTQfOYm">https://pan.baidu.com/s/1eTQfOYm</a> 密码:jwzu<br>如何制作塔防游戏（基于Unity5.5）<br>链接:<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1bd8mM-8MxtPUAuVUS2g5BQ">https://pan.baidu.com/s/1bd8mM-8MxtPUAuVUS2g5BQ</a><br>密码:pb6i</p>
-<p>三、C#教程<br>第一季 C#编程初级教程<br>    共68课时 时长：10h7m<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1nwGyGDN">https://pan.baidu.com/s/1nwGyGDN</a> 密码:memt<br>第二季 C#编程中级教程<br>    共38课时 时长：5h40m<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1htLYalI">https://pan.baidu.com/s/1htLYalI</a> 密码:78zv<br>第三季 C#编程高级教程<br>    共79课时 时长：13h41m<br>下载链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1slBP7mH">https://pan.baidu.com/s/1slBP7mH</a> 密码:eob1<br>第四季 数据结构教程<br>    共28课时 时长：4h58m<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1i6wT30L">https://pan.baidu.com/s/1i6wT30L</a> 密码:ihye</p>
-<p>四、SDK接入<br>Google AdMob广告接入 - 赚取第一桶金<br>    下载链接： <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1miNd5f6">https://pan.baidu.com/s/1miNd5f6</a><br>unityAds广告接入 - 接入视频广告<br>    下载链接： <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1skKBphz">https://pan.baidu.com/s/1skKBphz</a><br>Bmob支付接入(游戏商店出售道具功能)<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1nwc285r">https://pan.baidu.com/s/1nwc285r</a> 密码:i2ha</p>
-<p>五、插件<br>DFGUI - Daikon Forge GUI视频教程<br>    共49课时 时长：10h49m<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1jJeBj98">https://pan.baidu.com/s/1jJeBj98</a> 密码:3p9u<br>NGUI - Unity最火UI插件学习3.6.8版本<br>    共41课时 时长：7h0m<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1htuTDxM">https://pan.baidu.com/s/1htuTDxM</a> 密码:jbld<br>UGUI - Unity 4.6UIBeta版本入门学习<br>    共16课时 时长：2h8m<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1dGA8NYx">https://pan.baidu.com/s/1dGA8NYx</a> 密码:3g92<br>UGUI - Unity 5.1超强UI案例学习<br>    共40课时 时长：4h35m<br>    下载链接： <a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1qYENTW4">http://pan.baidu.com/s/1qYENTW4</a><br>DOTween动画插件视频教程<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1i6Ud2XB">https://pan.baidu.com/s/1i6Ud2XB</a> 密码:6amf<br>Unity火爆插件Behavior Designer行为树插件学习<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1smPd2m5">https://pan.baidu.com/s/1smPd2m5</a> 密码:f6cr<br>Unity火爆FSM插件PlayMaker视频教程<br>    下载链接：<a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1eRywEbw">http://pan.baidu.com/s/1eRywEbw</a></p>
-<p>六、游戏开发进阶<br>游戏编程进阶篇 第二季 Windows游戏开发<br>   链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1dG5PgHz">https://pan.baidu.com/s/1dG5PgHz</a> 密码:sej0<br>unet多人联机游戏开发 - 基于Unity5.3<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1nwRn3p3">https://pan.baidu.com/s/1nwRn3p3</a> 密码:w2p8<br>Unity编辑器扩展（Advanced Editor Scripting）<br>    链接:<a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1gfHURYF">http://pan.baidu.com/s/1gfHURYF</a></p>
-<p>七、公开课<br>公开课-C#编程<br>    共9课时 时长：8h38m<br>    下载链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1qXVom88">https://pan.baidu.com/s/1qXVom88</a> 密码:bxdw<br>公开案例-flappy bird<br>    共4课时 时长：4h24m<br>    下载链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1eScui1G">https://pan.baidu.com/s/1eScui1G</a> 密码:u6ka<br>公开课案例-飞机大战游戏<br>    共7课时 时长：5h26m<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1pNaDwJT">https://pan.baidu.com/s/1pNaDwJT</a> 密码:vqjy<br>公开课案例-使用df开发应用程序<br>    共2课时 时长：1h52m<br>    下载链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1pLonkoF">https://pan.baidu.com/s/1pLonkoF</a> 密码:ayvg<br>公开课案例-豪华版2048开发<br>    共11课时 时长：6h55m<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1pMhimyn">https://pan.baidu.com/s/1pMhimyn</a> 密码:5emv<br>公开课案例-炉石传说-卡牌游戏开发<br>    共25课时 时长：10h11m<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1kWsfG5h">https://pan.baidu.com/s/1kWsfG5h</a> 密码:m46c<br>公开课案例-恶魔射手<br>    共2课时 时长：2h58m<br>    下载链接： <a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1qYtPsoG">http://pan.baidu.com/s/1qYtPsoG</a><br>公开课案例-合金弹头<br>    共3课时 时长：4h40m<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1dH1gL4">https://pan.baidu.com/s/1dH1gL4</a> 密码:kx0z<br>公开课案例-忍者跑酷 Ninja<br>    共2课时 时长：2h38m<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1dGf0Hvb">https://pan.baidu.com/s/1dGf0Hvb</a> 密码:s7qb<br>EasyTouch 触摸检测插件学习3.1.0版本<br>    共1课时 时长1h39m<br>    下载链接：<a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1ntzSxC1">http://pan.baidu.com/s/1ntzSxC1</a><br>    密码：wcvf<br>Bmob移动后端云服务平台 游戏数据云端存储<br>    共1课时 时长1h33m<br>    下载链接： <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1cMcbds">https://pan.baidu.com/s/1cMcbds</a><br>iTween插件 - 补间动画插件学习<br>    共1课时 时长1h46m<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1qZU5kfy">https://pan.baidu.com/s/1qZU5kfy</a> 密码:pglw<br>Minimap小地图插件教程<br>    共1课时 时长1h22m<br>    链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1hualhYG">https://pan.baidu.com/s/1hualhYG</a> 密码:qhlm</p>
-<p>八、Unity研究实验室（公众号内回复126）<br>画图-使用LineRenderer组件<br>    下载地址：<a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1dFOItFF">http://pan.baidu.com/s/1dFOItFF</a></p>
-<p>九、Unity开发资源分享<br>    101 Unity最常用插件和资源、书籍下载<br>    117 SIKI收藏的10几款Unity商业游戏项目源码</p>
-<p>十、网络游戏<br>    MySQL数据库从零到精通（Unity服务器端基础）<br>        共27课时<br>        链接：<a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1mh6FR5Y">http://pan.baidu.com/s/1mh6FR5Y</a> 密码：qlf7</p>
-<p>点击阅读原文可以进入SiKi学院官网！<br>文章转载自公众号<br>SiKi SiKi<br>阅读原文</p>
-<p>微信扫一扫<br>关注该公众号</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -972,7 +998,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -28,7 +28,7 @@
 <meta property="og:description" content="1 XML基础 Extensible Markup Language - 可扩展标记语言  1.1 基本语法 文档声明 格式：必须在第一行 &lt;?xml 属性列表 ?&gt; 属性列表： version:1.0 - 必须属性 encoding:ISO-8859-1 - 文件编码使用字符集要与其一致 standalone:yes&#x2F;no - 是否依赖其它文件     使用css： &lt;?xml">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-29T06:36:22.000Z">
-<meta property="article:modified_time" content="2021-03-30T11:26:22.740Z">
+<meta property="article:modified_time" content="2021-05-07T10:50:15.879Z">
 <meta property="article:author" content="Finyaci">
 <meta property="article:tag" content="XML">
 <meta name="twitter:card" content="summary">
@@ -187,7 +187,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-30 19:26:22" itemprop="dateModified" datetime="2021-03-30T19:26:22+08:00">2021-03-30</time>
+                <time title="Modified: 2021-05-07 18:50:15" itemprop="dateModified" datetime="2021-05-07T18:50:15+08:00">2021-05-07</time>
               </span>
 
           
@@ -252,6 +252,80 @@
 </ul>
 </li>
 </ul>
+<h1 id="2-XML解析"><a href="#2-XML解析" class="headerlink" title="2 XML解析"></a>2 XML解析</h1><ul>
+<li>DOM<br>  优点：树形结构，可以进行CRUD操作<br>  缺点：一次性加载进内存，占用内存</li>
+<li>SAX - 事件驱动，逐行读取<br>  优点：不占内存<br>  缺点：只能读取，无法增删改</li>
+</ul>
+<h2 id="Jsoup-可以解析XML和HTML"><a href="#Jsoup-可以解析XML和HTML" class="headerlink" title="Jsoup - 可以解析XML和HTML"></a>Jsoup - 可以解析XML和HTML</h2><ul>
+<li>jsoup is a Java library for working with real-world HTML. It provides a very convenient API for fetching URLs and extracting and manipulating data, using the best of HTML5 DOM methods and CSS selectors.</li>
+<li><a target="_blank" rel="noopener" href="https://jsoup.org/">Ref-API</a></li>
+</ul>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://jsoup.org/apidocs/org/jsoup/Jsoup.html">Jsoup.parse()</a></p>
+<ul>
+<li>parse​(File in, String charsetName) - Document</li>
+<li>parse​(String html) - Document</li>
+<li>parse​(URL url, int timeoutMillis) - Document</li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://jsoup.org/apidocs/org/jsoup/nodes/Document.html">org.jsoup.nodes.Document</a></p>
+<ul>
+<li><p>H: org.jsoup.nodes.Node (implements java.lang.Cloneable)</p>
+<ul>
+<li>org.jsoup.nodes.Element<ul>
+<li>org.jsoup.nodes.Document</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>getElementById​(String id) - Element</p>
+</li>
+<li>getElementsByAttribute​(String key) - Elements</li>
+<li>getElementsByAttributeValue​(String key, String value) - Elements</li>
+<li>getElementsByClass​(String className) - Elements</li>
+<li><p>getElementsByTag​(String tagName) - Elements</p>
+</li>
+<li><p>PS:Document对象调用以上方法是获取整棵DOM树中的对象，Element对象调用以上方法则是获取子元素符合要求的对象</p>
+</li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://jsoup.org/apidocs/org/jsoup/nodes/Element.html">org.jsoup.nodes.Element</a></p>
+<ul>
+<li>获取子元素对象<ul>
+<li>getElementById​(String id) - Element</li>
+<li>getElementsByAttribute​(String key) - Elements</li>
+<li>getElementsByAttributeValue​(String key, String value) - Elements</li>
+<li>getElementsByClass​(String className) - Elements</li>
+<li>getElementsByTag​(String tagName) - Elements</li>
+</ul>
+</li>
+<li>获取属性值<ul>
+<li>String attr​(String attributeKey)</li>
+</ul>
+</li>
+<li>获取文本内容<ul>
+<li>String text()    - 返回所有子标签中的文本内容</li>
+<li>String html() - 返回子标签的HTML原始内容</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>快捷选择</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://jsoup.org/apidocs/org/jsoup/nodes/Element.html#select(java.lang.String)">Selector选择器</a><ul>
+<li>Elements select​(String cssQuery) - 一般在Document对象中调用（因为Document继承Element）</li>
+<li><a target="_blank" rel="noopener" href="https://jsoup.org/apidocs/org/jsoup/select/Selector.html">Ref-Selector</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/xpath/index.asp">XPaht</a><ul>
+<li>使用Jsoup需要JsoupXpath.jar</li>
+<li><a target="_blank" rel="noopener" href="http://jsoupxpath.wanghaomiao.cn/">Ref-API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Document document = Jsoup.parse(<span class="keyword">new</span> File(path), <span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">JXDocument jxDocument = <span class="keyword">new</span> JXDocument(document);</span><br><span class="line">List&lt;JXNode&gt; jxNodes = jxDocument.selN(<span class="string">&quot;//property[@name=&#x27;maxPoolSize&#x27;]&quot;</span>);</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -335,7 +409,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-XML%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">1 XML基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 基本语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E7%BA%A6%E6%9D%9F"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 约束</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-XML%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">1 XML基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 基本语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E7%BA%A6%E6%9D%9F"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 约束</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-XML%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">2 XML解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Jsoup-%E5%8F%AF%E4%BB%A5%E8%A7%A3%E6%9E%90XML%E5%92%8CHTML"><span class="nav-number">2.1.</span> <span class="nav-text">Jsoup - 可以解析XML和HTML</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -349,7 +423,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

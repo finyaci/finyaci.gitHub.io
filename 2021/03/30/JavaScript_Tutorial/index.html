@@ -20,17 +20,17 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="0 Referenceliaoxuefeng-javascriptw3c-javascript 1 HTML引入JavaScript 使用&lt;![CDATA[]]&gt;标签 标签可以定义多个，可放在任意位置，按顺序执行 内部方式 通常把JavaScript代码放到&lt;![CDATA[]]&gt;标签中 外部方式&lt;![CDATA[]]&gt;  123456789101112&lt;">
+  <meta name="description" content="0 Referenceliaoxuefeng-javascriptw3c-javascriptJavaScript * ECMAScript * DOM - Document Object Model * BOM - Browser Object Model * 事件 1 HTML引入JavaScript 使用&lt;script&gt;&lt;&#x2F;script&gt;标签 标签可以定义多个，可放在">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript_Tutorial">
 <meta property="og:url" content="http://example.com/2021/03/30/JavaScript_Tutorial/index.html">
 <meta property="og:site_name" content="Finyaci&#39;s Blog">
-<meta property="og:description" content="0 Referenceliaoxuefeng-javascriptw3c-javascript 1 HTML引入JavaScript 使用&lt;![CDATA[]]&gt;标签 标签可以定义多个，可放在任意位置，按顺序执行 内部方式 通常把JavaScript代码放到&lt;![CDATA[]]&gt;标签中 外部方式&lt;![CDATA[]]&gt;  123456789101112&lt;">
+<meta property="og:description" content="0 Referenceliaoxuefeng-javascriptw3c-javascriptJavaScript * ECMAScript * DOM - Document Object Model * BOM - Browser Object Model * 事件 1 HTML引入JavaScript 使用&lt;script&gt;&lt;&#x2F;script&gt;标签 标签可以定义多个，可放在">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-30T08:50:22.000Z">
-<meta property="article:modified_time" content="2021-03-30T11:26:22.740Z">
+<meta property="article:modified_time" content="2021-05-07T10:50:15.874Z">
 <meta property="article:author" content="Finyaci">
-<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="HTML-CSS-JavaScript">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://example.com/2021/03/30/JavaScript_Tutorial/">
@@ -179,10 +179,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-03-30 16:50:22 / Modified: 19:26:22" itemprop="dateCreated datePublished" datetime="2021-03-30T16:50:22+08:00">2021-03-30</time>
+              <time title="Created: 2021-03-30 16:50:22" itemprop="dateCreated datePublished" datetime="2021-03-30T16:50:22+08:00">2021-03-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-05-07 18:50:15" itemprop="dateModified" datetime="2021-05-07T18:50:15+08:00">2021-05-07</time>
+              </span>
 
           
 
@@ -195,12 +201,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="0-Reference"><a href="#0-Reference" class="headerlink" title="0 Reference"></a>0 Reference</h1><p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1022910821149312">liaoxuefeng-javascript</a><br><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/js/index.asp">w3c-javascript</a></p>
-<h1 id="1-HTML引入JavaScript"><a href="#1-HTML引入JavaScript" class="headerlink" title="1 HTML引入JavaScript"></a>1 HTML引入JavaScript</h1><ul>
-<li>使用&lt;![CDATA[<script></script>]]&gt;标签</li>
+        <h1 id="0-Reference"><a href="#0-Reference" class="headerlink" title="0 Reference"></a>0 Reference</h1><p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1022910821149312">liaoxuefeng-javascript</a><br><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/js/index.asp">w3c-javascript</a><br>JavaScript</p>
+<pre><code>* ECMAScript
+* DOM - Document Object Model
+* BOM - Browser Object Model
+* 事件
+</code></pre><h1 id="1-HTML引入JavaScript"><a href="#1-HTML引入JavaScript" class="headerlink" title="1 HTML引入JavaScript"></a>1 HTML引入JavaScript</h1><ul>
+<li>使用<code>&lt;script&gt;&lt;/script&gt;</code>标签</li>
 <li>标签可以定义多个，可放在任意位置，按顺序执行</li>
-<li>内部方式 通常把JavaScript代码放到&lt;![CDATA[<head>]]&gt;标签中</li>
-<li>外部方式&lt;![CDATA[<script src="jspath" type="text/javascript"></script>]]&gt;</li>
+<li>内部方式 通常把JavaScript代码放到<code>&lt;head&gt;</code>标签中</li>
+<li>外部方式<code>&lt;script src=&quot;jspath&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</code></li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/1.js&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span>alert(222)<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h1 id="2-JavaScript数据类型"><a href="#2-JavaScript数据类型" class="headerlink" title="2 JavaScript数据类型"></a>2 JavaScript数据类型</h1><ul>
@@ -223,13 +233,21 @@
 <li>使用var 定义的是局部变量</li>
 <li>不使用var 定义的是全局变量</li>
 </ul>
-<h1 id="4-JavaScript运算符"><a href="#4-JavaScript运算符" class="headerlink" title="4 JavaScript运算符"></a>4 JavaScript运算符</h1><p>获取数据类型 - typeof()<br>单目运算符</p>
-<pre><code>* + - 正负号 
-    * var a = +&quot;123&quot; - alert(a+alert(a)) - 123number
-    * var a = +&quot;123bc&quot; - alert(a+alert(a)) - NaNnumber
-</code></pre><p>比较运算符</p>
-<pre><code>* === 全等于 - 比较类型和值
-</code></pre><p>三目运算符</p>
+<h1 id="4-JavaScript运算符"><a href="#4-JavaScript运算符" class="headerlink" title="4 JavaScript运算符"></a>4 JavaScript运算符</h1><ul>
+<li>获取数据类型 - typeof()</li>
+<li>单目运算符<ul>
+<li>+ - 正负号 <ul>
+<li>var a = +”123” - alert(a+alert(a)) - 123number</li>
+<li>var a = +”123bc” - alert(a+alert(a)) - NaNnumber</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>比较运算符<ul>
+<li>=== 全等于 - 比较类型和值<br>三目运算符</li>
+</ul>
+</li>
+</ul>
 <h1 id="5-JavaScript流程控制语句"><a href="#5-JavaScript流程控制语句" class="headerlink" title="5 JavaScript流程控制语句"></a>5 JavaScript流程控制语句</h1><ul>
 <li>for</li>
 <li>if else</li>
@@ -241,7 +259,313 @@
 </ul>
 </li>
 </ul>
-
+<h1 id="6-JavaScript函数"><a href="#6-JavaScript函数" class="headerlink" title="6 JavaScript函数"></a>6 JavaScript函数</h1><h2 id="6-1-函数定义"><a href="#6-1-函数定义" class="headerlink" title="6.1 函数定义"></a>6.1 函数定义</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式一</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">abs</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式二</span></span><br><span class="line"><span class="keyword">var</span> abs = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="6-2-箭头函数"><a href="#6-2-箭头函数" class="headerlink" title="6.2 箭头函数"></a>6.2 箭头函数</h2><ul>
+<li>注意事项：<ul>
+<li>箭头函数完全修复了this的指向，this总是指向词法作用域，也就是外层调用者obj</li>
+<li>由于this在箭头函数中已经按照词法作用域绑定了，所以，用call()或者apply()调用箭头函数时，无法对this进行绑定，即传入的第一个参数被忽略<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 两个参数:</span></span><br><span class="line">(x, y) =&gt; x * x + y * y</span><br><span class="line"></span><br><span class="line"><span class="comment">// 无参数:</span></span><br><span class="line">() =&gt; <span class="number">3.14</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 可变参数:</span></span><br><span class="line">(x, y, ...rest) =&gt; &#123;</span><br><span class="line">    <span class="keyword">var</span> i, sum = x + y;</span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;rest.length; i++) &#123;</span><br><span class="line">        sum += rest[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 返回foo对象的x属性</span></span><br><span class="line">x =&gt; (&#123; <span class="attr">foo</span>: x &#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-3-闭包"><a href="#6-3-闭包" class="headerlink" title="6.3 闭包"></a>6.3 闭包</h2><p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1022910821149312/1023021250770016">Ref-闭包-javascript</a><br><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017434209254976">Ref-闭包-python</a></p>
+<ul>
+<li>返回函数不要引用任何循环变量，或者后续会发生变化的变量。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">count</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> arr = [];</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>; i&lt;=<span class="number">3</span>; i++) &#123;</span><br><span class="line">      arr.push(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> i * i;</span><br><span class="line">      &#125;);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> results = count();</span><br><span class="line"><span class="keyword">var</span> f1 = results[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">var</span> f2 = results[<span class="number">1</span>];</span><br><span class="line"><span class="keyword">var</span> f3 = results[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.write(f1()); <span class="comment">// 16</span></span><br><span class="line"><span class="built_in">document</span>.write(f2()); <span class="comment">// 16</span></span><br><span class="line"><span class="built_in">document</span>.write(f3()); <span class="comment">// 16</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>闭包实现计数器</li>
+<li>该闭包携带了局部变量x，并且，从外部代码根本无法访问到变量x<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create_counter</span>(<span class="params">initial</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x = initial || <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;		<span class="comment">// 返回一个对象</span></span><br><span class="line">        inc: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            x += <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c1 = create_counter();</span><br><span class="line">c1.inc(); <span class="comment">// 1</span></span><br><span class="line">c1.inc(); <span class="comment">// 2</span></span><br><span class="line">c1.inc(); <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c2 = create_counter(<span class="number">10</span>);</span><br><span class="line">c2.inc(); <span class="comment">// 11</span></span><br><span class="line">c2.inc(); <span class="comment">// 12</span></span><br><span class="line">c2.inc(); <span class="comment">// 13</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h1><p>Window - 窗口对象<br>Location - 地址栏对象<br>History - 历史记录对象<br>Screen - 显示器屏幕对象<br>Navigator - 浏览器对象</p>
+<h2 id="Window"><a href="#Window" class="headerlink" title="Window"></a>Window</h2><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/jsref/dom_obj_window.asp">W3C BOM-Window</a></p>
+<ol>
+<li>创建<ul>
+<li>不需要直接创建 使用window.方法名()调用 且window可以省略</li>
+</ul>
+</li>
+<li>方法<ul>
+<li>与弹出窗口有关的方法<ul>
+<li>alert()    显示带有一段消息和一个确认按钮的警告框。</li>
+<li>confirm()    显示带有一段消息以及确认按钮和取消按钮的对话框。</li>
+<li>prompt()    显示可提示用户输入的对话框。</li>
+</ul>
+</li>
+<li>与打开关闭的方法<ul>
+<li>close()    关闭浏览器窗口。<ul>
+<li>默认值为window.close()</li>
+</ul>
+</li>
+<li>open()    打开一个新的浏览器窗口或查找一个已命名的窗口。<ul>
+<li>返回值为当前页面的Window对象</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>与定时器有关的方法<ul>
+<li>setTimeout()    在指定的毫秒数后调用函数或计算表达式。<ul>
+<li>返回值id</li>
+</ul>
+</li>
+<li>clearTimeout()    取消由 setTimeout() 方法设置的 timeout。<ul>
+<li>通过setTimeout()的返回值来取消</li>
+</ul>
+</li>
+<li>setInterval()    按照指定的周期（以毫秒计）来调用函数或计算表达式。</li>
+<li>clearInterval()    取消由 setInterval() 设置的 timeout。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>属性<ul>
+<li>history    对 History 对象的只读引用。<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/jsref/dom_obj_document.asp">请参数 History 对象</a></li>
+<li>document    对 Document 对象的只读引用。<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/jsref/dom_obj_history.asp">请参阅 Document 对象</a></li>
+<li>Screen    对 Screen 对象的只读引用。请参数 Screen 对象。</li>
+<li>Navigator    对 Navigator 对象的只读引用。请参数 Navigator 对象。</li>
+<li>location    用于窗口或框架的 Location 对象。请参阅 Location 对象。</li>
+</ul>
+</li>
+</ol>
+<h2 id="Location"><a href="#Location" class="headerlink" title="Location"></a>Location</h2><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/jsref/dom_obj_location.asp">Location</a></p>
+<ol>
+<li>创建<ul>
+<li>window.location</li>
+<li>location</li>
+</ul>
+</li>
+<li>方法<ul>
+<li>assign()    加载新的文档。 </li>
+<li>reload()    重新加载当前文档。</li>
+<li>replace()    用新的文档替换当前文档。</li>
+</ul>
+</li>
+<li>属性<ul>
+<li>href    设置或返回完整的 URL。</li>
+</ul>
+</li>
+</ol>
+<h2 id="History"><a href="#History" class="headerlink" title="History"></a>History</h2><p><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/jsref/dom_obj_history.asp">Ref-History</a></p>
+<ol>
+<li>创建<ul>
+<li>windows.history</li>
+<li>history</li>
+</ul>
+</li>
+<li>方法<ul>
+<li>back()    加载 history 列表中的前一个 URL。</li>
+<li>forward()    加载 history 列表中的下一个 URL。</li>
+<li>go()    加载 history 列表中的某个具体页面。</li>
+</ul>
+</li>
+<li>属性<ul>
+<li>length    返回当前窗口的URL数量。</li>
+</ul>
+</li>
+</ol>
+<h1 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h1><ul>
+<li>Document Object Model</li>
+<li>将标记语言文档各个组成部分封装为对象。使用这些对象，对文档进行CRUD操作</li>
+</ul>
+<p>W3C DOM 标准被分为 3 个不同的部分：</p>
+<ol>
+<li><p>核心 DOM - 针对任何结构化文档的标准模型</p>
+<ul>
+<li>Document - 文档对象</li>
+<li>Element - 元素对象</li>
+<li>Attribute - 属性对象</li>
+<li>Text - 文本对象</li>
+<li><p>Comment - 注释对象</p>
+</li>
+<li><p>Node - 结点对象，以上五个对象的父对象</p>
+</li>
+</ul>
+</li>
+<li>XML DOM - 针对 XML 文档的标准模型</li>
+<li>HTML DOM - 针对 HTML 文档的标准模型</li>
+</ol>
+<h2 id="核心-DOM"><a href="#核心-DOM" class="headerlink" title="核心 DOM"></a>核心 DOM</h2><ul>
+<li><p>Document</p>
+<ul>
+<li>Reference<ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/xmldom/dom_document.asp">XML DOM Document 对象</a> </li>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/jsref/dom_obj_document.asp">HTML DOM Document 对象</a></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>获取(HTML DOM中)<ul>
+<li>window.document</li>
+<li>document</li>
+</ul>
+</li>
+<li>方法<ul>
+<li>获取Element对象 <ul>
+<li>getElementById()    返回对拥有指定 id 的第一个对象的引用。</li>
+<li>getElementsByName()    返回带有指定名称的对象集合。返回值是一个数组。</li>
+<li>getElementsByTagName()    返回带有指定标签名的对象集合。返回值是一个数组。</li>
+<li>getElementsByClassName()    返回带有指定类名的对象集合。返回值是一个数组。</li>
+</ul>
+</li>
+<li>创建其他DOM对象<ul>
+<li>createElement()    创建元素节点。</li>
+<li>createComment()    创建注释节点。</li>
+<li>createAttribute(name)    创建拥有指定名称的属性节点，并返回新的 Attr 对象。</li>
+<li>createTextNode()    创建文本节点。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>Element</p>
+<ul>
+<li>Reference<ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/xmldom/dom_element.asp">XML DOM Element 对象</a></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>获取<ul>
+<li>通过document获取</li>
+</ul>
+</li>
+<li>方法<ul>
+<li>属性操作<ul>
+<li>removeAttribute()    删除指定的属性。</li>
+<li>setAttribute()    添加新属性。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>Node</p>
+<ul>
+<li>Reference<ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/xmldom/dom_node.asp">XML DOM Node 对象</a></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>方法<ul>
+<li>Node的CRUD操作<ul>
+<li>appendChild()    向节点的子节点列表的结尾添加新的子节点。</li>
+<li>removeChild()    删除（并返回）当前节点的指定子节点。</li>
+<li>replaceChild()    用新节点替换一个子节点。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>属性<ul>
+<li>Node属性<ul>
+<li>parentNode    返回节点的父节点。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="HTML-DOM"><a href="#HTML-DOM" class="headerlink" title="HTML DOM"></a>HTML DOM</h2><ul>
+<li><p>Reference</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/jsref/index.asp">HTML DOM 对象参考手册</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/htmldom/index.asp">HTML DOM 教程</a></li>
+</ul>
+</li>
+<li><p>innerHTML 属性</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/htmldom/dom_properties.asp">innerHTML 属性</a></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>修改html - 通过innerHTML修改html</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>this is html<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>this is html<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;div&quot;</span>)[<span class="number">1</span>].innerHTML = <span class="string">&quot;this is htmll&quot;</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;div&quot;</span>)[<span class="number">0</span>].innerHTML += <span class="string">&quot;&lt;input type=&#x27;text&#x27; placeholder=&#x27;this is html&#x27;&gt;&quot;</span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>样式控制<ul>
+<li>使用元素的style属性来控制样式</li>
+<li>提前定义好样式，通过改变元素所绑定的类来改变样式</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">        <span class="selector-class">.class1</span> &#123;</span></span><br><span class="line">            font-size: 20px;</span><br><span class="line">            color: red;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        <span class="selector-class">.class2</span> &#123;</span></span><br><span class="line">            font-size: 40px;</span><br><span class="line">            color: blue;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle()&quot;</span> <span class="attr">class</span>=<span class="string">&quot;class1&quot;</span>&gt;</span>this is html<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle1()&quot;</span>&gt;</span>this is html<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">changeStyle</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;div&quot;</span>)[<span class="number">0</span>].className = <span class="string">&quot;class2&quot;</span></span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">changeStyle1</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> div1 = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;div&quot;</span>)[<span class="number">1</span>];</span></span><br><span class="line"><span class="javascript">        div1.style.fontSize = <span class="string">&quot;60px&quot;</span></span></span><br><span class="line"><span class="javascript">        div1.style.color = <span class="string">&quot;red&quot;</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML-DOM-EVENT"><a href="#HTML-DOM-EVENT" class="headerlink" title="HTML DOM EVENT"></a>HTML DOM EVENT</h2><ul>
+<li><p>Reference </p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/jsref/dom_obj_event.asp">HTML DOM Event 对象</a><ul>
+<li>鼠标 / 键盘属性<ul>
+<li>altKey    返回当事件被触发时，”ALT” 是否被按下。</li>
+<li>button    返回当事件被触发时，哪个鼠标按钮被点击。</li>
+<li>clientX    返回当事件被触发时，鼠标指针的水平坐标。</li>
+<li>clientY    返回当事件被触发时，鼠标指针的垂直坐标。</li>
+<li>ctrlKey    返回当事件被触发时，”CTRL” 键是否被按下。</li>
+<li>metaKey    返回当事件被触发时，”meta” 键是否被按下。</li>
+<li>relatedTarget    返回与事件的目标节点相关的节点。</li>
+<li>screenX    返回当某个事件被触发时，鼠标指针的水平坐标。</li>
+<li>screenY    返回当某个事件被触发时，鼠标指针的垂直坐标。</li>
+<li>shiftKey    返回当事件被触发时，”SHIFT” 键是否被按下。</li>
+</ul>
+</li>
+<li>ie<ul>
+<li>keyCode    对于 keypress 事件，该属性声明了被敲击的键生成的 Unicode 字符码。对于 keydown 和 keyup 事件，它指定了被敲击的键的虚拟键盘码。虚拟键盘码可能和使用的键盘的布局相关。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>点击事件</p>
+<ul>
+<li>onclick        当用户点击某个对象时调用的事件句柄。</li>
+<li>ondblclick    当用户双击某个对象时调用的事件句柄。</li>
+</ul>
+</li>
+<li>焦点事件<ul>
+<li>onfocus        元素获得焦点。</li>
+<li>onblur        元素失去焦点。 <ul>
+<li>表单校验（注册页面用户名是否存在，邮箱是否合法）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>加载事件<ul>
+<li>onload        一张页面或一幅图像完成加载。</li>
+</ul>
+</li>
+<li>鼠标事件<ul>
+<li>onmousedown    鼠标按钮被按下。</li>
+<li>onmousemove    鼠标被移动。</li>
+<li>onmouseout    鼠标从某元素移开。</li>
+<li>onmouseover    鼠标移到某元素之上。</li>
+<li>onmouseup        鼠标按键被松开。</li>
+</ul>
+</li>
+<li>键盘事件<ul>
+<li>onkeydown        某个键盘按键被按下。</li>
+<li>onkeypress    某个键盘按键被按下并松开。</li>
+<li>onkeyup        某个键盘按键被松开。</li>
+</ul>
+</li>
+<li>选择和改变<ul>
+<li>onselect        文本被选中。</li>
+<li>onchange        域的内容被改变。</li>
+</ul>
+</li>
+<li>表单<ul>
+<li>onsubmit        确认按钮被点击。 <ul>
+<li>阻止表单提交 通过表单id属性获取表单对象，绑定函数至表单的onsubmit属性。（在表单提交按钮中设置onclick属性，onclick属性值为 return checkForm()）函数返回false阻止表单提交。 </li>
+</ul>
+</li>
+<li>onreset        重置按钮被点击。</li>
+</ul>
+</li>
+</ul>
+<h1 id="案例1-checkbox"><a href="#案例1-checkbox" class="headerlink" title="案例1-checkbox"></a>案例1-checkbox</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;css/1.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;input&quot;</span>&gt;</span></span><br><span class="line">    name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;name&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;name&quot;</span>&gt;</span></span><br><span class="line">    age: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;age&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;age&quot;</span>&gt;</span></span><br><span class="line">    sal: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;sal&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;sal&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;addEmp()&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;show&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">table</span> <span class="attr">id</span>=<span class="string">&quot;table&quot;</span> <span class="attr">border</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span> <span class="attr">class</span>=<span class="string">&quot;table-row&quot;</span> <span class="attr">onmouseover</span>=<span class="string">&quot;changeStyle(this)&quot;</span> <span class="attr">onmouseout</span>=<span class="string">&quot;restoreStyle(this)&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;checkbox&#x27;</span> <span class="attr">id</span>=<span class="string">&#x27;mainCheckbox&#x27;</span> <span class="attr">onclick</span>=<span class="string">&quot;mainCheck()&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>name<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>age<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>sal<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>del<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span> <span class="attr">class</span>=<span class="string">&quot;table-row&quot;</span> <span class="attr">onmouseover</span>=<span class="string">&quot;changeStyle(this)&quot;</span> <span class="attr">onmouseout</span>=<span class="string">&quot;restoreStyle(this)&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;checkbox&#x27;</span> <span class="attr">class</span>=<span class="string">&quot;checkboxes&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;scanCheckboxes()&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>Jack<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>22<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>8000<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&#x27;javascript:void(0);&#x27;</span>  <span class="attr">onclick</span>=<span class="string">&#x27;del(this)&#x27;</span>&gt;</span>del<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;check all&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;checkAll()&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;cancel all&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;cancelAll()&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;inverse&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;inverse()&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;js/1.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">margin</span>:auto;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">border</span>: rebeccapurple <span class="number">1px</span> solid;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">td</span>,<span class="selector-tag">th</span>&#123;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#table</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">margin</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.table-row-hoving</span>&#123;</span><br><span class="line">    <span class="attribute">background</span>: aquamarine;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEmp</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="built_in">document</span>.getElementById(<span class="string">&quot;name&quot;</span>).value;</span><br><span class="line">    <span class="keyword">var</span> age = <span class="built_in">document</span>.getElementById(<span class="string">&quot;age&quot;</span>).value;</span><br><span class="line">    <span class="keyword">var</span> sal = <span class="built_in">document</span>.getElementById(<span class="string">&quot;sal&quot;</span>).value;</span><br><span class="line">    <span class="keyword">var</span> table = <span class="built_in">document</span>.getElementById(<span class="string">&quot;table&quot;</span>);</span><br><span class="line">    <span class="comment">// 每选择一次复选框就检测复选框的状态 0?1?2?</span></span><br><span class="line">    table.innerHTML += <span class="string">&quot;&lt;tr class=&#x27;table-row&#x27; onmouseover=&#x27;changeStyle(this)&#x27; onmouseout=&#x27;restoreStyle(this)&#x27;&gt;&quot;</span> +</span><br><span class="line">        <span class="string">&quot;&lt;td&gt;&quot;</span> + <span class="string">&quot;&lt;input type=&#x27;checkbox&#x27; class=&#x27;checkboxes&#x27; onclick=&#x27;scanCheckboxes()&#x27; &gt; &quot;</span> + <span class="string">&quot;&lt;/td&gt;&quot;</span> +</span><br><span class="line">        <span class="string">&quot;&lt;td&gt;&quot;</span> + name + <span class="string">&quot;&lt;/td&gt;&quot;</span> +</span><br><span class="line">        <span class="string">&quot;&lt;td&gt;&quot;</span> + age + <span class="string">&quot;&lt;/td&gt;&quot;</span> +</span><br><span class="line">        <span class="string">&quot;&lt;td&gt;&quot;</span> + sal + <span class="string">&quot;&lt;/td&gt;&quot;</span> +</span><br><span class="line">        <span class="string">&quot;&lt;td&gt;&quot;</span> + <span class="string">&quot;&lt;a href=&#x27;javascript:void(0);&#x27;  onclick=&#x27;del(this)&#x27;&gt;del&lt;/a&gt; &quot;</span> + <span class="string">&quot;&lt;/td&gt;&quot;</span></span><br><span class="line">        + <span class="string">&quot;&lt;/tr&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">del</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> parnode = obj.parentNode.parentNode.parentNode;</span><br><span class="line">    <span class="keyword">var</span> rmnode = obj.parentNode.parentNode;</span><br><span class="line">    parnode.removeChild(rmnode);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkAll</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> checklist = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&#x27;checkboxes&#x27;</span>);</span><br><span class="line">    <span class="keyword">for</span> (item <span class="keyword">of</span> checklist) &#123;</span><br><span class="line">        item.checked = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    scanCheckboxes();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cancelAll</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> checklist = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&#x27;checkboxes&#x27;</span>);</span><br><span class="line">    <span class="keyword">for</span> (item <span class="keyword">of</span> checklist) &#123;</span><br><span class="line">        item.checked = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    scanCheckboxes();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inverse</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> checklist = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&#x27;checkboxes&#x27;</span>);</span><br><span class="line">    <span class="keyword">for</span> (item <span class="keyword">of</span> checklist) &#123;</span><br><span class="line">        <span class="keyword">if</span> (item.checked === <span class="literal">true</span>)</span><br><span class="line">            item.checked = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            item.checked = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    scanCheckboxes();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mainCheck</span>(<span class="params"></span>) </span>&#123;  <span class="comment">// 主选框的状态由下面的所有的checkbox决定</span></span><br><span class="line">    scanCheckboxes();</span><br><span class="line">    <span class="keyword">switch</span> (boxStatus) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>:checkAll();<span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:cancelAll();<span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:checkAll();<span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">boxStatus = <span class="number">0</span>;  <span class="comment">// 0 全空 1 全选 2 部分选择</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scanCheckboxes</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> checklist = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&#x27;checkboxes&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> boxnum = checklist.length;</span><br><span class="line">    <span class="keyword">var</span> checkednum = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 可用map()改写</span></span><br><span class="line">    <span class="keyword">for</span> (item <span class="keyword">of</span> checklist) &#123;</span><br><span class="line">        <span class="keyword">if</span> (item.checked === <span class="literal">true</span>) &#123;</span><br><span class="line">            checkednum += <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (checkednum === <span class="number">0</span>) &#123;</span><br><span class="line">        boxStatus = <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (checkednum === boxnum) &#123;</span><br><span class="line">        boxStatus = <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span></span><br><span class="line">        boxStatus = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">switch</span> (boxStatus) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">            <span class="built_in">document</span>.getElementById(<span class="string">&#x27;mainCheckbox&#x27;</span>).checked = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">            <span class="built_in">document</span>.getElementById(<span class="string">&#x27;mainCheckbox&#x27;</span>).checked = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">            <span class="built_in">document</span>.getElementById(<span class="string">&#x27;mainCheckbox&#x27;</span>).checked = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeStyle</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    obj.className = <span class="string">&quot;table-row-hoving&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">restoreStyle</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    obj.className=<span class="string">&quot;table-row&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -250,7 +574,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/HTML-CSS-JavaScript/" rel="tag"># HTML-CSS-JavaScript</a>
           </div>
 
         
@@ -324,7 +648,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0-Reference"><span class="nav-number">1.</span> <span class="nav-text">0 Reference</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-HTML%E5%BC%95%E5%85%A5JavaScript"><span class="nav-number">2.</span> <span class="nav-text">1 HTML引入JavaScript</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-JavaScript%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">2 JavaScript数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-JavaScript%E5%8F%98%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text">3 JavaScript变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-JavaScript%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">5.</span> <span class="nav-text">4 JavaScript运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-JavaScript%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5"><span class="nav-number">6.</span> <span class="nav-text">5 JavaScript流程控制语句</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0-Reference"><span class="nav-number">1.</span> <span class="nav-text">0 Reference</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-HTML%E5%BC%95%E5%85%A5JavaScript"><span class="nav-number">2.</span> <span class="nav-text">1 HTML引入JavaScript</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-JavaScript%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">2 JavaScript数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-JavaScript%E5%8F%98%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text">3 JavaScript变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-JavaScript%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">5.</span> <span class="nav-text">4 JavaScript运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-JavaScript%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5"><span class="nav-number">6.</span> <span class="nav-text">5 JavaScript流程控制语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-JavaScript%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">6 JavaScript函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89"><span class="nav-number">7.1.</span> <span class="nav-text">6.1 函数定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="nav-number">7.2.</span> <span class="nav-text">6.2 箭头函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-%E9%97%AD%E5%8C%85"><span class="nav-number">7.3.</span> <span class="nav-text">6.3 闭包</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BOM"><span class="nav-number">8.</span> <span class="nav-text">BOM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Window"><span class="nav-number">8.1.</span> <span class="nav-text">Window</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Location"><span class="nav-number">8.2.</span> <span class="nav-text">Location</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#History"><span class="nav-number">8.3.</span> <span class="nav-text">History</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DOM"><span class="nav-number">9.</span> <span class="nav-text">DOM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83-DOM"><span class="nav-number">9.1.</span> <span class="nav-text">核心 DOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-DOM"><span class="nav-number">9.2.</span> <span class="nav-text">HTML DOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-DOM-EVENT"><span class="nav-number">9.3.</span> <span class="nav-text">HTML DOM EVENT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B1-checkbox"><span class="nav-number">10.</span> <span class="nav-text">案例1-checkbox</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -338,7 +662,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
